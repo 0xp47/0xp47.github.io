@@ -6,7 +6,12 @@ import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import * as BrandIcons from "@/components/shared/brand-icons";
-import { ParticlesBackground } from "@/components/shared/particles-background";
+import dynamic from "next/dynamic";
+
+const ParticlesBackground = dynamic(
+  () => import("@/components/shared/particles-background").then((mod) => mod.ParticlesBackground),
+  { ssr: false }
+);
 
 const technologyIcons: Record<string, ComponentType<{ className?: string }>> = {
   "React": BrandIcons.ReactIcon,

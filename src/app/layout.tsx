@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "/images/me.png",
+        url: "https://0xp47.github.io/images/me.png",
         width: 1024,
         height: 1024,
         alt: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     description:
       "Helping businesses grow through technology by building custom software, cross-platform mobile applications, and intelligent automation solutions that improve efficiency, streamline operations, and solve real-world business challenges",
-    images: ["/images/me.png"],
+    images: ["https://0xp47.github.io/images/me.png"],
   },
 };
 
@@ -174,6 +174,122 @@ const jsonLd = {
   ]
 };
 
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "Jay Patrick Cano — Developer Portfolio",
+  "alternateName": "0xp47 Portfolio",
+  "url": "https://0xp47.github.io",
+  "description": "Developer portfolio of Jay Patrick Cano (0xp47), a Full-Stack Engineer, entrepreneur, and open-source builder based in the Philippines.",
+  "author": {
+    "@type": "Person",
+    "name": "Jay Patrick Cano"
+  },
+  "inLanguage": "en-US"
+};
+
+const projectsJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": "Software Projects by Jay Patrick Cano",
+  "itemListElement": [
+    {
+      "@type": "SoftwareApplication",
+      "position": 1,
+      "name": "LeafSense Mobile",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Android, iOS",
+      "description": "Cross-platform AI-powered plant disease detection app using CNNs for real-time diagnostic classification, built with React Native and Python FastAPI.",
+      "author": { "@type": "Person", "name": "Jay Patrick Cano" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "position": 2,
+      "name": "POS and Inventory System",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web (LAN)",
+      "description": "Local-first, multi-terminal LAN Point of Sale and inventory control suite optimized for hardware retail stores, built with Next.js, Prisma, and SQLite.",
+      "author": { "@type": "Person", "name": "Jay Patrick Cano" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "position": 3,
+      "name": "HireHub PH",
+      "applicationCategory": "BusinessApplication",
+      "operatingSystem": "Web",
+      "description": "Full-stack job platform connecting local talent with recruiters in the Philippines, featuring applicant tracking and real-time chat.",
+      "author": { "@type": "Person", "name": "Jay Patrick Cano" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "position": 4,
+      "name": "Sparse MoE LLM From Scratch",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Linux, Windows, macOS",
+      "description": "Custom PyTorch implementation of a Sparse Mixture-of-Experts Large Language Model with SwiGLU activation, RMSNorm, and a ReAct agent.",
+      "codeRepository": "https://github.com/0xp47/moe-llm-from-scratch",
+      "author": { "@type": "Person", "name": "Jay Patrick Cano" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "position": 5,
+      "name": "Unified API Server",
+      "applicationCategory": "DeveloperApplication",
+      "operatingSystem": "Linux, Windows, macOS",
+      "description": "Auto-loading FastAPI service hub providing unified endpoints for Edge TTS, yt-dlp video downloads, and QR generation.",
+      "codeRepository": "https://github.com/0xp47/Unified-API-Server",
+      "author": { "@type": "Person", "name": "Jay Patrick Cano" }
+    }
+  ]
+};
+
+const faqJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Who is Jay Patrick Cano (0xp47)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jay Patrick Cano, known as 0xp47, is a Full-Stack Software Engineer, open-source developer, and tech entrepreneur based in Maasin City, Southern Leyte, Philippines. He is the founder of GroundZero global developer community and co-founder of CodeTriad Solutions."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What services does Jay Patrick Cano offer?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jay Patrick Cano offers full-stack web application development (React, Next.js), cross-platform mobile app development (React Native, Expo), API and backend system design (Node.js, Python, FastAPI), business automation and workflow scripting, custom software development, and IT/tech consulting for startups."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What projects has Jay Patrick Cano built?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Notable projects include LeafSense Mobile (AI plant disease detection app), POS and Inventory System (multi-terminal LAN retail suite), HireHub PH (job platform for the Philippines), Sparse MoE LLM From Scratch (custom PyTorch large language model), and Unified API Server (auto-loading FastAPI microservice hub)."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Where is Jay Patrick Cano based?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Jay Patrick Cano is based in Maasin City, Southern Leyte, Philippines. He works remotely with local and international clients on freelance and collaborative software projects."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can I contact Jay Patrick Cano for a project?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "You can reach Jay Patrick Cano via email at 0xp47.dev@gmail.com, through his GitHub profile at github.com/0xp47, or via his LinkedIn at linkedin.com/in/0xp47. He is available for freelance projects, collaborations, and software partnerships."
+      }
+    }
+  ]
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -190,6 +306,18 @@ export default function RootLayout({
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(projectsJsonLd) }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
         />
       </body>
     </html>

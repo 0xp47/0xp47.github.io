@@ -1,6 +1,7 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useRef } from "react";
+import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { Terminal, GitMerge, Briefcase, type LucideIcon } from "lucide-react";
 import { aboutHighlights, aboutDescription, heroStats } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
@@ -24,6 +25,32 @@ const cardVariants = {
   },
 };
 
+function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
+  const motionValue = useMotionValue(0);
+  const rounded = useTransform(motionValue, (latest) => Math.round(latest));
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+
+  useEffect(() => {
+    if (!isInView) return;
+    const controls = animate(motionValue, value, {
+      duration: 1.5,
+      ease: [0.16, 1, 0.3, 1],
+    });
+    return () => controls.stop();
+  }, [value, isInView, motionValue]);
+
+  useEffect(() => {
+    return rounded.on("change", (latest) => {
+      if (ref.current) {
+        ref.current.textContent = `${latest}${suffix}`;
+      }
+    });
+  }, [rounded, suffix]);
+
+  return <span ref={ref}>0{suffix}</span>;
+}
+
 export function AboutSection() {
   return (
     <Section id="about" eyebrow="About" title="A little about me and what I work on.">
@@ -34,7 +61,7 @@ export function AboutSection() {
           variants={cardVariants}
           className="flex flex-col gap-6"
         >
-          <p className="text-base leading-relaxed text-muted-foreground text-pretty">
+          <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
             {aboutDescription}
           </p>
           
@@ -43,7 +70,7 @@ export function AboutSection() {
             {heroStats.map((stat, i) => (
               <div key={i} className="flex flex-col">
                 <span className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
-                  {stat.value}{stat.suffix}
+                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </span>
                 <span className="text-[9px] font-mono font-bold tracking-wider text-muted-foreground uppercase mt-1 leading-snug">
                   {stat.label}
