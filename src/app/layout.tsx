@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Jay Patrick Cano",
   },
   description:
-    "Developer portfolio of Jay Patrick Cano (0xp47), a Full-Stack Engineer, entrepreneur, and open-source builder. Founder of GroundZero global community and co-founder of CodeTriad Solutions.",
+    "Full-Stack Engineer & entrepreneur building custom software, mobile apps, and automations. Founder of GroundZero community.",
   keywords: [
     "Jay Patrick Cano",
     "0xp47",
