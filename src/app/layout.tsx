@@ -58,23 +58,23 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     description:
-      "Helping businesses grow through technology by building custom software, cross-platform mobile applications, and intelligent automation solutions that improve efficiency, streamline operations, and solve real-world business challenges",
+      "Full-Stack Engineer & entrepreneur building custom software, mobile apps, and automations. Founder of GroundZero community.",
     type: "website",
     locale: "en_US",
     images: [
       {
         url: "https://0xp47.github.io/images/me.png",
-        width: 1024,
-        height: 1024,
-        alt: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
+        width: 400,
+        height: 400,
+        alt: "Jay Patrick Cano (0xp47)",
       }
     ]
   },
   twitter: {
-    card: "summary_large_image",
+    card: "summary",
     title: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     description:
-      "Helping businesses grow through technology by building custom software, cross-platform mobile applications, and intelligent automation solutions that improve efficiency, streamline operations, and solve real-world business challenges",
+      "Full-Stack Engineer & entrepreneur building custom software, mobile apps, and automations.",
     images: ["https://0xp47.github.io/images/me.png"],
   },
 };

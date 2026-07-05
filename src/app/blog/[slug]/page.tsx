@@ -38,14 +38,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: [
         {
           url: `${baseUrl}/images/me.png`,
-          width: 1024,
-          height: 1024,
+          width: 400,
+          height: 400,
           alt: `${post.title} — Jay Patrick Cano`,
         },
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: "summary",
       title: post.title,
       description: post.description,
       images: [`${baseUrl}/images/me.png`],
