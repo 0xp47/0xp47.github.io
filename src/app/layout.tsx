@@ -63,9 +63,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: "https://0xp47.github.io/images/me.png",
-        width: 400,
-        height: 400,
+        url: "https://0xp47.github.io/images/me-thumbnail.png",
+        width: 300,
+        height: 300,
         alt: "Jay Patrick Cano (0xp47)",
       }
     ]
@@ -75,7 +75,7 @@ export const metadata: Metadata = {
     title: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     description:
       "Full-Stack Engineer & entrepreneur building custom software, mobile apps, and automations.",
-    images: ["https://0xp47.github.io/images/me.png"],
+    images: ["https://0xp47.github.io/images/me-thumbnail.png"],
   },
 };
 
