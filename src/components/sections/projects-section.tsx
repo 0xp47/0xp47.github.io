@@ -304,39 +304,59 @@ export function ProjectsSection() {
             {/* Slide-over Drawer */}
             <motion.div
               data-lenis-prevent
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-border/10 bg-background/95 p-8 shadow-2xl backdrop-blur-xl sm:p-12"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-border/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
             >
+              <style>{`
+                .custom-scrollbar::-webkit-scrollbar {
+                  width: 4px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-track {
+                  background: transparent;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb {
+                  background: rgba(255, 255, 255, 0.1);
+                  border-radius: 9999px;
+                }
+                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+                  background: rgba(255, 255, 255, 0.2);
+                }
+                .custom-scrollbar {
+                  scrollbar-width: thin;
+                  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
+                }
+              `}</style>
+
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-border/10 pb-6 mb-6">
+              <div className="flex items-center justify-between border-b border-border/10 pb-2 mb-3">
                 <div>
-                  <span className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block mb-1">
+                  <span className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block mb-0.5">
                     {selectedProject.category} Case Study
                   </span>
-                  <h2 className="text-xl font-bold tracking-tight text-foreground">
+                  <h2 className="text-lg font-bold tracking-tight text-foreground">
                     {formatRepoName(selectedProject.name)}
                   </h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="flex size-8 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition-all duration-300 text-muted-foreground cursor-pointer"
+                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition-all duration-300 text-muted-foreground cursor-pointer"
                   aria-label="Close details"
                 >
-                  <X className="size-4" />
+                  <X className="size-3.5" />
                 </button>
               </div>
 
               {/* Body Content */}
               <div 
                 data-lenis-prevent
-                className="flex-1 overflow-y-auto space-y-6 pr-2 scrollbar-none font-sans text-xs leading-relaxed text-muted-foreground/90"
+                className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar font-sans text-xs leading-relaxed text-muted-foreground/90"
               >
                 {/* Tech Stack Chips */}
-                <div className="space-y-3">
+                <div className="space-y-2">
                   <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-foreground">
                     Technologies Used
                   </h4>
@@ -354,12 +374,12 @@ export function ProjectsSection() {
 
                 {selectedProject.readme ? (
                   /* Render Markdown README */
-                  <div className="space-y-4 pt-4 border-t border-border/5 text-xs leading-relaxed text-muted-foreground/80">
-                    <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-foreground mb-2">
+                  <div className="space-y-3 pt-3 border-t border-border/5 text-xs leading-relaxed text-muted-foreground/80">
+                    <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-foreground mb-1.5">
                       Repository README
                     </h4>
                     <div 
-                      className="markdown-body pr-1"
+                       className="markdown-body pr-1"
                       dangerouslySetInnerHTML={{ __html: parseMarkdownToHtml(selectedProject.readme) }} 
                     />
                   </div>
@@ -367,7 +387,7 @@ export function ProjectsSection() {
                   /* Fallback details */
                   <>
                     {/* Overview */}
-                    <div className="space-y-2 pt-4 border-t border-border/5">
+                    <div className="space-y-2 pt-3 border-t border-border/5">
                       <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-foreground">
                         Overview
                       </h4>
@@ -412,10 +432,10 @@ export function ProjectsSection() {
               </div>
 
               {/* Footer Actions */}
-              <div className="flex items-center justify-end gap-3 pt-6 border-t border-border/10 mt-6 font-mono text-[10px]">
+              <div className="flex items-center justify-end gap-3 pt-2.5 border-t border-border/10 mt-3 font-mono text-[9px]">
                 {selectedProject.isPrivate ? (
-                  <span className="inline-flex items-center gap-1.5 border border-border/30 rounded-full px-5 py-2.5 text-muted-foreground/60">
-                    <Lock className="size-3.5" />
+                  <span className="inline-flex items-center gap-1.5 border border-border/30 rounded-full px-4 py-1.5 text-muted-foreground/60">
+                    <Lock className="size-3" />
                     Private Repository
                   </span>
                 ) : (
@@ -423,9 +443,9 @@ export function ProjectsSection() {
                     href={selectedProject.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background rounded-full px-5 py-2.5 font-bold uppercase tracking-wider text-muted-foreground transition-all duration-300"
+                    className="inline-flex items-center gap-1.5 border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background rounded-full px-4 py-1.5 font-bold uppercase tracking-wider text-muted-foreground transition-all duration-300"
                   >
-                    <GitBranch className="size-3.5" />
+                    <GitBranch className="size-3" />
                     View Source
                   </a>
                 )}

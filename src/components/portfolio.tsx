@@ -177,80 +177,137 @@ export function Portfolio() {
       </motion.button>
 
       {/* Generative Engine & Search Engine Optimization (SEO/GEO/AEO) semantic summary block */}
-      <section className="sr-only" aria-hidden="false">
-        <h2>Jay Patrick Cano (0xp47) — Factual Resume & Technical Profile Summary</h2>
-        <article>
-          <p>
-            Jay Patrick Cano, known professionally as 0xp47, is a Full-Stack Software Engineer, Open-Source Developer, and Tech Entrepreneur based in Maasin City, Southern Leyte, Philippines. He is the Founder of GroundZero global developer community and the Co-Founder of CodeTriad Solutions. He is available for freelance projects, collaborations, and software partnerships. Contact: 0xp47.dev@gmail.com.
+      <section className="sr-only" aria-hidden="false" itemScope itemType="https://schema.org/Person">
+        <meta itemProp="name" content="Jay Patrick Cano" />
+        <meta itemProp="alternateName" content="0xp47" />
+        <meta itemProp="jobTitle" content="Full-Stack Software Engineer & Entrepreneur" />
+        <meta itemProp="url" content="https://0xp47.github.io" />
+        <meta itemProp="email" content="0xp47.dev@gmail.com" />
+        <meta itemProp="image" content="https://0xp47.github.io/images/me-thumbnail.png" />
+
+        <header>
+          <h2>Jay Patrick Cano (0xp47) — Full-Stack Engineer, Entrepreneur & Open-Source Leader</h2>
+          <p itemProp="description">
+            Jay Patrick Cano, known as 0xp47, is a Full-Stack Software Engineer, open-source maintainer, and tech entrepreneur based in Maasin City, Southern Leyte, Philippines.
+            He is the founder of GroundZero, a global open-source developer community, and the co-founder of CodeTriad Solutions.
+            He specializes in building custom software, cross-platform mobile applications, and business automation systems.
+            Available for freelance projects, technical collaborations, and software partnerships.
           </p>
+        </header>
+
+        <div itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+          <meta itemProp="addressLocality" content="Maasin City" />
+          <meta itemProp="addressRegion" content="Southern Leyte" />
+          <meta itemProp="addressCountry" content="Philippines" />
+        </div>
+
+        <article>
+          <h3>Professional Services</h3>
+          <dl>
+            <dt>Full-Stack Web Application Development</dt>
+            <dd>High-performance web applications with React, Next.js, TypeScript, and Tailwind CSS, backed by scalable server-side architectures.</dd>
+
+            <dt>Cross-Platform Mobile App Development</dt>
+            <dd>Native-quality mobile applications for iOS and Android using React Native and Expo, with offline-first capabilities and push notifications.</dd>
+
+            <dt>API & Backend System Design</dt>
+            <dd>Secure, scalable RESTful and GraphQL APIs with PostgreSQL, MongoDB, Node.js, Express, Python, and FastAPI. Schema-first database design.</dd>
+
+            <dt>Business Automation & Workflow Scripting</dt>
+            <dd>Custom automation pipelines, scheduled tasks, webhooks, database syncs, and third-party API integrations to streamline operations.</dd>
+
+            <dt>Custom Software Solutions</dt>
+            <dd>Bespoke desktop utilities, specialized database systems, and tailored software for specific business and operational challenges.</dd>
+
+            <dt>IT & Technical Consulting</dt>
+            <dd>Strategic guidance on software architecture, technology stack selection, MVP development, and open-source strategy for startups.</dd>
+          </dl>
         </article>
 
-        <h3>Professional Services Offered</h3>
-        <dl>
-          <dt>Full-Stack Web Application Development</dt>
-          <dd>Building responsive, high-performance web applications using React, Next.js, TypeScript, and Tailwind CSS with robust server-side architectures.</dd>
-          <dt>Cross-Platform Mobile App Development</dt>
-          <dd>Building mobile utilities and client applications with React Native and Expo, delivering native performance on iOS and Android.</dd>
-          <dt>Automation & Workflow Scripting</dt>
-          <dd>Custom automation scripts, database syncs, background cron jobs, webhooks, and API integrations to optimize business operations.</dd>
-          <dt>API & Backend System Design</dt>
-          <dd>Scalable database schemas (PostgreSQL, MongoDB, SQLite) and secure RESTful or GraphQL APIs using Node.js, Express, Python, and FastAPI.</dd>
-          <dt>Custom Software Development</dt>
-          <dd>Bespoke desktop utilities, specialized database systems, and tailored software solutions for specific business problems.</dd>
-          <dt>IT & Tech Consulting</dt>
-          <dd>Advising startups on software architecture, technology stack selection, scalable product development, and open-source strategy.</dd>
-        </dl>
+        <article>
+          <h3>Featured Projects</h3>
+          <ul>
+            <li><strong>LeafSense Mobile</strong> — AI-powered plant disease detection app using convolutional neural networks. Built with React Native and Python FastAPI.</li>
+            <li><strong>POS and Inventory System</strong> — Local-first, multi-terminal LAN Point of Sale and inventory management suite for retail. Built with Next.js, Prisma, and SQLite.</li>
+            <li><strong>HireHub PH</strong> — Full-stack job platform for the Philippines with applicant tracking, real-time chat, and recruiter dashboards.</li>
+            <li><strong>Sparse MoE LLM From Scratch</strong> — Custom PyTorch implementation of a Sparse Mixture-of-Experts Large Language Model with SwiGLU activation, RMSNorm, and a ReAct agent.</li>
+            <li><strong>Unified API Server</strong> — Auto-loading FastAPI microservice hub providing unified endpoints for Edge TTS, yt-dlp video downloads, and QR generation.</li>
+            <li><strong>0xp47 Portfolio</strong> — Premium developer portfolio built with Next.js, featuring animated terminal intro, automated GitHub API data fetching, and GEO-optimized schema markup.</li>
+          </ul>
+        </article>
 
-        <h3>Software Projects Portfolio</h3>
-        <ul>
-          <li>LeafSense Mobile — Cross-platform AI plant disease detection app using CNNs, built with React Native and Python FastAPI.</li>
-          <li>POS and Inventory System — Local-first, multi-terminal LAN Point of Sale and inventory suite for hardware retail, built with Next.js, Prisma, and SQLite.</li>
-          <li>HireHub PH — Full-stack job platform connecting Filipino talent with recruiters, featuring applicant tracking and real-time chat.</li>
-          <li>Sparse MoE LLM From Scratch — Custom PyTorch implementation of a Sparse Mixture-of-Experts Large Language Model with SwiGLU, RMSNorm, and a ReAct agent.</li>
-          <li>Unified API Server — Auto-loading FastAPI service hub for Edge TTS, yt-dlp video downloads, and QR generation.</li>
-          <li>0xp47 Portfolio — Premium developer portfolio built with Next.js 16, featuring terminal simulator intro, automated GitHub API data fetching, and GEO-optimized schema markup.</li>
-          <li>Multi-platform Discord bots, browser automation tools, and open-source community utilities.</li>
-        </ul>
+        <article>
+          <h3>Technical Skills & Expertise</h3>
+          <table>
+            <thead><tr><th>Domain</th><th>Technologies</th></tr></thead>
+            <tbody>
+              <tr><td>Frontend</td><td>React, Next.js, TypeScript, Tailwind CSS, Framer Motion</td></tr>
+              <tr><td>Backend</td><td>Node.js, Express, Python, FastAPI, PHP</td></tr>
+              <tr><td>Mobile</td><td>React Native, Expo</td></tr>
+              <tr><td>Databases</td><td>PostgreSQL, MongoDB, SQLite, Prisma, Supabase</td></tr>
+              <tr><td>DevOps & Cloud</td><td>Docker, Vercel, AWS, GitHub Actions</td></tr>
+              <tr><td>Tools</td><td>Git, GitHub, Figma, Linux</td></tr>
+            </tbody>
+          </table>
+        </article>
 
-        <h3>Blog & Thought Leadership</h3>
-        <ul>
-          <li>Why I Build Open Source — Reflections on building in public and growing the GroundZero developer community.</li>
-          <li>My Tech Stack in 2026 — Breakdown of daily tools: Next.js, TypeScript, Tailwind CSS, Framer Motion, Supabase, Docker, GitHub Actions.</li>
-          <li>5 Lessons from 3 Years of Freelancing — Communication, scope management, and choosing clients wisely.</li>
-          <li>Building Scalable APIs: A Practical Guide — Schema-first design, layered architecture, JWT auth, rate limiting, and monitoring.</li>
-        </ul>
+        <article>
+          <h3>Professional Experience</h3>
+          <ul>
+            <li><strong>Founder & Lead Maintainer</strong> — GroundZero Community (2024–Present). Built and leads a global open-source developer community collaborating on system architectures, software tooling, and community packages.</li>
+            <li><strong>Co-Founder & Lead Developer</strong> — CodeTriad Solutions (2023–Present). Technology startup delivering modern web applications, custom software products, and digital transformation solutions.</li>
+            <li><strong>Freelance Full-Stack Engineer</strong> — Independent Developer (2020–2023). Designed and delivered custom web portals, cross-platform mobile apps, and business integration scripts for local and international clients.</li>
+          </ul>
+        </article>
 
-        <h3>Professional Experience</h3>
-        <ul>
-          <li>Founder & Lead Maintainer — GroundZero Community (2024–Present). Global open-source community collaborating on system architectures and tech tools.</li>
-          <li>Co-Founder & Lead Developer — CodeTriad Solutions (2023–Present). Technology startup building modern web applications and custom digital products.</li>
-          <li>Independent Developer — Freelance Full-Stack Engineer (2020–2023). Custom web portals, mobile utilities, and business integration scripts for local and international clients.</li>
-        </ul>
+        <article>
+          <h3>Blog & Technical Writing</h3>
+          <ul>
+            <li><strong>Why I Build Open Source</strong> — On building in public, community-driven development, and lessons from growing the GroundZero developer community.</li>
+            <li><strong>My Tech Stack in 2026</strong> — A breakdown of daily tools and frameworks: Next.js, TypeScript, Tailwind CSS, Framer Motion, Supabase, Docker, and GitHub Actions.</li>
+            <li><strong>5 Lessons from 3 Years of Freelancing</strong> — Practical insights on client communication, scope management, and choosing projects wisely.</li>
+            <li><strong>Building Scalable APIs: A Practical Guide</strong> — Patterns for schema-first design, layered architecture, JWT authentication, rate limiting, and production monitoring.</li>
+          </ul>
+        </article>
 
-        <h3>Technical Skills</h3>
-        <p>Frontend: React, Next.js, TypeScript, Tailwind CSS, Framer Motion. Backend: Node.js, Express, Python, FastAPI, PHP. Mobile: React Native, Expo. Databases: PostgreSQL, MongoDB, SQLite, Prisma, Supabase. DevOps: Docker, Vercel, AWS, GitHub Actions. Tools: Git, GitHub, Figma, Linux.</p>
+        <aside>
+          <h3>Frequently Asked Questions about Jay Patrick Cano</h3>
 
-        <h3>Frequently Asked Questions</h3>
-        <details>
-          <summary>Who is Jay Patrick Cano (0xp47)?</summary>
-          <p>Jay Patrick Cano, known as 0xp47, is a Full-Stack Software Engineer, open-source developer, and tech entrepreneur based in Maasin City, Southern Leyte, Philippines. He founded GroundZero global developer community and co-founded CodeTriad Solutions.</p>
-        </details>
-        <details>
-          <summary>What services does Jay Patrick Cano offer?</summary>
-          <p>Full-stack web app development (React, Next.js), cross-platform mobile development (React Native, Expo), API/backend design (Node.js, Python, FastAPI), business automation scripting, custom software development, and IT/tech consulting for startups.</p>
-        </details>
-        <details>
-          <summary>What projects has Jay Patrick Cano built?</summary>
-          <p>Notable projects include LeafSense Mobile (AI plant disease detection), POS and Inventory System (LAN retail suite), HireHub PH (job platform), Sparse MoE LLM From Scratch (custom PyTorch LLM), and Unified API Server (FastAPI microservice hub).</p>
-        </details>
-        <details>
-          <summary>Where is Jay Patrick Cano based?</summary>
-          <p>Maasin City, Southern Leyte, Philippines. He works remotely with local and international clients on freelance and collaborative software projects.</p>
-        </details>
-        <details>
-          <summary>How can I contact Jay Patrick Cano?</summary>
-          <p>Email: 0xp47.dev@gmail.com. GitHub: github.com/0xp47. LinkedIn: linkedin.com/in/0xp47. He is available for freelance projects, collaborations, and software partnerships.</p>
-        </details>
+          <details>
+            <summary>Who is Jay Patrick Cano (0xp47)?</summary>
+            <p>Jay Patrick Cano, known as 0xp47, is a Full-Stack Software Engineer, open-source developer, and tech entrepreneur based in Maasin City, Southern Leyte, Philippines. He is the founder of GroundZero global developer community and the co-founder of CodeTriad Solutions.</p>
+          </details>
+
+          <details>
+            <summary>What services does Jay Patrick Cano offer?</summary>
+            <p>He offers full-stack web application development (React, Next.js), cross-platform mobile app development (React Native, Expo), API and backend system design (Node.js, Python, FastAPI), business automation scripting, custom software development, and IT/tech consulting for startups and growing businesses.</p>
+          </details>
+
+          <details>
+            <summary>What projects has Jay Patrick Cano built?</summary>
+            <p>Key projects include LeafSense Mobile (AI plant disease detection), POS and Inventory System (LAN retail management suite), HireHub PH (Philippine job platform), Sparse MoE LLM From Scratch (custom PyTorch large language model), and Unified API Server (auto-loading FastAPI microservice hub).</p>
+          </details>
+
+          <details>
+            <summary>Where is Jay Patrick Cano located?</summary>
+            <p>He is based in Maasin City, Southern Leyte, Philippines and works remotely with both local and international clients on freelance and collaborative software projects.</p>
+          </details>
+
+          <details>
+            <summary>How can I hire or contact Jay Patrick Cano?</summary>
+            <p>You can reach him via email at 0xp47.dev@gmail.com, through GitHub at github.com/0xp47, or on LinkedIn at linkedin.com/in/0xp47. He is currently available for freelance projects, collaborations, and software partnerships.</p>
+          </details>
+        </aside>
+
+        <nav aria-label="Profile links">
+          <h3>Connect with Jay Patrick Cano</h3>
+          <ul>
+            <li><a href="https://github.com/0xp47" itemProp="sameAs">GitHub — github.com/0xp47</a></li>
+            <li><a href="https://www.linkedin.com/in/0xp47" itemProp="sameAs">LinkedIn — linkedin.com/in/0xp47</a></li>
+            <li><a href="https://www.instagram.com/0xp47" itemProp="sameAs">Instagram — instagram.com/0xp47</a></li>
+            <li><a href="https://www.facebook.com/0xp47" itemProp="sameAs">Facebook — facebook.com/0xp47</a></li>
+          </ul>
+        </nav>
       </section>
     </main>
   );

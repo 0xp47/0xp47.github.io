@@ -29,16 +29,21 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
   const motionValue = useMotionValue(0);
   const rounded = useTransform(motionValue, (latest) => Math.round(latest));
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-40px" });
 
   useEffect(() => {
     if (!isInView) return;
     const controls = animate(motionValue, value, {
       duration: 1.5,
       ease: [0.16, 1, 0.3, 1],
+      onComplete: () => {
+        if (ref.current) {
+          ref.current.textContent = `${value}${suffix}`;
+        }
+      },
     });
     return () => controls.stop();
-  }, [value, isInView, motionValue]);
+  }, [value, isInView, motionValue, suffix]);
 
   useEffect(() => {
     return rounded.on("change", (latest) => {
@@ -48,7 +53,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
     });
   }, [rounded, suffix]);
 
-  return <span ref={ref}>0{suffix}</span>;
+  return <span ref={ref}>{value}{suffix}</span>;
 }
 
 export function AboutSection() {

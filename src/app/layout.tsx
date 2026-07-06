@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     template: "%s | Jay Patrick Cano",
   },
   description:
-    "Full-Stack Engineer & entrepreneur building custom software, mobile apps, and automations. Founder of GroundZero community.",
+    "Building custom software, cross-platform mobile apps, and automated workflows.",
   keywords: [
     "Jay Patrick Cano",
     "0xp47",
@@ -58,24 +58,38 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     description:
-      "Full-Stack Engineer & entrepreneur building custom software, mobile apps, and automations. Founder of GroundZero community.",
+      "Building custom software, cross-platform mobile apps, and automated workflows.",
+    url: "/",
     type: "website",
     locale: "en_US",
+    siteName: "Jay Patrick Cano",
     images: [
       {
-        url: "https://0xp47.github.io/images/me-thumbnail.png",
+        url: "/images/me-thumbnail.png",
         width: 300,
         height: 300,
-        alt: "Jay Patrick Cano (0xp47)",
-      }
-    ]
+        alt: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
+      },
+    ],
   },
   twitter: {
     card: "summary",
     title: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     description:
-      "Full-Stack Engineer & entrepreneur building custom software, mobile apps, and automations.",
-    images: ["https://0xp47.github.io/images/me-thumbnail.png"],
+      "Building custom software, cross-platform mobile apps, and automated workflows.",
+    site: "@0xp47",
+    creator: "@0xp47",
+    images: [
+      {
+        url: "/images/me-thumbnail.png",
+        width: 300,
+        height: 300,
+        alt: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
+      },
+    ],
+  },
+  facebook: {
+    appId: "966242223397117",
   },
 };
 
