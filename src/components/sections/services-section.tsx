@@ -1,28 +1,17 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { services } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
-
-const cardVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.9,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  },
-};
+import { cardVariants } from "@/lib/animation-variants";
 
 export function ServicesSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const autoplayRef = useRef<NodeJS.Timeout | null>(null);
+  const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
-  const scroll = (direction: "left" | "right") => {
+  const scroll = useCallback((direction: "left" | "right") => {
     if (scrollContainerRef.current) {
       const container = scrollContainerRef.current;
       const card = container.firstElementChild as HTMLElement;
@@ -47,16 +36,16 @@ export function ServicesSection() {
         }
       }
     }
-  };
+  }, []);
 
-  const startAutoplay = () => {
+  const startAutoplay = useCallback(() => {
     if (autoplayRef.current) {
       clearInterval(autoplayRef.current);
     }
     autoplayRef.current = setInterval(() => {
       scroll("right");
     }, 4500); // Scroll right every 4.5s
-  };
+  }, [scroll]);
 
   useEffect(() => {
     startAutoplay();
@@ -65,8 +54,7 @@ export function ServicesSection() {
         clearInterval(autoplayRef.current);
       }
     };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [startAutoplay]);
 
   const handleManualScroll = (direction: "left" | "right") => {
     scroll(direction);
@@ -75,15 +63,6 @@ export function ServicesSection() {
 
   return (
     <Section id="services" eyebrow="Services" title="What I offer to help your business grow.">
-      <style>{`
-        .scrollbar-none::-webkit-scrollbar {
-          display: none;
-        }
-        .scrollbar-none {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-      `}</style>
       
       <div className="relative w-full">
         {/* Navigation Buttons (Top Right of Carousel) */}

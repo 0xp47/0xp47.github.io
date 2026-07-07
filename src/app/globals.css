@@ -122,7 +122,6 @@
     @apply border-border outline-ring/50;
   }
   html {
-    scroll-behavior: smooth;
     background: var(--background);
     font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
   }
@@ -156,6 +155,46 @@
       linear-gradient(to right, rgb(255 255 255 / 4%) 1px, transparent 1px),
       linear-gradient(to bottom, rgb(255 255 255 / 4%) 1px, transparent 1px);
     background-size: 56px 56px;
+  }
+
+  .cursor-blink {
+    animation: blink 1.2s step-end infinite;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 9999px;
+  }
+
+  .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  .custom-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
   }
 }
 

@@ -12,18 +12,7 @@ const iconMap: Record<string, LucideIcon> = {
   Briefcase,
 };
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 15, scale: 0.985 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 1.1,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  },
-};
+import { cardVariants } from "@/lib/animation-variants";
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -106,7 +95,7 @@ export function AboutSection() {
               >
                 {/* Minimal transparent icon container */}
                 <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-foreground/5 text-foreground/75 group-hover:bg-foreground/10 group-hover:text-foreground transition-all duration-300 mt-1">
-                  <IconComponent className="size-4.5" />
+                  <IconComponent className="size-[18px]" />
                 </div>
                 <div className="flex flex-col gap-1">
                   <h4 className="text-sm font-bold text-foreground group-hover:text-foreground transition-colors duration-300">

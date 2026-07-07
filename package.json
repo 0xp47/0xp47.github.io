@@ -1,6 +1,7 @@
 {
   "name": "0xp47-portfolio",
   "version": "1.0.0",
+  "type": "module",
   "description": "Developer portfolio of Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
   "keywords": [
     "portfolio",

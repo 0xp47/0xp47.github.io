@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useMemo, useEffect } from "react";
+import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Lock, X, GitBranch } from "lucide-react";
 import { useLenis } from "lenis/react";
@@ -9,18 +9,7 @@ import { projects, projectFilters } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 20, scale: 0.985 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: {
-      duration: 1.35,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  },
-};
+import { cardVariants } from "@/lib/animation-variants";
 
 const CASE_STUDIES: Record<string, { architecture: string; challenge: string; features: string[] }> = {
   "LeafSense Mobile": {
@@ -89,12 +78,22 @@ const customRenderer = {
   }
 };
 
-marked.use({ renderer: customRenderer as unknown as object });
+marked.use({ renderer: customRenderer as Partial<import('marked').Renderer> });
+
+function sanitizeHtml(html: string): string {
+  // Remove script tags and event handlers
+  return html
+    .replace(/<script\b[^<]*(?:(?!<\/script>)<[^<]*)*<\/script>/gi, '')
+    .replace(/\son\w+\s*=\s*(["']).*?\1/gi, '')
+    .replace(/\son\w+\s*=\s*[^\s>]+/gi, '')
+    .replace(/javascript\s*:/gi, 'void:');
+}
 
 function parseMarkdownToHtml(markdown: string): string {
   if (!markdown) return "";
   try {
-    return marked.parse(markdown, { async: false }) as string;
+    const raw = marked.parse(markdown, { async: false }) as string;
+    return sanitizeHtml(raw);
   } catch (e) {
     console.error("Failed to parse markdown with marked:", e);
     return markdown;
@@ -116,6 +115,8 @@ export function ProjectsSection() {
   const [showAll, setShowAll] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
 
+  const drawerRef = useRef<HTMLDivElement>(null);
+
   // Disable body scroll and pause Lenis when drawer is open
   useEffect(() => {
     if (selectedProject) {
@@ -130,6 +131,58 @@ export function ProjectsSection() {
       lenis?.start();
     };
   }, [selectedProject, lenis]);
+
+  // Close drawer on Escape key and handle focus trap (Accessibility)
+  useEffect(() => {
+    if (!selectedProject) return;
+
+    // Focus the first element (close button) when drawer opens
+    const timer = setTimeout(() => {
+      if (drawerRef.current) {
+        const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length > 0) {
+          focusable[0].focus();
+        }
+      }
+    }, 100);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setSelectedProject(null);
+        return;
+      }
+
+      if (e.key === "Tab" && drawerRef.current) {
+        const focusable = drawerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          if (document.activeElement === firstElement) {
+            lastElement.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === lastElement) {
+            firstElement.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [selectedProject]);
 
   // Code block copy click handler
   useEffect(() => {
@@ -222,21 +275,21 @@ export function ProjectsSection() {
               <div className="flex flex-col gap-1">
                 <div className="flex items-center justify-between">
                   <h3 className="text-base font-bold tracking-tight text-foreground">
-                    {project.isPrivate ? (
-                      <span className="flex items-center gap-1">
-                        {project.name}
-                      </span>
-                    ) : (
-                      <a
-                        href={project.live}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="hover:underline flex items-center gap-1"
-                      >
-                        {project.name}
-                        <ArrowUpRight className="size-3 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-px" />
-                      </a>
-                    )}
+                  {project.isPrivate || !project.live || project.live === project.github ? (
+                    <span className="flex items-center gap-1">
+                      {project.name}
+                    </span>
+                  ) : (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="hover:underline flex items-center gap-1"
+                    >
+                      {project.name}
+                      <ArrowUpRight className="size-3 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-px" />
+                    </a>
+                  )}
                   </h3>
                   <span className="font-mono text-[8.5px] font-bold tracking-[0.12em] text-foreground/40 uppercase flex items-center gap-1.5 shrink-0">
                     {project.category}
@@ -303,32 +356,17 @@ export function ProjectsSection() {
 
             {/* Slide-over Drawer */}
             <motion.div
+              ref={drawerRef}
               data-lenis-prevent
+              role="dialog"
+              aria-modal="true"
+              aria-label={selectedProject?.name ? `${selectedProject.name} details` : 'Project details'}
               className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-border/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
             >
-              <style>{`
-                .custom-scrollbar::-webkit-scrollbar {
-                  width: 4px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-track {
-                  background: transparent;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb {
-                  background: rgba(255, 255, 255, 0.1);
-                  border-radius: 9999px;
-                }
-                .custom-scrollbar::-webkit-scrollbar-thumb:hover {
-                  background: rgba(255, 255, 255, 0.2);
-                }
-                .custom-scrollbar {
-                  scrollbar-width: thin;
-                  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
-                }
-              `}</style>
 
               {/* Header */}
               <div className="flex items-center justify-between border-b border-border/10 pb-2 mb-3">

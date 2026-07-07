@@ -123,7 +123,6 @@ export function Portfolio() {
             src="/Ground Zero.png"
             alt="Jay Patrick Cano - Ground Zero Logo Watermark Background"
             fill
-            priority
             unoptimized
             className="object-contain grayscale contrast-[0.95]"
           />

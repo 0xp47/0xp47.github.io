@@ -1,16 +1,24 @@
 "use client";
 
+import { useEffect } from "react";
 import Link from "next/link";
 import { motion } from "framer-motion";
 import { ArrowLeft } from "lucide-react";
+import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 
 export default function NotFound() {
+  const prefersReducedMotion = useSafeReducedMotion();
+
+  useEffect(() => {
+    document.title = "Page Not Found | Jay Patrick Cano";
+  }, []);
+
   return (
-    <main className="min-h-screen bg-background flex flex-col items-center justify-center p-6 font-mono text-center select-none">
+    <main className="min-h-screen bg-background flex flex-col items-center justify-center p-6 font-mono text-center">
       <motion.div
         initial={{ opacity: 0, y: 15 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
         className="max-w-md w-full space-y-6"
       >
         <div className="space-y-2">

@@ -184,13 +184,14 @@ export function ParticlesBackground() {
 
         // Draw coding symbol
         ctx.beginPath();
-        ctx.font = `${p.fontSize}px font-mono, monospace`;
+        ctx.font = `${p.fontSize}px "Geist Mono", monospace`;
         ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
         ctx.fillText(p.symbol, p.x, p.y);
       });
 
       // 2. Draw connecting lines between nearby code particles (matching particles.js style)
       const maxDistance = 90; // Pixels
+      const maxDistanceSq = maxDistance * maxDistance;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const p1 = particles[i];
@@ -203,10 +204,15 @@ export function ParticlesBackground() {
           const y2 = p2.y - p2.fontSize / 3;
 
           const dx = x1 - x2;
+          // Fast rejection checks
+          if (Math.abs(dx) >= maxDistance) continue;
           const dy = y1 - y2;
-          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (Math.abs(dy) >= maxDistance) continue;
 
-          if (dist < maxDistance) {
+          const distSq = dx * dx + dy * dy;
+
+          if (distSq < maxDistanceSq) {
+            const dist = Math.sqrt(distSq);
             // Fade lines as they get further away
             const lineAlpha = (1 - dist / maxDistance) * 0.09 * Math.min(p1.alpha, p2.alpha);
             ctx.beginPath();

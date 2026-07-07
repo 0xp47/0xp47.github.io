@@ -6,17 +6,7 @@ import { motion } from "framer-motion";
 import { profile, contactDescription } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.8,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  },
-};
+import { cardVariants } from "@/lib/animation-variants";
 
 
 
@@ -103,7 +93,7 @@ export function ContactSection() {
             <span className="font-mono text-[9px] uppercase text-muted-foreground/50 tracking-wider">
               Connect
             </span>
-            <div className="flex flex-wrap gap-4.5">
+            <div className="flex flex-wrap gap-[18px]">
               {contactLinks.map((link) => {
                 const isEmail = link.isCopy;
                 const Component = isEmail ? "button" : "a";

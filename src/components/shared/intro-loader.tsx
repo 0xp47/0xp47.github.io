@@ -81,7 +81,13 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
         </div>
 
         {/* Terminal Line 2: Loading Status */}
-        <div className={`text-xs text-foreground/90 space-y-1.5 transition-all duration-300 ${phase >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}>
+        <div
+          role="progressbar"
+          aria-valuenow={progress}
+          aria-valuemin={0}
+          aria-valuemax={100}
+          className={`text-xs text-foreground/90 space-y-1.5 transition-all duration-300 ${phase >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
+        >
           <div className="text-muted-foreground/50">
             {progress < 100 ? "Retrieving system assets..." : "System assets loaded."}
           </div>

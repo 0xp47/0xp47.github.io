@@ -1,60 +1,70 @@
 "use client";
 
+import { useEffect, useRef } from "react";
 import { motion } from "framer-motion";
 import { ArrowLeft, ArrowRight, Clock, Calendar } from "lucide-react";
 import Link from "next/link";
 import { blogPosts, type BlogPost } from "@/lib/portfolio-data";
+import { marked } from "marked";
 
-function renderInlineMarkdown(text: string) {
-  const parts = text.split(/(\*\*.*?\*\*)/g);
-  return parts.map((part, i) => {
-    if (part.startsWith("**") && part.endsWith("**")) {
-      return (
-        <strong key={i} className="text-foreground font-semibold">
-          {part.slice(2, -2)}
-        </strong>
-      );
-    }
-    return part;
-  });
-}
-
-function renderMarkdown(content: string) {
-  return content.split("\n\n").map((block, i) => {
-    if (block.startsWith("## ")) {
-      return (
-        <h2 key={i} className="text-lg font-bold text-foreground mt-10 mb-4 tracking-tight">
-          {block.replace("## ", "")}
-        </h2>
-      );
-    }
-
-    if (block.startsWith("- ")) {
-      const items = block.split("\n").filter((l) => l.startsWith("- "));
-      return (
-        <ul key={i} className="space-y-2.5 my-5">
-          {items.map((item, j) => (
-            <li
-              key={j}
-              className="text-sm leading-relaxed text-neutral-300 pl-5 relative before:content-[''] before:absolute before:left-0 before:top-[10px] before:w-1.5 before:h-1.5 before:rounded-full before:bg-foreground/25"
-            >
-              {renderInlineMarkdown(item.replace("- ", ""))}
-            </li>
-          ))}
-        </ul>
-      );
-    }
-
-    return (
-      <p key={i} className="text-sm leading-[1.85] text-neutral-300 my-4">
-        {renderInlineMarkdown(block)}
-      </p>
-    );
-  });
+function parseContent(content: string): string {
+  try {
+    return marked.parse(content, { async: false }) as string;
+  } catch {
+    return content;
+  }
 }
 
 export function BlogPostPage({ post }: { post: BlogPost }) {
   const otherPosts = blogPosts.filter((p) => p.slug !== post.slug);
+  const articleRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const article = articleRef.current;
+    if (!article) return;
+
+    // Find all <pre> elements
+    const preElements = article.querySelectorAll("pre");
+    preElements.forEach((pre) => {
+      // Avoid duplicate wrappers if useEffect runs multiple times
+      if (pre.parentElement?.classList.contains("code-block-wrapper")) return;
+
+      // Create wrapper element
+      const wrapper = document.createElement("div");
+      wrapper.className = "code-block-wrapper relative group";
+
+      // Insert wrapper before pre, and move pre inside it
+      pre.parentNode?.insertBefore(wrapper, pre);
+      wrapper.appendChild(pre);
+
+      // Create copy button
+      const copyButton = document.createElement("button");
+      copyButton.className = "absolute right-3 top-3 px-2 py-1 text-[10px] font-mono rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white border border-white/10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-200 select-none cursor-pointer";
+      copyButton.innerText = "Copy";
+
+      // Add click handler
+      copyButton.addEventListener("click", async () => {
+        const codeText = pre.querySelector("code")?.innerText || pre.innerText;
+        try {
+          await navigator.clipboard.writeText(codeText.trim());
+          copyButton.innerText = "Copied!";
+          copyButton.classList.add("bg-green-500/20", "text-green-400", "border-green-500/30");
+          setTimeout(() => {
+            copyButton.innerText = "Copy";
+            copyButton.classList.remove("bg-green-500/20", "text-green-400", "border-green-500/30");
+          }, 2000);
+        } catch (err) {
+          console.error("Failed to copy text:", err);
+          copyButton.innerText = "Error";
+          setTimeout(() => {
+            copyButton.innerText = "Copy";
+          }, 2000);
+        }
+      });
+
+      wrapper.appendChild(copyButton);
+    });
+  }, [post]);
 
   return (
     <main className="min-h-screen bg-background flex flex-col justify-between">
@@ -90,7 +100,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               <div className="flex items-center gap-4 mt-5">
                 <span className="flex items-center gap-1.5 text-xs text-muted-foreground/70">
                   <Calendar className="size-3.5" />
-                  {post.date}
+                  {post.dateDisplay}
                 </span>
                 <span className="flex items-center gap-1.5 text-xs text-muted-foreground/70">
                   <Clock className="size-3.5" />
@@ -108,9 +118,11 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             </header>
 
             {/* Article Body */}
-            <div className="prose-custom">
-              {renderMarkdown(post.content)}
-            </div>
+            <div 
+              ref={articleRef}
+              className="prose-custom markdown-body"
+              dangerouslySetInnerHTML={{ __html: parseContent(post.content) }}
+            />
 
             {/* Footer Divider */}
             <div className="mt-16 h-px bg-gradient-to-r from-foreground/15 via-border to-transparent" />
@@ -133,7 +145,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                       </h3>
                       <div className="flex items-center gap-3 mt-1.5">
                         <span className="text-[10px] font-mono text-muted-foreground/50">
-                          {otherPost.date}
+                          {otherPost.dateDisplay}
                         </span>
                         <span className="text-[10px] font-mono text-muted-foreground/50">
                           {otherPost.readingTime}
@@ -165,7 +177,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                     </h3>
                     <div className="flex items-center gap-2 mt-2">
                       <span className="text-[9px] font-mono text-muted-foreground/40">
-                        {otherPost.date}
+                        {otherPost.dateDisplay}
                       </span>
                       <span className="text-[9px] font-mono text-muted-foreground/40">
                         •

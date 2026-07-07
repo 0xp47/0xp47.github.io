@@ -35,20 +35,29 @@ if (!token) {
 async function fetchRepos() {
   console.log("Fetching repositories from GitHub...");
   try {
-    const response = await fetch("https://api.github.com/user/repos?per_page=100&type=owner", {
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Accept": "application/vnd.github+json",
-        "User-Agent": "0xp47-Portfolio-Builder"
+    let page = 1;
+    let rawRepos = [];
+    while (true) {
+      const response = await fetch(`https://api.github.com/user/repos?per_page=100&type=owner&page=${page}`, {
+        headers: {
+          "Authorization": `Bearer ${token}`,
+          "Accept": "application/vnd.github+json",
+          "User-Agent": "0xp47-Portfolio-Builder"
+        }
+      });
+
+      if (!response.ok) {
+        const errText = await response.text();
+        throw new Error(`GitHub API returned status ${response.status}: ${errText}`);
       }
-    });
 
-    if (!response.ok) {
-      const errText = await response.text();
-      throw new Error(`GitHub API returned status ${response.status}: ${errText}`);
+      const pageRepos = await response.json();
+      if (!pageRepos || pageRepos.length === 0) {
+        break;
+      }
+      rawRepos = rawRepos.concat(pageRepos);
+      page++;
     }
-
-    const rawRepos = await response.json();
     console.log(`Successfully fetched ${rawRepos.length} raw repositories.`);
 
     const repos = [];
@@ -172,7 +181,7 @@ async function fetchRepos() {
         github: repo.html_url,
         live: repo.homepage || repo.html_url,
         isPrivate: repo.private,
-        readme: readme,
+        readme: repo.private ? "" : readme,
       });
     }
 
@@ -186,7 +195,7 @@ async function fetchRepos() {
     // --- Compute and save GitHub stats ---
     const totalProjects = rawRepos.filter((r) => !r.fork).length;
     const publicRepos = rawRepos.filter((r) => !r.fork && !r.private).length;
-    const totalStars = rawRepos.reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
+    const totalStars = rawRepos.filter((r) => !r.fork).reduce((sum, r) => sum + (r.stargazers_count || 0), 0);
 
     // Fetch user profile for followers
     let followers = 0;

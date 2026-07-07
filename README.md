@@ -1,21 +1,21 @@
 # Jay Patrick Cano (0xp47) — Portfolio
 
-A premium, high-performance developer portfolio built with Next.js (App Router), Tailwind CSS, and Framer Motion. Fully optimized for Search Engine Optimization (SEO), Answer Engine Optimization (AEO), and Generative Engine Optimization (GEO).
+My personal developer portfolio built with Next.js (App Router), Tailwind CSS, and Framer Motion. It showcases my projects, work experience, and developer journey, optimized for clean performance and readability.
 
 ---
 
 ## 🚀 Key Features
 
 * **Modular Architecture**: Clean separation of concerns with components structured by logical usage.
-* **SEO, AEO, and GEO Optimization**:
-  * **Structured Data**: Advanced JSON-LD Schema (`Person` entity) mapping aliases (`0xp47`), physical address (Maasin City, Philippines), organizations (`GroundZero Community`, `CodeTriad Solutions`, `Hall of Codes`), and technical expertise.
+* **Search & AI Discoverability**:
+  * **Structured Data**: JSON-LD Schema (`Person` entity) mapping aliases (`0xp47`), location details, and technical expertise.
   * **Crawler Friendly**: Configured `robots.txt` rules and automated dynamic `sitemap.xml` mapping.
-  * **Factual FAQ Structure**: Structured FAQ microdata compliant with schema formats to enhance AI engine readability.
-* **Interactive Design & Aesthetics**:
-  * **Calm Drift Canvas**: Particle backgrounds that dynamically connect near-distance code symbols on scroll.
-  * **Adaptive Cursor Aura**: Interactive glowing radial gradient tracking cursor movements.
-  * **Smooth Inertial Scroll**: Custom ease-in-out-cubic scroll animations for navigating anchor sections.
-  * **Motion Reduction Support**: Subscribes to client system preferences (`prefers-reduced-motion`) to disable viewport stagger animations.
+  * **FAQ Structure**: Structured FAQ microdata compliant with schema formats to enhance readability for search engines and AI assistants.
+* **Interactive Design**:
+  * **Particle Background**: Code symbol background animations that dynamically connect on scroll.
+  * **Cursor Aura**: Subtle glowing radial gradient tracking cursor movements.
+  * **Smooth Scrolling**: Custom ease-in-out-cubic scroll animations for navigating anchor sections.
+  * **Motion Reduction Support**: Respects system preferences (`prefers-reduced-motion`) to disable animations when requested.
 
 ---
 

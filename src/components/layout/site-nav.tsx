@@ -40,6 +40,7 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
               <a
                 key={item.href}
                 href={item.href}
+                aria-current={isActive ? "page" : undefined}
                 onClick={(e) => {
                   e.preventDefault();
                   onNavItemClick(item.href);

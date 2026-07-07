@@ -9,17 +9,7 @@ import { Section } from "@/components/shared/section";
 
 const INITIAL_COUNT = 4;
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 15 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: {
-      duration: 0.9,
-      ease: [0.16, 1, 0.3, 1] as const,
-    },
-  },
-};
+import { cardVariants } from "@/lib/animation-variants";
 
 export function BlogSection() {
   const [showAll, setShowAll] = useState(false);
@@ -40,13 +30,13 @@ export function BlogSection() {
           <motion.div key={post.slug} variants={cardVariants}>
             <Link
               href={`/blog/${post.slug}`}
-              className="group flex flex-col border-t border-border/10 pt-5 hover:border-foreground/35 transition-colors duration-500 block"
+              className="group flex flex-col border-t border-border/10 pt-5 hover:border-foreground/35 transition-colors duration-500"
             >
               {/* Date and Reading Time */}
               <div className="flex items-center gap-3 mb-3">
                 <span className="flex items-center gap-1.5 text-[10px] font-mono text-muted-foreground/60">
                   <Calendar className="size-3" />
-                  {post.date}
+                  {post.dateDisplay}
                 </span>
                 <span className="flex items-center gap-1.5 text-[10px] font-mono text-muted-foreground/60">
                   <Clock className="size-3" />
