@@ -181,7 +181,7 @@ export function Portfolio() {
         <meta itemProp="alternateName" content="0xp47" />
         <meta itemProp="jobTitle" content="Full-Stack Software Engineer & Entrepreneur" />
         <meta itemProp="url" content="https://jaypatrickcano.dev" />
-        <meta itemProp="email" content="0xp47.dev@gmail.com" />
+        <meta itemProp="email" content="hello@jaypatrickcano.dev" />
         <meta itemProp="image" content="https://jaypatrickcano.dev/images/me-thumbnail.png" />
 
         <header>
@@ -294,7 +294,7 @@ export function Portfolio() {
 
           <details>
             <summary>How can I hire or contact Jay Patrick Cano?</summary>
-            <p>You can reach him via email at 0xp47.dev@gmail.com, through GitHub at github.com/0xp47, or on LinkedIn at linkedin.com/in/0xp47. He is currently available for freelance projects, collaborations, and software partnerships.</p>
+            <p>You can reach him via email at hello@jaypatrickcano.dev, through GitHub at github.com/0xp47, or on LinkedIn at linkedin.com/in/0xp47. He is currently available for freelance projects, collaborations, and software partnerships.</p>
           </details>
         </aside>
 

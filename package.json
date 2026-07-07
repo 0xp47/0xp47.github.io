@@ -23,7 +23,7 @@
     "url": "git+https://github.com/0xp47/0xp47.github.io.git"
   },
   "license": "MIT",
-  "author": "Jay Patrick Cano <0xp47.dev@gmail.com> (https://github.com/0xp47)",
+  "author": "Jay Patrick Cano <hello@jaypatrickcano.dev> (https://github.com/0xp47)",
   "private": true,
   "scripts": {
     "dev": "next dev",

@@ -7,7 +7,7 @@ export const profile = {
   roles: ["Full-Stack Engineer", "Software Developer", "Open-Source Maintainer"],
   availability: "Available for Freelance & Collaborations",
   location: "Maasin City, Southern Leyte, Philippines",
-  email: "0xp47.dev@gmail.com",
+  email: "hello@jaypatrickcano.dev",
   github: "https://github.com/0xp47",
   linkedin: "https://www.linkedin.com/in/0xp47",
   instagram: "https://www.instagram.com/0xp47",

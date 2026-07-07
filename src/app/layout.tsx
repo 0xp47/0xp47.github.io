@@ -114,7 +114,7 @@ const jsonLd = {
     "https://www.instagram.com/0xp47",
     "https://www.facebook.com/0xp47"
   ],
-  "email": "0xp47.dev@gmail.com",
+  "email": "hello@jaypatrickcano.dev",
   "description": "Developer and entrepreneur building custom software, cross-platform mobile apps, and automated workflows. Founder of GroundZero global community and co-founder of CodeTriad Solutions.",
   "address": {
     "@type": "PostalAddress",
@@ -298,7 +298,7 @@ const faqJsonLd = {
       "name": "How can I contact Jay Patrick Cano for a project?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "You can reach Jay Patrick Cano via email at 0xp47.dev@gmail.com, through his GitHub profile at github.com/0xp47, or via his LinkedIn at linkedin.com/in/0xp47. He is available for freelance projects, collaborations, and software partnerships."
+        "text": "You can reach Jay Patrick Cano via email at hello@jaypatrickcano.dev, through his GitHub profile at github.com/0xp47, or via his LinkedIn at linkedin.com/in/0xp47. He is available for freelance projects, collaborations, and software partnerships."
       }
     }
   ]
