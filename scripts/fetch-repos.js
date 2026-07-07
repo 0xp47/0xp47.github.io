@@ -167,10 +167,17 @@ async function fetchRepos() {
           if (readmeData.content && readmeData.encoding === "base64") {
             // Base64 decode to UTF-8
             readme = Buffer.from(readmeData.content, 'base64').toString('utf8');
+            // Dynamically replace any old domain references in the fetched READMEs
+            readme = readme.replace(/0xp47\.github\.io/g, "jaypatrickcano.dev");
           }
         }
       } catch (e) {
         console.log(`Could not fetch README for ${repo.name}:`, e.message);
+      }
+
+      let liveUrl = repo.homepage || repo.html_url;
+      if (repoName === "0xp47.github.io") {
+        liveUrl = "https://jaypatrickcano.dev/";
       }
 
       repos.push({
@@ -179,7 +186,7 @@ async function fetchRepos() {
         description: repo.description || "A project built by 0xp47.",
         stack: stack,
         github: repo.html_url,
-        live: repo.homepage || repo.html_url,
+        live: liveUrl,
         isPrivate: repo.private,
         readme: repo.private ? "" : readme,
       });

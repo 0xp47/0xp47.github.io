@@ -4,7 +4,7 @@ import { blogPosts } from "@/lib/portfolio-data";
 export const dynamic = "force-static";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://0xp47.github.io";
+  const baseUrl = "https://jaypatrickcano.dev";
 
   const blogEntries: MetadataRoute.Sitemap = blogPosts.map((post) => ({
     url: `${baseUrl}/blog/${post.slug}`,

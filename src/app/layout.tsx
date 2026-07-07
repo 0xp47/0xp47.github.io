@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://0xp47.github.io"),
+  metadataBase: new URL("https://jaypatrickcano.dev"),
   title: {
     default: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     template: "%s | Jay Patrick Cano",
@@ -106,7 +106,7 @@ const jsonLd = {
   "name": "Jay Patrick Cano",
   "alternateName": ["Pat", "0xp47"],
   "jobTitle": "Full-Stack Engineer & Entrepreneur",
-  "url": "https://0xp47.github.io",
+  "url": "https://jaypatrickcano.dev",
   "image": "https://avatars.githubusercontent.com/u/76643867?v=4",
   "sameAs": [
     "https://github.com/0xp47",
@@ -193,7 +193,7 @@ const websiteJsonLd = {
   "@type": "WebSite",
   "name": "Jay Patrick Cano — Developer Portfolio",
   "alternateName": "0xp47 Portfolio",
-  "url": "https://0xp47.github.io",
+  "url": "https://jaypatrickcano.dev",
   "description": "Developer portfolio of Jay Patrick Cano (0xp47), a Full-Stack Engineer, entrepreneur, and open-source builder based in the Philippines.",
   "author": {
     "@type": "Person",

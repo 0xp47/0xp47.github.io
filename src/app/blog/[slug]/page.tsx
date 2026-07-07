@@ -18,7 +18,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) return { title: "Post Not Found" };
 
-  const baseUrl = "https://0xp47.github.io";
+  const baseUrl = "https://jaypatrickcano.dev";
   const postUrl = `${baseUrl}/blog/${slug}`;
 
   return {
@@ -65,7 +65,7 @@ export default async function Page({ params }: Props) {
   const post = blogPosts.find((p) => p.slug === slug);
   if (!post) notFound();
 
-  const baseUrl = "https://0xp47.github.io";
+  const baseUrl = "https://jaypatrickcano.dev";
   const postUrl = `${baseUrl}/blog/${slug}`;
 
   const blogPostingJsonLd = {

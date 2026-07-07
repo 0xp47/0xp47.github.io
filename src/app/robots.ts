@@ -30,6 +30,6 @@ export default function robots(): MetadataRoute.Robots {
         allow: "/",
       },
     ],
-    sitemap: "https://0xp47.github.io/sitemap.xml",
+    sitemap: "https://jaypatrickcano.dev/sitemap.xml",
   };
 }
