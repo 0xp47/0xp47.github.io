@@ -6,6 +6,7 @@ import { ArrowLeft, ArrowRight, Clock, Calendar } from "lucide-react";
 import Link from "next/link";
 import { blogPosts, type BlogPost } from "@/lib/portfolio-data";
 import { marked } from "marked";
+import { BlogThumbnail } from "@/components/shared/blog-thumbnail";
 
 function parseContent(content: string): string {
   try {
@@ -16,7 +17,9 @@ function parseContent(content: string): string {
 }
 
 export function BlogPostPage({ post }: { post: BlogPost }) {
-  const otherPosts = blogPosts.filter((p) => p.slug !== post.slug);
+  const otherPosts = [...blogPosts]
+    .filter((p) => p.slug !== post.slug)
+    .sort((a, b) => b.date.localeCompare(a.date));
   const articleRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -97,7 +100,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               </h1>
 
               {/* Meta */}
-              <div className="flex items-center gap-4 mt-5">
+              <div className="flex items-center gap-4 mt-5 mb-6">
                 <span className="flex items-center gap-1.5 text-xs text-muted-foreground/70">
                   <Calendar className="size-3.5" />
                   {post.dateDisplay}
@@ -107,6 +110,9 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                   {post.readingTime}
                 </span>
               </div>
+
+              {/* Cover Thumbnail */}
+              <BlogThumbnail slug={post.slug} className="w-full aspect-video rounded-2xl border border-border/10 max-h-[260px] md:max-h-[320px] object-cover mb-8" />
 
               {/* Divider */}
               <motion.div
@@ -196,11 +202,11 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
         {/* Footer Area with Back Link */}
         <footer className="mt-20 pt-8 border-t border-border/10 flex items-center justify-between w-full">
           <Link
-            href="/#blog"
+            href="/blog"
             className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground/50 hover:text-foreground transition-colors duration-300 group"
           >
             <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform duration-300" />
-            Back to portfolio
+            Back to blog
           </Link>
           <span className="text-[10px] font-mono text-muted-foreground/30">
             © {new Date().getFullYear()} Jay Patrick Cano

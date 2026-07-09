@@ -3,7 +3,7 @@
 import { useRef, useEffect, useCallback } from "react";
 import { motion } from "framer-motion";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { services } from "@/lib/portfolio-data";
+import { services, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { cardVariants } from "@/lib/animation-variants";
 
@@ -62,7 +62,7 @@ export function ServicesSection() {
   };
 
   return (
-    <Section id="services" eyebrow="Services" title="What I offer to help your business grow.">
+    <Section id="services" eyebrow={sectionMeta.services.eyebrow} title={sectionMeta.services.title}>
       
       <div className="relative w-full">
         {/* Navigation Buttons (Top Right of Carousel) */}

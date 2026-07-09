@@ -3,7 +3,7 @@
 import { useState } from "react";
 import { Mail, Check } from "lucide-react";
 import { motion } from "framer-motion";
-import { profile, contactDescription } from "@/lib/portfolio-data";
+import { profile, contactDescription, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 
 import { cardVariants } from "@/lib/animation-variants";
@@ -80,7 +80,7 @@ export function ContactSection() {
   ];
 
   return (
-    <Section id="contact" eyebrow="Collab" title="Let's build something together.">
+    <Section id="contact" eyebrow={sectionMeta.contact.eyebrow} title={sectionMeta.contact.title}>
       <div className="grid gap-8 md:grid-cols-[1.5fr_1fr] mt-8 items-center">
         
         {/* Left Column: Description & Socials */}

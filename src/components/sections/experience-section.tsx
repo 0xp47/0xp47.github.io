@@ -1,14 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { experience } from "@/lib/portfolio-data";
+import { experience, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 
 import { cardVariants } from "@/lib/animation-variants";
 
 export function ExperienceSection() {
   return (
-    <Section id="experience" eyebrow="Experience" title="A history of building products and platforms.">
+    <Section id="experience" eyebrow={sectionMeta.experience.eyebrow} title={sectionMeta.experience.title}>
       <div className="relative mt-12 max-w-4xl">
         {/* Sleek Vertical Progress Line */}
         <div className="absolute left-[11px] top-3 bottom-3 w-px bg-gradient-to-b from-foreground/20 via-border/10 to-transparent" />

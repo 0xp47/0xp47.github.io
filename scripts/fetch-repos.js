@@ -189,6 +189,9 @@ async function fetchRepos() {
         live: liveUrl,
         isPrivate: repo.private,
         readme: repo.private ? "" : readme,
+        createdAt: repo.created_at,
+        updatedAt: repo.pushed_at || repo.updated_at,
+        stars: repo.stargazers_count || 0,
       });
     }
 

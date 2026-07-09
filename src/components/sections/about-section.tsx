@@ -3,7 +3,7 @@
 import { useEffect, useRef } from "react";
 import { motion, useMotionValue, useTransform, animate, useInView } from "framer-motion";
 import { Terminal, GitMerge, Briefcase, type LucideIcon } from "lucide-react";
-import { aboutHighlights, aboutDescription, heroStats } from "@/lib/portfolio-data";
+import { aboutHighlights, aboutDescription, heroStats, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 
 const iconMap: Record<string, LucideIcon> = {
@@ -47,7 +47,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 
 export function AboutSection() {
   return (
-    <Section id="about" eyebrow="About" title="A little about me and what I work on.">
+    <Section id="about" eyebrow={sectionMeta.about.eyebrow} title={sectionMeta.about.title}>
       <motion.div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] items-start">
         
         {/* Left Column: Bio and Stats Grid */}

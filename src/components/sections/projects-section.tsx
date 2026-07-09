@@ -3,13 +3,15 @@
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Lock, X, GitBranch } from "lucide-react";
+import Link from "next/link";
 import { useLenis } from "lenis/react";
 import { marked } from "marked";
-import { projects, projectFilters } from "@/lib/portfolio-data";
+import { projects, projectFilters, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
 
 import { cardVariants } from "@/lib/animation-variants";
+import { ProjectCard } from "@/components/shared/project-card";
 
 const CASE_STUDIES: Record<string, { architecture: string; challenge: string; features: string[] }> = {
   "LeafSense Mobile": {
@@ -233,7 +235,7 @@ export function ProjectsSection() {
   const caseStudy = selectedProject ? CASE_STUDIES[selectedProject.name] : null;
 
   return (
-    <Section id="projects" eyebrow="Projects" title="Everything I've built — from apps to automation tools.">
+    <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
       <div className="mb-8 inline-flex rounded-full border border-border/20 bg-black/20 p-1 backdrop-blur-sm">
         {projectFilters.map((filter) => (
           <button
@@ -265,79 +267,25 @@ export function ProjectsSection() {
         className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-8 items-stretch"
       >
         {displayedProjects.map((project) => (
-          <motion.article
+          <motion.div
             key={project.name}
             variants={cardVariants}
-            className="group relative flex flex-col justify-between h-full gap-3"
+            className="h-full"
           >
-            {/* Project metadata and text details underneath */}
-            <div className="flex flex-col gap-1 px-0.5 h-full justify-between">
-              <div className="flex flex-col gap-1">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-base font-bold tracking-tight text-foreground">
-                  {project.isPrivate || !project.live || project.live === project.github ? (
-                    <span className="flex items-center gap-1">
-                      {project.name}
-                    </span>
-                  ) : (
-                    <a
-                      href={project.live}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="hover:underline flex items-center gap-1"
-                    >
-                      {project.name}
-                      <ArrowUpRight className="size-3 opacity-0 group-hover:opacity-100 transition-all duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-px" />
-                    </a>
-                  )}
-                  </h3>
-                  <span className="font-mono text-[8.5px] font-bold tracking-[0.12em] text-foreground/40 uppercase flex items-center gap-1.5 shrink-0">
-                    {project.category}
-                    {project.isPrivate && (
-                      <span className="text-muted-foreground/80 font-semibold tracking-wider text-[8px] bg-foreground/5 px-1.5 py-0.5 rounded border border-border/25 normal-case">
-                        Private
-                      </span>
-                    )}
-                  </span>
-                </div>
-                
-                <p className="text-xs leading-relaxed text-neutral-300 line-clamp-3">
-                  {project.description}
-                </p>
-              </div>
-
-              <div className="flex items-center justify-between mt-3 pt-1.5 border-t border-border/5">
-                {/* Dot-separated tech stack list */}
-                <div className="font-mono text-[9px] text-muted-foreground tracking-wide">
-                  {project.stack.slice(0, 3).join("  •  ")}
-                </div>
-                
-                {/* Actions */}
-                <div className="flex items-center font-mono text-[9px]">
-                  <button
-                    type="button"
-                    onClick={() => setSelectedProject(project)}
-                    className="text-muted-foreground hover:text-foreground hover:underline transition-colors cursor-pointer font-bold flex items-center gap-1"
-                  >
-                    <ArrowUpRight className="size-3" />
-                    details
-                  </button>
-                </div>
-              </div>
-            </div>
-          </motion.article>
+            <ProjectCard project={project} onViewDetails={setSelectedProject} />
+          </motion.div>
         ))}
       </motion.div>
 
       {filteredProjects.length > 6 && (
         <div className="mt-12 flex justify-center">
-          <button
-            type="button"
-            onClick={() => setShowAll(!showAll)}
-            className="rounded-full border border-border/40 bg-background/80 px-6 py-2 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition-all duration-300 shadow-sm cursor-pointer"
+          <Link
+            href="/projects"
+            className="group rounded-full border border-border/40 bg-black/10 hover:bg-foreground hover:text-background px-6 py-2.5 text-[10px] font-mono font-bold tracking-widest uppercase text-muted-foreground transition-all duration-500 shadow-sm cursor-pointer inline-flex items-center justify-center gap-1.5"
           >
-            {showAll ? "See Less" : "See More"}
-          </button>
+            See All Projects
+            <ArrowUpRight className="size-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300" />
+          </Link>
         </div>
       )}
 
