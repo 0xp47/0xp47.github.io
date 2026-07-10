@@ -1,9 +1,9 @@
 "use client";
 
 import { motion, LayoutGroup } from "framer-motion";
-import { ArrowLeft, ArrowRight, Calendar, Clock, Search, X } from "lucide-react";
+import { ArrowLeft, ArrowRight, Calendar, Clock, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState, useMemo, useRef } from "react";
 import { useLenis } from "lenis/react";
 
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
@@ -24,6 +24,8 @@ export function BlogPageClient() {
   // Search and view states
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
+  const [currentPage, setCurrentPage] = useState(1);
+  const POSTS_PER_PAGE = 8;
 
   const handleScrollToTop = () => {
     lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
@@ -46,6 +48,33 @@ export function BlogPageClient() {
 
     return result;
   }, [searchQuery]);
+
+  const totalPages = useMemo(() => {
+    return Math.ceil(filteredPosts.length / POSTS_PER_PAGE);
+  }, [filteredPosts]);
+
+  const paginatedPosts = useMemo(() => {
+    const startIndex = (currentPage - 1) * POSTS_PER_PAGE;
+    return filteredPosts.slice(startIndex, startIndex + POSTS_PER_PAGE);
+  }, [filteredPosts, currentPage]);
+
+  // Reset page when search changes (during render)
+  const [prevSearch, setPrevSearch] = useState(searchQuery);
+
+  if (prevSearch !== searchQuery) {
+    setPrevSearch(searchQuery);
+    setCurrentPage(1);
+  }
+
+  // Scroll to top when page changes (skip initial render)
+  const isFirstMount = useRef(true);
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    lenis?.scrollTo(0, { offset: 0, duration: 800 });
+  }, [currentPage, lenis]);
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 400);
@@ -108,7 +137,7 @@ export function BlogPageClient() {
               viewMode === "grid" ? "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-1 max-w-3xl mx-auto"
             )}
           >
-            {filteredPosts.map((post, i) => (
+            {paginatedPosts.map((post, i) => (
               <motion.div
                 key={post.slug}
                 initial={{ opacity: 0, y: 12 }}
@@ -169,6 +198,53 @@ export function BlogPageClient() {
             ))}
           </motion.div>
         </LayoutGroup>
+
+        {/* Pagination Controls */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-center gap-2 mt-12 pt-6 border-t border-border/10 font-mono">
+            {/* Previous Button */}
+            <button
+              type="button"
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+              aria-label="Previous page"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+
+            {/* Page Numbers */}
+            {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+              const isActive = currentPage === page;
+              return (
+                <button
+                  key={page}
+                  type="button"
+                  onClick={() => setCurrentPage(page)}
+                  className={cn(
+                    "flex size-8 items-center justify-center rounded-lg border text-[10px] font-bold transition-all duration-300 cursor-pointer",
+                    isActive
+                      ? "border-foreground bg-foreground text-background"
+                      : "border-border/30 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+                  )}
+                >
+                  {page}
+                </button>
+              );
+            })}
+
+            {/* Next Button */}
+            <button
+              type="button"
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+              aria-label="Next page"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+        )}
 
         {/* Empty state */}
         {filteredPosts.length === 0 && (

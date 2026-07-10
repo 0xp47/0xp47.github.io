@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { ArrowLeft, Lock, X, Search, RotateCcw, GitBranch, Folder, ChevronDown } from "lucide-react";
+import { ArrowLeft, Lock, X, Search, RotateCcw, GitBranch, Folder, ChevronDown, SlidersHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useLenis } from "lenis/react";
@@ -127,8 +127,21 @@ export function ProjectsPageClient() {
   const [sortBy, setSortBy] = useState<"default" | "name-asc" | "name-desc" | "updated" | "created" | "stars">("default");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [isMobileFilterOpen, setIsMobileFilterOpen] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const PROJECTS_PER_PAGE = 6;
 
   const drawerRef = useRef<HTMLDivElement>(null);
+  const mobileDrawerRef = useRef<HTMLDivElement>(null);
+
+  // Active filters count for mobile display
+  const activeFilterCount = useMemo(() => {
+    let count = 0;
+    if (activeFilter !== "All") count++;
+    if (selectedTech) count++;
+    if (sortBy !== "default") count++;
+    return count;
+  }, [activeFilter, selectedTech, sortBy]);
 
   const handleScrollToTop = () => {
     lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
@@ -193,9 +206,51 @@ export function ProjectsPageClient() {
     return result;
   }, [activeFilter, selectedTech, searchQuery, sortBy]);
 
+  const totalPages = useMemo(() => {
+    return Math.ceil(filteredProjects.length / PROJECTS_PER_PAGE);
+  }, [filteredProjects]);
+
+  const paginatedProjects = useMemo(() => {
+    const startIndex = (currentPage - 1) * PROJECTS_PER_PAGE;
+    return filteredProjects.slice(startIndex, startIndex + PROJECTS_PER_PAGE);
+  }, [filteredProjects, currentPage]);
+
+  // Reset page when filters change (during render)
+  const [prevFilters, setPrevFilters] = useState({
+    search: searchQuery,
+    filter: activeFilter,
+    tech: selectedTech,
+    sort: sortBy,
+  });
+
+  if (
+    prevFilters.search !== searchQuery ||
+    prevFilters.filter !== activeFilter ||
+    prevFilters.tech !== selectedTech ||
+    prevFilters.sort !== sortBy
+  ) {
+    setPrevFilters({
+      search: searchQuery,
+      filter: activeFilter,
+      tech: selectedTech,
+      sort: sortBy,
+    });
+    setCurrentPage(1);
+  }
+
+  // Scroll to top when page changes (skip initial render)
+  const isFirstMount = useRef(true);
+  useEffect(() => {
+    if (isFirstMount.current) {
+      isFirstMount.current = false;
+      return;
+    }
+    lenis?.scrollTo(0, { offset: 0, duration: 800 });
+  }, [currentPage, lenis]);
+
   // Disable scroll when drawer is open
   useEffect(() => {
-    if (selectedProject) {
+    if (selectedProject || isMobileFilterOpen) {
       document.body.style.overflow = "hidden";
       lenis?.stop();
     } else {
@@ -206,7 +261,55 @@ export function ProjectsPageClient() {
       document.body.style.overflow = "";
       lenis?.start();
     };
-  }, [selectedProject, lenis]);
+  }, [selectedProject, isMobileFilterOpen, lenis]);
+
+  // Mobile Filter Drawer accessibility & key bindings
+  useEffect(() => {
+    if (!isMobileFilterOpen) return;
+
+    const timer = setTimeout(() => {
+      if (mobileDrawerRef.current) {
+        const focusable = mobileDrawerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length > 0) {
+          focusable[0].focus();
+        }
+      }
+    }, 100);
+
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") {
+        setIsMobileFilterOpen(false);
+        return;
+      }
+      if (e.key === "Tab" && mobileDrawerRef.current) {
+        const focusable = mobileDrawerRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            last.focus();
+            e.preventDefault();
+          }
+        } else {
+          if (document.activeElement === last) {
+            first.focus();
+            e.preventDefault();
+          }
+        }
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      clearTimeout(timer);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [isMobileFilterOpen]);
 
   // Drawer accessibility & key bindings
   useEffect(() => {
@@ -315,7 +418,7 @@ export function ProjectsPageClient() {
         {/* 2-Column Dashboard Layout */}
         <div className="grid gap-10 lg:grid-cols-[280px_1fr]">
           {/* LEFT SIDEBAR: Controls Center */}
-          <aside className="lg:sticky lg:top-24 h-fit space-y-8 lg:border-r lg:border-border/10 lg:pr-8">
+          <aside className="hidden lg:block lg:sticky lg:top-24 h-fit space-y-8 lg:border-r lg:border-border/10 lg:pr-8">
 
             {/* Search Input */}
             <div className="space-y-2">
@@ -440,6 +543,43 @@ export function ProjectsPageClient() {
 
           {/* RIGHT COLUMN: Projects Explorer List */}
           <div className="space-y-6">
+            {/* Mobile Controls Row */}
+            <div className="flex lg:hidden gap-3 mb-2">
+              <div className="relative flex-1">
+                <Search className="absolute left-3.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/75 z-10" />
+                <input
+                  type="text"
+                  placeholder="Search projects..."
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  className="w-full rounded-full border border-border/40 bg-black/20 py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300 font-mono"
+                />
+                {searchQuery && (
+                  <button
+                    type="button"
+                    onClick={() => setSearchQuery("")}
+                    className="absolute right-3.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground transition-colors cursor-pointer z-10"
+                  >
+                    <X className="size-2.5" />
+                  </button>
+                )}
+              </div>
+              
+              <button
+                type="button"
+                onClick={() => setIsMobileFilterOpen(true)}
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/45 bg-black/25 px-5 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+              >
+                <SlidersHorizontal className="size-3.5" />
+                Filters
+                {activeFilterCount > 0 && (
+                  <span className="flex size-4 items-center justify-center rounded-full bg-foreground text-background text-[8px] font-bold">
+                    {activeFilterCount}
+                  </span>
+                )}
+              </button>
+            </div>
+
             {/* Stats and Layout switcher row */}
             <div className="flex items-center justify-between border-b border-border/10 pb-3">
               <span className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest">
@@ -462,7 +602,7 @@ export function ProjectsPageClient() {
                   viewMode === "grid" ? "sm:grid-cols-2" : "grid-cols-1"
                 )}
               >
-                {filteredProjects.map((project, i) => (
+                {paginatedProjects.map((project, i) => (
                   <motion.div
                     key={project.name}
                     initial={{ opacity: 0, y: 12 }}
@@ -475,6 +615,53 @@ export function ProjectsPageClient() {
                 ))}
               </motion.div>
             </LayoutGroup>
+
+            {/* Pagination Controls */}
+            {totalPages > 1 && (
+              <div className="flex items-center justify-center gap-2 mt-12 pt-6 border-t border-border/10 font-mono">
+                {/* Previous Button */}
+                <button
+                  type="button"
+                  disabled={currentPage === 1}
+                  onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
+                  className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+                  aria-label="Previous page"
+                >
+                  <ChevronLeft className="size-4" />
+                </button>
+
+                {/* Page Numbers */}
+                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => {
+                  const isActive = currentPage === page;
+                  return (
+                    <button
+                      key={page}
+                      type="button"
+                      onClick={() => setCurrentPage(page)}
+                      className={cn(
+                        "flex size-8 items-center justify-center rounded-lg border text-[10px] font-bold transition-all duration-300 cursor-pointer",
+                        isActive
+                          ? "border-foreground bg-foreground text-background"
+                          : "border-border/30 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+                      )}
+                    >
+                      {page}
+                    </button>
+                  );
+                })}
+
+                {/* Next Button */}
+                <button
+                  type="button"
+                  disabled={currentPage === totalPages}
+                  onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
+                  className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+                  aria-label="Next page"
+                >
+                  <ChevronRight className="size-4" />
+                </button>
+              </div>
+            )}
 
             {/* Empty state */}
             {filteredProjects.length === 0 && (
@@ -654,6 +841,166 @@ export function ProjectsPageClient() {
                     </div>
                   )}
                 </div>
+              </div>
+            </motion.div>
+          </>
+        )}
+      </AnimatePresence>
+
+      {/* Mobile Filters Drawer */}
+      <AnimatePresence>
+        {isMobileFilterOpen && (
+          <>
+            {/* Backdrop */}
+            <motion.div
+              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm cursor-pointer"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setIsMobileFilterOpen(false)}
+            />
+
+            {/* Slide-over Drawer */}
+            <motion.div
+              ref={mobileDrawerRef}
+              data-lenis-prevent
+              role="dialog"
+              aria-modal="true"
+              aria-label="Filter options"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-xs flex-col border-l border-border/10 bg-background/95 px-5 py-4 shadow-2xl backdrop-blur-xl"
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ type: "spring", damping: 30, stiffness: 300 }}
+            >
+              {/* Header */}
+              <div className="flex items-center justify-between border-b border-border/10 pb-3 mb-4">
+                <div>
+                  <span className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block mb-0.5">
+                    Filters & Sort
+                  </span>
+                  <h2 className="text-sm font-bold tracking-tight text-foreground uppercase font-mono">
+                    Controls Center
+                  </h2>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => setIsMobileFilterOpen(false)}
+                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition-all duration-300 text-muted-foreground cursor-pointer"
+                  aria-label="Close filters"
+                >
+                  <X className="size-3.5" />
+                </button>
+              </div>
+
+              {/* Drawer Body Content */}
+              <div 
+                data-lenis-prevent
+                className="flex-1 overflow-y-auto space-y-6 pr-1 scrollbar-none font-mono"
+              >
+                {/* Sort Order */}
+                <div className="space-y-2">
+                  <label className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block">
+                    Sort By
+                  </label>
+                  <div className="relative">
+                    <select
+                      value={sortBy}
+                      onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
+                      className="w-full rounded-lg border border-border/40 bg-black/20 pl-3 pr-8 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground focus:border-foreground/30 focus:outline-none backdrop-blur-sm cursor-pointer transition-all duration-300 appearance-none uppercase"
+                    >
+                      <option value="default" className="bg-[#121214] text-foreground">DEFAULT ORDER</option>
+                      <option value="name-asc" className="bg-[#121214] text-foreground">NAME (A-Z)</option>
+                      <option value="name-desc" className="bg-[#121214] text-foreground">NAME (Z-A)</option>
+                      <option value="updated" className="bg-[#121214] text-foreground">LAST UPDATED</option>
+                      <option value="created" className="bg-[#121214] text-foreground">DATE CREATED</option>
+                      <option value="stars" className="bg-[#121214] text-foreground">STARS & POPULARITY</option>
+                    </select>
+                    <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/60 z-10" />
+                  </div>
+                </div>
+
+                {/* Directory Categories list */}
+                <div className="space-y-2">
+                  <label className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block">
+                    Categories
+                  </label>
+                  <nav className="flex flex-col gap-1 text-[10px]" aria-label="Category filters">
+                    {projectFilters.map((filter) => {
+                      const isActive = activeFilter === filter;
+                      return (
+                        <button
+                          key={filter}
+                          type="button"
+                          onClick={() => setActiveFilter(filter)}
+                          className={cn(
+                            "w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-left transition-all duration-300 cursor-pointer hover:bg-white/[0.03]",
+                            isActive
+                              ? "bg-foreground text-background font-bold"
+                              : "text-muted-foreground hover:text-foreground"
+                          )}
+                        >
+                          <Folder className={cn("size-3.5", isActive ? "fill-current" : "")} />
+                          {filter}
+                        </button>
+                      );
+                    })}
+                  </nav>
+                </div>
+
+                {/* Technology tags stack selection */}
+                <div className="space-y-2.5">
+                  <label className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block">
+                    Technologies
+                  </label>
+                  <div 
+                    data-lenis-prevent
+                    className="flex flex-wrap gap-1 max-h-[200px] overflow-y-auto pr-1 py-1 scrollbar-thin scrollbar-thumb-neutral-800 scrollbar-track-transparent"
+                  >
+                    {topTechs.map((tech) => {
+                      const isSelected = selectedTech === tech;
+                      return (
+                        <button
+                          key={tech}
+                          onClick={() => setSelectedTech(isSelected ? null : tech)}
+                          className={cn(
+                            "rounded border px-2 py-0.5 font-mono text-[8px] tracking-wide transition-all duration-300 cursor-pointer shrink-0",
+                            isSelected
+                              ? "border-foreground bg-foreground text-background font-bold"
+                              : "border-border/30 bg-black/10 text-muted-foreground hover:border-foreground/20 hover:text-foreground"
+                          )}
+                        >
+                          {tech} <span className="opacity-50 text-[7px]">({techCounts[tech]})</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+
+              {/* Drawer Footer Actions */}
+              <div className="border-t border-border/10 pt-4 space-y-2 pb-2">
+                <button
+                  type="button"
+                  onClick={() => setIsMobileFilterOpen(false)}
+                  className="w-full rounded-lg bg-foreground hover:bg-foreground/90 py-2.5 text-center font-mono text-[10px] font-bold uppercase tracking-widest text-background transition-all duration-300 cursor-pointer"
+                >
+                  View {filteredProjects.length} Projects
+                </button>
+                {(searchQuery || activeFilter !== "All" || selectedTech || sortBy !== "default") && (
+                  <button
+                    onClick={() => {
+                      setSearchQuery("");
+                      setActiveFilter("All");
+                      setSelectedTech(null);
+                      setSortBy("default");
+                    }}
+                    className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-border/30 hover:border-foreground/30 py-2 font-mono text-[9px] font-bold text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer uppercase tracking-wider"
+                  >
+                    <RotateCcw className="size-3" />
+                    Reset All
+                  </button>
+                )}
               </div>
             </motion.div>
           </>
