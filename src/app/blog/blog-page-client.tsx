@@ -151,7 +151,7 @@ export function BlogPageClient() {
                   /* List Row View (Horizontal) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group flex flex-col sm:flex-row gap-5 border border-border/10 bg-transparent rounded-xl overflow-hidden hover:border-foreground/20 transition-all duration-500 p-4 items-start sm:items-center justify-between text-left w-full h-full"
+                    className="group flex flex-row gap-4 sm:gap-5 border border-border/10 bg-transparent rounded-xl overflow-hidden hover:border-foreground/20 transition-all duration-500 p-4 items-center justify-between text-left w-full h-full"
                   >
                     <div className="flex-1 min-w-0 space-y-2">
                       {/* Date and Reading Time */}
@@ -189,7 +189,7 @@ export function BlogPageClient() {
                     </div>
 
                     {/* Right Thumbnail Cover */}
-                    <div className="size-20 sm:size-24 bg-white border border-border/10 rounded-lg overflow-hidden shrink-0 self-start sm:self-center relative">
+                    <div className="size-16 sm:size-24 bg-white border border-border/10 rounded-lg overflow-hidden shrink-0 relative">
                       <BlogThumbnail slug={post.slug} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
                     </div>
                   </Link>
