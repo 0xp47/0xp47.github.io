@@ -1,5 +1,6 @@
 import projectsData from "./projects.json";
 import githubStats from "./github-stats.json";
+import certificationsData from "./certifications.json";
 
 export const profile = {
   name: "Jay Patrick Cano",
@@ -12,6 +13,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/0xp47",
   instagram: "https://www.instagram.com/0xp47",
   facebook: "https://www.facebook.com/0xp47",
+  credly: "https://www.credly.com/users/0xp47/badges",
 };
 
 export const navItems = [
@@ -20,6 +22,7 @@ export const navItems = [
   { label: "Projects", href: "#projects" },
   { label: "Blog", href: "#blog" },
   { label: "Experience", href: "#experience" },
+  { label: "Certs", href: "#certifications" },
   { label: "Collab", href: "#contact" },
 ];
 
@@ -49,6 +52,10 @@ export const sectionMeta = {
   experience: {
     eyebrow: "Experience",
     title: "A history of building products and platforms.",
+  },
+  certifications: {
+    eyebrow: "Certifications",
+    title: "Verified credentials from Cisco Networking Academy.",
   },
   contact: {
     eyebrow: "Collab",
@@ -171,4 +178,15 @@ export const services = [
   },
 ];
 
+export const certifications = certificationsData;
+
+export const certificationCategories = [
+  "All",
+  "AI",
+  "Security",
+  "Development",
+  "Systems & Networks",
+];
+
 export * from "./blog-posts";
+

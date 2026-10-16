@@ -49,19 +49,24 @@ src/
 │   │   └── footer.tsx                  # Page copyright footer
 │   ├── sections/
 │   │   ├── hero-section.tsx            # Landing header & tech marquee loop
-│   │   ├── about-section.tsx           # Bio highlights
+│   │   ├── about-section.tsx           # Bio highlights & animated counters
+│   │   ├── services-section.tsx        # Services carousel & offerings
 │   │   ├── projects-section.tsx        # Project catalog with category filtering
+│   │   ├── blog-section.tsx            # Technical articles & blog cards
 │   │   ├── experience-section.tsx      # Chronological history timeline
-│   │   ├── faq-section.tsx             # Factual FAQ schema block
-│   │   └── contact-section.tsx         # CTAs & mail/linktree redirects
+│   │   ├── certifications-section.tsx  # Cisco NetAcad & Credly verified badges
+│   │   └── contact-section.tsx         # CTAs & email/social links
 │   ├── shared/
 │   │   ├── section.tsx                 # Shared viewport animate sections wrapper
-│   │   ├── social-link.tsx             # Shared custom social icon button
+│   │   ├── project-card.tsx            # Interactive project preview cards
+│   │   ├── blog-card.tsx               # Blog post card component
 │   │   └── particles-background.tsx    # Shared background code particle canvas
 │   ├── portfolio.tsx                   # Main layout compositor
-│   └── providers.tsx                   # Tooltip context provider wrapper
+│   └── providers.tsx                   # Tooltip & global context providers
 ├── lib/
-│   ├── portfolio-data.ts               # Local data model profiles & projects
+│   ├── portfolio-data.ts               # Local data model profiles & section meta
+│   ├── certifications.json             # Cached Cisco NetAcad / Credly badges
+│   ├── projects.json                   # Cached GitHub repositories & stats
 │   └── utils.ts                        # Tailwind class mergers (clsx/tailwind-merge)
 ```
 

@@ -14,6 +14,7 @@ import { ServicesSection } from "@/components/sections/services-section";
 import { ProjectsSection } from "@/components/sections/projects-section";
 import { BlogSection } from "@/components/sections/blog-section";
 import { ExperienceSection } from "@/components/sections/experience-section";
+import { CertificationsSection } from "@/components/sections/certifications-section";
 import { ContactSection } from "@/components/sections/contact-section";
 import { Footer } from "@/components/layout/footer";
 import { IntroLoader } from "@/components/shared/intro-loader";
@@ -159,6 +160,8 @@ export function Portfolio() {
 
         <ExperienceSection />
 
+        <CertificationsSection />
+
         <ContactSection />
 
         <Footer />
@@ -269,6 +272,25 @@ export function Portfolio() {
           </ul>
         </article>
 
+        <article>
+          <h3>Certifications & Credentials (Cisco Networking Academy)</h3>
+          <p>Verified digital badges and student credentials earned through Cisco Networking Academy (NetAcad) and registered on Credly:</p>
+          <ul>
+            <li><strong>Core Generative AI Skills</strong> — Cisco (Oct 2026). Generative AI models, ethical AI, prompt engineering, and business productivity. <a href="https://www.credly.com/badges/d97e5cd8-780d-4fd6-befc-ddd53e75362a">Verify on Credly</a></li>
+            <li><strong>JavaScript Essentials 1</strong> — Cisco &amp; OpenEDG JS Institute (Oct 2026). Syntax, variables, functions, and algorithmic thinking. <a href="https://www.credly.com/badges/332e1bc2-5845-4ca8-9513-3d6353d6b23b">Verify on Credly</a></li>
+            <li><strong>Operating Systems Basics</strong> — Cisco (Oct 2026). OS security, process management, mobile network connectivity, Windows, and Linux. <a href="https://www.credly.com/badges/2107b3a9-6143-4d7f-a3e9-0f212ea983c4">Verify on Credly</a></li>
+            <li><strong>Ethical Hacker</strong> — Cisco (Oct 2026). Scoping vulnerability assessments, penetration testing, Kali Linux, and mitigation strategies. <a href="https://www.credly.com/badges/cc5400c6-dfea-4f24-8753-a7494eb4fa9d">Verify on Credly</a></li>
+            <li><strong>Introduction to Cybersecurity</strong> — Cisco (Oct 2026). Threat detection, network vulnerabilities, and cyber defense best practices. <a href="https://www.credly.com/badges/36f6428c-0027-40e8-afed-121ec8df9552">Verify on Credly</a></li>
+            <li><strong>Introduction to IoT</strong> — Cisco (Oct 2026). Digital transformation, IoT architecture, and intent-based networking. <a href="https://www.credly.com/badges/b8e6c40c-c8f3-4cfd-89ec-8bed18473599">Verify on Credly</a></li>
+            <li><strong>Introduction to Modern AI</strong> — Cisco (Oct 2026). Machine learning, computer vision, translation models, and chatbot prompting. <a href="https://www.credly.com/badges/526e1e66-403c-4993-976f-604656c9a716">Verify on Credly</a></li>
+            <li><strong>Networking Basics</strong> — Cisco (Oct 2026). IPv4 routing, OSI/TCP models, wireless networks, and Packet Tracer diagnostics. <a href="https://www.credly.com/badges/a9e374e6-098e-4048-b04b-68bd7362da57">Verify on Credly</a></li>
+            <li><strong>Prompt Like an Engineer</strong> — Cisco (Oct 2026). Chain of thought, few-shot prompts, task decomposition, and systematic AI output evaluation. <a href="https://www.credly.com/badges/83289696-4839-432d-95ce-6e1e35a1f777">Verify on Credly</a></li>
+            <li><strong>Python Essentials 1</strong> — Cisco &amp; OpenEDG Python Institute (Oct 2026). Python core syntax, standard library, and procedural programming. <a href="https://www.credly.com/badges/2908854b-3083-402d-8c41-a93c6dbd9925">Verify on Credly</a></li>
+            <li><strong>Operating Systems Support</strong> — Cisco (Oct 2026). IT customer support, virtualization, cloud computing, and OS troubleshooting. <a href="https://www.credly.com/badges/0288e739-e3e4-4ae8-96c2-8e436124aa2c">Verify on Credly</a></li>
+            <li><strong>Computer Hardware Basics</strong> — Cisco (Sep 2026). Hardware diagnostics, device repair, components, and maintenance. <a href="https://www.credly.com/badges/13fa5df5-79f3-41c2-9397-cb7ffc9da9d8">Verify on Credly</a></li>
+          </ul>
+        </article>
+
         <aside>
           <h3>Frequently Asked Questions about Jay Patrick Cano</h3>
 
@@ -280,6 +302,11 @@ export function Portfolio() {
           <details>
             <summary>What services does Jay Patrick Cano offer?</summary>
             <p>He offers full-stack web application development (React, Next.js), cross-platform mobile app development (React Native, Expo), API and backend system design (Node.js, Python, FastAPI), business automation scripting, custom software development, and IT/tech consulting for startups and growing businesses.</p>
+          </details>
+
+          <details>
+            <summary>What certifications does Jay Patrick Cano hold?</summary>
+            <p>Jay Patrick Cano holds 12 verified certifications from Cisco Networking Academy (NetAcad), including Core Generative AI Skills, Ethical Hacker, Python Essentials 1, JavaScript Essentials 1, Networking Basics, Introduction to Cybersecurity, Operating Systems Support, and Prompt Like an Engineer, all verifiable on Credly.</p>
           </details>
 
           <details>
@@ -303,6 +330,7 @@ export function Portfolio() {
           <ul>
             <li><a href="https://github.com/0xp47" itemProp="sameAs">GitHub — github.com/0xp47</a></li>
             <li><a href="https://www.linkedin.com/in/0xp47" itemProp="sameAs">LinkedIn — linkedin.com/in/0xp47</a></li>
+            <li><a href="https://www.credly.com/users/0xp47/badges" itemProp="sameAs">Credly Badges — credly.com/users/0xp47/badges</a></li>
             <li><a href="https://www.instagram.com/0xp47" itemProp="sameAs">Instagram — instagram.com/0xp47</a></li>
             <li><a href="https://www.facebook.com/0xp47" itemProp="sameAs">Facebook — facebook.com/0xp47</a></li>
           </ul>

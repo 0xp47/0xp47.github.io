@@ -37,7 +37,11 @@ export const metadata: Metadata = {
     "FastAPI Developer",
     "Next.js Developer",
     "PHP developer Philippines",
-    "automation developer"
+    "automation developer",
+    "Cisco Networking Academy",
+    "NetAcad",
+    "Credly 0xp47",
+    "Cisco Certified"
   ],
   authors: [{ name: "Jay Patrick Cano" }],
   creator: "Jay Patrick Cano",
@@ -111,11 +115,74 @@ const jsonLd = {
   "sameAs": [
     "https://github.com/0xp47",
     "https://www.linkedin.com/in/0xp47",
+    "https://www.credly.com/users/0xp47/badges",
     "https://www.instagram.com/0xp47",
     "https://www.facebook.com/0xp47"
   ],
   "email": "hello@jaypatrickcano.dev",
   "description": "Developer and entrepreneur building custom software, cross-platform mobile apps, and automated workflows. Founder of GroundZero global community and co-founder of CodeTriad Solutions.",
+  "hasCredential": [
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Core Generative AI Skills",
+      "credentialCategory": "Digital Badge",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Cisco"
+      },
+      "url": "https://www.credly.com/badges/d97e5cd8-780d-4fd6-befc-ddd53e75362a"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Ethical Hacker",
+      "credentialCategory": "Digital Badge",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Cisco"
+      },
+      "url": "https://www.credly.com/badges/cc5400c6-dfea-4f24-8753-a7494eb4fa9d"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "JavaScript Essentials 1",
+      "credentialCategory": "Digital Badge",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Cisco & OpenEDG JS Institute"
+      },
+      "url": "https://www.credly.com/badges/332e1bc2-5845-4ca8-9513-3d6353d6b23b"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Python Essentials 1",
+      "credentialCategory": "Digital Badge",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Cisco & OpenEDG Python Institute"
+      },
+      "url": "https://www.credly.com/badges/2908854b-3083-402d-8c41-a93c6dbd9925"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Introduction to Cybersecurity",
+      "credentialCategory": "Digital Badge",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Cisco"
+      },
+      "url": "https://www.credly.com/badges/36f6428c-0027-40e8-afed-121ec8df9552"
+    },
+    {
+      "@type": "EducationalOccupationalCredential",
+      "name": "Networking Basics",
+      "credentialCategory": "Digital Badge",
+      "recognizedBy": {
+        "@type": "Organization",
+        "name": "Cisco"
+      },
+      "url": "https://www.credly.com/badges/a9e374e6-098e-4048-b04b-68bd7362da57"
+    }
+  ],
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Maasin City",
