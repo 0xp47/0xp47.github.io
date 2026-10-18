@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import type { Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { Providers } from "@/components/providers";
+import { ThemeToggle } from "@/components/shared/theme-toggle";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -100,9 +101,13 @@ export const metadata: Metadata = {
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
-  colorScheme: "dark",
+  colorScheme: "dark light",
   themeColor: "#09090b",
 };
+
+// Restores the persisted theme before first paint (prevents a dark→light flash).
+// Same pattern documented in Next.js "preventing flash before hydration".
+const themeRestoreScript = `try{var t=localStorage.getItem("0xp47-theme");if(t==="light"){document.documentElement.classList.remove("dark")}else if(t==="dark"){document.documentElement.classList.add("dark")}}catch(e){}`;
 
 const jsonLd = {
   "@context": "https://schema.org",
@@ -383,7 +388,11 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="flex min-h-full flex-col bg-background text-foreground">
-        <Providers>{children}</Providers>
+        <script dangerouslySetInnerHTML={{ __html: themeRestoreScript }} />
+        <Providers>
+          {children}
+          <ThemeToggle />
+        </Providers>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}

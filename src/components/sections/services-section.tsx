@@ -97,26 +97,26 @@ export function ServicesSection() {
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                className="group flex flex-col items-start border-t border-border/10 pt-5 snap-start shrink-0 w-full sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-64px)/3)] hover:border-foreground/35 transition-colors duration-500"
+                className="group flex flex-col items-start border-t border-border pt-5 snap-start shrink-0 w-full sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-64px)/3)] transition-colors duration-500 hover:border-foreground/50"
               >
                 {/* Header: Title and Index Number side-by-side */}
                 <div className="flex items-baseline justify-between w-full">
-                  <h3 className="text-sm font-bold text-foreground tracking-tight">
+                  <h3 className="text-sm font-semibold text-foreground tracking-tight">
                     {service.title}
                   </h3>
-                  <span className="font-mono text-[10px] font-bold text-foreground/35 group-hover:text-foreground/75 transition-colors duration-500 select-none">
+                  <span className="font-mono text-[10px] font-bold text-foreground/30 group-hover:text-foreground/70 transition-colors duration-500 select-none tabular-nums">
                     {formattedIndex}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs leading-relaxed text-muted-foreground/80 mt-3 text-pretty group-hover:text-neutral-200 transition-colors duration-500">
+                <p className="text-xs leading-relaxed text-muted-foreground/80 mt-3 text-pretty group-hover:text-foreground transition-colors duration-500">
                   {service.description}
                 </p>
 
                 {/* Tech/Keyword tags list */}
-                <div className="font-mono text-[8.5px] text-muted-foreground/50 tracking-wider mt-5 group-hover:text-foreground/50 transition-colors duration-500">
-                  {service.tags.join("  •  ")}
+                <div className="mt-auto pt-5 font-mono text-[8.5px] uppercase tracking-[0.18em] text-muted-foreground/45 leading-relaxed group-hover:text-foreground/55 transition-colors duration-500">
+                  {service.tags.join("  ·  ")}
                 </div>
               </motion.div>
             );

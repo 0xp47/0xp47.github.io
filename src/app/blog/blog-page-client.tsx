@@ -108,7 +108,7 @@ export function BlogPageClient() {
               placeholder="Search articles..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-border/40 bg-black/20 py-2.5 pl-10 pr-10 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300"
+              className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-10 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300"
             />
             {searchQuery && (
               <button
@@ -151,37 +151,37 @@ export function BlogPageClient() {
                   /* List Row View (Horizontal) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group flex flex-row gap-4 sm:gap-5 border border-border/10 bg-transparent rounded-xl overflow-hidden hover:border-foreground/20 transition-all duration-500 p-4 items-center justify-between text-left w-full h-full"
+                    className="group flex flex-row gap-4 sm:gap-6 border-b border-border py-6 items-center justify-between text-left w-full h-full transition-colors duration-300 hover:border-foreground/40"
                   >
                     <div className="flex-1 min-w-0 space-y-2">
                       {/* Date and Reading Time */}
                       <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1.5 text-[9px] font-mono text-muted-foreground/60 uppercase">
+                        <span className="flex items-center gap-1.5 text-[9px] font-mono text-muted-foreground/60 uppercase tracking-wider">
                           <Calendar className="size-3" />
                           {post.dateDisplay}
                         </span>
-                        <span className="flex items-center gap-1.5 text-[9px] font-mono text-muted-foreground/60 uppercase">
+                        <span className="flex items-center gap-1.5 text-[9px] font-mono text-muted-foreground/60 uppercase tracking-wider">
                           <Clock className="size-3" />
                           {post.readingTime}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-sm font-bold text-foreground tracking-tight group-hover:text-foreground/95 transition-colors line-clamp-1">
+                      <h3 className="text-sm font-semibold text-foreground tracking-tight group-hover:text-foreground transition-colors line-clamp-1">
                         {post.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-xs leading-relaxed text-neutral-400 line-clamp-2">
+                      <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 line-clamp-2">
                         {post.description}
                       </p>
 
                       {/* Footer: Tags + Read More */}
-                      <div className="flex items-center justify-between border-t border-border/5 pt-3 mt-1.5">
-                        <div className="font-mono text-[8px] text-muted-foreground/50 tracking-wider truncate max-w-[70%]">
-                          {post.tags.join("  •  ")}
+                      <div className="flex items-center justify-between pt-2">
+                        <div className="font-mono text-[8.5px] uppercase tracking-[0.16em] text-muted-foreground/50 tracking-wider truncate max-w-[70%]">
+                          {post.tags.join("  ·  ")}
                         </div>
-                        <span className="flex items-center gap-1 text-[9px] font-bold text-muted-foreground/65 group-hover:text-foreground transition-colors shrink-0">
+                        <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-muted-foreground/65 group-hover:text-foreground transition-colors shrink-0">
                           read
                           <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform duration-300" />
                         </span>
@@ -189,9 +189,10 @@ export function BlogPageClient() {
                     </div>
 
                     {/* Right Thumbnail Cover */}
-                    <div className="size-16 sm:size-24 bg-white border border-border/10 rounded-lg overflow-hidden shrink-0 relative">
-                      <BlogThumbnail slug={post.slug} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
-                    </div>
+                    <BlogThumbnail
+                      slug={post.slug}
+                      className="size-16 sm:size-24 shrink-0"
+                    />
                   </Link>
                 )}
               </motion.div>
@@ -260,7 +261,7 @@ export function BlogPageClient() {
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="mt-4 rounded-full border border-border/30 bg-black/10 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition-all duration-300 cursor-pointer"
+              className="mt-4 rounded-full border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition-all duration-300 cursor-pointer"
             >
               Clear search
             </button>

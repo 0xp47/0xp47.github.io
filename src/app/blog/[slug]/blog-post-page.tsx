@@ -42,7 +42,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
       // Create copy button
       const copyButton = document.createElement("button");
-      copyButton.className = "absolute right-3 top-3 px-2 py-1 text-[10px] font-mono rounded bg-white/10 hover:bg-white/20 text-white/70 hover:text-white border border-white/10 opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-200 select-none cursor-pointer";
+      copyButton.className = "absolute right-3 top-3 px-2 py-1 text-[10px] font-mono rounded bg-foreground/10 hover:bg-foreground/20 text-foreground/70 hover:text-foreground border border-border opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-200 select-none cursor-pointer";
       copyButton.innerText = "Copy";
 
       // Add click handler
@@ -75,7 +75,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-5xl w-full px-6 py-16 sm:px-8 sm:py-24 flex-grow"
+        className="mx-auto max-w-4xl w-full px-6 py-16 sm:px-8 sm:py-24 flex-grow"
       >
         {/* Two-Column Layout: Article + Sidebar */}
         <div className="lg:grid lg:grid-cols-[1fr_260px] lg:gap-16">
@@ -83,19 +83,19 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
           <article>
             {/* Header */}
             <header className="mb-10">
-              {/* Tags */}
-              <div className="flex flex-wrap gap-2 mb-5">
+              {/* Tags — plain text, no boxes */}
+              <div className="flex flex-wrap gap-x-4 gap-y-1 mb-5">
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="font-mono text-[9px] tracking-wider uppercase text-muted-foreground/60 border border-border/20 rounded-full px-2.5 py-1"
+                    className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground/55"
                   >
                     {tag}
                   </span>
                 ))}
               </div>
 
-              <h1 className="text-2xl font-bold text-foreground tracking-tight leading-tight sm:text-3xl">
+              <h1 className="text-3xl font-semibold text-foreground tracking-tight leading-tight sm:text-4xl">
                 {post.title}
               </h1>
 
@@ -112,21 +112,16 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               </div>
 
               {/* Cover Thumbnail */}
-              <BlogThumbnail slug={post.slug} className="w-full aspect-video rounded-2xl border border-border/10 max-h-[260px] md:max-h-[320px] object-cover mb-8" />
+              <BlogThumbnail slug={post.slug} className="w-full aspect-video rounded-lg max-h-[260px] md:max-h-[320px] object-cover mb-8" />
 
               {/* Divider */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={{ scaleX: 1 }}
-                transition={{ duration: 1.2, ease: "easeOut", delay: 0.3 }}
-                className="mt-8 h-px origin-left bg-gradient-to-r from-foreground/25 via-border to-transparent"
-              />
+              <div className="h-px bg-border" />
             </header>
 
             {/* Article Body */}
-            <div 
+            <div
               ref={articleRef}
-              className="prose-custom markdown-body"
+              className="article-body max-w-[70ch]"
               dangerouslySetInnerHTML={{ __html: parseContent(post.content) }}
             />
 

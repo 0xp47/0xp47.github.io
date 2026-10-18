@@ -49,12 +49,12 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
       />
       <div
         aria-hidden="true"
-        className="absolute inset-0 -z-10 h-full bg-[radial-gradient(circle_at_50%_0%,rgba(255,255,255,0.02),transparent_50%)]"
+        className="absolute inset-0 -z-10 h-full bg-[radial-gradient(circle_at_50%_0%,color-mix(in_srgb,var(--foreground)_2%,transparent),transparent_50%)]"
       />
 
       {/* Large Centered Portrait Cutout (positioned absolutely in background, sitting flush on top of marquee) */}
       <div className="absolute inset-x-0 bottom-16 top-0 z-0 hidden md:flex items-end justify-center pointer-events-none">
-        <div className="relative h-[80%] md:h-[84%] lg:h-[88%] w-full max-w-[400px] md:max-w-[460px] lg:max-w-[520px] origin-bottom">
+        <div className="relative h-[80%] md:h-[84%] lg:h-[88%] w-full max-w-[400px] md:max-w-[460px] lg:max-w-[520px] origin-bottom [mask-image:linear-gradient(to_bottom,black_88%,transparent)]">
           <Image
             src="/images/me.png"
             alt="Jay Patrick Cano (Pat) - Senior Full-Stack Engineer Portrait Cutout"
@@ -109,7 +109,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
               >
                 <button
                   onClick={() => onScrollToSection("#about")}
-                  className="flex size-12 items-center justify-center rounded-full bg-foreground text-background shadow-[0_4px_20px_rgba(0,0,0,0.35)] hover:bg-foreground/90 transition duration-300 active:scale-95"
+                  className="flex size-12 items-center justify-center rounded-full bg-foreground text-background shadow-[0_4px_20px_rgba(0,0,0,0.18)] hover:bg-foreground/90 transition duration-300 active:scale-95"
                   aria-label="Scroll down to About section"
                 >
                   <ArrowDown className="size-5 stroke-[2.5]" />
@@ -144,7 +144,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-foreground uppercase">
                   ABOUT ME
                 </h3>
-                <p className="mt-2.5 text-[13px] md:text-sm leading-relaxed text-neutral-300">
+                <p className="mt-2.5 text-[13px] md:text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
                   {heroAboutSegment}
                 </p>
                 <a
@@ -164,7 +164,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-foreground uppercase">
                   MY WORK
                 </h3>
-                <p className="mt-2.5 text-[13px] md:text-sm leading-relaxed text-neutral-300">
+                <p className="mt-2.5 text-[13px] md:text-sm leading-relaxed text-neutral-600 dark:text-neutral-300">
                   {heroWorkSegment}
                 </p>
                 <a
@@ -244,7 +244,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
 
         <motion.div
-          className="flex w-max items-center gap-3 pr-3"
+          className="flex w-max items-center gap-10 pr-10"
           animate={{ x: ["0%", "-50%"] }}
           transition={{
             ease: "linear",
@@ -258,10 +258,11 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
               return (
                 <span
                   key={`${gi}-${ii}`}
-                  className="flex shrink-0 items-center gap-2 rounded-full border border-border bg-background/80 px-4 py-2 text-sm text-foreground shadow-sm backdrop-blur transition hover:border-foreground/30"
+                  className="flex shrink-0 items-center gap-2.5 text-[13px] tracking-wide text-neutral-500 dark:text-neutral-400 transition-colors duration-300 hover:text-foreground"
                 >
-                  <Icon className="size-3.5 text-muted-foreground" />
+                  <Icon className="size-4 text-neutral-400 dark:text-neutral-500" />
                   {item}
+                  <span aria-hidden="true" className="ml-7 text-foreground/15 select-none">·</span>
                 </span>
               );
             });

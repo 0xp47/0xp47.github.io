@@ -63,34 +63,27 @@ export function ExperienceSection() {
                       {item.position}
                     </h3>
                     {isPresent && (
-                      <span className="flex items-center gap-1.5 rounded-full bg-foreground/[0.04] px-2 py-0.5 border border-foreground/10">
+                      <span className="flex items-center gap-1.5">
                         <span className="relative flex h-1.5 w-1.5">
                           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground/30 opacity-75"></span>
                           <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-foreground/80"></span>
                         </span>
-                        <span className="font-mono text-[8px] tracking-wider uppercase text-foreground/60 font-semibold">
+                        <span className="font-mono text-[8px] tracking-[0.2em] uppercase text-foreground/60 font-semibold">
                           Active
                         </span>
                       </span>
                     )}
                   </div>
 
-                  <p className="mt-2.5 text-xs leading-relaxed text-muted-foreground/80 group-hover:text-neutral-200 transition-colors duration-300">
+                  <p className="mt-2.5 text-xs leading-relaxed text-muted-foreground/80 group-hover:text-foreground transition-colors duration-300">
                     {item.description}
                   </p>
 
-                  {/* Skills/Tags */}
+                  {/* Skills as inline plain text */}
                   {item.tags && (
-                    <div className="flex flex-wrap gap-1.5 mt-4">
-                      {item.tags.map((tag) => (
-                        <span
-                          key={tag}
-                          className="font-mono text-[8.5px] tracking-wider uppercase text-muted-foreground/50 border border-border/10 bg-foreground/[0.01] rounded-full px-2.5 py-0.5 group-hover:border-foreground/20 group-hover:text-foreground/70 transition-all duration-300"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="mt-3 font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground/45">
+                      {item.tags.join("  ·  ")}
+                    </p>
                   )}
                 </div>
               </motion.article>

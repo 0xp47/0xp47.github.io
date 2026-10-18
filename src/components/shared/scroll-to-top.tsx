@@ -16,7 +16,7 @@ export function ScrollToTop({ show, onClick }: ScrollToTopProps) {
       onClick={onClick}
       initial={false}
       animate={show ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-      className="fixed bottom-6 right-6 z-40 flex size-10 items-center justify-center rounded-full border border-border bg-background/85 text-foreground shadow-2xl backdrop-blur transition hover:-translate-y-1 hover:border-foreground/20"
+      className="fixed bottom-6 right-6 z-40 flex size-10 items-center justify-center rounded-full bg-background/70 text-foreground shadow-[0_16px_48px_rgba(0,0,0,0.25)] ring-1 ring-border backdrop-blur-xl transition hover:-translate-y-1 hover:bg-foreground hover:text-background"
     >
       <ArrowUp className="size-4" />
     </motion.button>

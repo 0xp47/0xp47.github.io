@@ -10,15 +10,15 @@ interface ViewToggleProps {
 
 export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
   return (
-    <div className="flex items-center gap-0.5 rounded-lg border border-border/15 bg-black/25 p-0.5 w-fit select-none">
+    <div className="flex items-center gap-1 w-fit select-none">
       <button
         type="button"
         onClick={() => onViewModeChange("list")}
         className={cn(
           "rounded-md p-1.5 transition-all duration-300 cursor-pointer flex items-center justify-center",
           viewMode === "list"
-            ? "bg-neutral-800 text-foreground"
-            : "text-muted-foreground/60 hover:text-foreground"
+            ? "bg-foreground text-background"
+            : "text-muted-foreground/60 hover:text-foreground hover:bg-foreground/5"
         )}
         aria-label="List View"
       >
@@ -30,8 +30,8 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
         className={cn(
           "rounded-md p-1.5 transition-all duration-300 cursor-pointer flex items-center justify-center",
           viewMode === "grid"
-            ? "bg-neutral-800 text-foreground"
-            : "text-muted-foreground/60 hover:text-foreground"
+            ? "bg-foreground text-background"
+            : "text-muted-foreground/60 hover:text-foreground hover:bg-foreground/5"
         )}
         aria-label="Grid View"
       >

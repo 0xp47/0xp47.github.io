@@ -24,62 +24,60 @@ export interface ProjectCardProps {
 }
 
 export function ProjectCard({ project, onViewDetails, className }: ProjectCardProps) {
+  const isLive = !project.isPrivate && project.live && project.live !== project.github;
+
   return (
-    <article className={cn("group relative flex flex-col border border-border/10 bg-transparent rounded-xl overflow-hidden hover:border-foreground/20 transition-all duration-500 h-full", className)}>
-      {/* macOS-style Window Title Bar Header */}
-      <div className="flex items-center justify-between border-b border-border/10 bg-white/[0.02] px-4 py-2">
-        <div className="flex gap-1.5">
-          <span className="size-2 rounded-full bg-foreground/30" />
-          <span className="size-2 rounded-full bg-foreground/20" />
-          <span className="size-2 rounded-full bg-foreground/10" />
-        </div>
-        <span className="font-mono text-[8px] text-muted-foreground/50 tracking-wider">
-          ~/projects/{project.name.toLowerCase().replace(/[\s-]/g, "")}
+    <article
+      className={cn(
+        "group relative flex h-full flex-col items-start border-t border-border py-6 transition-colors duration-300 hover:border-foreground/50",
+        className,
+      )}
+    >
+      {/* Category + stars (bare text, no chips) */}
+      <div className="mb-3 flex w-full items-baseline justify-between gap-3">
+        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/60">
+          {project.category}
+        </span>
+        <span className="font-mono text-[10px] text-muted-foreground/40 tabular-nums">
+          {project.stars ? `${project.stars}★` : ""}
         </span>
       </div>
 
-      {/* Window Card Body */}
-      <div className="flex-grow p-4 flex flex-col justify-between gap-4">
-        <div className="space-y-2">
-          <div className="flex items-start justify-between gap-4">
-            <h3 className="text-sm font-bold tracking-tight text-foreground">
-              {project.isPrivate || !project.live || project.live === project.github ? (
-                <span>{project.name}</span>
-              ) : (
-                <a
-                  href={project.live}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="hover:underline flex items-center gap-1 group-hover:text-foreground"
-                >
-                  {project.name}
-                  <ArrowUpRight className="size-3 text-muted-foreground/45 group-hover:text-foreground group-hover:opacity-100 group-hover:translate-x-0.5 group-hover:-translate-y-px transition-all duration-300" />
-                </a>
-              )}
-            </h3>
-            <span className="font-mono text-[8px] font-bold text-foreground/40 uppercase tracking-widest shrink-0 bg-foreground/[0.03] px-1.5 py-0.5 rounded border border-border/10">
-              {project.category}
-            </span>
-          </div>
-
-          <p className="text-xs leading-relaxed text-neutral-400 line-clamp-3">
-            {project.description}
-          </p>
-        </div>
-
-        <div className="flex items-center justify-between border-t border-border/5 pt-3 mt-1">
-          <div className="font-mono text-[8.5px] text-muted-foreground/50 tracking-wide truncate max-w-[70%]">
-            {project.stack.slice(0, 3).join("  •  ")}
-          </div>
-          <button
-            type="button"
-            onClick={() => onViewDetails(project)}
-            className="font-mono text-[9px] text-muted-foreground hover:text-foreground hover:underline transition-colors cursor-pointer font-bold flex items-center gap-1 shrink-0"
+      {/* Title — links out when live */}
+      <h3 className="text-base font-semibold tracking-tight text-foreground">
+        {isLive ? (
+          <a
+            href={project.live}
+            target="_blank"
+            rel="noreferrer"
+            className="inline-flex items-baseline gap-1 transition-colors duration-300"
           >
-            <ArrowUpRight className="size-3" />
-            details
-          </button>
+            {project.name}
+            <ArrowUpRight className="size-3.5 translate-y-px text-muted-foreground/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+          </a>
+        ) : (
+          project.name
+        )}
+      </h3>
+
+      <p className="mt-2 text-xs leading-relaxed text-neutral-500 transition-colors duration-300 group-hover:text-foreground dark:text-neutral-400">
+        {project.description}
+      </p>
+
+      {/* Stack as plain mono text + details */}
+      <div className="mt-auto w-full pt-6">
+        <div className="font-mono text-[10px] leading-relaxed tracking-wide text-muted-foreground/55">
+          {project.stack.slice(0, 3).join("  ·  ")}
         </div>
+
+        <button
+          type="button"
+          onClick={() => onViewDetails(project)}
+          className="mt-3 inline-flex cursor-pointer items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+        >
+          Details
+          <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+        </button>
       </div>
     </article>
   );

@@ -1,21 +1,30 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, CheckCircle2, ShieldCheck } from "lucide-react";
+import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { SiCredly } from "react-icons/si";
 import { certifications, certificationCategories, sectionMeta, profile } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
-import { cardVariants } from "@/lib/animation-variants";
 import { cn } from "@/lib/utils";
+
+function formatDate(iso: string): string {
+  return new Date(iso).toLocaleDateString("en-US", {
+    month: "short",
+    year: "numeric",
+  });
+}
 
 export function CertificationsSection() {
   const [activeCategory, setActiveCategory] = useState("All");
 
   const filteredCertifications = useMemo(() => {
-    if (activeCategory === "All") return certifications;
-    return certifications.filter((cert) => cert.category === activeCategory);
+    const list =
+      activeCategory === "All"
+        ? certifications
+        : certifications.filter((cert) => cert.category === activeCategory);
+    return [...list].sort((a, b) => b.issueDate.localeCompare(a.issueDate));
   }, [activeCategory]);
 
   const categoryCounts = useMemo(() => {
@@ -26,180 +35,154 @@ export function CertificationsSection() {
     return counts;
   }, []);
 
+  const lastIssued = useMemo(() => {
+    const dates = certifications.map((c) => c.issueDate).sort();
+    return formatDate(dates[dates.length - 1]);
+  }, []);
+
   return (
     <Section
       id="certifications"
       eyebrow={sectionMeta.certifications.eyebrow}
       title={sectionMeta.certifications.title}
     >
-      <div className="flex flex-col gap-6 mt-8">
-        
-        {/* Top Control Bar: Category filters and Credly Verification Pill */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 border-b border-border/10 pb-6">
-          {/* Category Tabs */}
-          <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
-            {certificationCategories.map((category) => {
-              const isActive = activeCategory === category;
-              const count = categoryCounts[category] || 0;
+      <div className="flex flex-col">
+        {/* Summary + controls band */}
+        <div className="flex flex-col gap-6 border-b border-border pb-8 md:flex-row md:items-end md:justify-between">
+          <div className="max-w-xl space-y-5">
+            <p className="text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 max-w-xl">
+              <span className="font-semibold text-foreground">
+                {certifications.length} verified credentials
+              </span>{" "}
+              earned through Cisco Networking Academy and registered on the Credly
+              digital badge registry — latest issued {lastIssued}.
+            </p>
 
-              return (
-                <button
-                  key={category}
-                  type="button"
-                  onClick={() => setActiveCategory(category)}
-                  className={cn(
-                    "relative rounded-full px-3 py-1.5 text-xs font-mono transition-all duration-300 cursor-pointer flex items-center gap-1.5",
-                    isActive
-                      ? "bg-foreground text-background font-semibold shadow-sm"
-                      : "text-muted-foreground hover:text-foreground hover:bg-foreground/5 border border-border/15"
-                  )}
-                >
-                  <span>{category}</span>
-                  <span
+            {/* Category tabs — plain text, animated underline */}
+            <nav
+              className="flex flex-wrap items-center gap-x-5 gap-y-2"
+              aria-label="Certification categories"
+            >
+              {certificationCategories.map((category) => {
+                const isActive = activeCategory === category;
+                return (
+                  <button
+                    key={category}
+                    type="button"
+                    onClick={() => setActiveCategory(category)}
                     className={cn(
-                      "text-[10px] rounded-full px-1.5 py-0.2",
+                      "group relative cursor-pointer font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-300",
                       isActive
-                        ? "bg-background/20 text-background"
-                        : "bg-foreground/5 text-muted-foreground"
+                        ? "text-foreground"
+                        : "text-muted-foreground/55 hover:text-foreground",
                     )}
                   >
-                    {count}
-                  </span>
-                </button>
-              );
-            })}
+                    {category}
+                    <span className="ml-1.5 text-[9px] tabular-nums text-muted-foreground/40">
+                      {categoryCounts[category] || 0}
+                    </span>
+                    <span
+                      className={cn(
+                        "absolute -bottom-1 left-0 h-px w-full origin-left bg-foreground transition-transform duration-300",
+                        isActive ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+                      )}
+                    />
+                  </button>
+                );
+              })}
+            </nav>
           </div>
 
-          {/* Credly Profile Quick Link */}
+          {/* Credly profile link */}
           <a
             href={profile.credly}
             target="_blank"
             rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 self-start sm:self-auto rounded-full border border-border/20 bg-foreground/[0.02] hover:bg-foreground/[0.06] hover:border-foreground/30 px-3.5 py-1.5 text-xs font-mono text-muted-foreground hover:text-foreground transition-all duration-300"
+            className="group inline-flex items-center gap-2 self-start text-[11px] tracking-wide text-muted-foreground transition-colors duration-300 hover:text-foreground md:self-auto"
             title="View verified credentials on Credly"
           >
             <SiCredly className="size-3.5 text-[#ff6b00]" />
-            <span className="font-medium">Verify on Credly</span>
-            <ArrowUpRight className="size-3 text-muted-foreground group-hover:text-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <span>Complete profile on Credly</span>
+            <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </a>
         </div>
 
-        {/* Credentials Grid */}
-        <motion.div
-          layout
-          className="grid gap-4 sm:gap-6 sm:grid-cols-2 lg:grid-cols-3"
-        >
+        {/* Credential directory — ledger rows */}
+        <motion.div layout className="border-t border-border">
           <AnimatePresence mode="popLayout">
-            {filteredCertifications.map((badge) => {
-              const formattedDate = new Date(badge.issueDate).toLocaleDateString("en-US", {
-                month: "short",
-                year: "numeric",
-              });
+            {filteredCertifications.map((badge, index) => {
+              const topSkills = badge.skills.slice(0, 3);
+              const remaining = badge.skills.length - topSkills.length;
 
               return (
                 <motion.article
                   key={badge.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.96 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.96 }}
-                  transition={{ duration: 0.3 }}
-                  variants={cardVariants}
-                  className="group relative flex flex-col justify-between rounded-2xl border border-border/15 bg-card/25 p-5 backdrop-blur-sm hover:border-foreground/30 hover:bg-card/40 transition-all duration-300 shadow-sm"
+                  initial={{ opacity: 0, y: 10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{
+                    duration: 0.35,
+                    delay: Math.min(index * 0.03, 0.3),
+                    ease: [0.16, 1, 0.3, 1],
+                  }}
+                  className="border-b border-border"
                 >
-                  <div>
-                    {/* Top Header: Badge Image + Metadata */}
-                    <div className="flex items-start gap-4">
-                      <div className="relative size-16 shrink-0 overflow-hidden rounded-xl border border-border/20 bg-black/20 p-1.5 flex items-center justify-center group-hover:border-foreground/30 transition-colors">
-                        <Image
-                          src={badge.imageUrl}
-                          alt={`${badge.title} badge`}
-                          width={60}
-                          height={60}
-                          unoptimized
-                          className="size-full object-contain drop-shadow-sm group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-
-                      <div className="flex flex-col min-w-0">
-                        <div className="flex items-center gap-2">
-                          <span className="inline-block rounded-full bg-foreground/[0.05] border border-border/15 px-2 py-0.5 text-[9.5px] font-mono text-muted-foreground uppercase tracking-wider">
-                            {badge.category}
-                          </span>
-                          <span className="text-[10px] font-mono text-muted-foreground/60">
-                            {formattedDate}
-                          </span>
-                        </div>
-
-                        <h3 className="mt-1 text-sm font-bold text-foreground leading-snug group-hover:text-foreground transition-colors line-clamp-2">
-                          {badge.title}
-                        </h3>
-
-                        <div className="flex items-center gap-1 mt-1 text-[11px] text-muted-foreground">
-                          <ShieldCheck className="size-3.5 text-emerald-500 shrink-0" />
-                          <span className="truncate">{badge.organization}</span>
-                        </div>
-                      </div>
+                  <a
+                    href={badge.badgeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group grid grid-cols-[auto_1fr_auto] items-start gap-x-5 transition-colors duration-300"
+                    aria-label={`${badge.title} — verify on Credly`}
+                  >
+                    {/* Badge image */}
+                    <div className="hidden w-11 shrink-0 py-5 sm:block">
+                      <Image
+                        src={badge.imageUrl}
+                        alt=""
+                        width={56}
+                        height={56}
+                        unoptimized
+                        className="size-11 object-contain drop-shadow-sm transition-transform duration-500 group-hover:scale-110"
+                      />
                     </div>
 
-                    {/* Description */}
-                    <p className="mt-3.5 text-xs text-muted-foreground/80 leading-relaxed line-clamp-2">
-                      {badge.description}
-                    </p>
-
-                    {/* Skills Tags */}
-                    {badge.skills && badge.skills.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5 mt-3.5">
-                        {badge.skills.slice(0, 3).map((skill) => (
-                          <span
-                            key={skill}
-                            className="font-mono text-[9px] text-muted-foreground/60 border border-border/10 bg-foreground/[0.02] rounded px-2 py-0.5"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                        {badge.skills.length > 3 && (
-                          <span className="font-mono text-[9px] text-muted-foreground/40 self-center">
-                            +{badge.skills.length - 3} more
-                          </span>
+                    {/* Core info */}
+                    <div className="min-w-0 py-5">
+                      <h3 className="text-sm font-semibold tracking-tight text-foreground">
+                        {badge.title}
+                      </h3>
+                      <p className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground/75">
+                        <ShieldCheck className="size-3 shrink-0 text-emerald-500/80" />
+                        <span className="truncate">{badge.organization}</span>
+                      </p>
+                      <p className="mt-2 truncate font-mono text-[9.5px] uppercase tracking-[0.16em] text-muted-foreground/45">
+                        {topSkills.join(" · ")}
+                        {remaining > 0 && (
+                          <span className="text-muted-foreground/35"> +{remaining}</span>
                         )}
-                      </div>
-                    )}
-                  </div>
+                      </p>
+                    </div>
 
-                  {/* Card Bottom: Verify Link */}
-                  <div className="mt-5 pt-3.5 border-t border-border/10 flex items-center justify-between">
-                    <span className="inline-flex items-center gap-1 text-[10px] font-mono text-muted-foreground/60">
-                      <CheckCircle2 className="size-3 text-emerald-500" />
-                      Verified Credential
-                    </span>
-
-                    <a
-                      href={badge.badgeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1 text-xs font-mono font-medium text-foreground hover:underline transition-all"
-                      aria-label={`Verify ${badge.title} badge on Credly`}
-                    >
-                      Verify
-                      <ArrowUpRight className="size-3 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </a>
-                  </div>
+                    {/* Right meta column */}
+                    <div className="flex flex-col items-end gap-0.5 py-5 text-right">
+                      <span className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground/45">
+                        {badge.category}
+                      </span>
+                      <span className="font-mono text-[10px] tabular-nums text-muted-foreground/60">
+                        {formatDate(badge.issueDate)}
+                      </span>
+                      <span className="mt-2 inline-flex items-center gap-1 font-mono text-[9px] font-bold uppercase tracking-[0.18em] text-muted-foreground/40 transition-colors duration-300 group-hover:text-foreground">
+                        Verify
+                        <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+                      </span>
+                    </div>
+                  </a>
                 </motion.article>
               );
             })}
           </AnimatePresence>
         </motion.div>
-
-        {/* Footer Subtext */}
-        <div className="text-center pt-2">
-          <p className="text-xs text-muted-foreground/70">
-            All 12 credentials earned through{" "}
-            <span className="text-foreground font-semibold">Cisco Networking Academy (NetAcad)</span>{" "}
-            and verifiable on the Credly digital badge registry.
-          </p>
-        </div>
-
       </div>
     </Section>
   );

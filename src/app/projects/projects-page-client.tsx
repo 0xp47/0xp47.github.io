@@ -74,7 +74,7 @@ const customRenderer = {
     const language = lang || "code";
     const escapedCode = String(text).replace(/</g, "&lt;").replace(/>/g, "&gt;");
     return `<div class="relative group/code my-4">
-      <pre data-lang="${language}" class="font-mono bg-black/50 border border-border/10 rounded-lg p-4 text-[10.5px] leading-relaxed text-neutral-200 overflow-x-auto shadow-inner max-h-[350px]"><code>${escapedCode}</code></pre>
+      <pre data-lang="${language}" class="font-mono rounded-lg p-4 text-[10.5px] leading-relaxed overflow-x-auto max-h-[350px]"><code>${escapedCode}</code></pre>
       <button 
         type="button" 
         class="absolute top-2.5 right-3 opacity-0 group-hover/code:opacity-100 transition-opacity bg-foreground/[0.04] hover:bg-foreground/[0.08] border border-border/15 rounded px-2.5 py-1 text-[8.5px] font-mono text-muted-foreground hover:text-foreground cursor-pointer copy-code-btn"
@@ -432,7 +432,7 @@ export function ProjectsPageClient() {
                   placeholder="Filter by keyword..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-black/20 py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300 font-mono"
+                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -455,14 +455,14 @@ export function ProjectsPageClient() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
-                  className="w-full rounded-full border border-border/40 bg-black/20 pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground hover:text-foreground focus:border-foreground/30 focus:outline-none backdrop-blur-sm cursor-pointer transition-all duration-300 appearance-none uppercase"
+                  className="w-full rounded-full border border-border/40 bg-muted pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground hover:text-foreground focus:border-foreground/30 focus:outline-none backdrop-blur-sm cursor-pointer transition-all duration-300 appearance-none uppercase"
                 >
-                  <option value="default" className="bg-[#121214] text-foreground">DEFAULT ORDER</option>
-                  <option value="name-asc" className="bg-[#121214] text-foreground">NAME (A-Z)</option>
-                  <option value="name-desc" className="bg-[#121214] text-foreground">NAME (Z-A)</option>
-                  <option value="updated" className="bg-[#121214] text-foreground">LAST UPDATED</option>
-                  <option value="created" className="bg-[#121214] text-foreground">DATE CREATED</option>
-                  <option value="stars" className="bg-[#121214] text-foreground">STARS & POPULARITY</option>
+                  <option value="default" className="bg-card text-card-foreground">DEFAULT ORDER</option>
+                  <option value="name-asc" className="bg-card text-card-foreground">NAME (A-Z)</option>
+                  <option value="name-desc" className="bg-card text-card-foreground">NAME (Z-A)</option>
+                  <option value="updated" className="bg-card text-card-foreground">LAST UPDATED</option>
+                  <option value="created" className="bg-card text-card-foreground">DATE CREATED</option>
+                  <option value="stars" className="bg-card text-card-foreground">STARS & POPULARITY</option>
                 </select>
                 <ChevronDown className="pointer-events-none absolute right-3.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/60 z-10" />
               </div>
@@ -482,7 +482,7 @@ export function ProjectsPageClient() {
                       type="button"
                       onClick={() => setActiveFilter(filter)}
                       className={cn(
-                        "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all duration-300 cursor-pointer hover:bg-white/[0.03]",
+                        "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all duration-300 cursor-pointer hover:bg-foreground/[0.04]",
                         isActive
                           ? "bg-foreground text-background font-bold"
                           : "text-muted-foreground hover:text-foreground"
@@ -511,14 +511,15 @@ export function ProjectsPageClient() {
                     <button
                       key={tech}
                       onClick={() => setSelectedTech(isSelected ? null : tech)}
+                      aria-pressed={isSelected}
                       className={cn(
-                        "rounded border px-2 py-0.5 font-mono text-[8px] tracking-wide transition-all duration-300 cursor-pointer shrink-0",
+                        "font-mono text-[10px] tracking-wide transition-colors duration-300 cursor-pointer shrink-0 decoration-border underline-offset-2",
                         isSelected
-                          ? "border-foreground bg-foreground text-background font-bold"
-                          : "border-border/30 bg-black/10 text-muted-foreground hover:border-foreground/20 hover:text-foreground"
+                          ? "text-foreground underline"
+                          : "text-muted-foreground/55 hover:text-foreground",
                       )}
                     >
-                      {tech} <span className="opacity-50 text-[7px]">({techCounts[tech]})</span>
+                      {tech} <span className="opacity-40 text-[8px] tabular-nums">({techCounts[tech]})</span>
                     </button>
                   );
                 })}
@@ -533,7 +534,7 @@ export function ProjectsPageClient() {
                   setActiveFilter("All");
                   setSelectedTech(null);
                 }}
-                className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-border/30 hover:border-foreground/30 px-4 py-2 font-mono text-[9px] font-bold text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer uppercase tracking-wider"
+                className="inline-flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-[0.2em] text-muted-foreground/55 hover:text-foreground transition-colors duration-300 cursor-pointer"
               >
                 <RotateCcw className="size-3" />
                 Reset Filters
@@ -552,7 +553,7 @@ export function ProjectsPageClient() {
                   placeholder="Search projects..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-black/20 py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300 font-mono"
+                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -568,7 +569,7 @@ export function ProjectsPageClient() {
               <button
                 type="button"
                 onClick={() => setIsMobileFilterOpen(true)}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/45 bg-black/25 px-5 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/45 bg-muted px-5 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
               >
                 <SlidersHorizontal className="size-3.5" />
                 Filters
@@ -683,7 +684,7 @@ export function ProjectsPageClient() {
                     setActiveFilter("All");
                     setSelectedTech(null);
                   }}
-                  className="mt-4 rounded-full border border-border/30 bg-black/10 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition-all duration-300 cursor-pointer"
+                  className="mt-4 rounded-full border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition-all duration-300 cursor-pointer"
                 >
                   Clear filters
                 </button>
@@ -758,21 +759,14 @@ export function ProjectsPageClient() {
                 data-lenis-prevent
                 className="flex-1 overflow-y-auto space-y-4 pr-2 custom-scrollbar font-sans text-xs leading-relaxed text-muted-foreground/90"
               >
-                {/* Tech Stack Chips */}
+                {/* Tech Stack */}
                 <div className="space-y-2">
                   <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-foreground">
                     Technologies Used
                   </h4>
-                  <div className="flex flex-wrap gap-1">
-                    {selectedProject.stack.map((tech) => (
-                      <span
-                        key={tech}
-                        className="rounded border border-border/30 bg-foreground/[0.02] px-2 py-0.5 font-mono text-[9px] tracking-wide text-neutral-300"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] leading-relaxed text-muted-foreground/70">
+                    {selectedProject.stack.join("  ·  ")}
+                  </p>
                 </div>
 
                 {/* Case Study Details or Readme */}
@@ -832,7 +826,7 @@ export function ProjectsPageClient() {
                           href={selectedProject.github}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex-1 rounded border border-border/40 hover:border-foreground/35 bg-black/20 hover:bg-foreground hover:text-background py-1.5 text-center font-mono text-[9px] font-bold uppercase tracking-widest text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center gap-1.5"
+                          className="flex-1 rounded border border-border/40 hover:border-foreground/35 bg-muted hover:bg-foreground hover:text-background py-1.5 text-center font-mono text-[9px] font-bold uppercase tracking-widest text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center gap-1.5"
                         >
                           <GitBranch className="size-3" />
                           View Source Code
@@ -907,14 +901,14 @@ export function ProjectsPageClient() {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
-                      className="w-full rounded-lg border border-border/40 bg-black/20 pl-3 pr-8 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground focus:border-foreground/30 focus:outline-none backdrop-blur-sm cursor-pointer transition-all duration-300 appearance-none uppercase"
+                      className="w-full rounded-lg border border-border/40 bg-muted pl-3 pr-8 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground focus:border-foreground/30 focus:outline-none backdrop-blur-sm cursor-pointer transition-all duration-300 appearance-none uppercase"
                     >
-                      <option value="default" className="bg-[#121214] text-foreground">DEFAULT ORDER</option>
-                      <option value="name-asc" className="bg-[#121214] text-foreground">NAME (A-Z)</option>
-                      <option value="name-desc" className="bg-[#121214] text-foreground">NAME (Z-A)</option>
-                      <option value="updated" className="bg-[#121214] text-foreground">LAST UPDATED</option>
-                      <option value="created" className="bg-[#121214] text-foreground">DATE CREATED</option>
-                      <option value="stars" className="bg-[#121214] text-foreground">STARS & POPULARITY</option>
+                      <option value="default" className="bg-card text-card-foreground">DEFAULT ORDER</option>
+                      <option value="name-asc" className="bg-card text-card-foreground">NAME (A-Z)</option>
+                      <option value="name-desc" className="bg-card text-card-foreground">NAME (Z-A)</option>
+                      <option value="updated" className="bg-card text-card-foreground">LAST UPDATED</option>
+                      <option value="created" className="bg-card text-card-foreground">DATE CREATED</option>
+                      <option value="stars" className="bg-card text-card-foreground">STARS & POPULARITY</option>
                     </select>
                     <ChevronDown className="pointer-events-none absolute right-3 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/60 z-10" />
                   </div>
@@ -934,7 +928,7 @@ export function ProjectsPageClient() {
                           type="button"
                           onClick={() => setActiveFilter(filter)}
                           className={cn(
-                            "w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-left transition-all duration-300 cursor-pointer hover:bg-white/[0.03]",
+                            "w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-left transition-all duration-300 cursor-pointer hover:bg-foreground/[0.04]",
                             isActive
                               ? "bg-foreground text-background font-bold"
                               : "text-muted-foreground hover:text-foreground"
@@ -963,14 +957,15 @@ export function ProjectsPageClient() {
                         <button
                           key={tech}
                           onClick={() => setSelectedTech(isSelected ? null : tech)}
+                          aria-pressed={isSelected}
                           className={cn(
-                            "rounded border px-2 py-0.5 font-mono text-[8px] tracking-wide transition-all duration-300 cursor-pointer shrink-0",
+                            "font-mono text-[10px] tracking-wide transition-colors duration-300 cursor-pointer shrink-0 decoration-border underline-offset-2",
                             isSelected
-                              ? "border-foreground bg-foreground text-background font-bold"
-                              : "border-border/30 bg-black/10 text-muted-foreground hover:border-foreground/20 hover:text-foreground"
+                              ? "text-foreground underline"
+                              : "text-muted-foreground/55 hover:text-foreground",
                           )}
                         >
-                          {tech} <span className="opacity-50 text-[7px]">({techCounts[tech]})</span>
+                          {tech} <span className="opacity-40 text-[8px] tabular-nums">({techCounts[tech]})</span>
                         </button>
                       );
                     })}

@@ -121,11 +121,12 @@ export function Portfolio() {
       >
         <div className="relative w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] md:w-[680px] md:h-[680px] lg:w-[820px] lg:h-[820px] aspect-square">
           <Image
-            src="/Ground Zero.png"
+            src="/Ground Zero-ink.png"
             alt="Jay Patrick Cano - Ground Zero Logo Watermark Background"
             fill
             unoptimized
-            className="object-contain grayscale contrast-[0.95]"
+            /* Ink is white: invert to near-black in light mode so it stays a subtle watermark on white. */
+            className="object-contain grayscale invert dark:invert-0"
           />
         </div>
       </motion.div>
@@ -173,7 +174,7 @@ export function Portfolio() {
         onClick={() => handleScrollToSection("#")}
         initial={false}
         animate={!isLoading && showBackToTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        className="fixed bottom-6 right-6 z-40 flex size-10 items-center justify-center rounded-full border border-border bg-background/85 text-foreground shadow-2xl backdrop-blur transition hover:-translate-y-1 hover:border-foreground/20"
+        className="fixed bottom-6 right-6 z-40 flex size-10 items-center justify-center rounded-full bg-background/70 text-foreground shadow-[0_16px_48px_rgba(0,0,0,0.25)] ring-1 ring-border backdrop-blur-xl transition hover:-translate-y-1 hover:bg-foreground hover:text-background"
       >
         <ArrowUp className="size-4" />
       </motion.button>

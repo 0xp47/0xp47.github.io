@@ -69,7 +69,7 @@ const customRenderer = {
     const language = lang || "code";
     const escapedCode = String(text).replace(/</g, "&lt;").replace(/>/g, "&gt;");
     return `<div class="relative group/code my-4">
-      <pre data-lang="${language}" class="font-mono bg-black/50 border border-border/10 rounded-lg p-4 text-[10.5px] leading-relaxed text-neutral-200 overflow-x-auto shadow-inner max-h-[350px]"><code>${escapedCode}</code></pre>
+      <pre data-lang="${language}" class="font-mono rounded-lg p-4 text-[10.5px] leading-relaxed overflow-x-auto max-h-[350px]"><code>${escapedCode}</code></pre>
       <button 
         type="button" 
         class="absolute top-2.5 right-3 opacity-0 group-hover/code:opacity-100 transition-opacity bg-foreground/[0.04] hover:bg-foreground/[0.08] border border-border/15 rounded px-2.5 py-1 text-[8.5px] font-mono text-muted-foreground hover:text-foreground cursor-pointer copy-code-btn"
@@ -236,7 +236,7 @@ export function ProjectsSection() {
 
   return (
     <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
-      <div className="mb-8 inline-flex rounded-full border border-border/20 bg-black/20 p-1 backdrop-blur-sm">
+      <nav className="mb-4 flex flex-wrap items-baseline gap-x-5 gap-y-2" aria-label="Project filters">
         {projectFilters.map((filter) => (
           <button
             key={filter}
@@ -246,25 +246,31 @@ export function ProjectsSection() {
               setShowAll(false); // Reset see more state when changing filter
             }}
             className={cn(
-              "rounded-full px-4 py-1.5 text-xs font-semibold transition-all duration-300",
+              "group relative cursor-pointer font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-300",
               activeFilter === filter
-                ? "bg-foreground text-background shadow-sm"
-                : "text-muted-foreground hover:text-foreground",
+                ? "text-foreground"
+                : "text-muted-foreground/55 hover:text-foreground",
             )}
           >
             {filter}
+            <span
+              className={cn(
+                "absolute -bottom-1 left-0 h-px w-full origin-left bg-foreground transition-transform duration-300",
+                activeFilter === filter ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
+              )}
+            />
           </button>
         ))}
-      </div>
+      </nav>
 
-      <motion.div 
+      <motion.div
         variants={{
           hidden: {},
           visible: {
             transition: { staggerChildren: 0.12 }
           }
         }}
-        className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3 mt-8 items-stretch"
+        className="mt-8 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
       >
         {displayedProjects.map((project) => (
           <motion.div
@@ -278,13 +284,15 @@ export function ProjectsSection() {
       </motion.div>
 
       {filteredProjects.length > 6 && (
-        <div className="mt-12 flex justify-center">
+        <div className="mt-14 flex justify-center">
           <Link
             href="/projects"
-            className="group rounded-full border border-border/40 bg-black/10 hover:bg-foreground hover:text-background px-6 py-2.5 text-[10px] font-mono font-bold tracking-widest uppercase text-muted-foreground transition-all duration-500 shadow-sm cursor-pointer inline-flex items-center justify-center gap-1.5"
+            className="group inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
           >
-            See All Projects
-            <ArrowUpRight className="size-3.5 group-hover:translate-x-0.5 group-hover:-translate-y-px transition-transform duration-300" />
+            <span className="decoration-border underline-offset-4 group-hover:underline">
+              See All Projects
+            </span>
+            <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
         </div>
       )}
@@ -346,16 +354,9 @@ export function ProjectsSection() {
                   <h4 className="font-mono text-[10px] font-bold uppercase tracking-wider text-foreground">
                     Technologies Used
                   </h4>
-                  <div className="flex flex-wrap gap-2">
-                    {selectedProject.stack.map((tech: string) => (
-                      <span
-                        key={tech}
-                        className="font-mono text-[9px] text-foreground bg-foreground/[0.04] border border-border/20 px-2.5 py-1 rounded-full uppercase tracking-wider"
-                      >
-                        {tech}
-                      </span>
-                    ))}
-                  </div>
+                  <p className="font-mono text-[10px] uppercase tracking-[0.14em] leading-relaxed text-muted-foreground/70">
+                    {selectedProject.stack.join("  ·  ")}
+                  </p>
                 </div>
 
                 {selectedProject.readme ? (

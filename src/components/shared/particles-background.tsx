@@ -162,8 +162,16 @@ export function ParticlesBackground() {
 
     createParticles();
 
+    let themeIsDark = true;
+    const isDark = () =>
+      document.documentElement.classList.contains("dark");
+
     const animate = () => {
       ctx.clearRect(0, 0, width, height);
+
+      // Adapt particle color to the active theme (checked cheaply per frame)
+      const themeChanged = isDark() !== themeIsDark;
+      if (themeChanged) themeIsDark = isDark();
 
       // 1. Move and draw particles
       particles.forEach((p) => {
@@ -185,7 +193,9 @@ export function ParticlesBackground() {
         // Draw coding symbol
         ctx.beginPath();
         ctx.font = `${p.fontSize}px "Geist Mono", monospace`;
-        ctx.fillStyle = `rgba(255, 255, 255, ${p.alpha})`;
+        ctx.fillStyle = themeIsDark
+          ? `rgba(255, 255, 255, ${p.alpha})`
+          : `rgba(9, 9, 11, ${p.alpha * 0.9})`;
         ctx.fillText(p.symbol, p.x, p.y);
       });
 
@@ -218,7 +228,9 @@ export function ParticlesBackground() {
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
-            ctx.strokeStyle = `rgba(255, 255, 255, ${lineAlpha})`;
+            ctx.strokeStyle = themeIsDark
+              ? `rgba(255, 255, 255, ${lineAlpha})`
+              : `rgba(9, 9, 11, ${lineAlpha * 0.9})`;
             ctx.lineWidth = 0.55;
             ctx.stroke();
           }

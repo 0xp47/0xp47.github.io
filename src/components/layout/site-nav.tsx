@@ -17,14 +17,14 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
       transition={{ duration: 0.45, ease: "easeOut" }}
       className="fixed inset-x-0 top-4 z-40 flex justify-center"
     >
-      <div className="flex h-11 items-center gap-2 sm:gap-4 rounded-full border border-border/40 bg-background/80 px-2 sm:pl-2 sm:pr-4 shadow-[0_12px_40px_rgba(0,0,0,0.3)] backdrop-blur-md">
+      <div className="flex h-11 items-center gap-2 sm:gap-4 rounded-full bg-background/70 px-2.5 shadow-[0_16px_48px_rgba(0,0,0,0.25)] backdrop-blur-xl ring-1 ring-border">
         <a
           href="#"
           onClick={(e) => {
             e.preventDefault();
             onNavItemClick("#");
           }}
-          className="hidden sm:flex size-7 items-center justify-center rounded-full border border-border bg-card font-mono text-[10px] font-bold text-foreground transition-all duration-300 hover:border-foreground/30"
+          className="hidden sm:flex size-7 items-center justify-center rounded-full font-mono text-[10px] font-bold text-foreground transition-all duration-300 hover:bg-foreground hover:text-background"
           aria-label="Scroll to top"
         >
           0x

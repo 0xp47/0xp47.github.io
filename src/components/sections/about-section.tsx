@@ -91,17 +91,18 @@ export function AboutSection() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="group flex gap-4 items-start pb-6 border-b border-border/10 last:border-0 last:pb-0"
+                className="group flex gap-4 items-start pb-6 border-b border-border/60 last:border-0 last:pb-0"
               >
-                {/* Minimal transparent icon container */}
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-xl bg-foreground/5 text-foreground/75 group-hover:bg-foreground/10 group-hover:text-foreground transition-all duration-300 mt-1">
-                  <IconComponent className="size-[18px]" />
-                </div>
+                {/* Bare icon — no container box */}
+                <IconComponent
+                  className="size-[18px] shrink-0 mt-1 text-muted-foreground transition-all duration-300 group-hover:text-foreground"
+                  strokeWidth={1.5}
+                />
                 <div className="flex flex-col gap-1">
-                  <h4 className="text-sm font-bold text-foreground group-hover:text-foreground transition-colors duration-300">
+                  <h4 className="text-sm font-medium text-foreground tracking-tight">
                     {item.title}
                   </h4>
-                  <p className="text-xs md:text-sm leading-relaxed text-neutral-300 text-pretty group-hover:text-foreground transition-colors duration-300">
+                  <p className="text-xs md:text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 text-pretty transition-colors duration-300 group-hover:text-foreground">
                     {item.description}
                   </p>
                 </div>
