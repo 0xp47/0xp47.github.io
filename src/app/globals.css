@@ -131,7 +131,15 @@
     @apply bg-background text-foreground;
     text-rendering: geometricPrecision;
     font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
-    transition: background-color 0.35s ease, color 0.35s ease;
+  }
+
+  /* Theme switches must be instant: while .theme-switching is on <html>, all
+     transition durations collapse to 0 so every color flips in the same frame. */
+  html.theme-switching *,
+  html.theme-switching *::before,
+  html.theme-switching *::after {
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
   }
 
   ::selection {

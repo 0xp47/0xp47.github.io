@@ -1,19 +1,38 @@
 "use client";
 
+import { useCallback, useEffect, useRef } from "react";
 import { Sun, Moon } from "lucide-react";
 
 const THEME_KEY = "0xp47-theme";
 
 export function ThemeToggle() {
-  const toggle = () => {
-    const next = !document.documentElement.classList.contains("dark");
-    document.documentElement.classList.toggle("dark", next);
+  const releaseTimer = useRef<number | null>(null);
+
+  // Reliably end the instant-switch window even when the tab is backgrounded.
+  useEffect(() => () => {
+    if (releaseTimer.current !== null) window.clearTimeout(releaseTimer.current);
+  }, []);
+
+  const toggle = useCallback(() => {
+    const root = document.documentElement;
+    const next = !root.classList.contains("dark");
+
+    // Freeze ALL transitions for this frame group: text, cards, buttons,
+    // backgrounds, borders — everything flips at once, no fade.
+    root.classList.add("theme-switching");
+    if (releaseTimer.current !== null) window.clearTimeout(releaseTimer.current);
+    releaseTimer.current = window.setTimeout(() => {
+      root.classList.remove("theme-switching");
+      releaseTimer.current = null;
+    }, 140);
+
+    root.classList.toggle("dark", next);
     try {
       localStorage.setItem(THEME_KEY, next ? "dark" : "light");
     } catch {
       // private mode etc. — theme still applies for the session
     }
-  };
+  }, []);
 
   return (
     <button
@@ -29,3 +48,4 @@ export function ThemeToggle() {
     </button>
   );
 }
+
