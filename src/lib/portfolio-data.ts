@@ -186,7 +186,7 @@ export const certificationCategories = [
   "Security",
   "Development",
   "Systems & Networks",
+  "Business",
 ];
 
 export * from "./blog-posts";
-

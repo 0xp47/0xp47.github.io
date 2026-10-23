@@ -19,6 +19,13 @@ function formatDate(iso: string): string {
 export function CertificationsSection() {
   const [activeCategory, setActiveCategory] = useState("All");
 
+  const availableCategories = useMemo(() => {
+    const existing = new Set(certifications.map((c) => c.category));
+    const base = certificationCategories.filter((c) => c === "All" || existing.has(c));
+    const additional = Array.from(existing).filter((c) => !certificationCategories.includes(c));
+    return [...base, ...additional];
+  }, []);
+
   const filteredCertifications = useMemo(() => {
     const list =
       activeCategory === "All"
@@ -63,7 +70,7 @@ export function CertificationsSection() {
               className="flex flex-wrap items-center gap-x-5 gap-y-2"
               aria-label="Certification categories"
             >
-              {certificationCategories.map((category) => {
+              {availableCategories.map((category) => {
                 const isActive = activeCategory === category;
                 return (
                   <button

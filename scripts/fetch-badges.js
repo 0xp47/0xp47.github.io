@@ -8,16 +8,42 @@ const categoryMap = {
   "Core Generative AI Skills": "AI",
   "Introduction to Modern AI": "AI",
   "Prompt Like an Engineer": "AI",
+  "Build Your Resume with AI": "AI",
   "Ethical Hacker": "Security",
   "Introduction to Cybersecurity": "Security",
   "JavaScript Essentials 1": "Development",
   "Python Essentials 1": "Development",
+  "Python Essentials 2": "Development",
   "Networking Basics": "Systems & Networks",
   "Operating Systems Basics": "Systems & Networks",
   "Operating Systems Support": "Systems & Networks",
   "Computer Hardware Basics": "Systems & Networks",
   "Introduction to IoT": "Systems & Networks",
+  "Discovering Entrepreneurship": "Business",
 };
+
+function detectCategory(title, skills = []) {
+  if (categoryMap[title]) return categoryMap[title];
+
+  const text = `${title} ${skills.join(" ")}`.toLowerCase();
+
+  if (/\b(business|entrepreneur|entrepreneurship|startup|leadership|pitch)\b/i.test(text)) {
+    return "Business";
+  }
+  if (/\b(ai|artificial intelligence|prompt|llm|machine learning|deep learning|computer vision|language model|generative)\b/i.test(text)) {
+    return "AI";
+  }
+  if (/\b(security|cyber|hacker|hacking|defense|vulnerability|pentest|threat)\b/i.test(text)) {
+    return "Security";
+  }
+  if (/\b(python|javascript|typescript|programming|developer|software|coding|frontend|backend|sql|html|css)\b/i.test(text)) {
+    return "Development";
+  }
+  if (/\b(network|networking|routing|switching|cisco|packet tracer|hardware|operating system|linux|windows|iot|cloud|device)\b/i.test(text)) {
+    return "Systems & Networks";
+  }
+  return "Development";
+}
 
 async function downloadImage(url, destPath) {
   try {
@@ -90,8 +116,8 @@ async function fetchBadges() {
         hasLocalImage = ok;
       }
 
-      const category = categoryMap[title] || "General";
       const skills = (template.skills || []).map((s) => s.name);
+      const category = detectCategory(title, skills);
 
       certifications.push({
         id,
