@@ -86,10 +86,10 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
           aria-valuenow={progress}
           aria-valuemin={0}
           aria-valuemax={100}
-          className={`text-xs text-foreground/90 space-y-1.5 transition-all duration-300 ${phase >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
+          className={`text-xs text-foreground/90 space-y-1.5 transition duration-300 ${phase >= 1 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}
         >
           <div className="text-muted-foreground/50">
-            {progress < 100 ? "Retrieving system assets..." : "System assets loaded."}
+            {progress < 100 ? "Retrieving system assets…" : "System assets loaded."}
           </div>
           <div className="tracking-widest font-mono text-foreground text-[10px] sm:text-xs">
             {loadingBarText}
@@ -97,7 +97,7 @@ export function IntroLoader({ onComplete }: { onComplete: () => void }) {
         </div>
 
         {/* Terminal Line 3: Done */}
-        <div className={`text-xs text-muted-foreground/45 transition-all duration-300 ${phase === 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}>
+        <div className={`text-xs text-muted-foreground/45 transition duration-300 ${phase === 2 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-1 pointer-events-none"}`}>
           Launching core...
         </div>
       </div>

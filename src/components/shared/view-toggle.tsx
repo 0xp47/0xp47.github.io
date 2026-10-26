@@ -15,7 +15,7 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
         type="button"
         onClick={() => onViewModeChange("list")}
         className={cn(
-          "rounded-md p-1.5 transition-all duration-300 cursor-pointer flex items-center justify-center",
+          "rounded-md p-1.5 transition duration-300 cursor-pointer flex items-center justify-center",
           viewMode === "list"
             ? "bg-foreground text-background"
             : "text-muted-foreground/60 hover:text-foreground hover:bg-foreground/5"
@@ -28,7 +28,7 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
         type="button"
         onClick={() => onViewModeChange("grid")}
         className={cn(
-          "rounded-md p-1.5 transition-all duration-300 cursor-pointer flex items-center justify-center",
+          "rounded-md p-1.5 transition duration-300 cursor-pointer flex items-center justify-center",
           viewMode === "grid"
             ? "bg-foreground text-background"
             : "text-muted-foreground/60 hover:text-foreground hover:bg-foreground/5"

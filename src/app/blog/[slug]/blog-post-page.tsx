@@ -42,7 +42,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
       // Create copy button
       const copyButton = document.createElement("button");
-      copyButton.className = "absolute right-3 top-3 px-2 py-1 text-[10px] font-mono rounded bg-foreground/10 hover:bg-foreground/20 text-foreground/70 hover:text-foreground border border-border opacity-0 group-hover:opacity-100 focus:opacity-100 transition-all duration-200 select-none cursor-pointer";
+      copyButton.className = "absolute right-3 top-3 px-2 py-1 text-[10px] font-mono rounded bg-foreground/10 hover:bg-foreground/20 text-foreground/70 hover:text-foreground border border-border opacity-0 group-hover:opacity-100 focus:opacity-100 transition duration-200 select-none cursor-pointer";
       copyButton.innerText = "Copy";
 
       // Add click handler
@@ -153,7 +153,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                         </span>
                       </div>
                     </div>
-                    <ArrowRight className="size-3.5 text-muted-foreground/30 group-hover:text-foreground/70 group-hover:translate-x-0.5 transition-all duration-300 shrink-0" />
+                    <ArrowRight className="size-3.5 text-muted-foreground/30 group-hover:text-foreground/70 group-hover:translate-x-0.5 transition duration-300 shrink-0" />
                   </Link>
                 ))}
               </div>

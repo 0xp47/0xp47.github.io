@@ -158,6 +158,7 @@ export function ParticlesBackground() {
       width = canvas.width = canvas.offsetWidth;
       height = canvas.height = canvas.offsetHeight;
       createParticles();
+      if (reducedMotion.matches) drawFrame();
     };
 
     createParticles();
@@ -166,7 +167,7 @@ export function ParticlesBackground() {
     const isDark = () =>
       document.documentElement.classList.contains("dark");
 
-    const animate = () => {
+    const drawFrame = () => {
       ctx.clearRect(0, 0, width, height);
 
       // Adapt particle color to the active theme (checked cheaply per frame)
@@ -237,15 +238,32 @@ export function ParticlesBackground() {
         }
       }
 
-      animationFrameId = requestAnimationFrame(animate);
     };
 
-    animate();
+    // Stop the decorative loop when the user prefers reduced motion;
+    // render a single static frame instead.
+    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    const renderStaticOrLoop = () => {
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      if (reducedMotion.matches) {
+        drawFrame();
+      } else {
+        animationFrameId = requestAnimationFrame(function loop() {
+          drawFrame();
+          animationFrameId = requestAnimationFrame(loop);
+        });
+      }
+    };
 
+    renderStaticOrLoop();
+
+    const handleMotionPrefChange = () => renderStaticOrLoop();
+    reducedMotion.addEventListener("change", handleMotionPrefChange);
     window.addEventListener("resize", handleResize);
 
     return () => {
-      cancelAnimationFrame(animationFrameId);
+      if (animationFrameId) cancelAnimationFrame(animationFrameId);
+      reducedMotion.removeEventListener("change", handleMotionPrefChange);
       window.removeEventListener("resize", handleResize);
     };
   }, []);

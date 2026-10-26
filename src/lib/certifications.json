@@ -1,5 +1,26 @@
 [
   {
+    "id": "d9c0d8b8-bc08-4cd6-a692-02b75b57d523",
+    "title": "IT Customer Support Basics",
+    "issuer": "Cisco",
+    "organization": "Cisco Networking Academy",
+    "issueDate": "2026-10-24",
+    "badgeUrl": "https://www.credly.com/badges/d9c0d8b8-bc08-4cd6-a692-02b75b57d523",
+    "imageUrl": "/images/badges/it-customer-support-basics.png",
+    "remoteImageUrl": "https://images.credly.com/images/474a03c6-b5e1-44df-b313-adf0fed6c531/blob",
+    "activityUrl": "https://netacad.com/courses/it-customer-support-basics",
+    "category": "Development",
+    "skills": [
+      "Customer Service",
+      "Documentation and Reporting",
+      "Effective Communication",
+      "Help Desk Concepts",
+      "Remote Troubleshooting",
+      "Technical Problem Solving"
+    ],
+    "description": "Cisco verifies the earner of this badge successfully completed the IT Customer Support Basics course. This student-level credential demonstrates foundational knowledge in help desk operations, customer service, and remote troubleshooting. The holder is proficient in using industry-standard tools to assist users in resolving technical issues and can effectively communicate technical concepts to non-technical users."
+  },
+  {
     "id": "e8df52f9-8944-4ced-b535-2f3e3cb09ea2",
     "title": "Discovering Entrepreneurship",
     "issuer": "Cisco",

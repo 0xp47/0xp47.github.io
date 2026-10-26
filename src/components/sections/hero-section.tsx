@@ -61,7 +61,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
             fill
             priority
             unoptimized
-            className="object-contain object-bottom contrast-[1.03] transition-all duration-500"
+            className="object-contain object-bottom contrast-[1.03] transition duration-500"
           />
         </div>
       </div>
@@ -149,7 +149,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 </p>
                 <a
                   href="#about"
-                  className="inline-block mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:underline transition-all duration-300"
+                  className="inline-block mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:underline transition duration-300"
                 >
                   LEARN MORE &rarr;
                 </a>
@@ -169,7 +169,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 </p>
                 <a
                   href="#projects"
-                  className="inline-block mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:underline transition-all duration-300"
+                  className="inline-block mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:underline transition duration-300"
                 >
                   BROWSE PORTFOLIO &rarr;
                 </a>

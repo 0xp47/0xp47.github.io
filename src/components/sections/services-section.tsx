@@ -70,7 +70,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("left")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition-all duration-300 cursor-pointer"
+            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition duration-300 cursor-pointer"
             aria-label="Previous service"
           >
             <ChevronLeft className="size-4" />
@@ -78,7 +78,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("right")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition-all duration-300 cursor-pointer"
+            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition duration-300 cursor-pointer"
             aria-label="Next service"
           >
             <ChevronRight className="size-4" />

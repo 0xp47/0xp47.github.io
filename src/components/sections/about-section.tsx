@@ -63,7 +63,7 @@ export function AboutSection() {
           <div className="grid grid-cols-3 gap-4 pt-6 border-t border-border/10 mt-2">
             {heroStats.map((stat, i) => (
               <div key={i} className="flex flex-col">
-                <span className="text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+                <span className="tabular-nums text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </span>
                 <span className="text-[9px] font-mono font-bold tracking-wider text-muted-foreground uppercase mt-1 leading-snug">
@@ -95,7 +95,7 @@ export function AboutSection() {
               >
                 {/* Bare icon — no container box */}
                 <IconComponent
-                  className="size-[18px] shrink-0 mt-1 text-muted-foreground transition-all duration-300 group-hover:text-foreground"
+                  className="size-[18px] shrink-0 mt-1 text-muted-foreground transition duration-300 group-hover:text-foreground"
                   strokeWidth={1.5}
                 />
                 <div className="flex flex-col gap-1">

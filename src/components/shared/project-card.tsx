@@ -53,7 +53,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
             className="inline-flex items-baseline gap-1 transition-colors duration-300"
           >
             {project.name}
-            <ArrowUpRight className="size-3.5 translate-y-px text-muted-foreground/40 transition-all duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
+            <ArrowUpRight className="size-3.5 translate-y-px text-muted-foreground/40 transition duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground" />
           </a>
         ) : (
           project.name

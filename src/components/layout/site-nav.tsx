@@ -24,7 +24,7 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
             e.preventDefault();
             onNavItemClick("#");
           }}
-          className="hidden sm:flex size-7 items-center justify-center rounded-full font-mono text-[10px] font-bold text-foreground transition-all duration-300 hover:bg-foreground hover:text-background"
+          className="hidden sm:flex size-7 items-center justify-center rounded-full font-mono text-[10px] font-bold text-foreground transition duration-300 hover:bg-foreground hover:text-background"
           aria-label="Scroll to top"
         >
           0x

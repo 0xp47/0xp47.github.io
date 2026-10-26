@@ -429,10 +429,10 @@ export function ProjectsPageClient() {
                 <Search className="absolute left-3.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/75 z-10" />
                 <input
                   type="text"
-                  placeholder="Filter by keyword..."
+                  placeholder="Filter by keyword…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300 font-mono"
+                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -455,7 +455,7 @@ export function ProjectsPageClient() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
-                  className="w-full rounded-full border border-border/40 bg-muted pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground hover:text-foreground focus:border-foreground/30 focus:outline-none backdrop-blur-sm cursor-pointer transition-all duration-300 appearance-none uppercase"
+                  className="w-full rounded-full border border-border/40 bg-muted pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground hover:text-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm cursor-pointer transition duration-300 appearance-none uppercase"
                 >
                   <option value="default" className="bg-card text-card-foreground">DEFAULT ORDER</option>
                   <option value="name-asc" className="bg-card text-card-foreground">NAME (A-Z)</option>
@@ -482,7 +482,7 @@ export function ProjectsPageClient() {
                       type="button"
                       onClick={() => setActiveFilter(filter)}
                       className={cn(
-                        "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all duration-300 cursor-pointer hover:bg-foreground/[0.04]",
+                        "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition duration-300 cursor-pointer hover:bg-foreground/[0.04]",
                         isActive
                           ? "bg-foreground text-background font-bold"
                           : "text-muted-foreground hover:text-foreground"
@@ -550,10 +550,10 @@ export function ProjectsPageClient() {
                 <Search className="absolute left-3.5 top-1/2 size-3.5 -translate-y-1/2 text-muted-foreground/75 z-10" />
                 <input
                   type="text"
-                  placeholder="Search projects..."
+                  placeholder="Search projects…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300 font-mono"
+                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -569,7 +569,7 @@ export function ProjectsPageClient() {
               <button
                 type="button"
                 onClick={() => setIsMobileFilterOpen(true)}
-                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/45 bg-muted px-5 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+                className="inline-flex items-center justify-center gap-2 rounded-full border border-border/45 bg-muted px-5 py-2.5 font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
               >
                 <SlidersHorizontal className="size-3.5" />
                 Filters
@@ -625,7 +625,7 @@ export function ProjectsPageClient() {
                   type="button"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                  className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+                  className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="size-4" />
@@ -640,7 +640,7 @@ export function ProjectsPageClient() {
                       type="button"
                       onClick={() => setCurrentPage(page)}
                       className={cn(
-                        "flex size-8 items-center justify-center rounded-lg border text-[10px] font-bold transition-all duration-300 cursor-pointer",
+                        "flex size-8 items-center justify-center rounded-lg border text-[10px] font-bold transition duration-300 cursor-pointer",
                         isActive
                           ? "border-foreground bg-foreground text-background"
                           : "border-border/30 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
@@ -656,7 +656,7 @@ export function ProjectsPageClient() {
                   type="button"
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                  className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+                  className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
                   aria-label="Next page"
                 >
                   <ChevronRight className="size-4" />
@@ -684,7 +684,7 @@ export function ProjectsPageClient() {
                     setActiveFilter("All");
                     setSelectedTech(null);
                   }}
-                  className="mt-4 rounded-full border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition-all duration-300 cursor-pointer"
+                  className="mt-4 rounded-full border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition duration-300 cursor-pointer"
                 >
                   Clear filters
                 </button>
@@ -747,7 +747,7 @@ export function ProjectsPageClient() {
                 <button
                   type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition-all duration-300 text-muted-foreground cursor-pointer"
+                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition duration-300 text-muted-foreground cursor-pointer"
                   aria-label="Close details"
                 >
                   <X className="size-3.5" />
@@ -826,7 +826,7 @@ export function ProjectsPageClient() {
                           href={selectedProject.github}
                           target="_blank"
                           rel="noreferrer"
-                          className="flex-1 rounded border border-border/40 hover:border-foreground/35 bg-muted hover:bg-foreground hover:text-background py-1.5 text-center font-mono text-[9px] font-bold uppercase tracking-widest text-foreground transition-all duration-300 cursor-pointer flex items-center justify-center gap-1.5"
+                          className="flex-1 rounded border border-border/40 hover:border-foreground/35 bg-muted hover:bg-foreground hover:text-background py-1.5 text-center font-mono text-[9px] font-bold uppercase tracking-widest text-foreground transition duration-300 cursor-pointer flex items-center justify-center gap-1.5"
                         >
                           <GitBranch className="size-3" />
                           View Source Code
@@ -880,7 +880,7 @@ export function ProjectsPageClient() {
                 <button
                   type="button"
                   onClick={() => setIsMobileFilterOpen(false)}
-                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition-all duration-300 text-muted-foreground cursor-pointer"
+                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition duration-300 text-muted-foreground cursor-pointer"
                   aria-label="Close filters"
                 >
                   <X className="size-3.5" />
@@ -901,7 +901,7 @@ export function ProjectsPageClient() {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
-                      className="w-full rounded-lg border border-border/40 bg-muted pl-3 pr-8 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground focus:border-foreground/30 focus:outline-none backdrop-blur-sm cursor-pointer transition-all duration-300 appearance-none uppercase"
+                      className="w-full rounded-lg border border-border/40 bg-muted pl-3 pr-8 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm cursor-pointer transition duration-300 appearance-none uppercase"
                     >
                       <option value="default" className="bg-card text-card-foreground">DEFAULT ORDER</option>
                       <option value="name-asc" className="bg-card text-card-foreground">NAME (A-Z)</option>
@@ -928,7 +928,7 @@ export function ProjectsPageClient() {
                           type="button"
                           onClick={() => setActiveFilter(filter)}
                           className={cn(
-                            "w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-left transition-all duration-300 cursor-pointer hover:bg-foreground/[0.04]",
+                            "w-full flex items-center gap-2 px-3 py-1.5 rounded-lg text-left transition duration-300 cursor-pointer hover:bg-foreground/[0.04]",
                             isActive
                               ? "bg-foreground text-background font-bold"
                               : "text-muted-foreground hover:text-foreground"
@@ -978,7 +978,7 @@ export function ProjectsPageClient() {
                 <button
                   type="button"
                   onClick={() => setIsMobileFilterOpen(false)}
-                  className="w-full rounded-lg bg-foreground hover:bg-foreground/90 py-2.5 text-center font-mono text-[10px] font-bold uppercase tracking-widest text-background transition-all duration-300 cursor-pointer"
+                  className="w-full rounded-lg bg-foreground hover:bg-foreground/90 py-2.5 text-center font-mono text-[10px] font-bold uppercase tracking-widest text-background transition duration-300 cursor-pointer"
                 >
                   View {filteredProjects.length} Projects
                 </button>
@@ -990,7 +990,7 @@ export function ProjectsPageClient() {
                       setSelectedTech(null);
                       setSortBy("default");
                     }}
-                    className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-border/30 hover:border-foreground/30 py-2 font-mono text-[9px] font-bold text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer uppercase tracking-wider"
+                    className="w-full inline-flex items-center justify-center gap-1.5 rounded-lg border border-dashed border-border/30 hover:border-foreground/30 py-2 font-mono text-[9px] font-bold text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer uppercase tracking-wider"
                   >
                     <RotateCcw className="size-3" />
                     Reset All

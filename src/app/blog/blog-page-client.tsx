@@ -105,10 +105,10 @@ export function BlogPageClient() {
             <Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground/75 z-10" />
             <input
               type="text"
-              placeholder="Search articles..."
+              placeholder="Search articles…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-10 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none backdrop-blur-sm transition-all duration-300"
+              className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-10 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300"
             />
             {searchQuery && (
               <button
@@ -208,7 +208,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
               aria-label="Previous page"
             >
               <ChevronLeft className="size-4" />
@@ -223,7 +223,7 @@ export function BlogPageClient() {
                   type="button"
                   onClick={() => setCurrentPage(page)}
                   className={cn(
-                    "flex size-8 items-center justify-center rounded-lg border text-[10px] font-bold transition-all duration-300 cursor-pointer",
+                    "flex size-8 items-center justify-center rounded-lg border text-[10px] font-bold transition duration-300 cursor-pointer",
                     isActive
                       ? "border-foreground bg-foreground text-background"
                       : "border-border/30 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
@@ -239,7 +239,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition-all duration-300 cursor-pointer"
+              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
               aria-label="Next page"
             >
               <ChevronRight className="size-4" />
@@ -261,7 +261,7 @@ export function BlogPageClient() {
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="mt-4 rounded-full border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition-all duration-300 cursor-pointer"
+              className="mt-4 rounded-full border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition duration-300 cursor-pointer"
             >
               Clear search
             </button>

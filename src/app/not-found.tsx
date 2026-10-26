@@ -44,7 +44,7 @@ export default function NotFound() {
         <div className="pt-4">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 rounded-full border border-border/30 hover:border-foreground/45 bg-foreground text-background hover:bg-foreground/95 px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-wider transition-all duration-300 cursor-pointer shadow-md"
+            className="inline-flex items-center gap-2 rounded-full border border-border/30 hover:border-foreground/45 bg-foreground text-background hover:bg-foreground/95 px-6 py-2.5 text-xs font-mono font-bold uppercase tracking-wider transition duration-300 cursor-pointer shadow-md"
           >
             <ArrowLeft className="size-3.5" />
             Back to Home

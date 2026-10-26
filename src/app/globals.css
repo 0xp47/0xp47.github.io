@@ -143,8 +143,15 @@
   }
 
   ::selection {
-    background: rgb(96 165 250 / 35%);
-    color: var(--foreground);
+    background: color-mix(in srgb, var(--foreground) 90%, transparent);
+    color: var(--background);
+  }
+
+  /* Prevent double-tap zoom delays on all controls */
+  a,
+  button,
+  [role="button"] {
+    touch-action: manipulation;
   }
 
   /* Quiet keyboard focus for the no-boxes UI */
@@ -213,6 +220,7 @@
   .custom-scrollbar {
     scrollbar-width: thin;
     scrollbar-color: color-mix(in srgb, var(--foreground) 12%, transparent) transparent;
+    overscroll-behavior: contain;
   }
 }
 
@@ -231,6 +239,14 @@
 /* Lenis smooth scrolling styles */
 html.lenis, html.lenis body {
   height: auto;
+}
+
+/* Suppress rubber-band scroll chaining on precise pointers only;
+   coarse pointers keep native pull-to-refresh defaults. */
+@media (pointer: fine) {
+  html {
+    overscroll-behavior: none;
+  }
 }
 
 .lenis.lenis-smooth {

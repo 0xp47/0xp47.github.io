@@ -15,7 +15,10 @@ export function BlogCard({ post, className }: BlogCardProps) {
   return (
     <Link
       href={`/blog/${post.slug}`}
-      className={cn("group flex h-full flex-col outline-none", className)}
+      className={cn(
+      "group flex h-full flex-col rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-foreground/25",
+      className,
+    )}
     >
       {/* Cover */}
       <div className="relative w-full shrink-0 overflow-hidden rounded-lg">

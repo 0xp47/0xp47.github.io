@@ -29,7 +29,7 @@ export function ExperienceSection() {
               <motion.article
                 key={item.company}
                 variants={cardVariants}
-                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 border-b border-border/10 py-6 hover:border-foreground/20 transition-all duration-300 pl-10 md:pl-12"
+                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 border-b border-border/10 py-6 hover:border-foreground/20 transition duration-300 pl-10 md:pl-12"
               >
                 {/* Left Column: Company & Timeline Dot */}
                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 min-w-[140px] md:min-w-[180px] shrink-0">

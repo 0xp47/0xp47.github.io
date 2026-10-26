@@ -337,7 +337,7 @@ export function ProjectsSection() {
                 <button
                   type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition-all duration-300 text-muted-foreground cursor-pointer"
+                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition duration-300 text-muted-foreground cursor-pointer"
                   aria-label="Close details"
                 >
                   <X className="size-3.5" />
@@ -430,7 +430,7 @@ export function ProjectsSection() {
                     href={selectedProject.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background rounded-full px-4 py-1.5 font-bold uppercase tracking-wider text-muted-foreground transition-all duration-300"
+                    className="inline-flex items-center gap-1.5 border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background rounded-full px-4 py-1.5 font-bold uppercase tracking-wider text-muted-foreground transition duration-300"
                   >
                     <GitBranch className="size-3" />
                     View Source
