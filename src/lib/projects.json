@@ -12,15 +12,15 @@
     "github": "https://github.com/0xp47/0xp47",
     "live": "https://github.com/0xp47/0xp47",
     "isPrivate": false,
-    "readme": "<div align=\"left\">\n    <a href=\"https://www.facebook.com/0xp47\">\n    <img src=\"https://img.shields.io/badge/-0xp47-blue?style=flat&logo=facebook&logoColor=white&link=https://facebook.com/0xp47.dev\" alt=\"Follow me on Facebook\">\n    </a>\n    <a href=\"https://user-badge.committers.top/philippines/0xp47\">\n        <img src=\"https://user-badge.committers.top/philippines/0xp47.svg\" alt=\"committers.top badge\">\n    </a>\n    <img align=\"right\" src=\"https://komarev.com/ghpvc/?username=0xp47&label=Profile%20Views&color=565f89&style=flat\" alt=\"Views\">\n</div>\n\n<div align=\"center\">\n    <img width=\"100%\" src=\"https://github.com/0xp47/0xp47/blob/main/images/header_.png\" />\n</div>\n\n```typescript\nconst developer = {\n  name: \"Jay Patrick Cano\",\n  alias: \"0xp47\",\n  role: \"Full-Stack Developer\",\n  location: \"Philippines 🇵🇭\",\n  status: \"Open to freelance, contract, and full-time opportunities\",\n\n  stack: {\n    languages: [\"JavaScript\", \"TypeScript\", \"Python\", \"PHP\", \"C#\"],\n    frontend: [\"React\", \"Next.js\", \"Vue.js\", \"Tailwind CSS\", \"Sass\"],\n    backend: [\"Node.js\", \"Express.js\", \"Laravel\", \"REST APIs\", \"GraphQL\"],\n    databases: [\"MongoDB\", \"MySQL\", \"PostgreSQL\", \"Firebase\", \"Supabase\"],\n    devOps: [\"Git\", \"Docker\", \"GitHub Actions\", \"CI/CD\", \"AWS · GCP · Azure\"],\n    automation: [\"Python Scripting\", \"Web Scraping\", \"Shell & Batch Scripts\"],\n  },\n\n  business: {\n    focus: [\n      \"Building scalable web apps and internal tools for startups and SMEs\",\n      \"Automating repetitive workflows to save time and reduce operational cost\",\n      \"Delivering maintainable products with clear ROI and measurable impact to business\",\n    ],\n  },\n\n  links: {\n    portfolio: \"https://0xp47.vercel.app\",\n    github: \"https://github.com/0xp47\",\n    linktree: \"https://jaypatrickcano.dev/linktree\",\n  },\n\n  quotes: [\n    \"Build products that make work simpler, faster, and more valuable.\",\n    \"Solve the right business problem first, then scale the solution.\",\n    \"Reliable software is good business.\",\n  ],\n} as const;\n\nexport default developer;\n```\n\n<!-- STATS:START -->\n```text\n0xp47 · Dev Metrics                                                        | Quick Insights\nFrom: 2020 - To: 2026                                                      | Top Lang : Python (25.78%)\n12 repos (8 public, 4 private)   |   0 stars                               | Top Editor: VS Code (95.61%)\nWakaTime (all time): 877 hrs 15 mins total · 2 hrs 19 mins daily avg       | Peak Time: Daytime (43.06%)\n                                                                           | Peak Day : Monday (17.88%)\n                                                                           | All-Time : 897 hrs 32 mins\n                                                                           | Activity : 178 chunks\nStats & Proficiency\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n Languages\n Python            ▰▰▰▱▱▱▱▱▱▱   25.78 %   | 231.36 h                       |  /\\_/\\\n JavaScript        ▰▰▱▱▱▱▱▱▱▱   22.96 %   | 206.09 h                       | ( o.o )\n TypeScript        ▰▱▱▱▱▱▱▱▱▱   11.22 %   | 100.66 h                       |  > ^ <\n PHP               ▰▱▱▱▱▱▱▱▱▱    9.13 %   | 81.96 h                        | Readable code scales teams.\n Markdown          ▰▱▱▱▱▱▱▱▱▱    6.29 %   | 56.49 h                        | Automation buys thinking time.\n SQL               ▱▱▱▱▱▱▱▱▱▱    4.82 %   | 43.23 h                        | Refactor early, ship confid...\n JSON              ▱▱▱▱▱▱▱▱▱▱    4.21 %   | 37.76 h                        | Great DX creates great UX.\n CSS               ▱▱▱▱▱▱▱▱▱▱    3.50 %   | 31.44 h                        | Consistency compounds quality.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n Projects\n jaypatrickcano.dev   ▰▰▰▰▰▰▰▰▰▱    94.88 %   |  1h 51m                       | Refactor and clean.\n AetherAI          ▱▱▱▱▱▱▱▱▱▱     3.13 %   |      3m                       | Keep shipping.\n f36f450e-c00f-4535-8856-ebb5cced781f ▱▱▱▱▱▱▱▱▱▱     1.33 %   |      1m    | Solve problems.\n Unknown Project   ▱▱▱▱▱▱▱▱▱▱       <1 %   |      1m                       | Focus on target.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n I Code Most During\n\n Morning    (06-12)   ▱▱▱▱▱▱▱▱▱▱    1.80 %   | 15.76 h                     | Deep focus zone.\n Daytime    (12-18)   ▰▰▰▰▱▱▱▱▱▱   43.06 %   | 377.76 h                    | Review and polish.\n Evening    (18-24)   ▰▰▰▱▱▱▱▱▱▱   28.44 %   | 249.48 h                    | Debug and refine.\n Night      (00-06)   ▰▰▰▱▱▱▱▱▱▱   26.70 %   | 234.26 h                    | Plan and warm up.\n\n I Am Most Productive On\n\n Monday     ▰▰▱▱▱▱▱▱▱▱   17.88 %   | 110.43 h                              | Planning day\n Tuesday    ▰▱▱▱▱▱▱▱▱▱   13.19 %   | 81.43 h                               | Momentum day\n Wednesday  ▰▱▱▱▱▱▱▱▱▱   12.64 %   | 78.03 h                               | Shipping day\n Thursday   ▰▰▱▱▱▱▱▱▱▱   15.37 %   | 94.88 h                               | Refactor day\n Friday     ▰▱▱▱▱▱▱▱▱▱   12.20 %   | 75.32 h                               | Review day\n Saturday   ▰▱▱▱▱▱▱▱▱▱   14.70 %   | 90.79 h                               | Automation day\n Sunday     ▰▱▱▱▱▱▱▱▱▱   14.03 %   | 86.61 h                               | Learning day\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n\n Editors\n VS Code           ▰▰▰▰▰▰▰▰▰▰    95.61 %   | 858.16 h                      | Fast feedback loop.\n Acode             ▱▱▱▱▱▱▱▱▱▱     2.32 %   | 20.82 h                       | Plugins tuned for speed.\n Antigravity       ▱▱▱▱▱▱▱▱▱▱       <1 %   |  5.93 h                       | Focus mode ready.\n Antigravity Desktop ▱▱▱▱▱▱▱▱▱▱       <1 %   |  5.84 h                     | Keyboard-first workflow.\n Antigravity IDE   ▱▱▱▱▱▱▱▱▱▱       <1 %   |  3.86 h                       | Fast feedback loop.\n\n Operating Systems\n Windows           ▰▰▰▰▰▰▰▰▰▱    94.51 %   | 848.23 h                      | Toolchain optimized.\n WSL               ▱▱▱▱▱▱▱▱▱▱     3.14 %   | 28.15 h                       | Build-ready setup.\n Android           ▱▱▱▱▱▱▱▱▱▱     2.32 %   | 20.82 h                       | Automation friendly.\n Linux             ▱▱▱▱▱▱▱▱▱▱       <1 %   |  0.34 h                       | Stable dev environment.\n\n Machines & Devices\n ROG-Zephyrus      ▰▰▰▰▱▱▱▱▱▱    42.24 %   | 379.10 h                      | Ready to build.\n w11               ▰▰▱▱▱▱▱▱▱▱    18.95 %   | 170.10 h                      | Workstation tuned.\n 0xp47             ▰▰▱▱▱▱▱▱▱▱    17.63 %   | 158.23 h                      | On-the-go focus.\n ubuntu            ▰▱▱▱▱▱▱▱▱▱    11.78 %   | 105.71 h                      | Hardware optimized.\n ILLC-05           ▱▱▱▱▱▱▱▱▱▱     2.82 %   | 25.35 h                       | Ready to build.\n\n━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━\n Languages/Time/Day/Editors/OS from WakaTime API · Repo stats from GitHub API · Updated: 2026-07-10 08:09:19 PHT\n```\n<!-- STATS:END -->\n",
+    "readme": "",
     "createdAt": "2026-06-30T14:23:47Z",
-    "updatedAt": "2026-07-10T00:09:20Z",
+    "updatedAt": "2026-10-27T01:53:41Z",
     "stars": 0
   },
   {
     "name": "0xp47.github.io",
     "category": "Web",
-    "description": "A premium, SEO-optimized developer portfolio built with Next.js (App Router), Tailwind CSS, and Framer Motion.",
+    "description": "A simple SEO-optimized developer portfolio built with Next.js (App Router), Tailwind CSS, and Framer Motion.",
     "stack": [
       "TypeScript",
       "Developer-portfolio",
@@ -31,9 +31,88 @@
     "github": "https://github.com/0xp47/0xp47.github.io",
     "live": "https://jaypatrickcano.dev/",
     "isPrivate": false,
-    "readme": "# Jay Patrick Cano (0xp47) — Portfolio\n\nMy personal developer portfolio built with Next.js (App Router), Tailwind CSS, and Framer Motion. It showcases my projects, work experience, and developer journey, optimized for clean performance and readability.\n\n---\n\n## 🚀 Key Features\n\n* **Modular Architecture**: Clean separation of concerns with components structured by logical usage.\n* **Search & AI Discoverability**:\n  * **Structured Data**: JSON-LD Schema (`Person` entity) mapping aliases (`0xp47`), location details, and technical expertise.\n  * **Crawler Friendly**: Configured `robots.txt` rules and automated dynamic `sitemap.xml` mapping.\n  * **FAQ Structure**: Structured FAQ microdata compliant with schema formats to enhance readability for search engines and AI assistants.\n* **Interactive Design**:\n  * **Particle Background**: Code symbol background animations that dynamically connect on scroll.\n  * **Cursor Aura**: Subtle glowing radial gradient tracking cursor movements.\n  * **Smooth Scrolling**: Custom ease-in-out-cubic scroll animations for navigating anchor sections.\n  * **Motion Reduction Support**: Respects system preferences (`prefers-reduced-motion`) to disable animations when requested.\n\n---\n\n## 🛠️ Technology Stack\n\n* **Core**: Next.js 16 (App Router / Turbopack), React 19, TypeScript\n* **Styling**: Tailwind CSS v4, Framer Motion (v12)\n* **Icons**: Lucide React, Simple Icons (`react-icons/si`)\n* **Fonts**: Geist Sans & Geist Mono (optimized local loading)\n\n---\n\n## 📁 Codebase Directory Structure\n\nThe components and hooks are organized using Next.js path aliases (`@/*`) to prevent relative directory path nesting:\n\n```text\nsrc/\n├── app/                                # App Router Configurations\n│   ├── favicon.ico\n│   ├── globals.css                     # Custom Tailwind Theme Setup\n│   ├── layout.tsx                      # Root Layout, Metadata & JSON-LD\n│   ├── page.tsx                        # Home Route\n│   ├── robots.ts                       # Robots.txt generator\n│   └── sitemap.ts                      # Sitemap.xml generator\n├── hooks/\n│   └── use-safe-reduced-motion.ts      # Media query reduced-motion checker\n├── components/\n│   ├── layout/\n│   │   ├── site-nav.tsx                # Page header sticky navigation\n│   │   └── footer.tsx                  # Page copyright footer\n│   ├── sections/\n│   │   ├── hero-section.tsx            # Landing header & tech marquee loop\n│   │   ├── about-section.tsx           # Bio highlights\n│   │   ├── projects-section.tsx        # Project catalog with category filtering\n│   │   ├── experience-section.tsx      # Chronological history timeline\n│   │   ├── faq-section.tsx             # Factual FAQ schema block\n│   │   └── contact-section.tsx         # CTAs & mail/linktree redirects\n│   ├── shared/\n│   │   ├── section.tsx                 # Shared viewport animate sections wrapper\n│   │   ├── social-link.tsx             # Shared custom social icon button\n│   │   └── particles-background.tsx    # Shared background code particle canvas\n│   ├── portfolio.tsx                   # Main layout compositor\n│   └── providers.tsx                   # Tooltip context provider wrapper\n├── lib/\n│   ├── portfolio-data.ts               # Local data model profiles & projects\n│   └── utils.ts                        # Tailwind class mergers (clsx/tailwind-merge)\n```\n\n---\n\n## 💻 Development Commands\n\nIn the project directory, you can run:\n\n### Start Development Server\nStarts the Next.js development server with Turbopack enabled on [http://localhost:3000](http://localhost:3000):\n```bash\nnpm run dev\n```\n\n### Production Build Check\nCompiles the application, runs TypeScript type-checking, and generates optimized static pages:\n```bash\nnpm run build\n```\n\n### Run Production Server\nStarts the built application in production mode:\n```bash\nnpm run start\n```\n\n### Linting Check\nScans the project files for ESLint errors:\n```bash\nnpm run lint\n```\n",
+    "readme": "",
     "createdAt": "2026-07-01T15:24:59Z",
-    "updatedAt": "2026-07-09T06:20:34Z",
+    "updatedAt": "2026-10-26T09:19:11Z",
+    "stars": 0
+  },
+  {
+    "name": "Beauty-hub-ecommerce",
+    "category": "Web",
+    "description": "A simple client e-commerce storefront for beauty products built with PHP MVC and MySQL.",
+    "stack": [
+      "PHP",
+      "Beauty",
+      "Client-project",
+      "Ecommerce",
+      "Mvc"
+    ],
+    "github": "https://github.com/0xp47/Beauty-hub-ecommerce",
+    "live": "https://github.com/0xp47/Beauty-hub-ecommerce",
+    "isPrivate": false,
+    "readme": "",
+    "createdAt": "2026-08-01T09:42:45Z",
+    "updatedAt": "2026-08-24T07:22:09Z",
+    "stars": 0
+  },
+  {
+    "name": "ccs",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "Web Tech"
+    ],
+    "github": "https://github.com/0xp47/ccs",
+    "live": "https://github.com/0xp47/ccs",
+    "isPrivate": false,
+    "readme": "# CCSAS — College Club Attendance System & Portals\n\nOfficial release repository for the **CCS Attendance System** Android mobile applications and administrative portal.\n\n---\n\n### 🌐 Live Web Dashboard\n\nAccess the administrative web portal here:\n👉 **[https://ccsas-dashboard.vercel.app/](https://ccsas-dashboard.vercel.app/)**\n\n---\n\n## 📱 Mobile App Releases (Android APK)\n\nDownload the official release APKs below:\n\n| Application | Purpose | Download Links | File Size |\n| :--- | :--- | :--- | :--- |\n| **CCS Attendance Scanner** | Handheld scanner for Officers & Marshals to scan student barcodes and QR codes | [⬇️ **Download Scanner APK**](https://github.com/0xp47/ccs/releases/download/v1.0.0/CCS_Attendance_Scanner.apk)<br>*(or from repo: [CCS_Attendance_Scanner.apk](CCS_Attendance_Scanner.apk))* | ~140 MB |\n| **CCS Student Portal** | Student digital ID, personal attendance tracker, and clearance pass | [⬇️ **Download Student Portal APK**](https://github.com/0xp47/ccs/releases/download/v1.0.0/CCS_Student_Portal.apk)<br>*(or from repo: [CCS_Student_Portal.apk](CCS_Student_Portal.apk))* | ~115 MB |\n\n> 📦 **GitHub Releases**: You can also view all assets and releases at [**https://github.com/0xp47/ccs/releases**](https://github.com/0xp47/ccs/releases).\n\n---\n\n## 📲 How to Install on Android\n\n1. Download the desired `.apk` file using your Android phone browser or from the links above.\n2. Tap the downloaded `.apk` file to open it.\n3. If prompted with *\"For your security, your phone is not allowed to install unknown apps from this source\"*:\n   - Tap **Settings**.\n   - Enable **Allow from this source**.\n4. Tap **Install** to complete the installation.\n5. Open the app:\n   - **Officers / Marshals**: Log in with your assigned credentials to start scanning.\n   - **Students**: Log in with your Student ID to access your digital ID and attendance records.\n\n---\n\n## 🔗 Official Links\n\n- **Web Dashboard**: [https://ccsas-dashboard.vercel.app/](https://ccsas-dashboard.vercel.app/)\n- **Release Repository**: [https://github.com/0xp47/ccs.git](https://github.com/0xp47/ccs.git)\n",
+    "createdAt": "2026-09-17T07:17:54Z",
+    "updatedAt": "2026-09-17T07:35:58Z",
+    "stars": 0
+  },
+  {
+    "name": "ccs-assistant",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/ccs-assistant",
+    "live": "https://ccs-assistant.vercel.app",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-10-01T14:48:00Z",
+    "updatedAt": "2026-10-27T05:01:40Z",
+    "stars": 0
+  },
+  {
+    "name": "ccsas",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/ccsas",
+    "live": "https://github.com/0xp47/ccsas",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-08-26T11:49:21Z",
+    "updatedAt": "2026-10-06T08:48:20Z",
+    "stars": 0
+  },
+  {
+    "name": "CCSAS-Dashboard",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/CCSAS-Dashboard",
+    "live": "https://ccsas-dashboard.vercel.app",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-09-12T14:50:15Z",
+    "updatedAt": "2026-10-06T09:16:38Z",
     "stars": 0
   },
   {
@@ -69,7 +148,7 @@
     "github": "https://github.com/0xp47/HireHub-PH",
     "live": "https://github.com/0xp47/HireHub-PH",
     "isPrivate": false,
-    "readme": "# HireHub PH - Online Job Portal\n\n## Overview\nHireHub PH is a comprehensive online job portal designed to cater to both job providers and job seekers. The platform boasts role-based features to ensure a seamless experience for users.\n\n## Technology Stack\n- PHP\n- MySQL\n- HTML5\n- CSS3\n- JavaScript\n- Bootstrap-v4.6\n\n## Steps to Run the Project Locally\n1. Install XAMPP.\n2. Navigate to `C:/xampp/htdocs/\"yourNewFolder\"` and paste all the source files.\n3. Open the XAMPP control panel, start Apache and MySQL.\n4. Visit `localhost` in your browser and access phpMyAdmin.\n5. Import the provided SQL database named \"onlinejobportal.\"\n6. Open any browser and enter `localhost/\"yourNewFolder\"` in the URL box.\n\n## Online URL\nThe website is live at [Hire-Hub.000webhostapp.com](https://Hire-Hub.000webhostapp.com/index.php).\n\n## Key Features\n\n### For Employers:\n- Login and Registration functionalities.\n- Browse and view all available jobs.\n- Apply for jobs by submitting CV files.\n- Search for jobs based on category and location.\n- View a list of all applied jobs.\n\n### For Employees:\n- Login and Registration capabilities.\n- Post new job listings.\n- Review job applications from seekers.\n- Manage and edit posted job listings.\n- Access a comprehensive list of existing jobs.\n- Search for jobs by category and location.\n- Delete or update job posts as needed.\n- View individual job posts.\n- Download CVs of job seekers.\n\n### Common Features:\n- Mobile responsiveness for a seamless user experience.\n- Role-based login and registration for tailored access.\n- Restricted pages accessible only to authorized users.\n- Persistent user login even after page refresh.\n- Navbar displays accessible pages based on user roles.\n- Role-based access verification for enhanced security.\n- Notification system for success and failure through alert boxes.\n",
+    "readme": "",
     "createdAt": "2026-07-05T09:20:24Z",
     "updatedAt": "2026-07-05T09:23:39Z",
     "stars": 0
@@ -94,6 +173,21 @@
     "stars": 0
   },
   {
+    "name": "leafsense-new",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/leafsense-new",
+    "live": "https://github.com/0xp47/leafsense-new",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-08-26T11:48:05Z",
+    "updatedAt": "2026-08-26T11:49:57Z",
+    "stars": 0
+  },
+  {
     "name": "Linkedin-Autopilot",
     "category": "Tool",
     "description": "Automated LinkedIn Easy Apply tool using Playwright to discover jobs, auto-fill forms, and leverage AI for candidate answers.",
@@ -110,6 +204,84 @@
     "readme": "# LinkedIn Autopilot\n\nLinkedIn Easy Apply automation tool built with Playwright that logs in, discovers jobs, auto-fills application forms with profile data and AI-assisted answers, tracks runtime state, and generates session reports.\n\n## Requirements\n\n- Python 3.11+\n- Windows PowerShell (recommended for bootstrap scripts)\n\n## Project Layout\n\n```text\nsrc/\n  app.py                      # Main orchestration flow\n  config.py                   # Loads config/data.json\n  logging_setup.py            # Shared Rich logging + console\n  models.py                   # SessionStats and JobRecord\n  __main__.py                 # python -m src entrypoint\n  automation/\n    easy_apply_agent.py\n    answering_mixin.py\n    form_interaction_mixin.py\n    modal_submit_mixin.py\n  services/\n    ai.py\n    linkedin.py\n    reporting.py\n  storage/\n    json_store.py\n  ui/\n    dashboard.py\n\nconfig/\n  data.json                   # Candidate/job preferences (local private data)\n\nassets/\n  dummy.pdf                   # Local sample resume (replace with your own)\n\nruntime/\n  application_history.json    # Runtime state\n  daily_stats.json            # Runtime state\n  job_queue.json              # Runtime state\n  linkedin_state.json         # Runtime state\n  session_report.html         # Generated report output\n\nscripts/\n  start.ps1                   # Bootstrap .venv, install deps if needed, run app\n  start.cmd                   # cmd wrapper for start.ps1\n\nmain.py                       # Root launcher (calls src.app.run)\nrequirements.txt              # Python dependencies\npyproject.toml                # Packaging metadata\ntests/                        # Unit tests\n```\n\n## Quick Start (Recommended)\n\n1. Create local config files from the samples:\n\n```powershell\nCopy-Item .env.example .env\nCopy-Item config/data.sample.json config/data.json\n```\n\nThen edit your local `.env` and `config/data.json` with your real values.\n\n2. Run bootstrap script (creates `.venv`, installs requirements if changed, then runs app):\n\n```powershell\npowershell -ExecutionPolicy Bypass -File scripts/start.ps1\n```\n\nFrom cmd:\n\n```bat\nscripts\\start.cmd\n```\n\n## Setup Only (No Launch)\n\nUse this when you only want environment + dependency setup:\n\n```powershell\npowershell -ExecutionPolicy Bypass -File scripts/start.ps1 -NoRun\n```\n\n## Manual Run Options\n\nRun with root launcher:\n\n```powershell\n.\\.venv\\Scripts\\python.exe main.py\n```\n\nRun as module:\n\n```powershell\n.\\.venv\\Scripts\\python.exe -m src\n```\n\nOptional console script (after editable install):\n\n```powershell\n.\\.venv\\Scripts\\python.exe -m pip install -e .\nlinkedin-autopilot\n```\n\n## Tests\n\n```powershell\n.\\.venv\\Scripts\\python.exe -m unittest discover -s tests -p \"test_*.py\"\n```\n\n## Screenshots\n\n![Session screenshot 1](screenshots/Screenshot%202026-04-18%20144423.png)\n\n![Session screenshot 2](screenshots/Screenshot%202026-04-18%20144545.png)\n\n## Configuration\n\n- Edit your local `.env` and `config/data.json` with your own values.\n- Set `application_settings.resume_path` to your resume file path (for example `assets/your_resume.pdf`).\n- Runtime/session files are stored in `runtime/`.\n\n## Run\n\n- Windows quick start: `powershell -ExecutionPolicy Bypass -File scripts/start.ps1`\n- Manual run: `python main.py`\n- Module run: `python -m src`\n",
     "createdAt": "2026-07-05T08:55:22Z",
     "updatedAt": "2026-07-05T08:59:19Z",
+    "stars": 0
+  },
+  {
+    "name": "Lumina-Facebook-Page-Bot",
+    "category": "Web",
+    "description": "A production-ready, modular Node.js + Express + TypeScript service built according to Meta's official Facebook Pages API and Messenger API specifications.",
+    "stack": [
+      "TypeScript",
+      "Facebook-pages-api",
+      "Meta-developer",
+      "Social-media-integration"
+    ],
+    "github": "https://github.com/0xp47/Lumina-Facebook-Page-Bot",
+    "live": "https://github.com/0xp47/Lumina-Facebook-Page-Bot",
+    "isPrivate": false,
+    "readme": "",
+    "createdAt": "2026-08-06T13:10:42Z",
+    "updatedAt": "2026-09-03T12:25:24Z",
+    "stars": 1
+  },
+  {
+    "name": "Lumora",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "Web Tech"
+    ],
+    "github": "https://github.com/0xp47/Lumora",
+    "live": "https://github.com/0xp47/Lumora",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-08-24T05:28:58Z",
+    "updatedAt": "2026-08-24T05:28:59Z",
+    "stars": 0
+  },
+  {
+    "name": "Lumora-Backend",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/Lumora-Backend",
+    "live": "https://github.com/0xp47/Lumora-Backend",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-07-20T12:00:14Z",
+    "updatedAt": "2026-08-12T05:29:44Z",
+    "stars": 0
+  },
+  {
+    "name": "Lumora-Frontend",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/Lumora-Frontend",
+    "live": "https://lumora-five-indol.vercel.app",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-07-16T14:59:38Z",
+    "updatedAt": "2026-08-12T05:29:58Z",
+    "stars": 0
+  },
+  {
+    "name": "lumora-new",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/lumora-new",
+    "live": "https://github.com/0xp47/lumora-new",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-08-26T11:40:20Z",
+    "updatedAt": "2026-08-26T11:46:39Z",
     "stars": 0
   },
   {
@@ -151,6 +323,59 @@
     "stars": 0
   },
   {
+    "name": "nimji",
+    "category": "AI/ML",
+    "description": "Promise-first TypeScript client & CLI for Google Gemini web chat with multi-turn sessions, high-res Imagen 3 image generation, image search, and multimodal upload.",
+    "stack": [
+      "TypeScript",
+      "Ai",
+      "Chat-cli",
+      "Chatbot",
+      "Gemini"
+    ],
+    "github": "https://github.com/0xp47/nimji",
+    "live": "https://github.com/0xp47/nimji",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-07-26T14:54:25Z",
+    "updatedAt": "2026-09-28T23:37:45Z",
+    "stars": 0
+  },
+  {
+    "name": "notebooklm-watermark-remover",
+    "category": "AI/ML",
+    "description": "Fast, lightweight pure Python CLI tool to remove NotebookLM watermarks from PDF, PPTX, and image files.",
+    "stack": [
+      "Python",
+      "Computer-vision",
+      "Image-inpainting",
+      "Notebooklm",
+      "Pdf-watermark-remover"
+    ],
+    "github": "https://github.com/0xp47/notebooklm-watermark-remover",
+    "live": "https://github.com/0xp47/notebooklm-watermark-remover",
+    "isPrivate": false,
+    "readme": "# NotebookLM Watermark Remover\n\n<p align=\"center\">\n  <img src=\"https://img.shields.io/badge/python-3.9+-blue.svg\" alt=\"Python 3.9+\">\n  <img src=\"https://img.shields.io/badge/license-MIT-green.svg\" alt=\"License MIT\">\n  <img src=\"https://img.shields.io/badge/interface-Pure%20CLI-orange.svg\" alt=\"Pure CLI\">\n  <img src=\"https://img.shields.io/badge/tests-19%20passed-brightgreen.svg\" alt=\"Tests Passing\">\n</p>\n\nA fast, lightweight, and pure Python CLI tool designed to cleanly detect and remove \"NotebookLM\" watermarks from **PDF documents**, **PowerPoint presentations (PPTX)**, and **images (PNG, JPG, WEBP)**.\n\nInstead of crudely placing solid blocks or blurring areas, it uses a hybrid approach: **PyMuPDF vector layer redaction**, **multi-scale template matching**, and **texture-preserving background patch healing** (with Telea inpainting fallback).\n\n---\n\n## Key Features\n\n- **Pure CLI Experience**: Lightweight Python script execution with zero heavy build tools, GUI overhead, or packaging bloat.\n- **Smart PDF Redaction**: Selectively removes the watermark from the PDF vector text layer, keeping background vector art intact while inpainting watermark icons.\n- **PowerPoint (PPTX) Support**: Automatically scans, cleans, and updates embedded slide images inside PPTX archives while maintaining layout and image compression.\n- **Image Cleaning**: Restores PNGs (including alpha/transparency channels), JPEGs, and WEBPs with sub-pixel resolution upscaling.\n- **Texture-Preserving Patch Healing**: Samples neighboring clean background regions to preserve grain, gradients, and paper textures.\n- **Batch Processing**: Clean entire folders containing mixed document and image formats in a single command.\n- **Preview Mode**: Fast preview on page 1 of PDFs before committing to large multi-page jobs.\n\n---\n\n## Installation\n\n### 1. Clone the Repository\n```bash\ngit clone https://github.com/0xp47/notebooklm-watermark-remover.git\ncd notebooklm-watermark-remover\n```\n\n### 2. Install Dependencies\n```bash\npip install -r requirements.txt\n```\n\n*(Optional)* Install locally as a system-wide command:\n```bash\npip install -e .\n```\n\n---\n\n## Quick Start & CLI Usage\n\nRun directly via the root `remove.py` script:\n\n### Single File Cleaning\n```bash\n# Clean a PDF document\npython remove.py document.pdf\n\n# Clean a PowerPoint slide deck\npython remove.py presentation.pptx\n\n# Clean an image (PNG with transparency, JPG, WEBP)\npython remove.py slide.png\n```\n*Cleaned files are saved automatically in the same directory with `_cleaned` suffix (e.g., `document_cleaned.pdf`).*\n\n### Custom Output Destination\n```bash\npython remove.py document.pdf -o path/to/cleaned_output.pdf\n```\n\n### Batch Process a Folder\n```bash\n# Clean all supported files in a folder\npython remove.py ./my_documents/\n\n# Clean and output all results to a specific directory\npython remove.py ./my_documents/ -o ./cleaned_documents/\n```\n\n### Preview First Page (PDF Only)\n```bash\npython remove.py document.pdf --preview\n```\n\n---\n\n## CLI Options & Tuning\n\n```\nusage: notebooklm-remover [-h] [-o OUTPUT] [--preview] [--margin-x MARGIN_X]\n                          [--margin-y MARGIN_Y] [--threshold THRESHOLD]\n                          [--text-threshold TEXT_THRESHOLD] [--scale SCALE]\n                          [--radius RADIUS] [--no-patch-heal] [--debug] [-v]\n                          path\n```\n\n| Flag | Type | Default | Description |\n| :--- | :--- | :--- | :--- |\n| `path` | `str` | *Required* | Path to an input file (`.pdf`, `.pptx`, `.png`, `.jpg`, `.jpeg`, `.webp`) or folder. |\n| `-o, --output` | `str` | `None` | Custom output file or directory path (defaults to `<name>_cleaned.<ext>`). |\n| `--preview` | `flag` | `False` | Process only the first page (PDF only). |\n| `--margin-x` | `int` | `400` | Search margin width from right edge (pixels/points). |\n| `--margin-y` | `int` | `120` | Search margin height from bottom edge (pixels/points). |\n| `--threshold` | `int` | `22` | Contrast difference threshold for candidate stroke extraction (0–255). |\n| `--text-threshold` | `float` | `0.45` | Template match correlation threshold for \"NotebookLM\" text detection. |\n| `--scale` | `float` | `3.5` | Upscaling render factor for high-resolution sub-pixel mask alignment. |\n| `--radius` | `int` | `3` | Inpaint radius for OpenCV Telea fallback. |\n| `--no-patch-heal` | `flag` | `False` | Disable texture patch healing and use standard inpainting directly. |\n| `--debug` | `flag` | `False` | Output intermediate detection masks and ROIs to `debug_watermark/`. |\n| `-v, --version` | `flag` | — | Display version number (`1.0.0`) and exit. |\n\n---\n\n## How It Works\n\n```\n                        ┌───────────────────────────────┐\n                        │          Input File           │\n                        └──────────────┬────────────────┘\n                                       │\n                ┌──────────────────────┼──────────────────────┐\n                ▼                      ▼                      ▼\n         [ PDF Document ]      [ PPTX Archive ]       [ Image File ]\n                │                      │                      │\n         Vector Redaction        Unpack Media            Upscale ROI\n                │                      │                      │\n                └──────────────┬───────┴──────────────────────┘\n                               ▼\n               ┌───────────────────────────────┐\n               │    Watermark Detection ROI    │\n               │   • Polarity check (L/D)      │\n               │   • Multi-scale template      │\n               │   • Connected component fusion│\n               └───────────────┬───────────────┘\n                               ▼\n               ┌───────────────────────────────┐\n               │      Reconstruction Core      │\n               │   • Texture donor patch match │\n               │   • Alpha gradient blending   │\n               │   • Telea inpaint fallback    │\n               └───────────────┬───────────────┘\n                               ▼\n               ┌───────────────────────────────┐\n               │     Cleaned Output Saved      │\n               └───────────────────────────────┘\n```\n\n---\n\n## Project Structure\n\n```\nnotebooklm-watermark-remover/\n├── src/\n│   ├── __init__.py          # Package exports\n│   ├── __main__.py          # Module execution wrapper\n│   ├── cli.py               # Pure CLI argument parsing & orchestration\n│   ├── config.py            # WatermarkConfig dataclass\n│   ├── engine.py            # Unified WatermarkRemover engine\n│   ├── exceptions.py        # Custom exception types\n│   ├── ui.py                # Rich terminal UI, live progress & summaries\n│   ├── core/\n│   │   ├── detector.py      # Multi-scale template matching & mask builder\n│   │   ├── reconstructor.py # Donor patch healing & inpainting\n│   │   └── template.py      # Cross-platform font resolution & template caching\n│   └── processors/\n│       ├── base.py          # Abstract processor base class\n│       ├── image.py         # Image format processor (PNG, JPG, WEBP)\n│       ├── pdf.py           # PDF PyMuPDF vector & raster processor\n│       └── pptx.py          # PPTX presentation media processor\n├── tests/                   # Complete unit & integration test suite (25 test cases)\n├── remove.py                # Direct root CLI entrypoint script\n├── requirements.txt         # Pure CLI dependencies\n├── pyproject.toml           # Packaging configuration\n├── pytest.ini               # Test configuration\n└── .gitignore               # Clean Git ignore rules\n```\n\n---\n\n## Running the Test Suite\n\n```bash\n# Run with pytest\npython -m pytest -v\n\n# Or run with unittest\npython -m unittest discover -s tests -v\n```\n\n---\n\n## License & Disclaimer\n\n- **License**: Released under the [MIT License](LICENSE).\n- **Disclaimer**: This tool is intended for personal and fair-use document cleaning on presentations and materials you own or have permission to modify.\n",
+    "createdAt": "2026-08-16T16:40:13Z",
+    "updatedAt": "2026-08-19T08:55:19Z",
+    "stars": 5
+  },
+  {
+    "name": "PhilNITS-IP-Exam",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/PhilNITS-IP-Exam",
+    "live": "https://philnits-prep.vercel.app/",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-10-13T15:09:51Z",
+    "updatedAt": "2026-10-24T15:51:04Z",
+    "stars": 0
+  },
+  {
     "name": "POS-and-Inventory-System",
     "category": "Web",
     "description": "A local-first, multi-terminal LAN Point of Sale (POS) and inventory control suite optimized for hardware retail stores.",
@@ -167,6 +392,51 @@
     "readme": "",
     "createdAt": "2026-07-05T08:18:36Z",
     "updatedAt": "2026-07-05T16:49:39Z",
+    "stars": 0
+  },
+  {
+    "name": "qr",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "HTML"
+    ],
+    "github": "https://github.com/0xp47/qr",
+    "live": "http://jaypatrickcano.dev/qr/",
+    "isPrivate": false,
+    "readme": "",
+    "createdAt": "2026-10-06T10:13:08Z",
+    "updatedAt": "2026-10-06T10:56:58Z",
+    "stars": 0
+  },
+  {
+    "name": "room-209",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "TypeScript"
+    ],
+    "github": "https://github.com/0xp47/room-209",
+    "live": "https://room-209.vercel.app",
+    "isPrivate": true,
+    "readme": "",
+    "createdAt": "2026-10-25T14:11:43Z",
+    "updatedAt": "2026-10-26T08:20:51Z",
+    "stars": 0
+  },
+  {
+    "name": "test",
+    "category": "Web",
+    "description": "A project built by 0xp47.",
+    "stack": [
+      "HTML"
+    ],
+    "github": "https://github.com/0xp47/test",
+    "live": "http://jaypatrickcano.dev/test/",
+    "isPrivate": false,
+    "readme": "",
+    "createdAt": "2026-08-10T14:01:56Z",
+    "updatedAt": "2026-08-10T19:23:18Z",
     "stars": 0
   },
   {

@@ -3,7 +3,7 @@
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface Project {
+interface Project {
   name: string;
   description: string;
   category: string;
@@ -29,18 +29,29 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col items-start border-t border-border py-6 transition-colors duration-300 hover:border-foreground/50",
+        "group relative flex h-full flex-col items-start border-t border-border py-6 transition-all duration-300 hover:border-foreground/60 hover:-translate-y-0.5",
         className,
       )}
     >
-      {/* Category + stars (bare text, no chips) */}
-      <div className="mb-3 flex w-full items-baseline justify-between gap-3">
-        <span className="font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/60">
+      {/* Category + Live Status / Stars */}
+      <div className="mb-3 flex w-full items-center justify-between gap-3">
+        <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
           {project.category}
         </span>
-        <span className="font-mono text-[10px] text-muted-foreground/40 tabular-nums">
-          {project.stars ? `${project.stars}★` : ""}
-        </span>
+        <div className="flex items-center gap-2">
+          {isLive && (
+            <span className="inline-flex items-center gap-1 font-mono text-[8.5px] font-semibold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
+              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
+              Live
+            </span>
+          )}
+          {project.stars ? (
+            <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-border/40 font-mono text-[9px] text-muted-foreground/75 tabular-nums">
+              <span className="text-amber-400">★</span>
+              {project.stars}
+            </span>
+          ) : null}
+        </div>
       </div>
 
       {/* Title — links out when live */}
@@ -64,16 +75,23 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
         {project.description}
       </p>
 
-      {/* Stack as plain mono text + details */}
-      <div className="mt-auto w-full pt-6">
-        <div className="font-mono text-[10px] leading-relaxed tracking-wide text-muted-foreground/55">
-          {project.stack.slice(0, 3).join("  ·  ")}
+      {/* Stack Tags + Details Action */}
+      <div className="mt-auto w-full pt-5">
+        <div className="flex flex-wrap gap-1.5">
+          {project.stack.slice(0, 3).map((tech) => (
+            <span
+              key={tech}
+              className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/50 bg-foreground/[0.02] text-muted-foreground/75 transition-colors duration-300 group-hover:border-foreground/20 group-hover:text-foreground"
+            >
+              {tech}
+            </span>
+          ))}
         </div>
 
         <button
           type="button"
           onClick={() => onViewDetails(project)}
-          className="mt-3 inline-flex cursor-pointer items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+          className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
         >
           Details
           <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

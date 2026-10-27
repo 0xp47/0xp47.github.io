@@ -1,5 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import dns from 'node:dns';
+
+// Ensure IPv4 first to prevent Windows Node connect timeouts
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch {
+  // ignore
+}
 
 const CREDLY_USER = '0xp47';
 const BADGES_API_URL = `https://www.credly.com/users/${CREDLY_USER}/badges.json`;

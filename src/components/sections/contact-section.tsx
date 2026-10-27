@@ -77,14 +77,14 @@ export function ContactSection() {
             <span className="block font-mono text-[9px] uppercase text-muted-foreground/50 tracking-[0.2em]">
               Connect
             </span>
-            <div className="flex flex-wrap gap-4">
+            <div className="flex flex-wrap gap-2.5">
               {contactLinks.map((link) => (
                 <a
                   key={link.label}
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-muted-foreground/70 transition-colors duration-300 hover:text-foreground"
+                  className="flex size-9 items-center justify-center rounded-full border border-border/50 bg-foreground/[0.02] text-muted-foreground/80 hover:border-foreground/40 hover:bg-foreground hover:text-background transition-all duration-300 hover:scale-105 shadow-sm"
                   aria-label={link.label}
                   title={link.label}
                 >
@@ -97,6 +97,14 @@ export function ContactSection() {
 
         {/* Right: big typographic email CTA */}
         <motion.div variants={cardVariants} className="flex flex-col items-start gap-3 md:items-end">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+            </span>
+            Available for new projects
+          </div>
+
           <a
             href={`mailto:${profile.email}`}
             className="group relative text-2xl font-semibold tracking-tight text-foreground sm:text-3xl leading-tight"
@@ -111,19 +119,18 @@ export function ContactSection() {
             />
           </a>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2.5 mt-1">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
             >
               <Mail className="size-3.5" />
               Send Email
             </a>
-            <span aria-hidden="true" className="h-3 w-px bg-border" />
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex cursor-pointer items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              className="inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
               title="Copy email address"
             >
               {copied ? (

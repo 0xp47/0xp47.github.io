@@ -40,7 +40,7 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Toggle light and dark theme"
       title="Toggle theme"
-      className="fixed bottom-6 left-6 z-40 flex size-10 cursor-pointer items-center justify-center rounded-full bg-background/70 text-muted-foreground shadow-[0_16px_48px_rgba(0,0,0,0.25)] ring-1 ring-border backdrop-blur-xl transition duration-300 hover:-translate-y-1 hover:bg-foreground hover:text-background"
+      className="fixed top-4 right-4 sm:top-5 sm:right-5 md:top-auto md:bottom-6 md:left-6 z-40 flex size-9 sm:size-10 cursor-pointer items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-[0_16px_48px_rgba(0,0,0,0.25)] ring-1 ring-border backdrop-blur-xl transition duration-300 hover:bg-foreground hover:text-background"
     >
       {/* Sun in dark mode (click to go light) / Moon in light mode — pure CSS swap, no hydration mismatch */}
       <Sun className="size-4 hidden dark:block" />
@@ -48,4 +48,3 @@ export function ThemeToggle() {
     </button>
   );
 }
-

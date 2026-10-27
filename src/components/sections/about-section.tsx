@@ -60,9 +60,12 @@ export function AboutSection() {
           </p>
           
           {/* Sleek Stats Highlights */}
-          <div className="grid grid-cols-3 gap-4 pt-6 border-t border-border/10 mt-2">
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4 mt-2">
             {heroStats.map((stat, i) => (
-              <div key={i} className="flex flex-col">
+              <div
+                key={i}
+                className="flex flex-col p-3 sm:p-4 rounded-xl border border-border/50 bg-foreground/[0.015] hover:bg-foreground/[0.03] hover:border-foreground/30 transition-all duration-300 shadow-sm"
+              >
                 <span className="tabular-nums text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </span>
@@ -82,7 +85,7 @@ export function AboutSection() {
               transition: { staggerChildren: 0.12 }
             }
           }}
-          className="flex flex-col gap-6"
+          className="flex flex-col gap-5"
         >
           {aboutHighlights.map((item, index) => {
             const IconComponent = iconMap[item.icon] || Terminal;
@@ -91,15 +94,14 @@ export function AboutSection() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="group flex gap-4 items-start pb-6 border-b border-border/60 last:border-0 last:pb-0"
+                className="group flex gap-4 items-start p-4 rounded-xl border border-border/40 bg-foreground/[0.01] hover:bg-foreground/[0.025] hover:border-foreground/25 transition-all duration-300"
               >
-                {/* Bare icon — no container box */}
-                <IconComponent
-                  className="size-[18px] shrink-0 mt-1 text-muted-foreground transition duration-300 group-hover:text-foreground"
-                  strokeWidth={1.5}
-                />
+                {/* Framed icon container */}
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/50 bg-foreground/[0.03] text-muted-foreground transition-all duration-300 group-hover:border-foreground/30 group-hover:text-foreground group-hover:scale-105">
+                  <IconComponent className="size-4" strokeWidth={1.75} />
+                </div>
                 <div className="flex flex-col gap-1">
-                  <h4 className="text-sm font-medium text-foreground tracking-tight">
+                  <h4 className="text-sm font-semibold text-foreground tracking-tight">
                     {item.title}
                   </h4>
                   <p className="text-xs md:text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 text-pretty transition-colors duration-300 group-hover:text-foreground">

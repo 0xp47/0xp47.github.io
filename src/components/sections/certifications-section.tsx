@@ -139,7 +139,7 @@ export function CertificationsSection() {
                     href={badge.badgeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group grid grid-cols-[auto_1fr_auto] items-start gap-x-5 transition-colors duration-300"
+                    className="group grid grid-cols-[auto_1fr_auto] items-start gap-x-5 transition-all duration-300 hover:pl-2"
                     aria-label={`${badge.title} — verify on Credly`}
                   >
                     {/* Badge image */}

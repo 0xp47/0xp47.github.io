@@ -50,7 +50,7 @@ export function Portfolio() {
     }
   };
 
-  const [activeSection, setActiveSection] = useState("about");
+  const [activeSection, setActiveSection] = useState("");
   const [showBackToTop, setShowBackToTop] = useState(false);
   const prefersReducedMotion = useSafeReducedMotion();
   const { scrollY } = useScroll();
@@ -80,8 +80,12 @@ export function Portfolio() {
 
     sections.forEach((section) => observer.observe(section));
 
-    // Fallback: If scrolled to the bottom of the page, highlight the last section ('contact')
+    // Fallback: If at top highlight home/top, if at bottom highlight 'contact'
     const handleScrollSpyFallback = () => {
+      if (window.scrollY < 240) {
+        setActiveSection("");
+        return;
+      }
       const isAtBottom =
         window.innerHeight + window.scrollY >=
         document.documentElement.scrollHeight - 120;
@@ -174,7 +178,7 @@ export function Portfolio() {
         onClick={() => handleScrollToSection("#")}
         initial={false}
         animate={!isLoading && showBackToTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        className="fixed bottom-6 right-6 z-40 flex size-10 items-center justify-center rounded-full bg-background/70 text-foreground shadow-[0_16px_48px_rgba(0,0,0,0.25)] ring-1 ring-border backdrop-blur-xl transition hover:-translate-y-1 hover:bg-foreground hover:text-background"
+        className="fixed bottom-20 right-4 sm:right-6 md:bottom-6 md:right-6 z-40 flex size-10 items-center justify-center rounded-full bg-background/70 text-foreground shadow-[0_16px_48px_rgba(0,0,0,0.25)] ring-1 ring-border backdrop-blur-xl transition hover:-translate-y-1 hover:bg-foreground hover:text-background"
       >
         <ArrowUp className="size-4" />
       </motion.button>

@@ -1,5 +1,13 @@
 import fs from 'fs';
 import path from 'path';
+import { execFileSync } from 'child_process';
+import dns from 'node:dns';
+
+try {
+  dns.setDefaultResultOrder('ipv4first');
+} catch {
+  // ignore
+}
 
 let token = process.env.PORTFOLIO_PAT || process.env.GITHUB_PAT || process.env.GITHUB_TOKEN;
 
@@ -10,55 +18,79 @@ try {
     const envContent = fs.readFileSync(envPath, 'utf8');
     const lines = envContent.split('\n');
     for (const line of lines) {
-      const match = line.match(/^\s*(PORTFOLIO_PAT|GITHUB_PAT)\s*=\s*(.*)\s*$/);
+      const match = line.match(/^\s*(PORTFOLIO_PAT|GITHUB_PAT|GITHUB_TOKEN)\s*=\s*(.*)\s*$/);
       if (match) {
         token = match[2].trim().replace(/^['"]|['"]$/g, '');
       }
     }
   }
-} catch (e) {
-  console.log("No .env file found or error reading it:", e.message);
+} catch {
+  // ignore
 }
 
-if (!token) {
-  const projectsPath = path.resolve('src/lib/projects.json');
-  const statsPath = path.resolve('src/lib/github-stats.json');
-  if (fs.existsSync(projectsPath) && fs.existsSync(statsPath)) {
-    console.warn("Warning: PORTFOLIO_PAT is not set. Using cached local repository data to prevent build failure.");
-    process.exit(0); // Exit cleanly
-  } else {
-    console.error("Error: PORTFOLIO_PAT is not set and no cached local data was found. Please set it in your environment or in a .env file.");
-    process.exit(1);
+// Check if GitHub CLI (`gh`) is available and authenticated
+let hasGhCli = false;
+try {
+  const status = execFileSync('gh', ['auth', 'status'], {
+    encoding: 'utf8',
+    stdio: ['ignore', 'pipe', 'ignore'],
+    timeout: 3000
+  });
+  if (status && status.includes('Logged in to github.com')) {
+    hasGhCli = true;
+    console.log('Detected authenticated GitHub CLI (gh). Using gh for fast, reliable API sync.');
+  }
+} catch {
+  hasGhCli = false;
+}
+
+if (!hasGhCli && !token) {
+  try {
+    const ghToken = execFileSync('gh', ['auth', 'token'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+      timeout: 3000
+    }).trim();
+    if (ghToken && ghToken.startsWith('gh')) {
+      token = ghToken;
+      console.log('Retrieved token from GitHub CLI.');
+    }
+  } catch {
+    // ignore
   }
 }
 
-async function fetchRepos() {
-  console.log("Fetching repositories from GitHub...");
-  try {
-    let page = 1;
-    let rawRepos = [];
-    while (true) {
-      const response = await fetch(`https://api.github.com/user/repos?per_page=100&type=owner&page=${page}`, {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Accept": "application/vnd.github+json",
-          "User-Agent": "0xp47-Portfolio-Builder"
-        }
+// Universal API request helper
+function callGithubApi(endpoint) {
+  if (hasGhCli) {
+    try {
+      const output = execFileSync('gh', ['api', endpoint], {
+        encoding: 'utf8',
+        maxBuffer: 20 * 1024 * 1024,
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 8000
       });
-
-      if (!response.ok) {
-        const errText = await response.text();
-        throw new Error(`GitHub API returned status ${response.status}: ${errText}`);
-      }
-
-      const pageRepos = await response.json();
-      if (!pageRepos || pageRepos.length === 0) {
-        break;
-      }
-      rawRepos = rawRepos.concat(pageRepos);
-      page++;
+      return JSON.parse(output);
+    } catch {
+      return null;
     }
-    console.log(`Successfully fetched ${rawRepos.length} raw repositories.`);
+  }
+  return null;
+}
+
+async function fetchRepos() {
+  console.log("Fetching repositories from GitHub for 0xp47...");
+  try {
+    let rawRepos = callGithubApi('user/repos?per_page=100&type=owner');
+    if (!rawRepos || !Array.isArray(rawRepos)) {
+      rawRepos = callGithubApi('users/0xp47/repos?per_page=100');
+    }
+
+    if (!Array.isArray(rawRepos)) {
+      throw new Error("Invalid response from GitHub: expected an array of repositories");
+    }
+
+    console.log(`Successfully fetched ${rawRepos.length} raw repositories from GitHub.`);
 
     const repos = [];
     for (const repo of rawRepos) {
@@ -69,7 +101,7 @@ async function fetchRepos() {
       const lang = (repo.language || "").toLowerCase();
       const repoName = (repo.name || "").toLowerCase();
 
-      // Manual overrides for known repos (most reliable)
+      // Manual overrides for known repos
       const categoryOverrides = {
         "0xp47": "Web",                       // GitHub profile readme
         "0xp47.github.io": "Web",             // Portfolio site (Next.js)
@@ -89,7 +121,6 @@ async function fetchRepos() {
 
       // Auto-detection fallback for new/unknown repos
       if (!category) {
-        // Helper: check if any keyword appears in topics array
         const topicHas = (kws) => kws.some((k) => topics.includes(k));
 
         if (
@@ -152,27 +183,18 @@ async function fetchRepos() {
         stack = ["Web Tech"];
       }
 
-      // Fetch README content dynamically at compile time
+      // Only fetch README content for public repositories
       let readme = "";
-      try {
-        const readmeRes = await fetch(`https://api.github.com/repos/${repo.owner.login}/${repo.name}/readme`, {
-          headers: {
-            "Authorization": `Bearer ${token}`,
-            "Accept": "application/vnd.github+json",
-            "User-Agent": "0xp47-Portfolio-Builder"
-          }
-        });
-        if (readmeRes.ok) {
-          const readmeData = await readmeRes.json();
-          if (readmeData.content && readmeData.encoding === "base64") {
-            // Base64 decode to UTF-8
+      if (!repo.private) {
+        try {
+          const readmeData = callGithubApi(`repos/${repo.owner.login}/${repo.name}/readme`);
+          if (readmeData && readmeData.content && readmeData.encoding === "base64") {
             readme = Buffer.from(readmeData.content, 'base64').toString('utf8');
-            // Dynamically replace any old domain references in the fetched READMEs
             readme = readme.replace(/0xp47\.github\.io/g, "jaypatrickcano.dev");
           }
+        } catch {
+          // README might not exist for some repos, which is fine
         }
-      } catch (e) {
-        console.log(`Could not fetch README for ${repo.name}:`, e.message);
       }
 
       let liveUrl = repo.homepage || repo.html_url;
@@ -200,7 +222,7 @@ async function fetchRepos() {
 
     const outputPath = path.resolve('src/lib/projects.json');
     fs.writeFileSync(outputPath, JSON.stringify(repos, null, 2), 'utf8');
-    console.log(`Saved ${repos.length} parsed projects to ${outputPath}`);
+    console.log(`Successfully saved ${repos.length} parsed projects to ${outputPath}`);
 
     // --- Compute and save GitHub stats ---
     const totalProjects = rawRepos.filter((r) => !r.fork).length;
@@ -210,19 +232,12 @@ async function fetchRepos() {
     // Fetch user profile for followers
     let followers = 0;
     try {
-      const userRes = await fetch("https://api.github.com/user", {
-        headers: {
-          "Authorization": `Bearer ${token}`,
-          "Accept": "application/vnd.github+json",
-          "User-Agent": "0xp47-Portfolio-Builder"
-        }
-      });
-      if (userRes.ok) {
-        const userData = await userRes.json();
-        followers = userData.followers || 0;
+      const userData = callGithubApi('user') || callGithubApi('users/0xp47');
+      if (userData && typeof userData.followers === 'number') {
+        followers = userData.followers;
       }
-    } catch (e) {
-      console.log("Could not fetch user profile for followers:", e.message);
+    } catch {
+      // ignore
     }
 
     const stats = {
@@ -238,9 +253,14 @@ async function fetchRepos() {
     console.log(`Saved GitHub stats to ${statsPath}:`, stats);
   } catch (error) {
     console.error("Failed to fetch and process repositories:", error.message);
-    process.exit(1);
+    const projectsPath = path.resolve('src/lib/projects.json');
+    const statsPath = path.resolve('src/lib/github-stats.json');
+    if (fs.existsSync(projectsPath) && fs.existsSync(statsPath)) {
+      console.warn("Using existing cached repository data.");
+    } else {
+      process.exit(1);
+    }
   }
 }
 
 fetchRepos();
-
