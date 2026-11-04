@@ -42,11 +42,16 @@ export function Portfolio() {
     if (isLoading) return;
     if (sectionId === "#") {
       lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      setActiveSection("");
       return;
     }
-    const element = document.getElementById(sectionId.replace("#", ""));
+    const cleanId = sectionId.replace("#", "");
+    const element = document.getElementById(cleanId);
     if (element) {
       lenis?.scrollTo(element, { offset: -80, duration: 1.2 });
+      element.scrollIntoView({ behavior: "smooth" });
+      setActiveSection(cleanId);
     }
   };
 
@@ -60,46 +65,53 @@ export function Portfolio() {
 
   useEffect(() => {
     if (isLoading) return;
-    const sections = navItems
-      .map((item) => document.querySelector(item.href))
-      .filter((node): node is HTMLElement => node instanceof HTMLElement);
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
-          }
-        });
-      },
-      {
-        rootMargin: "-15% 0px -40% 0px",
-        threshold: 0.15,
-      },
-    );
+    const updateActiveSection = () => {
+      const scrollY = window.scrollY;
 
-    sections.forEach((section) => observer.observe(section));
-
-    // Fallback: If at top highlight home/top, if at bottom highlight 'contact'
-    const handleScrollSpyFallback = () => {
-      if (window.scrollY < 240) {
+      // When near top, activate Home
+      if (scrollY < 180) {
         setActiveSection("");
         return;
       }
+
+      // When near page bottom, activate last section (Contact)
       const isAtBottom =
-        window.innerHeight + window.scrollY >=
-        document.documentElement.scrollHeight - 120;
+        window.innerHeight + scrollY >= document.documentElement.scrollHeight - 100;
       if (isAtBottom && navItems.length > 0) {
         const lastSectionId = navItems[navItems.length - 1].href.replace("#", "");
         setActiveSection(lastSectionId);
+        return;
+      }
+
+      // Check section offsets in document order
+      const probeY = scrollY + Math.min(window.innerHeight * 0.35, 280);
+      let current = "";
+
+      for (const item of navItems) {
+        const id = item.href.replace("#", "");
+        const el = document.getElementById(id);
+        if (el) {
+          if (el.offsetTop <= probeY) {
+            current = id;
+          } else {
+            break;
+          }
+        }
+      }
+
+      if (current) {
+        setActiveSection(current);
       }
     };
 
-    window.addEventListener("scroll", handleScrollSpyFallback, { passive: true });
+    updateActiveSection();
+    window.addEventListener("scroll", updateActiveSection, { passive: true });
+    window.addEventListener("resize", updateActiveSection, { passive: true });
 
     return () => {
-      observer.disconnect();
-      window.removeEventListener("scroll", handleScrollSpyFallback);
+      window.removeEventListener("scroll", updateActiveSection);
+      window.removeEventListener("resize", updateActiveSection);
     };
   }, [isLoading]);
 
