@@ -39,7 +39,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ onScrollToSection }: HeroSectionProps) {
   return (
-    <div className="relative min-h-screen flex flex-col justify-between pt-20 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-10 md:pt-20 overflow-hidden">
       <ParticlesBackground />
       
       
