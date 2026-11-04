@@ -1,5 +1,26 @@
 [
   {
+    "id": "39e5cc13-63d4-46bf-8e3f-73eda810ceae",
+    "title": "Digital Awareness",
+    "issuer": "Cisco",
+    "organization": "Cisco Networking Academy",
+    "issueDate": "2026-10-28",
+    "badgeUrl": "https://www.credly.com/badges/39e5cc13-63d4-46bf-8e3f-73eda810ceae",
+    "imageUrl": "/images/badges/digital-awareness.png",
+    "remoteImageUrl": "https://images.credly.com/images/29e7c859-4719-4081-a12f-6bdc073a43d2/image.png",
+    "activityUrl": "https://netacad.com/courses/digital-awareness",
+    "category": "Development",
+    "skills": [
+      "Create Strong Password",
+      "Digital Identity",
+      "Digital Literacy",
+      "Send and Receive Email",
+      "Web Browser",
+      "Web Navigation"
+    ],
+    "description": "Cisco, in collaboration with OpenEDG, verifies the learner has demonstrated an entry-level understanding of digital tools and technologies and their applications in everyday life. The learner possesses the basic skills to identify and utilize the functions of common digital devices, navigate digital content responsibly, and manage their online presence effectively. Additionally, the learner understands the evolution of digital technologies and the importance of ethical and responsible usage."
+  },
+  {
     "id": "d9c0d8b8-bc08-4cd6-a692-02b75b57d523",
     "title": "IT Customer Support Basics",
     "issuer": "Cisco",

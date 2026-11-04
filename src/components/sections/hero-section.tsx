@@ -3,9 +3,10 @@
 import { type ComponentType } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
-import { ArrowDown } from "lucide-react";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import * as BrandIcons from "@/components/shared/brand-icons";
+import { ArrowDown } from "lucide-react";
+import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 import dynamic from "next/dynamic";
 
 const ParticlesBackground = dynamic(
@@ -100,7 +101,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 {heroDescription}
               </motion.p>
 
-              {/* Circle scroll down button */}
+              {/* Normal, default circle button */}
               <motion.div
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
@@ -108,9 +109,10 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 className="mt-10 md:mt-12"
               >
                 <button
-                  onClick={() => onScrollToSection("#about")}
-                  className="flex size-12 items-center justify-center rounded-full bg-foreground text-background shadow-[0_4px_20px_rgba(0,0,0,0.18)] hover:bg-foreground/90 transition duration-300 active:scale-95"
-                  aria-label="Scroll down to About section"
+                  type="button"
+                  onClick={() => triggerSwarmRebuild()}
+                  className="flex size-12 items-center justify-center rounded-full bg-foreground text-background shadow-[0_4px_20px_rgba(0,0,0,0.18)] hover:bg-foreground/90 transition duration-300 active:scale-95 cursor-pointer"
+                  aria-label="Rebuild page with swarm (Alt+Shift+S)"
                 >
                   <ArrowDown className="size-5 stroke-[2.5]" />
                 </button>
@@ -149,6 +151,10 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 </p>
                 <a
                   href="#about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onScrollToSection("#about");
+                  }}
                   className="inline-block mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:underline transition duration-300"
                 >
                   LEARN MORE &rarr;
