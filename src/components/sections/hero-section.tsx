@@ -39,7 +39,7 @@ interface HeroSectionProps {
 
 export function HeroSection({ onScrollToSection }: HeroSectionProps) {
   return (
-    <div className="relative min-h-screen flex flex-col justify-between pt-20 overflow-hidden">
+    <div className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-8 md:pt-20 overflow-hidden">
       <ParticlesBackground />
       
       
@@ -67,12 +67,12 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
         </div>
       </div>
 
-      <section className="flex-1 flex items-end pb-4 relative z-10">
+      <section className="flex-1 flex items-start md:items-end pb-4 relative z-10">
         <div className="mx-auto w-full max-w-[1120px] px-6 sm:px-8 lg:px-10 pb-4 sm:pb-8 md:pb-12 lg:pb-14">
-          <div className="relative z-10 grid gap-8 md:grid-cols-[1.2fr_1.1fr_0.9fr] md:items-end">
+          <div className="relative z-10 grid gap-4 sm:gap-6 md:gap-8 md:grid-cols-[1.2fr_1.1fr_0.9fr] md:items-end">
             
             {/* Left Column: Headline and scroll down indicator */}
-            <div className="pb-8 md:pb-16 lg:pb-24 order-2 md:order-1">
+            <div className="pb-4 md:pb-16 lg:pb-24 order-2 md:order-1">
               <motion.div
                 initial={{ opacity: 0, scaleX: 0 }}
                 animate={{ opacity: 1, scaleX: 1 }}
@@ -84,7 +84,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="mt-6 text-balance text-3xl font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]"
+                className="mt-4 md:mt-6 text-balance text-3xl font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]"
               >
                 {"I'm Pat, a"}<br />
                 <span className="text-foreground block whitespace-nowrap">
@@ -96,7 +96,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
-                className="mt-5 max-w-sm text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm sm:leading-6"
+                className="mt-3 md:mt-5 max-w-sm text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm sm:leading-6"
               >
                 {heroDescription}
               </motion.p>
@@ -106,7 +106,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 initial={{ opacity: 0, scale: 0.8 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-10 md:mt-12"
+                className="mt-6 md:mt-12"
               >
                 <button
                   type="button"
@@ -122,14 +122,14 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
             {/* Center Column: Spacer on desktop, Mobile Portrait cutout on mobile */}
             <div className="relative flex justify-center md:block order-1 md:order-2">
               {/* Mobile Portrait cutout (visible only on mobile) */}
-              <div className="relative aspect-[3.2/4] w-full max-w-[340px] sm:max-w-[420px] md:hidden">
+              <div className="relative aspect-square w-full max-w-[240px] sm:max-w-[280px] md:hidden [mask-image:linear-gradient(to_bottom,black_90%,transparent)]">
                 <Image
                   src="/images/me.png"
                   alt="Jay Patrick Cano (Pat) - Senior Full-Stack Engineer Portrait Mobile View"
                   fill
                   priority
                   unoptimized
-                  className="object-contain object-bottom contrast-[1.03]"
+                  className="object-contain object-top contrast-[1.03]"
                 />
               </div>
             </div>
