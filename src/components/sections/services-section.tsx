@@ -16,7 +16,7 @@ export function ServicesSection() {
       const container = scrollContainerRef.current;
       const card = container.firstElementChild as HTMLElement;
       const cardWidth = card ? card.offsetWidth : container.clientWidth;
-      const gap = 24;
+      const gap = 32; // gap-8 in Tailwind is 32px
       const scrollAmount = cardWidth + gap;
 
       if (direction === "left") {
@@ -44,7 +44,7 @@ export function ServicesSection() {
     }
     autoplayRef.current = setInterval(() => {
       scroll("right");
-    }, 4500);
+    }, 4500); // Scroll right every 4.5s
   }, [scroll]);
 
   useEffect(() => {
@@ -58,18 +58,19 @@ export function ServicesSection() {
 
   const handleManualScroll = (direction: "left" | "right") => {
     scroll(direction);
-    startAutoplay();
+    startAutoplay(); // Reset autoplay timer on manual scroll
   };
 
   return (
     <Section id="services" eyebrow={sectionMeta.services.eyebrow} title={sectionMeta.services.title}>
+      
       <div className="relative w-full">
-        {/* Navigation Controls */}
+        {/* Navigation Buttons (Top Right of Carousel) */}
         <div className="flex justify-end gap-2 mb-6">
           <button
             type="button"
             onClick={() => handleManualScroll("left")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition duration-300 cursor-pointer"
             aria-label="Previous service"
           >
             <ChevronLeft className="size-4" />
@@ -77,7 +78,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("right")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition duration-300 cursor-pointer"
             aria-label="Next service"
           >
             <ChevronRight className="size-4" />
@@ -85,9 +86,9 @@ export function ServicesSection() {
         </div>
 
         {/* Carousel Container */}
-        <div
+        <div 
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pb-4"
+          className="flex gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pb-4"
         >
           {services.map((service, index) => {
             const formattedIndex = String(index + 1).padStart(2, "0");
@@ -96,26 +97,26 @@ export function ServicesSection() {
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                className="group flex flex-col items-start p-5 sm:p-6 rounded-xl border border-border bg-card dark:bg-[#0a0a0a] transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700 hover:-translate-y-0.5 snap-start shrink-0 w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shadow-xs"
+                className="group flex flex-col items-start p-5 sm:p-6 rounded-xl border border-border/50 bg-foreground/[0.012] hover:bg-foreground/[0.025] hover:border-foreground/30 hover:-translate-y-1 snap-start shrink-0 w-full sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-64px)/3)] transition-all duration-300 shadow-sm"
               >
-                {/* Header: Title and Index Number */}
+                {/* Header: Title and Index Number side-by-side */}
                 <div className="flex items-baseline justify-between w-full">
                   <h3 className="text-sm font-semibold text-foreground tracking-tight">
                     {service.title}
                   </h3>
-                  <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground select-none tabular-nums">
+                  <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full border border-border/50 text-muted-foreground/60 group-hover:border-foreground/40 group-hover:text-foreground transition-colors duration-300 select-none tabular-nums">
                     {formattedIndex}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="mt-3 text-xs leading-relaxed text-muted-foreground text-pretty transition-colors duration-200 group-hover:text-foreground">
+                <p className="text-xs leading-relaxed text-muted-foreground/80 mt-3 text-pretty group-hover:text-foreground transition-colors duration-300">
                   {service.description}
                 </p>
 
-                {/* Tech tags */}
-                <div className="mt-auto pt-6 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60 leading-relaxed transition-colors duration-200 group-hover:text-foreground/80">
-                  {service.tags.join(" · ")}
+                {/* Tech/Keyword tags list */}
+                <div className="mt-auto pt-5 font-mono text-[8.5px] uppercase tracking-[0.18em] text-muted-foreground/45 leading-relaxed group-hover:text-foreground/60 transition-colors duration-300">
+                  {service.tags.join("  ·  ")}
                 </div>
               </motion.div>
             );

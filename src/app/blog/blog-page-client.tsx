@@ -108,7 +108,7 @@ export function BlogPageClient() {
               placeholder="Search articles…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-border/80 dark:border-neutral-800 bg-muted dark:bg-[#111111] py-2.5 pl-10 pr-10 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 transition duration-300"
+              className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-10 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300"
             />
             {searchQuery && (
               <button

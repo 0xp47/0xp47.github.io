@@ -44,7 +44,7 @@ export function ContactSection() {
           </svg>
         );
       case "Credly":
-        return <SiCredly className="size-4 fill-current text-[#ff6b00]" />;
+        return <SiCredly className="size-4 fill-current" />;
       case "Instagram":
         return (
           <svg className="size-4 fill-none stroke-current stroke-2" viewBox="0 0 24 24" strokeLinecap="round" strokeLinejoin="round">
@@ -66,81 +66,82 @@ export function ContactSection() {
 
   return (
     <Section id="contact" eyebrow={sectionMeta.contact.eyebrow} title={sectionMeta.contact.title}>
-      <div className="rounded-2xl border border-border bg-card dark:bg-[#0a0a0a] p-6 sm:p-8 md:p-10 shadow-xs">
-        <div className="grid gap-10 md:grid-cols-2 md:items-end">
-          {/* Left: description + socials */}
-          <motion.div variants={cardVariants} className="space-y-6">
-            <p className="text-sm leading-relaxed text-muted-foreground max-w-md text-pretty">
-              {contactDescription}
-            </p>
+      <div className="grid gap-12 md:grid-cols-2 md:items-end">
+        {/* Left: description + socials */}
+        <motion.div variants={cardVariants} className="space-y-8">
+          <p className="text-sm leading-relaxed text-muted-foreground max-w-md text-pretty">
+            {contactDescription}
+          </p>
 
-            <div className="space-y-3">
-              <span className="block font-mono text-[9px] uppercase text-muted-foreground/60 tracking-[0.2em]">
-                Direct Links &amp; Profiles
-              </span>
-              <div className="flex flex-wrap gap-2.5">
-                {contactLinks.map((link) => (
-                  <a
-                    key={link.label}
-                    href={link.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex size-9 items-center justify-center rounded-xl border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground transition-all duration-200 hover:border-foreground/30 hover:bg-foreground hover:text-background hover:scale-105 shadow-xs focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
-                    aria-label={link.label}
-                    title={link.label}
-                  >
-                    {iconFor(link.label)}
-                  </a>
-                ))}
-              </div>
+          <div className="space-y-3">
+            <span className="block font-mono text-[9px] uppercase text-muted-foreground/50 tracking-[0.2em]">
+              Connect
+            </span>
+            <div className="flex flex-wrap gap-2.5">
+              {contactLinks.map((link) => (
+                <a
+                  key={link.label}
+                  href={link.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="flex size-9 items-center justify-center rounded-full border border-border/50 bg-foreground/[0.02] text-muted-foreground/80 hover:border-foreground/40 hover:bg-foreground hover:text-background transition-all duration-300 hover:scale-105 shadow-sm"
+                  aria-label={link.label}
+                  title={link.label}
+                >
+                  {iconFor(link.label)}
+                </a>
+              ))}
             </div>
-          </motion.div>
+          </div>
+        </motion.div>
 
-          {/* Right: Vercel typographic email CTA */}
-          <motion.div variants={cardVariants} className="flex flex-col items-start gap-4 md:items-end">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[9.5px] font-semibold tracking-wider uppercase">
-              <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
-              Available For New Projects
-            </div>
+        {/* Right: big typographic email CTA */}
+        <motion.div variants={cardVariants} className="flex flex-col items-start gap-3 md:items-end">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+            </span>
+            Available for new projects
+          </div>
 
+          <a
+            href={`mailto:${profile.email}`}
+            className="group relative text-2xl font-semibold tracking-tight text-foreground sm:text-3xl leading-tight"
+          >
+            {"hello@"}
+            <span className="text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+              jaypatrickcano.dev
+            </span>
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-500 group-hover:scale-x-100"
+            />
+          </a>
+
+          <div className="flex items-center gap-2.5 mt-1">
             <a
               href={`mailto:${profile.email}`}
-              className="group relative text-2xl font-semibold tracking-tight text-foreground sm:text-3xl leading-tight focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
             >
-              {"hello@"}
-              <span className="text-muted-foreground transition-colors duration-200 group-hover:text-foreground">
-                jaypatrickcano.dev
-              </span>
-              <span
-                aria-hidden="true"
-                className="absolute -bottom-1 left-0 h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-300 group-hover:scale-x-100"
-              />
+              <Mail className="size-3.5" />
+              Send Email
             </a>
-
-            <div className="flex items-center gap-2.5 pt-1">
-              <a
-                href={`mailto:${profile.email}`}
-                className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-foreground text-background font-mono text-[10.5px] font-bold uppercase tracking-wider transition-all duration-200 hover:bg-foreground/90 hover:scale-[1.02] active:scale-[0.98] focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden shadow-xs"
-              >
-                <Mail className="size-3.5" />
-                Send Email
-              </a>
-              <button
-                type="button"
-                onClick={handleCopy}
-                className="inline-flex cursor-pointer items-center gap-1.5 px-4 py-2 rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] font-mono text-[10.5px] font-bold uppercase tracking-wider text-foreground transition-all duration-200 hover:border-foreground/30 hover:bg-foreground hover:text-background focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
-                title="Copy email address"
-              >
-                {copied ? (
-                  <Check className="size-3.5 text-emerald-500" />
-                ) : (
-                  <Copy className="size-3.5" />
-                )}
-                {copied ? "Copied" : "Copy"}
-              </button>
-            </div>
-          </motion.div>
-        </div>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className="inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
+              title="Copy email address"
+            >
+              {copied ? (
+                <Check className="size-3.5 text-emerald-500" />
+              ) : (
+                <Copy className="size-3.5" />
+              )}
+              {copied ? "Copied" : "Copy"}
+            </button>
+          </div>
+        </motion.div>
       </div>
     </Section>
   );

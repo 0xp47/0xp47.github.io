@@ -16,46 +16,46 @@ export function BlogCard({ post, className }: BlogCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "group flex h-full flex-col rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-3.5 transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700 hover:-translate-y-0.5 shadow-xs focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
-        className
-      )}
+      "group flex h-full flex-col rounded-xl outline-none focus-visible:ring-2 focus-visible:ring-foreground/25",
+      className,
+    )}
     >
-      {/* Cover Image */}
-      <div className="relative w-full shrink-0 overflow-hidden rounded-lg border border-border/50">
+      {/* Cover */}
+      <div className="relative w-full shrink-0 overflow-hidden rounded-lg">
         <BlogThumbnail
           slug={post.slug}
-          className="aspect-[16/10] w-full h-auto transition-transform duration-300 group-hover:scale-[1.03]"
+          className="aspect-[16/10] w-full h-auto transition-transform duration-500 group-hover:scale-[1.02]"
         />
       </div>
 
-      {/* Body */}
-      <div className="flex flex-1 flex-col pt-3.5">
+      {/* Body — bare typography */}
+      <div className="flex flex-1 flex-col pt-4">
         <div className="flex items-center gap-3">
-          <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/70">
+          <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
             <Calendar className="size-3" />
-            <span className="tabular-nums">{post.dateDisplay}</span>
+            {post.dateDisplay}
           </span>
-          <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/70">
+          <span className="flex items-center gap-1.5 font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
             <Clock className="size-3" />
-            <span className="tabular-nums">{post.readingTime}</span>
+            {post.readingTime}
           </span>
         </div>
 
-        <h3 className="mt-2 text-sm font-semibold leading-snug tracking-tight text-foreground transition-colors line-clamp-2 group-hover:text-primary">
+        <h3 className="mt-2 text-sm font-semibold leading-snug tracking-tight text-foreground decoration-border underline-offset-4 transition-colors line-clamp-2 group-hover:underline">
           {post.title}
         </h3>
 
-        <p className="mt-1.5 text-xs leading-relaxed text-muted-foreground line-clamp-2">
+        <p className="mt-1.5 text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 line-clamp-2">
           {post.description}
         </p>
 
-        <div className="mt-auto flex items-center justify-between pt-4 border-t border-border/50 mt-3">
-          <span className="truncate font-mono text-[9px] tracking-wider text-muted-foreground/60 uppercase">
-            {post.tags.slice(0, 2).join(" · ")}
+        <div className="mt-auto flex items-center justify-between pt-4">
+          <span className="truncate font-mono text-[9px] tracking-wider text-muted-foreground/45">
+            {post.tags.slice(0, 3).join("  ·  ")}
           </span>
-          <span className="flex shrink-0 items-center gap-1 font-mono text-[9px] font-bold uppercase tracking-wider text-muted-foreground transition-colors duration-200 group-hover:text-foreground">
+          <span className="flex shrink-0 items-center gap-1 font-mono text-[9px] font-bold uppercase tracking-wider text-muted-foreground/70 transition-colors duration-300 group-hover:text-foreground">
             Read
-            <ArrowRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5" />
+            <ArrowRight className="size-3 transition-transform duration-300 group-hover:translate-x-0.5" />
           </span>
         </div>
       </div>
