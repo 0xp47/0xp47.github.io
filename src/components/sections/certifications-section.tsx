@@ -119,9 +119,9 @@ export function CertificationsSection() {
           </div>
         </div>
 
-        {/* Filter Tabs — matching the Projects section filter bar */}
-        <div className="mb-6 w-fit max-w-full overflow-x-auto rounded-full border border-border/80 bg-foreground/[0.02] p-1 shadow-xs scrollbar-none">
-          <nav className="flex items-center gap-1" aria-label="Certification filters">
+        {/* Filter Tabs — individual chamfered buttons */}
+        <div className="mb-8 w-fit max-w-full overflow-x-auto scrollbar-none">
+          <nav className="flex items-center gap-2" aria-label="Certification filters">
             {CERT_FILTERS.map((filter) => {
               const count = getFilterCount(filter);
               if (count === 0) return null;
@@ -139,7 +139,7 @@ export function CertificationsSection() {
                     "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                     isActive
                       ? "bg-foreground text-background font-semibold shadow-xs"
-                      : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"
+                      : "border border-border/60 bg-foreground/[0.03] text-muted-foreground hover:text-foreground hover:bg-foreground/[0.08]"
                   )}
                 >
                   <span>{filter}</span>

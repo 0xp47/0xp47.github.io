@@ -208,7 +208,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
               aria-label="Previous page"
             >
               <ChevronLeft className="size-4" />
@@ -223,7 +223,7 @@ export function BlogPageClient() {
                   type="button"
                   onClick={() => setCurrentPage(page)}
                   className={cn(
-                    "flex size-8 items-center justify-center rounded-lg border text-[10px] font-bold transition duration-300 cursor-pointer",
+                    "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition duration-300 cursor-pointer",
                     isActive
                       ? "border-foreground bg-foreground text-background"
                       : "border-border/30 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
@@ -239,7 +239,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className="flex size-8 items-center justify-center rounded-lg border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
               aria-label="Next page"
             >
               <ChevronRight className="size-4" />
@@ -261,7 +261,7 @@ export function BlogPageClient() {
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="mt-4 rounded-full border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition duration-300 cursor-pointer"
+              className="mt-4 chamfer-btn border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition duration-300 cursor-pointer"
             >
               Clear search
             </button>

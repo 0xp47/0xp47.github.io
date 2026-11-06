@@ -15,7 +15,7 @@ const sectionVariants = {
 
 interface SectionProps {
   id: string;
-  eyebrow: string;
+  eyebrow?: string;
   title: string;
   children: ReactNode;
 }
@@ -31,7 +31,7 @@ const sectionIndexes: Record<string, string> = {
   contact: "07",
 };
 
-export function Section({ id, eyebrow, title, children }: SectionProps) {
+export function Section({ id, title, children }: SectionProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-12% 0px" });
   const prefersReducedMotion = useSafeReducedMotion();
@@ -50,20 +50,16 @@ export function Section({ id, eyebrow, title, children }: SectionProps) {
       {/* Editorial Section Header matching 100% to Picture 2 */}
       <div className="mb-12 md:mb-16">
         {/* Massive Section Number sitting flush directly on the dividing line */}
-        <div className="flex items-end justify-between border-b border-border/80 dark:border-white/15">
-          <span className="inline-block font-sans text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tight text-foreground leading-[0.78] translate-y-[0.14em] select-none">
-            {index}
-          </span>
-          {eyebrow && (
-            <span className="mb-2 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground/50 select-none">
-              {eyebrow}
-            </span>
-          )}
+        <div className="font-sans text-7xl sm:text-8xl md:text-9xl font-bold tracking-tight text-foreground leading-[0.72] select-none">
+          {index}
         </div>
 
+        {/* Full-width razor-sharp horizontal dividing line */}
+        <div className="w-full h-px bg-neutral-300 dark:bg-neutral-800 -mt-px" />
+
         {/* Section Title below the line */}
-        <div className="pt-4 sm:pt-5 max-w-xs sm:max-w-sm md:max-w-md">
-          <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-300 dark:text-neutral-300 tracking-tight leading-snug text-balance">
+        <div className="pt-3.5 max-w-xs sm:max-w-sm md:max-w-md">
+          <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug">
             {title}
           </h2>
         </div>
