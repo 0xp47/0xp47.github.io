@@ -56,9 +56,9 @@ export function Section({ id, title, children }: SectionProps) {
         className={cn(
           "absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none z-0",
           "left-[34px] sm:left-[42px] md:left-[50px] lg:left-[58px]",
-          isFirst && "top-[94px] sm:top-[120px] md:top-[150px] bottom-0",
+          isFirst && "top-[98px] sm:top-[124px] md:top-[146px] bottom-0",
           !isFirst && !isLast && "top-0 bottom-0",
-          isLast && "top-0 h-[220px] sm:h-[260px] md:h-[290px]"
+          isLast && "top-0 h-[210px] sm:h-[240px] md:h-[270px]"
         )}
       />
 
@@ -66,7 +66,7 @@ export function Section({ id, title, children }: SectionProps) {
       {isLast && (
         <div
           aria-hidden="true"
-          className="absolute z-10 -translate-x-1/2 left-[34px] sm:left-[42px] md:left-[50px] lg:left-[58px] top-[220px] sm:top-[260px] md:top-[290px] flex items-center justify-center text-foreground/70"
+          className="absolute z-10 -translate-x-1/2 left-[34px] sm:left-[42px] md:left-[50px] lg:left-[58px] top-[210px] sm:top-[220px] md:top-[250px] flex items-center justify-center text-foreground/70"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             {/* Corner bracket ticks [ ] */}
@@ -109,9 +109,9 @@ export function Section({ id, title, children }: SectionProps) {
               </svg>
             </div>
 
-            {/* Massive Section Number container: calibrated height so numbers are clearly identifiable and sliced cleanly at the bottom */}
-            <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[60px] sm:h-[80px] md:h-[106px] lg:h-[108px]">
-              <div className="font-sans text-7xl sm:text-8xl md:text-9xl lg:text-[130px] font-bold tracking-tight text-foreground leading-none select-none">
+            {/* Massive Section Number container: bottom ~30% is cleanly hidden by overflow-hidden and border-b */}
+            <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[68px] sm:h-[86px] md:h-[94px] lg:h-[108px]">
+              <div className="font-sans text-8xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
                 {index}
               </div>
             </div>
