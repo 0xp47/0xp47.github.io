@@ -53,7 +53,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
           <span className="truncate font-mono text-[9px] tracking-wider text-muted-foreground/45">
             {post.tags.slice(0, 3).join("  ·  ")}
           </span>
-          <span className="flex shrink-0 items-center gap-1 font-mono text-[9px] font-bold uppercase tracking-wider text-muted-foreground/70 transition-colors duration-300 group-hover:text-foreground">
+          <span className="flex shrink-0 items-center gap-1 px-2.5 py-1 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[9px] font-bold uppercase tracking-wider text-muted-foreground/70 transition-all duration-300 group-hover:border-foreground/40 group-hover:text-foreground group-hover:bg-foreground/[0.05]">
             Read
             <ArrowRight className="size-3 transition-transform duration-300 group-hover:translate-x-0.5" />
           </span>

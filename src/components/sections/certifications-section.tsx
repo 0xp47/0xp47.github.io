@@ -136,7 +136,7 @@ export function CertificationsSection() {
                     setShowAll(false);
                   }}
                   className={cn(
-                    "inline-flex items-center gap-2 rounded-full py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
+                    "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                     isActive
                       ? "bg-foreground text-background font-semibold shadow-xs"
                       : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"
@@ -238,7 +238,7 @@ export function CertificationsSection() {
                       href={badge.badgeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+                      className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 px-3 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
                       aria-label={`Verify ${badge.title} credential`}
                     >
                       Verify Credential
@@ -257,7 +257,7 @@ export function CertificationsSection() {
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
-              className="group inline-flex items-center gap-2 rounded-full border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+              className="group inline-flex items-center gap-2 chamfer-btn-lg border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
             >
               <span>
                 {showAll

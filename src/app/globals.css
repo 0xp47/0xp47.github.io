@@ -162,6 +162,14 @@
 }
 
 @layer utilities {
+  /* Chamfered Tech Button (Top-Right & Bottom-Left 45-deg angled cut) */
+  .chamfer-btn {
+    clip-path: polygon(0 0, calc(100% - 9px) 0, 100% 9px, 100% 100%, 9px 100%, 0 calc(100% - 9px));
+  }
+
+  .chamfer-btn-lg {
+    clip-path: polygon(0 0, calc(100% - 13px) 0, 100% 13px, 100% 100%, 13px 100%, 0 calc(100% - 13px));
+  }
   .text-balance {
     text-wrap: balance;
   }

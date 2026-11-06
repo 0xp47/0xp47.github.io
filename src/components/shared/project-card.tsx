@@ -91,7 +91,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
         <button
           type="button"
           onClick={() => onViewDetails(project)}
-          className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.18em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+          className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 px-3 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
         >
           Details
           <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />

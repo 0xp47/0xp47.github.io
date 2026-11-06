@@ -252,7 +252,7 @@ export function ProjectsSection() {
                   setShowAll(false);
                 }}
                 className={cn(
-                  "inline-flex items-center gap-2 rounded-full py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
+                  "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                   isActive
                     ? "bg-foreground text-background font-semibold shadow-xs"
                     : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"
@@ -290,7 +290,7 @@ export function ProjectsSection() {
         <div className="mt-14 flex justify-center">
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 rounded-full border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="group inline-flex items-center gap-2 chamfer-btn-lg border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
           >
             <span>See All Projects</span>
             <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -431,7 +431,7 @@ export function ProjectsSection() {
                     href={selectedProject.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background rounded-full px-4 py-1.5 font-bold uppercase tracking-wider text-muted-foreground transition duration-300"
+                    className="inline-flex items-center gap-1.5 border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background chamfer-btn px-4 py-1.5 font-bold uppercase tracking-wider text-muted-foreground transition duration-300"
                   >
                     <GitBranch className="size-3" />
                     View Source

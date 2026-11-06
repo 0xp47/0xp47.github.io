@@ -122,7 +122,7 @@ export function ContactSection() {
           <div className="flex items-center gap-2.5 mt-1">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
             >
               <Mail className="size-3.5" />
               Send Email
@@ -130,7 +130,7 @@ export function ContactSection() {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
+              className="inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
               title="Copy email address"
             >
               {copied ? (
