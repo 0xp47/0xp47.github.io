@@ -195,7 +195,7 @@ export function CertificationsSection() {
 
         {/* Credentials Grid (Identical Card Structure to Projects) */}
         {filteredCertifications.length === 0 ? (
-          <div className="flex flex-col items-center justify-center rounded-xl border border-border/80 bg-card/40 py-16 text-center">
+          <div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card dark:bg-[#0a0a0a] py-16 text-center">
             <Award className="size-8 text-muted-foreground/40 mb-2" />
             <h4 className="text-sm font-semibold text-foreground">
               No matching credentials found
@@ -236,12 +236,12 @@ export function CertificationsSection() {
                       delay: Math.min(idx * 0.02, 0.15),
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="group relative flex h-full flex-col justify-between rounded-xl border border-border/80 bg-card/40 p-5 backdrop-blur-xs transition-all duration-200 hover:border-foreground/30 hover:bg-card/70 hover:-translate-y-0.5 shadow-xs"
+                    className="group relative flex h-full flex-col justify-between rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-5 transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700 hover:-translate-y-0.5 shadow-xs"
                   >
                     <div>
                       {/* Top Row: Badge Pedestal + Issuer Pill + Direct Verify Link */}
                       <div className="flex items-start justify-between gap-3">
-                        <div className="relative size-12 shrink-0 rounded-lg border border-border/60 bg-foreground/[0.03] p-1 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
+                        <div className="relative size-12 shrink-0 rounded-lg border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] p-1 flex items-center justify-center transition-transform duration-200 group-hover:scale-105">
                           <Image
                             src={badge.imageUrl}
                             alt=""
@@ -253,7 +253,7 @@ export function CertificationsSection() {
                         </div>
 
                         <div className="flex items-center gap-2">
-                          <span className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded border border-border/60 bg-foreground/[0.02] text-muted-foreground/80">
+                          <span className="inline-flex items-center gap-1 font-mono text-[9px] uppercase tracking-wider px-2 py-0.5 rounded border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground">
                             {isAnthropic ? (
                               <SiAnthropic className="size-2.5" />
                             ) : (
@@ -300,7 +300,7 @@ export function CertificationsSection() {
                         {topSkills.map((tech) => (
                           <span
                             key={tech}
-                            className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/60 bg-foreground/[0.02] text-muted-foreground/80 transition-colors duration-200 group-hover:border-foreground/20 group-hover:text-foreground"
+                            className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground/80 transition-colors duration-200 group-hover:border-foreground/30 group-hover:text-foreground"
                           >
                             {tech}
                           </span>
@@ -340,7 +340,7 @@ export function CertificationsSection() {
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
-              className="group inline-flex items-center gap-2 rounded-full border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+              className="group inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/40 dark:hover:border-neutral-700 hover:bg-foreground hover:text-background transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
             >
               {showAll ? (
                 <>
@@ -405,7 +405,7 @@ export function CertificationsSection() {
               role="dialog"
               aria-modal="true"
               aria-label={selectedCert.title}
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-md flex-col border-l border-border bg-background/95 p-6 shadow-2xl backdrop-blur-xl overflow-y-auto"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-md flex-col border-l border-border dark:border-[#222222] bg-background dark:bg-[#0a0a0a] p-6 shadow-2xl overflow-y-auto"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -434,7 +434,7 @@ export function CertificationsSection() {
               {/* Drawer Body */}
               <div className="flex flex-col gap-6 py-6">
                 {/* Badge Graphic Hero */}
-                <div className="flex flex-col items-center justify-center rounded-xl border border-border/80 bg-card/50 p-6 text-center">
+                <div className="flex flex-col items-center justify-center rounded-xl border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#121214] p-6 text-center">
                   <div className="relative size-24 shrink-0 drop-shadow-md mb-4">
                     <Image
                       src={selectedCert.imageUrl}
@@ -456,7 +456,7 @@ export function CertificationsSection() {
 
                 {/* Metadata Details Grid */}
                 <div className="grid grid-cols-2 gap-3">
-                  <div className="rounded-xl border border-border/70 bg-card/40 p-3">
+                  <div className="rounded-xl border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#121214] p-3">
                     <span className="block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
                       Issuing Body
                     </span>
@@ -464,7 +464,7 @@ export function CertificationsSection() {
                       {selectedCert.organization}
                     </span>
                   </div>
-                  <div className="rounded-xl border border-border/70 bg-card/40 p-3">
+                  <div className="rounded-xl border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#121214] p-3">
                     <span className="block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
                       Issue Date
                     </span>
@@ -472,7 +472,7 @@ export function CertificationsSection() {
                       {formatDate(selectedCert.issueDate)}
                     </span>
                   </div>
-                  <div className="rounded-xl border border-border/70 bg-card/40 p-3">
+                  <div className="rounded-xl border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#121214] p-3">
                     <span className="block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
                       Category
                     </span>
@@ -480,7 +480,7 @@ export function CertificationsSection() {
                       {selectedCert.category}
                     </span>
                   </div>
-                  <div className="rounded-xl border border-border/70 bg-card/40 p-3">
+                  <div className="rounded-xl border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#121214] p-3">
                     <span className="block font-mono text-[9px] uppercase tracking-wider text-muted-foreground/60">
                       Credential Status
                     </span>
@@ -509,7 +509,7 @@ export function CertificationsSection() {
                     {selectedCert.skills.map((skill) => (
                       <span
                         key={skill}
-                        className="font-mono text-[9.5px] px-2.5 py-1 rounded-md border border-border/70 bg-foreground/[0.02] text-foreground"
+                        className="font-mono text-[9.5px] px-2.5 py-1 rounded-md border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#121214] text-foreground"
                       >
                         {skill}
                       </span>

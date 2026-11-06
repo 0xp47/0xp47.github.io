@@ -66,7 +66,7 @@ export function ContactSection() {
 
   return (
     <Section id="contact" eyebrow={sectionMeta.contact.eyebrow} title={sectionMeta.contact.title}>
-      <div className="rounded-2xl border border-border/80 bg-card/40 p-6 sm:p-8 md:p-10 backdrop-blur-xs shadow-xs">
+      <div className="rounded-2xl border border-border bg-card dark:bg-[#0a0a0a] p-6 sm:p-8 md:p-10 shadow-xs">
         <div className="grid gap-10 md:grid-cols-2 md:items-end">
           {/* Left: description + socials */}
           <motion.div variants={cardVariants} className="space-y-6">
@@ -85,7 +85,7 @@ export function ContactSection() {
                     href={link.href}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex size-9 items-center justify-center rounded-xl border border-border/80 bg-foreground/[0.02] text-muted-foreground transition-all duration-200 hover:border-foreground/30 hover:bg-foreground hover:text-background hover:scale-105 shadow-xs focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+                    className="flex size-9 items-center justify-center rounded-xl border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground transition-all duration-200 hover:border-foreground/30 hover:bg-foreground hover:text-background hover:scale-105 shadow-xs focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
                     aria-label={link.label}
                     title={link.label}
                   >
@@ -128,7 +128,7 @@ export function ContactSection() {
               <button
                 type="button"
                 onClick={handleCopy}
-                className="inline-flex cursor-pointer items-center gap-1.5 px-4 py-2 rounded-full border border-border/80 bg-foreground/[0.03] font-mono text-[10.5px] font-bold uppercase tracking-wider text-foreground transition-all duration-200 hover:border-foreground/30 hover:bg-foreground/[0.08] focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+                className="inline-flex cursor-pointer items-center gap-1.5 px-4 py-2 rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] font-mono text-[10.5px] font-bold uppercase tracking-wider text-foreground transition-all duration-200 hover:border-foreground/30 hover:bg-foreground hover:text-background focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
                 title="Copy email address"
               >
                 {copied ? (

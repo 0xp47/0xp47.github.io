@@ -28,7 +28,7 @@ export function ExperienceSection() {
               <motion.article
                 key={item.company}
                 variants={cardVariants}
-                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 rounded-xl border border-transparent p-5 pl-10 md:pl-12 transition-all duration-200 hover:border-border/80 hover:bg-card/40"
+                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 rounded-xl border border-transparent p-5 pl-10 md:pl-12 transition-all duration-200 hover:border-border dark:hover:border-neutral-800 hover:bg-card dark:hover:bg-[#0a0a0a]"
               >
                 {/* Left Column: Company & Timeline Dot */}
                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 min-w-[140px] md:min-w-[180px] shrink-0">
@@ -80,7 +80,7 @@ export function ExperienceSection() {
                       {item.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/60 bg-foreground/[0.02] text-muted-foreground/80 group-hover:border-foreground/20 group-hover:text-foreground transition-colors duration-200"
+                          className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground/80 group-hover:border-foreground/30 group-hover:text-foreground transition-colors duration-200"
                         >
                           {tag}
                         </span>

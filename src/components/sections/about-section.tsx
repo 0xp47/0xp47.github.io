@@ -59,7 +59,7 @@ export function AboutSection() {
             {heroStats.map((stat, i) => (
               <div
                 key={i}
-                className="flex flex-col justify-between rounded-xl border border-border/80 bg-card/50 p-4 backdrop-blur-xs transition-all duration-200 hover:border-foreground/30 hover:bg-card/80 shadow-xs"
+                className="flex flex-col justify-between rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-4 transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700 shadow-xs"
               >
                 <span className="tabular-nums text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
@@ -89,10 +89,10 @@ export function AboutSection() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="group flex gap-4 items-start rounded-xl border border-border/80 bg-card/40 p-4.5 backdrop-blur-xs transition-all duration-200 hover:border-foreground/30 hover:bg-card/70"
+                className="group flex gap-4 items-start rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-4.5 transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700"
               >
                 {/* Framed icon container */}
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/70 bg-foreground/[0.03] text-foreground transition-all duration-200 group-hover:scale-105 group-hover:border-foreground/40">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-foreground transition-all duration-200 group-hover:scale-105 group-hover:border-foreground/40">
                   <IconComponent className="size-4" strokeWidth={1.8} />
                 </div>
                 <div className="flex flex-col gap-1">

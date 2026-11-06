@@ -29,7 +29,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
   return (
     <article
       className={cn(
-        "group relative flex h-full flex-col justify-between rounded-xl border border-border/80 bg-card/40 p-5 backdrop-blur-xs transition-all duration-200 hover:border-foreground/30 hover:bg-card/70 hover:-translate-y-0.5 shadow-xs",
+        "group relative flex h-full flex-col justify-between rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-5 transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700 hover:-translate-y-0.5 shadow-xs",
         className
       )}
     >
@@ -47,7 +47,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
               </span>
             )}
             {project.stars ? (
-              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-border/60 font-mono text-[9px] text-muted-foreground/75 tabular-nums">
+              <span className="inline-flex items-center gap-1 px-1.5 py-0.5 rounded border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] font-mono text-[9px] text-muted-foreground/75 tabular-nums">
                 <span className="text-amber-400">★</span>
                 {project.stars}
               </span>
@@ -83,7 +83,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
           {project.stack.slice(0, 3).map((tech) => (
             <span
               key={tech}
-              className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/60 bg-foreground/[0.02] text-muted-foreground/80 transition-colors duration-200 group-hover:border-foreground/20 group-hover:text-foreground"
+              className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground/80 transition-colors duration-200 group-hover:border-foreground/30 group-hover:text-foreground"
             >
               {tech}
             </span>

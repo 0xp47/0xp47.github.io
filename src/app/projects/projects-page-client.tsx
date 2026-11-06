@@ -432,7 +432,7 @@ export function ProjectsPageClient() {
                   placeholder="Filter by keyword…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300 font-mono"
+                  className="w-full rounded-full border border-border/80 dark:border-neutral-800 bg-muted dark:bg-[#111111] py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 transition duration-300 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -455,7 +455,7 @@ export function ProjectsPageClient() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
-                  className="w-full rounded-full border border-border/40 bg-muted pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground hover:text-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm cursor-pointer transition duration-300 appearance-none uppercase"
+                  className="w-full rounded-full border border-border/80 dark:border-neutral-800 bg-muted dark:bg-[#111111] pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground hover:text-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 cursor-pointer transition duration-300 appearance-none uppercase"
                 >
                   <option value="default" className="bg-card text-card-foreground">DEFAULT ORDER</option>
                   <option value="name-asc" className="bg-card text-card-foreground">NAME (A-Z)</option>
@@ -553,7 +553,7 @@ export function ProjectsPageClient() {
                   placeholder="Search projects…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300 font-mono"
+                  className="w-full rounded-full border border-border/80 dark:border-neutral-800 bg-muted dark:bg-[#111111] py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 transition duration-300 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -728,7 +728,7 @@ export function ProjectsPageClient() {
               role="dialog"
               aria-modal="true"
               aria-label={selectedProject?.name ? `${selectedProject.name} details` : 'Project details'}
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-border/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-border dark:border-[#222222] bg-background dark:bg-[#0a0a0a] px-4 py-3 shadow-2xl sm:px-8 sm:py-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -861,7 +861,7 @@ export function ProjectsPageClient() {
               role="dialog"
               aria-modal="true"
               aria-label="Filter options"
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-xs flex-col border-l border-border/10 bg-background/95 px-5 py-4 shadow-2xl backdrop-blur-xl"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-xs flex-col border-l border-border dark:border-[#222222] bg-background dark:bg-[#0a0a0a] px-5 py-4 shadow-2xl"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -901,7 +901,7 @@ export function ProjectsPageClient() {
                     <select
                       value={sortBy}
                       onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
-                      className="w-full rounded-lg border border-border/40 bg-muted pl-3 pr-8 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm cursor-pointer transition duration-300 appearance-none uppercase"
+                      className="w-full rounded-lg border border-border/80 dark:border-neutral-800 bg-muted dark:bg-[#111111] pl-3 pr-8 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 cursor-pointer transition duration-300 appearance-none uppercase"
                     >
                       <option value="default" className="bg-card text-card-foreground">DEFAULT ORDER</option>
                       <option value="name-asc" className="bg-card text-card-foreground">NAME (A-Z)</option>

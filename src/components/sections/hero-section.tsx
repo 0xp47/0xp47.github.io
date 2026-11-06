@@ -85,7 +85,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4 }}
-                className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/80 bg-foreground/[0.03] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground backdrop-blur-xs"
+                className="mb-4 inline-flex items-center gap-2 rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-muted-foreground"
               >
                 <span className="size-1.5 rounded-full bg-emerald-500 animate-pulse" />
                 <span className="font-semibold text-foreground">Available For Work</span>
@@ -171,7 +171,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.2 }}
-                className="rounded-xl border border-border/60 bg-foreground/[0.015] p-4 backdrop-blur-xs transition-colors duration-200 hover:border-foreground/30 hover:bg-foreground/[0.03]"
+                className="rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-4 transition-colors duration-200 hover:border-foreground/40 dark:hover:border-neutral-700"
               >
                 <div className="flex items-center gap-1.5 font-mono text-[10px] font-bold tracking-[0.2em] text-foreground uppercase">
                   <Sparkles className="size-3 text-amber-500" />
@@ -197,7 +197,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.25 }}
-                className="rounded-xl border border-border/60 bg-foreground/[0.015] p-4 backdrop-blur-xs transition-colors duration-200 hover:border-foreground/30 hover:bg-foreground/[0.03]"
+                className="rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-4 transition-colors duration-200 hover:border-foreground/40 dark:hover:border-neutral-700"
               >
                 <h3 className="font-mono text-[10px] font-bold tracking-[0.2em] text-foreground uppercase">
                   My Work
@@ -231,7 +231,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                     href={profile.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="flex size-8 items-center justify-center rounded-lg border border-border/70 bg-foreground/[0.02] text-muted-foreground hover:border-foreground/40 hover:text-foreground transition-all duration-200"
+                    className="flex size-8 items-center justify-center rounded-lg border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground hover:border-foreground/40 hover:text-foreground transition-all duration-200"
                     aria-label="GitHub"
                   >
                     <svg className="size-3.5 fill-current" viewBox="0 0 24 24">

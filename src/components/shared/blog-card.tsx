@@ -16,7 +16,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "group flex h-full flex-col rounded-xl border border-border/80 bg-card/40 p-3.5 backdrop-blur-xs transition-all duration-200 hover:border-foreground/30 hover:bg-card/70 hover:-translate-y-0.5 shadow-xs focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
+        "group flex h-full flex-col rounded-xl border border-border bg-card dark:bg-[#0a0a0a] p-3.5 transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700 hover:-translate-y-0.5 shadow-xs focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
         className
       )}
     >

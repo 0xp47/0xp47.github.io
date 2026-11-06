@@ -40,7 +40,7 @@ export function BlogThumbnail({ slug, className }: BlogThumbnailProps) {
   return (
     <div
       className={cn(
-        "relative flex shrink-0 select-none flex-col items-center justify-center overflow-hidden rounded-lg bg-card ring-1 ring-black/[0.1] dark:ring-white/[0.06] p-2",
+        "relative flex shrink-0 select-none flex-col items-center justify-center overflow-hidden rounded-lg bg-neutral-100 dark:bg-[#141416] ring-1 ring-black/[0.08] dark:ring-white/[0.08] p-2",
         className,
       )}
       aria-hidden="true"
@@ -52,7 +52,7 @@ export function BlogThumbnail({ slug, className }: BlogThumbnailProps) {
       <div className="pointer-events-none absolute -bottom-8 h-24 w-32 rounded-full bg-black/[0.04] blur-2xl" />
 
       <IconComponent
-        className="relative z-10 mb-1 size-7 text-neutral-800 transition-transform duration-500 group-hover:scale-105"
+        className="relative z-10 mb-1 size-7 text-neutral-800 dark:text-neutral-200 transition-transform duration-500 group-hover:scale-105"
         strokeWidth={1.25}
       />
 

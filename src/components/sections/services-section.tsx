@@ -69,7 +69,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("left")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/80 bg-foreground/[0.02] text-muted-foreground transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="flex size-8 items-center justify-center rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
             aria-label="Previous service"
           >
             <ChevronLeft className="size-4" />
@@ -77,7 +77,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("right")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/80 bg-foreground/[0.02] text-muted-foreground transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="flex size-8 items-center justify-center rounded-full border border-border/80 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground transition-all duration-200 hover:bg-foreground hover:text-background cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
             aria-label="Next service"
           >
             <ChevronRight className="size-4" />
@@ -96,14 +96,14 @@ export function ServicesSection() {
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                className="group flex flex-col items-start p-5 sm:p-6 rounded-xl border border-border/80 bg-card/40 backdrop-blur-xs transition-all duration-200 hover:border-foreground/30 hover:bg-card/70 hover:-translate-y-0.5 snap-start shrink-0 w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shadow-xs"
+                className="group flex flex-col items-start p-5 sm:p-6 rounded-xl border border-border bg-card dark:bg-[#0a0a0a] transition-all duration-200 hover:border-foreground/40 dark:hover:border-neutral-700 hover:-translate-y-0.5 snap-start shrink-0 w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)] shadow-xs"
               >
                 {/* Header: Title and Index Number */}
                 <div className="flex items-baseline justify-between w-full">
                   <h3 className="text-sm font-semibold text-foreground tracking-tight">
                     {service.title}
                   </h3>
-                  <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full border border-border/70 text-muted-foreground select-none tabular-nums">
+                  <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full border border-border/70 dark:border-neutral-800 bg-neutral-100 dark:bg-[#141416] text-muted-foreground select-none tabular-nums">
                     {formattedIndex}
                   </span>
                 </div>
