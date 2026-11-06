@@ -47,26 +47,38 @@ export function Section({ id, eyebrow, title, children }: SectionProps) {
       transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] as const }}
       className="mx-auto w-full max-w-[1120px] px-6 py-16 sm:px-8 sm:py-20 md:py-24 lg:px-10 scroll-mt-20"
     >
-      <div className="mb-10 grid gap-4 md:grid-cols-[200px_1fr] md:gap-10">
-        <div className="flex items-baseline gap-4 md:flex-col md:items-start md:gap-2">
-          <span className="font-mono text-[11px] font-semibold text-muted-foreground/50 tabular-nums">
+      {/* Editorial Section Header matching 100% to Image 1 */}
+      <div className="mb-12 md:mb-16">
+        {/* Massive Section Number sitting flush on the dividing line */}
+        <div className="flex items-end justify-between">
+          <span className="font-sans text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground leading-none select-none">
             {index}
           </span>
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80">
-            {eyebrow}
-          </p>
+          {eyebrow && (
+            <span className="mb-2 sm:mb-3 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground/60 select-none">
+              {eyebrow}
+            </span>
+          )}
         </div>
-        <div>
-          <h2 className="max-w-3xl text-balance text-[1.65rem] font-semibold leading-[1.12] tracking-tight text-foreground sm:text-4xl">
+
+        {/* Horizontal Divider Line directly under the number */}
+        <motion.div
+          aria-hidden="true"
+          initial={{ scaleX: 0 }}
+          animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
+          transition={{
+            duration: prefersReducedMotion ? 0 : 0.7,
+            ease: "easeOut",
+            delay: prefersReducedMotion ? 0 : 0.15,
+          }}
+          className="h-px w-full origin-left bg-border"
+        />
+
+        {/* Section Title below the line */}
+        <div className="mt-4 sm:mt-5 max-w-2xl">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-light text-muted-foreground/90 tracking-tight leading-snug">
             {title}
           </h2>
-          <motion.div
-            aria-hidden="true"
-            initial={{ scaleX: 0 }}
-            animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: "easeOut", delay: prefersReducedMotion ? 0 : 0.15 }}
-            className="mt-6 h-px origin-left bg-border"
-          />
         </div>
       </div>
 

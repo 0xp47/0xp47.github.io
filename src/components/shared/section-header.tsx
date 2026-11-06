@@ -1,24 +1,32 @@
 interface SectionHeaderProps {
   eyebrow: string;
   title: string;
+  index?: string;
 }
 
-export function SectionHeader({ eyebrow, title }: SectionHeaderProps) {
+export function SectionHeader({ eyebrow, title, index }: SectionHeaderProps) {
+  const displayIndex = index || (eyebrow.toLowerCase().includes("project") ? "03" : "04");
+
   return (
-    <div className="mb-10 grid gap-4 md:grid-cols-[200px_1fr] md:gap-10">
-      <div className="flex items-baseline gap-4 md:flex-col md:items-start md:gap-2">
-        <span className="font-mono text-[11px] font-semibold text-muted-foreground/50 tabular-nums">
-          /
+    <div className="mb-12 md:mb-16">
+      {/* Massive Section Number sitting flush on the dividing line */}
+      <div className="flex items-end justify-between">
+        <span className="font-sans text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter text-foreground leading-none select-none">
+          {displayIndex}
         </span>
-        <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-muted-foreground/80">
+        <span className="mb-2 sm:mb-3 font-mono text-[10px] sm:text-[11px] font-semibold uppercase tracking-[0.24em] text-muted-foreground/60 select-none">
           {eyebrow}
-        </p>
+        </span>
       </div>
-      <div>
-        <h2 className="max-w-3xl text-balance text-[1.65rem] font-semibold leading-[1.12] tracking-tight text-foreground sm:text-4xl">
+
+      {/* Horizontal Divider Line directly under the number */}
+      <div className="h-px w-full bg-border" />
+
+      {/* Section Title below the line */}
+      <div className="mt-4 sm:mt-5 max-w-2xl">
+        <h2 className="text-lg sm:text-xl md:text-2xl font-light text-muted-foreground/90 tracking-tight leading-snug">
           {title}
         </h2>
-        <div className="mt-6 h-px bg-border" />
       </div>
     </div>
   );
