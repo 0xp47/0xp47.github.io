@@ -290,12 +290,12 @@ export function Portfolio() {
         </article>
 
         <article>
-          <h3>Certifications & Credentials (Cisco Networking Academy)</h3>
-          <p>Verified digital badges and student credentials earned through Cisco Networking Academy (NetAcad) and registered on Credly:</p>
+          <h3>Certifications & Credentials (Anthropic & Cisco)</h3>
+          <p>Verified credentials earned through Anthropic Education and Cisco Networking Academy (NetAcad), registered on official verification registries:</p>
           <ul>
             {certifications.map((c) => (
               <li key={c.id}>
-                <strong>{c.title}</strong> — {c.issuer} ({new Date(c.issueDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}). {c.category}. <a href={c.badgeUrl}>Verify on Credly</a>
+                <strong>{c.title}</strong> — {c.issuer} ({new Date(c.issueDate).toLocaleDateString("en-US", { month: "short", year: "numeric" })}). {c.category}. <a href={c.badgeUrl}>Verify credential</a>
               </li>
             ))}
           </ul>
@@ -316,7 +316,7 @@ export function Portfolio() {
 
           <details>
             <summary>What certifications does Jay Patrick Cano hold?</summary>
-            <p>Jay Patrick Cano holds {certifications.length} verified certifications from Cisco Networking Academy (NetAcad), including Core Generative AI Skills, Ethical Hacker, Python Essentials 1 &amp; 2, JavaScript Essentials 1, Discovering Entrepreneurship, Networking Basics, Introduction to Cybersecurity, Operating Systems Support, and Prompt Like an Engineer, all verifiable on Credly.</p>
+            <p>Jay Patrick Cano holds {certifications.length} verified industry credentials across Anthropic Academy (including Claude Code 101, Model Context Protocol, Claude Platform 101, and Building with Claude API) and Cisco Networking Academy (including Core Generative AI Skills, Ethical Hacker, Python Essentials 1 &amp; 2, JavaScript Essentials 1, and Introduction to Cybersecurity).</p>
           </details>
 
           <details>

@@ -1,5 +1,143 @@
 [
   {
+    "id": "anthropic-ai-fluency-builders",
+    "title": "AI Fluency for Builders",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-31",
+    "badgeUrl": "https://verify.skilljar.com/c/zwquvxcagdco",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/zwquvxcagdco",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "Development",
+    "skills": [
+      "Full-Stack AI Apps",
+      "System Design",
+      "Rapid Prototyping",
+      "Vector Search & Retrieval",
+      "Production Deployment"
+    ],
+    "description": "Architecting and shipping end-to-end intelligent applications: combining modern frontend frameworks, LLM orchestrators, database integrations, and robust user interface feedback loops."
+  },
+  {
+    "id": "anthropic-ai-fluency-nonprofits",
+    "title": "AI Fluency for Nonprofits",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-31",
+    "badgeUrl": "https://verify.skilljar.com/c/39swim9wjx3t",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/39swim9wjx3t",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "Business",
+    "skills": [
+      "Nonprofit Operations",
+      "Grant Proposal Automation",
+      "Community Engagement",
+      "Resource Stewardship"
+    ],
+    "description": "Applying cost-conscious generative AI tools to amplify mission-driven impact, automate grant drafting, streamline community outreach, and optimize nonprofit administrative resources."
+  },
+  {
+    "id": "anthropic-claude-google-cloud",
+    "title": "Claude on Google Cloud",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-31",
+    "badgeUrl": "https://verify.skilljar.com/c/ehgf32b2bobh",
+    "imageUrl": "/images/badges/anthropic-cloud.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/ehgf32b2bobh",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Google Cloud Vertex AI",
+      "Enterprise Security",
+      "VPC Service Controls",
+      "IAM & Billing",
+      "GCP BigQuery Integration"
+    ],
+    "description": "Deploying, securing, and scaling Claude models natively inside Google Cloud Vertex AI: configuring enterprise VPC networks, IAM service accounts, and integrating with Google Cloud data services."
+  },
+  {
+    "id": "anthropic-claude-amazon-bedrock",
+    "title": "Claude with Amazon Bedrock",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-31",
+    "badgeUrl": "https://verify.skilljar.com/c/65bdi3e8sdcr",
+    "imageUrl": "/images/badges/anthropic-cloud.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/65bdi3e8sdcr",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Amazon Bedrock",
+      "AWS SDK (Boto3 / JS)",
+      "Bedrock Guardrails",
+      "Serverless Lambda AI",
+      "AWS CloudFormation"
+    ],
+    "description": "Provisioning and consuming Claude models on Amazon Bedrock: configuring AWS IAM policies, invoking Bedrock Runtime APIs, setting up Bedrock Guardrails, and designing serverless event-driven architectures."
+  },
+  {
+    "id": "anthropic-intro-agent-skills",
+    "title": "Introduction to Agent Skills",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-31",
+    "badgeUrl": "https://verify.skilljar.com/c/9enrrnp9ayj4",
+    "imageUrl": "/images/badges/anthropic-claude.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/9enrrnp9ayj4",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Agent Skills",
+      "Autonomous Reasoning",
+      "Dynamic Tool Selection",
+      "System Prompts",
+      "Task Planning"
+    ],
+    "description": "Authoring, packaging, and evaluating autonomous agent skills that extend model behavior with structured capabilities, contextual memory, and goal-oriented tool execution."
+  },
+  {
+    "id": "anthropic-intro-subagents",
+    "title": "Introduction to Subagents",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-31",
+    "badgeUrl": "https://verify.skilljar.com/c/f2rjo4vhb2j3",
+    "imageUrl": "/images/badges/anthropic-claude.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/f2rjo4vhb2j3",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Multi-Agent Orchestration",
+      "Subagent Workspaces",
+      "Task Delegation",
+      "Context Isolation",
+      "Hierarchical Planning"
+    ],
+    "description": "Designing multi-agent architectures where an orchestrator agent delegates specialized sub-tasks to isolated subagents, coordinating parallel workflows and structured context synthesis."
+  },
+  {
+    "id": "anthropic-teaching-ai-fluency",
+    "title": "Teaching AI Fluency",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-31",
+    "badgeUrl": "https://verify.skilljar.com/c/qcdowofsbput",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/qcdowofsbput",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Workshop Leadership",
+      "Technical Mentorship",
+      "AI Literacy Curriculum",
+      "Interactive Labs"
+    ],
+    "description": "Train-the-trainer methodology for delivering impactful AI fluency workshops, mentoring engineering teams, and establishing technical literacy programs across organizations."
+  },
+  {
     "id": "39e5cc13-63d4-46bf-8e3f-73eda810ceae",
     "title": "Digital Awareness",
     "issuer": "Cisco",
@@ -93,6 +231,85 @@
     "description": "Cisco, in collaboration with OpenEDG Python Institute, verifies the earner of this badge successfully completed the Python Essentials 2 course and achieved the student level credentials. Earners have knowledge and skills in intermediate aspects of Python programming, including modules, packages, exceptions, file processing, as well as general coding techniques and object-oriented programming (OOP), and prepares the learner for the PCAP – Certified Associate in Python Programming certification."
   },
   {
+    "id": "anthropic-ai-fluency-pk-12-educators",
+    "title": "AI Fluency for pK–12 Educators",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-22",
+    "badgeUrl": "https://verify.skilljar.com/c/abj4v8rfq5du",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/abj4v8rfq5du",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "K-12 Education",
+      "Child Safety & Privacy",
+      "Digital Literacy",
+      "Foundational AI Pedagogy"
+    ],
+    "description": "Comprehensive certification under Anthropic's pK-12 Learning Path covering foundational AI literacy, student privacy guardrails, and age-appropriate generative AI teaching methodologies."
+  },
+  {
+    "id": "anthropic-ai-fluency-framework-foundations",
+    "title": "AI Fluency: Framework & Foundations",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-22",
+    "badgeUrl": "https://verify.skilljar.com/c/536hjiihtkh3",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/536hjiihtkh3",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Transformer Architecture",
+      "Context Windows",
+      "Tokenization",
+      "Model Alignment",
+      "Prompt Architecture"
+    ],
+    "description": "In-depth theoretical and practical grounding in large language model fundamentals: transformer self-attention, token dynamics, constitutional alignment, and systematic prompt engineering."
+  },
+  {
+    "id": "anthropic-building-claude-api",
+    "title": "Building with the Claude API",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-22",
+    "badgeUrl": "https://verify.skilljar.com/c/49ac7vcxuciu",
+    "imageUrl": "/images/badges/anthropic-claude.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/49ac7vcxuciu",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Anthropic SDK",
+      "Tool Use / Function Calling",
+      "Streaming Responses",
+      "Vision & Multimodal",
+      "Error Handling & Retries"
+    ],
+    "description": "Full-stack software engineering using the official Anthropic SDK: implementing structured JSON outputs, function calling, multimodal vision processing, token budget optimizations, and resilient retry logic."
+  },
+  {
+    "id": "anthropic-mcp-advanced-topics",
+    "title": "Model Context Protocol: Advanced Topics",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-22",
+    "badgeUrl": "https://verify.skilljar.com/c/qqcfjkdt5pnt",
+    "imageUrl": "/images/badges/anthropic-mcp.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/qqcfjkdt5pnt",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Custom MCP Servers",
+      "Prompts & Resources",
+      "Sampling Protocol",
+      "SSE & Stdio Transports",
+      "Sandbox Security"
+    ],
+    "description": "Engineering production-grade custom Model Context Protocol (MCP) servers: implementing server-sent events (SSE) and stdio transports, resource templates, dynamic sampling, and strict sandboxing."
+  },
+  {
     "id": "2ceb07ff-4c9a-4d5a-ad46-6165ebc1389e",
     "title": "Build Your Resume with AI",
     "issuer": "Cisco",
@@ -150,6 +367,165 @@
     "description": "Cisco verifies the earner of this badge successfully completed the Core Generative AI Skills course, part of the Cisco AI Business Practitioner (AIBIZ) learning collection. The learner demonstrates foundational knowledge of generative AI concepts, tools, use cases, and responsible AI practices for professional, business, academic, and team settings."
   },
   {
+    "id": "anthropic-ai-fluency-educators",
+    "title": "AI Fluency for Educators",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-16",
+    "badgeUrl": "https://verify.skilljar.com/c/7au2nbbxcrk6",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/7au2nbbxcrk6",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Educational Technology",
+      "Curriculum Design",
+      "Responsible AI",
+      "Classroom Integration",
+      "Prompting for Learning"
+    ],
+    "description": "Pedagogical frameworks for integrating generative AI into modern classrooms, creating adaptive lesson plans, and guiding students in responsible, critical AI utilization."
+  },
+  {
+    "id": "anthropic-claude-platform-101",
+    "title": "Claude Platform 101",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-15",
+    "badgeUrl": "https://verify.skilljar.com/c/evx2cwx9n32m",
+    "imageUrl": "/images/badges/anthropic-claude.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/evx2cwx9n32m",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Claude API",
+      "Developer Console",
+      "Model Evaluation",
+      "Prompt Engineering",
+      "Anthropic Architecture"
+    ],
+    "description": "Foundational mastery of the Anthropic Developer Platform, API architecture, model selection (Claude 3.5 Sonnet, Haiku, Opus), developer console evaluation tools, and structured prompt engineering."
+  },
+  {
+    "id": "anthropic-claude-code-in-action",
+    "title": "Claude Code in Action",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-15",
+    "badgeUrl": "https://verify.skilljar.com/c/bgqxuaxspi6y",
+    "imageUrl": "/images/badges/anthropic-code.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/bgqxuaxspi6y",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Agentic Refactoring",
+      "Test-Driven Development",
+      "Git Automation",
+      "Multi-file Architecture",
+      "Production Debugging"
+    ],
+    "description": "Advanced practical execution with Claude Code across production software repositories, automated test generation, cross-system refactoring, and real-time git integration."
+  },
+  {
+    "id": "anthropic-intro-claude-cowork",
+    "title": "Introduction to Claude Cowork",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-15",
+    "badgeUrl": "https://verify.skilljar.com/c/q9htgbyfc73d",
+    "imageUrl": "/images/badges/anthropic-claude.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/q9htgbyfc73d",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Collaborative AI",
+      "Context Sharing",
+      "Workflow Delegation",
+      "Enterprise Productivity"
+    ],
+    "description": "Architecting collaborative human-in-the-loop workflows with Claude, multi-user project spaces, structured memory management, and enterprise artifact sharing."
+  },
+  {
+    "id": "anthropic-intro-model-context-protocol",
+    "title": "Introduction to Model Context Protocol",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-15",
+    "badgeUrl": "https://verify.skilljar.com/c/rdrh65kvkwib",
+    "imageUrl": "/images/badges/anthropic-mcp.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/rdrh65kvkwib",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Model Context Protocol (MCP)",
+      "Tool Calling",
+      "JSON-RPC",
+      "Client-Server Architecture",
+      "External Data Context"
+    ],
+    "description": "Comprehensive understanding of the open Model Context Protocol (MCP) standard, enabling secure, two-way communication between Claude and external data sources, local development tooling, and cloud APIs."
+  },
+  {
+    "id": "anthropic-ai-fluency-creative-work",
+    "title": "AI Fluency for Creative Work",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-15",
+    "badgeUrl": "https://verify.skilljar.com/c/9prtdfcgfd3y",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/9prtdfcgfd3y",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "Development",
+    "skills": [
+      "Creative Direction",
+      "Rapid Prototyping",
+      "Design Systems",
+      "Generative UX",
+      "Iterative Prompting"
+    ],
+    "description": "Integrating frontier LLMs into creative ideation, UI/UX concept design, copywriting systems, brand voice alignment, and generative multimedia development."
+  },
+  {
+    "id": "anthropic-ai-fluency-small-businesses",
+    "title": "AI Fluency for Small Businesses",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-15",
+    "badgeUrl": "https://verify.skilljar.com/c/fdw9p3x8a28o",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/fdw9p3x8a28o",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "Business",
+    "skills": [
+      "Business Automation",
+      "Operational Efficiency",
+      "Customer Support AI",
+      "Cost Reduction",
+      "SMB Strategy"
+    ],
+    "description": "Deploying cost-effective generative AI workflows to streamline operations, automate customer support, generate analytics reports, and optimize growth strategies for small businesses."
+  },
+  {
+    "id": "anthropic-deploying-claude-enterprise",
+    "title": "Deploying Claude Enterprise with Confidence",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-15",
+    "badgeUrl": "https://verify.skilljar.com/c/j98uxv5e2jsc",
+    "imageUrl": "/images/badges/anthropic-cloud.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/j98uxv5e2jsc",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "Business",
+    "skills": [
+      "Enterprise AI Architecture",
+      "SOC 2 & Compliance",
+      "Data Privacy & Zero Data Retention",
+      "SSO & IAM",
+      "Rollout Strategy"
+    ],
+    "description": "The five architectural and governance decisions shaping enterprise AI rollouts: data privacy boundaries, identity federation (SSO/SCIM), audit logging, compliance, and departmental scaling."
+  },
+  {
     "id": "332e1bc2-5845-4ca8-9513-3d6353d6b23b",
     "title": "JavaScript Essentials 1",
     "issuer": "Cisco",
@@ -177,6 +553,26 @@
       "Variables"
     ],
     "description": "Cisco, in collaboration with OpenEDG JS Institute, verifies the earner of this badge successfully completed the JavaScript Essentials 1 course and achieved the student level credentials. Earners know the syntax of the core JavaScript; can work with variables, operators, flow control, and functions; know the basics of data types system; think algorithmically and can analyze problems using a programmatic conceptual apparatus; and can design, develop, and improve simple JavaScript programs."
+  },
+  {
+    "id": "anthropic-claude-code-101",
+    "title": "Claude Code 101",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-10-14",
+    "badgeUrl": "https://verify.skilljar.com/c/evj8mu4hi7ai",
+    "imageUrl": "/images/badges/anthropic-code.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/evj8mu4hi7ai",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Claude Code",
+      "AI Pair Programming",
+      "Agentic CLI",
+      "Codebase Navigation",
+      "Terminal Workflows"
+    ],
+    "description": "Certified proficiency in Claude Code, Anthropic's research-grade agentic command-line interface for terminal-native software development, multi-file code editing, and architectural codebase understanding."
   },
   {
     "id": "2107b3a9-6143-4d7f-a3e9-0f212ea983c4",
@@ -399,5 +795,64 @@
       "Personal Computers"
     ],
     "description": "Cisco verifies the earner of this badge successfully completed the Computer Hardware Basics course and achieved this student level credential. Earner has fundamentals knowledge of computers and mobile devices, how they work, as well as the basic concepts and skills needed to install components to build, repair, upgrade personal computers and and basic troubleshooting tools and techniques."
+  },
+  {
+    "id": "anthropic-ai-capabilities-limitations",
+    "title": "AI Capabilities and Limitations",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-08-12",
+    "badgeUrl": "https://verify.skilljar.com/c/qphoi2cvh5ea",
+    "imageUrl": "/images/badges/anthropic-claude.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/qphoi2cvh5ea",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Hallucination Prevention",
+      "Model Boundaries",
+      "Evaluation Benchmarks",
+      "Safety Alignment",
+      "Critical Verification"
+    ],
+    "description": "Rigorous technical assessment of LLM boundaries, hallucination mechanisms, mathematical and reasoning edge cases, and verification strategies for mission-critical software systems."
+  },
+  {
+    "id": "anthropic-ai-fluency-students",
+    "title": "AI Fluency for Students",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-08-12",
+    "badgeUrl": "https://verify.skilljar.com/c/wfz4y8nhywp2",
+    "imageUrl": "/images/badges/anthropic-fluency.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/wfz4y8nhywp2",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Student AI Literacy",
+      "Research Automation",
+      "Academic Integrity",
+      "Critical Thinking"
+    ],
+    "description": "Ethical frameworks, accelerated research methodologies, and career-building technical foundations for students navigating modern AI-assisted engineering and scholarship."
+  },
+  {
+    "id": "anthropic-claude-101",
+    "title": "Claude 101",
+    "issuer": "Anthropic",
+    "organization": "Anthropic Academy",
+    "issueDate": "2026-08-12",
+    "badgeUrl": "https://verify.skilljar.com/c/66ps5mqc4bxk",
+    "imageUrl": "/images/badges/anthropic-claude.png",
+    "remoteImageUrl": "https://verify.skilljar.com/c/66ps5mqc4bxk",
+    "activityUrl": "https://anthropic.skilljar.com/",
+    "category": "AI",
+    "skills": [
+      "Claude Fundamentals",
+      "Conversational AI",
+      "Prompt Design",
+      "Artifact Generation",
+      "Constitutional AI"
+    ],
+    "description": "Comprehensive certification in core Claude principles, constitutional AI design, context manipulation, and structured conversation engineering across diverse operational scenarios."
   }
 ]

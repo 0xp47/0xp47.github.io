@@ -143,18 +143,39 @@ async function fetchBadges() {
       });
     }
 
-    // Sort by issue date descending
-    certifications.sort((a, b) => b.issueDate.localeCompare(a.issueDate));
+    // Merge Anthropic / manual certifications
+    const anthropicPath = path.resolve('src/lib/anthropic-certifications.json');
+    let anthropicCerts = [];
+    if (fs.existsSync(anthropicPath)) {
+      try {
+        anthropicCerts = JSON.parse(fs.readFileSync(anthropicPath, 'utf8'));
+      } catch (err) {
+        console.warn('Failed to parse anthropic-certifications.json:', err.message);
+      }
+    }
 
-    fs.writeFileSync(outputPath, JSON.stringify(certifications, null, 2), 'utf8');
-    console.log(`Successfully saved ${certifications.length} certifications to ${outputPath}`);
+    const allCertifications = [...certifications, ...anthropicCerts];
+    // Sort by issue date descending
+    allCertifications.sort((a, b) => b.issueDate.localeCompare(a.issueDate));
+
+    fs.writeFileSync(outputPath, JSON.stringify(allCertifications, null, 2), 'utf8');
+    console.log(`Successfully saved ${allCertifications.length} certifications (${certifications.length} Credly + ${anthropicCerts.length} Anthropic) to ${outputPath}`);
   } catch (error) {
     console.warn("Could not fetch latest badges from Credly:", error.message);
-    if (existingData.length > 0) {
-      console.log(`Using existing ${existingData.length} cached certifications.`);
-    } else {
-      console.error("No cached certifications found.");
+    const anthropicPath = path.resolve('src/lib/anthropic-certifications.json');
+    let anthropicCerts = [];
+    if (fs.existsSync(anthropicPath)) {
+      try {
+        anthropicCerts = JSON.parse(fs.readFileSync(anthropicPath, 'utf8'));
+      } catch {
+        // ignore
+      }
     }
+    const nonAnthropic = existingData.filter((c) => c.issuer !== "Anthropic");
+    const combined = [...nonAnthropic, ...anthropicCerts];
+    combined.sort((a, b) => b.issueDate.localeCompare(a.issueDate));
+    fs.writeFileSync(outputPath, JSON.stringify(combined, null, 2), 'utf8');
+    console.log(`Using existing ${combined.length} certifications (${nonAnthropic.length} Credly + ${anthropicCerts.length} Anthropic).`);
   }
 }
 

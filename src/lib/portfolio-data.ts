@@ -14,6 +14,7 @@ export const profile = {
   instagram: "https://www.instagram.com/0xp47",
   facebook: "https://www.facebook.com/0xp47",
   credly: "https://www.credly.com/users/0xp47/badges",
+  anthropic: "https://anthropic.skilljar.com/",
 };
 
 export const navItems = [
@@ -55,7 +56,7 @@ export const sectionMeta = {
   },
   certifications: {
     eyebrow: "Certifications",
-    title: "Verified credentials from Cisco Networking Academy.",
+    title: "Verified credentials from Anthropic and Cisco Networking Academy.",
   },
   contact: {
     eyebrow: "Collab",

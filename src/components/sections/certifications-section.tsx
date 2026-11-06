@@ -4,7 +4,7 @@ import { useMemo, useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, ShieldCheck } from "lucide-react";
-import { SiCredly } from "react-icons/si";
+import { SiCredly, SiAnthropic } from "react-icons/si";
 import { certifications, certificationCategories, sectionMeta, profile } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
@@ -61,8 +61,8 @@ export function CertificationsSection() {
               <span className="font-semibold text-foreground">
                 {certifications.length} verified credentials
               </span>{" "}
-              earned through Cisco Networking Academy and registered on the Credly
-              digital badge registry — latest issued {lastIssued}.
+              earned through Anthropic Education and Cisco Networking Academy,
+              registered on verified credential registries — latest issued {lastIssued}.
             </p>
 
             {/* Category tabs — plain text, animated underline */}
@@ -100,18 +100,34 @@ export function CertificationsSection() {
             </nav>
           </div>
 
-          {/* Credly profile link */}
-          <a
-            href={profile.credly}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="group inline-flex items-center gap-2 self-start text-[11px] tracking-wide text-muted-foreground transition-colors duration-300 hover:text-foreground md:self-auto"
-            title="View verified credentials on Credly"
-          >
-            <SiCredly className="size-3.5 text-[#ff6b00]" />
-            <span>Complete profile on Credly</span>
-            <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
-          </a>
+          {/* Credential registries links */}
+          <div className="flex flex-wrap items-center gap-3 self-start text-[11px] md:self-auto">
+            <a
+              href="https://anthropic.skilljar.com/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-1.5 tracking-wide text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              title="View verified credentials on Anthropic Academy"
+            >
+              <SiAnthropic className="size-3.5 text-[#D97757]" />
+              <span>Anthropic Academy</span>
+              <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+
+            <span className="text-border select-none" aria-hidden="true">·</span>
+
+            <a
+              href={profile.credly}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group inline-flex items-center gap-1.5 tracking-wide text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              title="View verified credentials on Credly"
+            >
+              <SiCredly className="size-3.5 text-[#ff6b00]" />
+              <span>Credly Registry</span>
+              <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            </a>
+          </div>
         </div>
 
         {/* Credential directory — ledger rows */}
@@ -156,9 +172,17 @@ export function CertificationsSection() {
 
                     {/* Core info */}
                     <div className="min-w-0 py-5">
-                      <h3 className="text-sm font-semibold tracking-tight text-foreground">
-                        {badge.title}
-                      </h3>
+                      <div className="flex flex-wrap items-center gap-2">
+                        <h3 className="text-sm font-semibold tracking-tight text-foreground">
+                          {badge.title}
+                        </h3>
+                        {badge.issuer === "Anthropic" && (
+                          <span className="inline-flex items-center gap-1 rounded border border-[#D97757]/30 bg-[#D97757]/10 px-1.5 py-0.5 font-mono text-[9px] uppercase tracking-wider text-[#D97757]">
+                            <SiAnthropic className="size-2.5" />
+                            Anthropic
+                          </span>
+                        )}
+                      </div>
                       <p className="mt-1 flex items-center gap-1.5 text-[11px] text-muted-foreground/75">
                         <ShieldCheck className="size-3 shrink-0 text-emerald-500/80" />
                         <span className="truncate">{badge.organization}</span>
