@@ -13,6 +13,17 @@ import { cn } from "@/lib/utils";
 import { cardVariants } from "@/lib/animation-variants";
 import { ProjectCard } from "@/components/shared/project-card";
 
+const FEATURED_PROJECT_ORDER = [
+  "tdrive",
+  "axiom-lms",
+  "pos-and-inventory-system",
+  "lumora",
+  "ccs-assistant",
+  "room-209",
+  "philnits-ip-exam",
+  "ccsas-dashboard",
+];
+
 const CASE_STUDIES: Record<string, { architecture: string; challenge: string; features: string[] }> = {
   "LeafSense Mobile": {
     architecture: "Cross-platform React Native client with a Python FastAPI backend. The mobile app leverages Expo APIs for local photo capture and uploads images asynchronously to the backend REST API.",
@@ -220,7 +231,16 @@ export function ProjectsSection() {
 
   const filteredProjects = useMemo(() => {
     if (activeFilter === "All") {
-      return projects;
+      return [...projects].sort((a, b) => {
+        const aSlug = a.name.toLowerCase();
+        const bSlug = b.name.toLowerCase();
+        const aIndex = FEATURED_PROJECT_ORDER.indexOf(aSlug);
+        const bIndex = FEATURED_PROJECT_ORDER.indexOf(bSlug);
+        if (aIndex !== -1 && bIndex !== -1) return aIndex - bIndex;
+        if (aIndex !== -1) return -1;
+        if (bIndex !== -1) return 1;
+        return 0;
+      });
     }
     return projects.filter((project) => project.category === activeFilter);
   }, [activeFilter]);
@@ -229,7 +249,7 @@ export function ProjectsSection() {
     if (showAll) {
       return filteredProjects;
     }
-    return filteredProjects.slice(0, 6);
+    return filteredProjects.slice(0, 8);
   }, [filteredProjects, showAll]);
 
   const caseStudy = selectedProject ? CASE_STUDIES[selectedProject.name] : null;
@@ -273,7 +293,7 @@ export function ProjectsSection() {
             transition: { staggerChildren: 0.12 }
           }
         }}
-        className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
+        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 items-stretch"
       >
         {displayedProjects.map((project) => (
           <motion.div
@@ -286,7 +306,7 @@ export function ProjectsSection() {
         ))}
       </motion.div>
 
-      {filteredProjects.length > 6 && (
+      {filteredProjects.length > 8 && (
         <div className="mt-14 flex justify-center">
           <Link
             href="/projects"
