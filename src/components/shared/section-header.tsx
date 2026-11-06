@@ -31,9 +31,9 @@ export function SectionHeader({ eyebrow, title, index }: SectionHeaderProps) {
           </svg>
         </div>
 
-        {/* Massive Section Number container: bottom half is cleanly hidden by overflow-hidden and border-b */}
-        <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[50px] sm:h-[64px] md:h-[72px] lg:h-[82px]">
-          <div className="font-sans text-8xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
+        {/* Massive Section Number container: calibrated height so numbers are clearly identifiable and sliced cleanly at the bottom */}
+        <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[60px] sm:h-[80px] md:h-[106px] lg:h-[108px]">
+          <div className="font-sans text-7xl sm:text-8xl md:text-9xl lg:text-[130px] font-bold tracking-tight text-foreground leading-none select-none">
             {displayIndex}
           </div>
         </div>
