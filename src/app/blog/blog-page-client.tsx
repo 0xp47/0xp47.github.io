@@ -102,19 +102,19 @@ export function BlogPageClient() {
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-8">
           {/* Search bar */}
           <div className="relative max-w-sm w-full">
-            <Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground/75 z-10" />
+            <Search className="absolute left-3.5 top-1/2 size-4 -translate-y-1/2 text-neutral-500 z-10" />
             <input
               type="text"
               placeholder="Search articles…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-10 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300"
+              className="w-full rounded-full border border-neutral-800 bg-[#0a0a0a] py-2.5 pl-10 pr-10 text-xs text-white placeholder:text-neutral-500 focus:border-neutral-700 focus:outline-none transition-colors duration-200"
             />
             {searchQuery && (
               <button
                 type="button"
                 onClick={() => setSearchQuery("")}
-                className="absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-muted-foreground/50 hover:text-foreground cursor-pointer z-10"
+                className="absolute right-3.5 top-1/2 size-4 -translate-y-1/2 text-neutral-500 hover:text-white cursor-pointer z-10"
               >
                 <X className="size-3" />
               </button>
@@ -151,48 +151,50 @@ export function BlogPageClient() {
                   /* List Row View (Horizontal) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group flex flex-row gap-4 sm:gap-6 border-b border-border py-6 items-center justify-between text-left w-full h-full transition-colors duration-300 hover:border-foreground/40"
+                    className="group relative flex flex-row gap-4 sm:gap-6 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 items-center justify-between text-left w-full transition-colors duration-200 hover:border-neutral-700 select-none"
                   >
                     <div className="flex-1 min-w-0 space-y-2">
                       {/* Date and Reading Time */}
                       <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1.5 text-[9px] font-mono text-muted-foreground/60 uppercase tracking-wider">
-                          <Calendar className="size-3" />
+                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-400 uppercase tracking-wider">
+                          <Calendar className="size-3 text-neutral-500" />
                           {post.dateDisplay}
                         </span>
-                        <span className="flex items-center gap-1.5 text-[9px] font-mono text-muted-foreground/60 uppercase tracking-wider">
-                          <Clock className="size-3" />
+                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-400 uppercase tracking-wider">
+                          <Clock className="size-3 text-neutral-500" />
                           {post.readingTime}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-sm font-semibold text-foreground tracking-tight group-hover:text-foreground transition-colors line-clamp-1">
+                      <h3 className="text-[15px] font-semibold text-white tracking-tight line-clamp-1">
                         {post.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-xs leading-relaxed text-neutral-500 dark:text-neutral-400 line-clamp-2">
+                      <p className="text-xs leading-relaxed text-neutral-400 line-clamp-2">
                         {post.description}
                       </p>
 
                       {/* Footer: Tags + Read More */}
                       <div className="flex items-center justify-between pt-2">
-                        <div className="font-mono text-[8.5px] uppercase tracking-[0.16em] text-muted-foreground/50 tracking-wider truncate max-w-[70%]">
+                        <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-neutral-500 tracking-wider truncate max-w-[70%]">
                           {post.tags.join("  ·  ")}
                         </div>
-                        <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-muted-foreground/65 group-hover:text-foreground transition-colors shrink-0">
+                        <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-neutral-400 group-hover:text-white transition-colors shrink-0">
                           read
-                          <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform duration-300" />
+                          <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform duration-200" />
                         </span>
                       </div>
                     </div>
 
                     {/* Right Thumbnail Cover */}
-                    <BlogThumbnail
-                      slug={post.slug}
-                      className="size-16 sm:size-24 shrink-0"
-                    />
+                    <div className="size-16 sm:size-24 shrink-0 rounded-lg overflow-hidden border border-neutral-800/60 bg-[#121212]">
+                      <BlogThumbnail
+                        slug={post.slug}
+                        className="size-full object-cover"
+                      />
+                    </div>
                   </Link>
                 )}
               </motion.div>
@@ -202,13 +204,13 @@ export function BlogPageClient() {
 
         {/* Pagination Controls */}
         {totalPages > 1 && (
-          <div className="flex items-center justify-center gap-2 mt-12 pt-6 border-t border-border/10 font-mono">
+          <div className="flex items-center justify-center gap-2 mt-12 pt-6 border-t border-neutral-800/80 font-mono">
             {/* Previous Button */}
             <button
               type="button"
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="flex size-8 items-center justify-center chamfer-btn border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
               aria-label="Previous page"
             >
               <ChevronLeft className="size-4" />
@@ -223,10 +225,10 @@ export function BlogPageClient() {
                   type="button"
                   onClick={() => setCurrentPage(page)}
                   className={cn(
-                    "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition duration-300 cursor-pointer",
+                    "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition-colors duration-200 cursor-pointer",
                     isActive
-                      ? "border-foreground bg-foreground text-background"
-                      : "border-border/30 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+                      ? "border-white bg-white text-black font-semibold"
+                      : "border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white"
                   )}
                 >
                   {page}
@@ -239,7 +241,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className="flex size-8 items-center justify-center chamfer-btn border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
               aria-label="Next page"
             >
               <ChevronRight className="size-4" />
@@ -254,14 +256,14 @@ export function BlogPageClient() {
             animate={{ opacity: 1, y: 0 }}
             className="flex flex-col items-center justify-center py-20 text-center"
           >
-            <Search className="size-6 text-muted-foreground/50 mb-3" />
-            <h3 className="text-sm font-semibold text-foreground">No articles found</h3>
-            <p className="text-xs text-muted-foreground/80 mt-1 max-w-xs leading-relaxed">
+            <Search className="size-6 text-neutral-500 mb-3" />
+            <h3 className="text-sm font-semibold text-white">No articles found</h3>
+            <p className="text-xs text-neutral-400 mt-1 max-w-xs leading-relaxed">
               We couldn&apos;t find any blog posts matching your search query.
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="mt-4 chamfer-btn border border-border/30 bg-foreground/5 px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-foreground hover:bg-foreground hover:text-background transition duration-300 cursor-pointer"
+              className="mt-4 chamfer-btn border border-neutral-800 bg-[#0a0a0a] px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer"
             >
               Clear search
             </button>
@@ -269,15 +271,15 @@ export function BlogPageClient() {
         )}
 
         {/* Footer Area with Back Link */}
-        <footer className="mt-24 pt-8 border-t border-border/10 flex items-center justify-between w-full">
+        <footer className="mt-24 pt-8 border-t border-neutral-800/80 flex items-center justify-between w-full">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors duration-300 group"
+            className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors duration-200 group"
           >
-            <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform duration-300" />
+            <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform duration-200" />
             Back to portfolio
           </Link>
-          <span className="text-[10px] font-mono text-muted-foreground/30">
+          <span className="text-[10px] font-mono text-neutral-600">
             © {new Date().getFullYear()} Jay Patrick Cano
           </span>
         </footer>

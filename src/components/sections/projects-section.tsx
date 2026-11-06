@@ -274,8 +274,8 @@ export function ProjectsSection() {
                 className={cn(
                   "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                   isActive
-                    ? "bg-foreground text-background font-semibold shadow-xs"
-                    : "border border-border/60 bg-foreground/[0.03] text-muted-foreground hover:text-foreground hover:bg-foreground/[0.08]"
+                    ? "bg-white text-black font-semibold shadow-xs"
+                    : "border border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white"
                 )}
               >
                 <span>{filter}</span>
@@ -310,7 +310,7 @@ export function ProjectsSection() {
         <div className="mt-14 flex justify-center">
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 chamfer-btn-lg border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-800 bg-[#0a0a0a] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
           >
             <span>See All Projects</span>
             <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
@@ -338,7 +338,7 @@ export function ProjectsSection() {
               role="dialog"
               aria-modal="true"
               aria-label={selectedProject?.name ? `${selectedProject.name} details` : 'Project details'}
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-border/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-neutral-800 bg-[#0a0a0a]/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -346,19 +346,19 @@ export function ProjectsSection() {
             >
 
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-border/10 pb-2 mb-3">
+              <div className="flex items-center justify-between border-b border-neutral-800 pb-2 mb-3">
                 <div>
-                  <span className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block mb-0.5">
+                  <span className="font-mono text-[9px] font-bold text-neutral-400 uppercase tracking-widest block mb-0.5">
                     {selectedProject.category} Case Study
                   </span>
-                  <h2 className="text-lg font-bold tracking-tight text-foreground">
+                  <h2 className="text-lg font-bold tracking-tight text-white">
                     {formatRepoName(selectedProject.name)}
                   </h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition duration-300 text-muted-foreground cursor-pointer"
+                  className="flex size-7 items-center justify-center chamfer-btn border border-neutral-800 bg-[#121212] hover:border-neutral-700 hover:text-white transition-colors duration-200 text-neutral-400 cursor-pointer"
                   aria-label="Close details"
                 >
                   <X className="size-3.5" />

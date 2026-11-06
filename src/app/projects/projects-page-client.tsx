@@ -432,7 +432,7 @@ export function ProjectsPageClient() {
                   placeholder="Filter by keyword…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300 font-mono"
+                  className="w-full rounded-full border border-neutral-800 bg-[#0a0a0a] py-2.5 pl-10 pr-8 text-xs text-white placeholder:text-neutral-500 focus:border-neutral-700 focus:outline-none transition-colors duration-200 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -455,7 +455,7 @@ export function ProjectsPageClient() {
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value as "default" | "name-asc" | "name-desc" | "updated" | "created" | "stars")}
-                  className="w-full rounded-full border border-border/40 bg-muted pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-muted-foreground hover:text-foreground focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm cursor-pointer transition duration-300 appearance-none uppercase"
+                  className="w-full rounded-full border border-neutral-800 bg-[#0a0a0a] pl-4 pr-10 py-2 text-[10px] font-mono font-bold tracking-wide text-neutral-300 hover:text-white focus:border-neutral-700 focus:outline-none cursor-pointer transition-colors duration-200 appearance-none uppercase"
                 >
                   <option value="default" className="bg-card text-card-foreground">DEFAULT ORDER</option>
                   <option value="name-asc" className="bg-card text-card-foreground">NAME (A-Z)</option>
@@ -553,7 +553,7 @@ export function ProjectsPageClient() {
                   placeholder="Search projects…"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full rounded-full border border-border/40 bg-muted py-2.5 pl-10 pr-8 text-xs text-foreground placeholder:text-muted-foreground/50 focus:border-foreground/30 focus:outline-none focus:ring-2 focus:ring-foreground/15 backdrop-blur-sm transition duration-300 font-mono"
+                  className="w-full rounded-full border border-neutral-800 bg-[#0a0a0a] py-2.5 pl-10 pr-8 text-xs text-white placeholder:text-neutral-500 focus:border-neutral-700 focus:outline-none transition-colors duration-200 font-mono"
                 />
                 {searchQuery && (
                   <button
@@ -619,13 +619,13 @@ export function ProjectsPageClient() {
 
             {/* Pagination Controls */}
             {totalPages > 1 && (
-              <div className="flex items-center justify-center gap-2 mt-12 pt-6 border-t border-border/10 font-mono">
+              <div className="flex items-center justify-center gap-2 mt-12 pt-6 border-t border-neutral-800/80 font-mono">
                 {/* Previous Button */}
                 <button
                   type="button"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                  className="flex size-8 items-center justify-center chamfer-btn border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
+                  className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="size-4" />
@@ -640,10 +640,10 @@ export function ProjectsPageClient() {
                       type="button"
                       onClick={() => setCurrentPage(page)}
                       className={cn(
-                        "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition duration-300 cursor-pointer",
+                        "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition-colors duration-200 cursor-pointer",
                         isActive
-                          ? "border-foreground bg-foreground text-background"
-                          : "border-border/30 text-muted-foreground hover:border-foreground/30 hover:text-foreground"
+                          ? "border-white bg-white text-black font-semibold"
+                          : "border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white"
                       )}
                     >
                       {page}
@@ -656,7 +656,7 @@ export function ProjectsPageClient() {
                   type="button"
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                  className="flex size-8 items-center justify-center chamfer-btn border border-border/30 hover:border-foreground/30 disabled:opacity-30 disabled:pointer-events-none text-muted-foreground hover:text-foreground transition duration-300 cursor-pointer"
+                  className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
                   aria-label="Next page"
                 >
                   <ChevronRight className="size-4" />
@@ -728,26 +728,26 @@ export function ProjectsPageClient() {
               role="dialog"
               aria-modal="true"
               aria-label={selectedProject?.name ? `${selectedProject.name} details` : 'Project details'}
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-border/10 bg-background/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-neutral-800 bg-[#0a0a0a]/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 30, stiffness: 300 }}
             >
               {/* Header */}
-              <div className="flex items-center justify-between border-b border-border/10 pb-2 mb-3">
+              <div className="flex items-center justify-between border-b border-neutral-800 pb-2 mb-3">
                 <div>
-                  <span className="font-mono text-[9px] font-bold text-muted-foreground/60 uppercase tracking-widest block mb-0.5">
+                  <span className="font-mono text-[9px] font-bold text-neutral-400 uppercase tracking-widest block mb-0.5">
                     {selectedProject.category} Case Study
                   </span>
-                  <h2 className="text-lg font-bold tracking-tight text-foreground">
+                  <h2 className="text-lg font-bold tracking-tight text-white">
                     {formatRepoName(selectedProject.name)}
                   </h2>
                 </div>
                 <button
                   type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="flex size-7 items-center justify-center rounded-full border border-border/30 hover:border-foreground/30 hover:bg-foreground hover:text-background transition duration-300 text-muted-foreground cursor-pointer"
+                  className="flex size-7 items-center justify-center chamfer-btn border border-neutral-800 bg-[#121212] hover:border-neutral-700 hover:text-white transition-colors duration-200 text-neutral-400 cursor-pointer"
                   aria-label="Close details"
                 >
                   <X className="size-3.5" />

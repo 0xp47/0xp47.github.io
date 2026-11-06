@@ -5,14 +5,13 @@ import { motion, useMotionValue, useTransform, animate, useInView } from "framer
 import { Terminal, GitMerge, Briefcase, type LucideIcon } from "lucide-react";
 import { aboutHighlights, aboutDescription, heroStats, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
+import { cardVariants } from "@/lib/animation-variants";
 
 const iconMap: Record<string, LucideIcon> = {
   Terminal,
   GitMerge,
   Briefcase,
 };
-
-import { cardVariants } from "@/lib/animation-variants";
 
 function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
   const ref = useRef<HTMLSpanElement>(null);
@@ -55,21 +54,21 @@ export function AboutSection() {
           variants={cardVariants}
           className="flex flex-col gap-6"
         >
-          <p className="text-sm leading-relaxed text-muted-foreground text-pretty">
+          <p className="text-sm leading-relaxed text-neutral-400 text-pretty">
             {aboutDescription}
           </p>
           
-          {/* Sleek Stats Highlights */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-4 mt-2">
+          {/* Stats Highlights */}
+          <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-2">
             {heroStats.map((stat, i) => (
               <div
                 key={i}
-                className="flex flex-col p-3 sm:p-4 rounded-xl border border-border/50 bg-foreground/[0.015] hover:bg-foreground/[0.03] hover:border-foreground/30 transition-all duration-300 shadow-sm"
+                className="flex flex-col p-3.5 sm:p-4 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] hover:border-neutral-700 transition-colors duration-200 select-none"
               >
-                <span className="tabular-nums text-2xl font-extrabold tracking-tight text-foreground sm:text-3xl">
+                <span className="tabular-nums text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
                   <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                 </span>
-                <span className="text-[9px] font-mono font-bold tracking-wider text-muted-foreground uppercase mt-1 leading-snug">
+                <span className="text-[9px] font-mono font-bold tracking-wider text-neutral-400 uppercase mt-1 leading-snug">
                   {stat.label}
                 </span>
               </div>
@@ -85,7 +84,7 @@ export function AboutSection() {
               transition: { staggerChildren: 0.12 }
             }
           }}
-          className="flex flex-col gap-5"
+          className="flex flex-col gap-4"
         >
           {aboutHighlights.map((item, index) => {
             const IconComponent = iconMap[item.icon] || Terminal;
@@ -94,17 +93,17 @@ export function AboutSection() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="group flex gap-4 items-start p-4 rounded-xl border border-border/40 bg-foreground/[0.01] hover:bg-foreground/[0.025] hover:border-foreground/25 transition-all duration-300"
+                className="group flex gap-4 items-start p-4 sm:p-5 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] hover:border-neutral-700 transition-colors duration-200 select-none"
               >
                 {/* Framed icon container */}
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-border/50 bg-foreground/[0.03] text-muted-foreground transition-all duration-300 group-hover:border-foreground/30 group-hover:text-foreground group-hover:scale-105">
+                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-[#121212] text-neutral-400 transition-colors duration-200 group-hover:border-neutral-700 group-hover:text-white">
                   <IconComponent className="size-4" strokeWidth={1.75} />
                 </div>
-                <div className="flex flex-col gap-1">
-                  <h4 className="text-sm font-semibold text-foreground tracking-tight">
+                <div className="flex flex-col gap-1 min-w-0">
+                  <h4 className="text-[15px] font-semibold text-white tracking-tight">
                     {item.title}
                   </h4>
-                  <p className="text-xs md:text-sm leading-relaxed text-neutral-500 dark:text-neutral-400 text-pretty transition-colors duration-300 group-hover:text-foreground">
+                  <p className="text-xs leading-relaxed text-neutral-400 text-pretty">
                     {item.description}
                   </p>
                 </div>

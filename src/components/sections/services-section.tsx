@@ -16,7 +16,7 @@ export function ServicesSection() {
       const container = scrollContainerRef.current;
       const card = container.firstElementChild as HTMLElement;
       const cardWidth = card ? card.offsetWidth : container.clientWidth;
-      const gap = 32; // gap-8 in Tailwind is 32px
+      const gap = 24; // 24px gap between cards
       const scrollAmount = cardWidth + gap;
 
       if (direction === "left") {
@@ -63,14 +63,13 @@ export function ServicesSection() {
 
   return (
     <Section id="services" eyebrow={sectionMeta.services.eyebrow} title={sectionMeta.services.title}>
-      
       <div className="relative w-full">
         {/* Navigation Buttons (Top Right of Carousel) */}
         <div className="flex justify-end gap-2 mb-6">
           <button
             type="button"
             onClick={() => handleManualScroll("left")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition duration-300 cursor-pointer"
+            className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
             aria-label="Previous service"
           >
             <ChevronLeft className="size-4" />
@@ -78,7 +77,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("right")}
-            className="flex size-8 items-center justify-center rounded-full border border-border/30 bg-background/50 hover:bg-foreground hover:text-background text-muted-foreground hover:border-foreground transition duration-300 cursor-pointer"
+            className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
             aria-label="Next service"
           >
             <ChevronRight className="size-4" />
@@ -88,7 +87,7 @@ export function ServicesSection() {
         {/* Carousel Container */}
         <div 
           ref={scrollContainerRef}
-          className="flex gap-8 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pb-4"
+          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pb-4"
         >
           {services.map((service, index) => {
             const formattedIndex = String(index + 1).padStart(2, "0");
@@ -97,25 +96,25 @@ export function ServicesSection() {
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                className="group flex flex-col items-start p-5 sm:p-6 rounded-xl border border-border/50 bg-foreground/[0.012] hover:bg-foreground/[0.025] hover:border-foreground/30 hover:-translate-y-1 snap-start shrink-0 w-full sm:w-[calc((100%-32px)/2)] lg:w-[calc((100%-64px)/3)] transition-all duration-300 shadow-sm"
+                className="group relative flex flex-col justify-between rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 transition-colors duration-200 hover:border-neutral-700 select-none snap-start shrink-0 w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]"
               >
-                {/* Header: Title and Index Number side-by-side */}
-                <div className="flex items-baseline justify-between w-full">
-                  <h3 className="text-sm font-semibold text-foreground tracking-tight">
+                {/* Header: Title and Index Number */}
+                <div className="flex items-start justify-between gap-3 w-full">
+                  <h3 className="text-[15px] font-semibold text-white tracking-tight leading-snug">
                     {service.title}
                   </h3>
-                  <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded-full border border-border/50 text-muted-foreground/60 group-hover:border-foreground/40 group-hover:text-foreground transition-colors duration-300 select-none tabular-nums">
+                  <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400 select-none tabular-nums group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
                     {formattedIndex}
                   </span>
                 </div>
 
                 {/* Description */}
-                <p className="text-xs leading-relaxed text-muted-foreground/80 mt-3 text-pretty group-hover:text-foreground transition-colors duration-300">
+                <p className="text-xs leading-relaxed text-neutral-400 mt-2.5 text-pretty">
                   {service.description}
                 </p>
 
                 {/* Tech/Keyword tags list */}
-                <div className="mt-auto pt-5 font-mono text-[8.5px] uppercase tracking-[0.18em] text-muted-foreground/45 leading-relaxed group-hover:text-foreground/60 transition-colors duration-300">
+                <div className="mt-auto pt-5 font-mono text-[9px] uppercase tracking-[0.16em] text-neutral-500 leading-relaxed">
                   {service.tags.join("  ·  ")}
                 </div>
               </motion.div>

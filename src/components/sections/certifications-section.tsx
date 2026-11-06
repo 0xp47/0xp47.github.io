@@ -80,8 +80,8 @@ export function CertificationsSection() {
       <div className="flex flex-col">
         {/* Header Summary & Registry Links */}
         <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-xl text-sm leading-relaxed text-neutral-500 dark:text-neutral-400">
-            <span className="font-semibold text-foreground">
+          <p className="max-w-xl text-sm leading-relaxed text-neutral-400">
+            <span className="font-semibold text-white">
               {certifications.length} verified credentials
             </span>{" "}
             earned through Anthropic Education and Cisco Networking Academy,
@@ -93,15 +93,15 @@ export function CertificationsSection() {
               href={profile.anthropic || "https://anthropic.skilljar.com/"}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-400 transition-colors duration-200 hover:text-white"
               title="View verified credentials on Anthropic Academy"
             >
               <SiAnthropic className="size-3 text-[#D97757]" />
               <span>Anthropic Academy</span>
-              <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
 
-            <span className="text-border select-none" aria-hidden="true">
+            <span className="text-neutral-700 select-none" aria-hidden="true">
               ·
             </span>
 
@@ -109,12 +109,12 @@ export function CertificationsSection() {
               href={profile.credly}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-muted-foreground transition-colors duration-300 hover:text-foreground"
+              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-400 transition-colors duration-200 hover:text-white"
               title="View verified credentials on Credly"
             >
               <SiCredly className="size-3 text-[#ff6b00]" />
               <span>Credly Registry</span>
-              <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+              <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </div>
         </div>
@@ -136,10 +136,10 @@ export function CertificationsSection() {
                     setShowAll(false);
                   }}
                   className={cn(
-                    "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
+                    "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-colors duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                     isActive
-                      ? "bg-foreground text-background font-semibold shadow-xs"
-                      : "border border-border/60 bg-foreground/[0.03] text-muted-foreground hover:text-foreground hover:bg-foreground/[0.08]"
+                      ? "bg-white text-black font-semibold shadow-xs"
+                      : "border border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white"
                   )}
                 >
                   <span>{filter}</span>
@@ -172,62 +172,64 @@ export function CertificationsSection() {
                     delay: prefersReducedMotion ? 0 : Math.min(index * 0.04, 0.24),
                     ease: [0.16, 1, 0.3, 1],
                   }}
-                  className="group relative flex h-full flex-col items-start border-t border-border py-6 transition-all duration-300 hover:border-foreground/60 hover:-translate-y-0.5"
+                  className="group relative flex h-full flex-col justify-between rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 transition-colors duration-200 hover:border-neutral-700 select-none"
                 >
-                  {/* Category & Issue Date */}
-                  <div className="mb-3 flex w-full items-center justify-between gap-3">
-                    <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-muted-foreground/70">
-                      {badge.issuer} · {badge.category}
-                    </span>
-                    <span className="font-mono text-[10px] text-muted-foreground/60 tabular-nums">
-                      {formatDate(badge.issueDate)}
-                    </span>
-                  </div>
-
-                  {/* Badge Graphic + Title */}
-                  <div className="flex items-start gap-3.5 w-full">
-                    <div className="relative size-12 shrink-0">
-                      <Image
-                        src={badge.imageUrl}
-                        alt=""
-                        width={48}
-                        height={48}
-                        unoptimized
-                        className="size-12 object-contain drop-shadow-xs transition-transform duration-300 group-hover:scale-105"
-                      />
+                  <div>
+                    {/* Category & Issue Date */}
+                    <div className="mb-3 flex w-full items-center justify-between gap-3">
+                      <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
+                        {badge.issuer} · {badge.category}
+                      </span>
+                      <span className="font-mono text-[10px] text-neutral-500 tabular-nums">
+                        {formatDate(badge.issueDate)}
+                      </span>
                     </div>
-                    <div className="min-w-0 flex-1">
-                      <h3 className="text-base font-semibold tracking-tight text-foreground transition-colors duration-300">
-                        {badge.title}
-                      </h3>
-                      <p className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-muted-foreground/70">
-                        <ShieldCheck className="size-3 text-emerald-500/80 shrink-0" />
-                        <span className="truncate">{badge.organization}</span>
+
+                    {/* Badge Graphic + Title */}
+                    <div className="flex items-start gap-3 w-full">
+                      <div className="relative size-11 shrink-0 rounded-lg overflow-hidden border border-neutral-800/60 bg-[#121212] p-1 flex items-center justify-center">
+                        <Image
+                          src={badge.imageUrl}
+                          alt=""
+                          width={44}
+                          height={44}
+                          unoptimized
+                          className="size-9 object-contain drop-shadow-xs transition-transform duration-300 group-hover:scale-105"
+                        />
+                      </div>
+                      <div className="min-w-0 flex-1">
+                        <h3 className="text-[15px] font-semibold tracking-tight text-white leading-snug">
+                          {badge.title}
+                        </h3>
+                        <p className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-neutral-400">
+                          <ShieldCheck className="size-3 text-emerald-500/80 shrink-0" />
+                          <span className="truncate">{badge.organization}</span>
+                        </p>
+                      </div>
+                    </div>
+
+                    {/* Description */}
+                    {badge.description && (
+                      <p className="mt-3 text-xs leading-relaxed text-neutral-400 line-clamp-2">
+                        {badge.description}
                       </p>
-                    </div>
+                    )}
                   </div>
-
-                  {/* Description */}
-                  {badge.description && (
-                    <p className="mt-3 text-xs leading-relaxed text-neutral-500 transition-colors duration-300 group-hover:text-foreground dark:text-neutral-400 line-clamp-2">
-                      {badge.description}
-                    </p>
-                  )}
 
                   {/* Skills Chips + Action Button */}
-                  <div className="mt-auto w-full pt-5">
+                  <div className="mt-auto w-full pt-4">
                     {topSkills.length > 0 && (
                       <div className="flex flex-wrap gap-1.5">
                         {topSkills.map((skill) => (
                           <span
                             key={skill}
-                            className="font-mono text-[9px] px-2 py-0.5 rounded border border-border/50 bg-foreground/[0.02] text-muted-foreground/75 transition-colors duration-300 group-hover:border-foreground/20 group-hover:text-foreground"
+                            className="font-mono text-[9px] px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400"
                           >
                             {skill}
                           </span>
                         ))}
                         {remaining > 0 && (
-                          <span className="font-mono text-[9px] px-1 py-0.5 text-muted-foreground/50">
+                          <span className="font-mono text-[9px] px-1 py-0.5 text-neutral-500">
                             +{remaining}
                           </span>
                         )}
@@ -238,11 +240,11 @@ export function CertificationsSection() {
                       href={badge.badgeUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 px-3 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
+                      className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 px-3 py-1.5 chamfer-btn border border-neutral-800 bg-[#121212] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-300 transition-colors duration-200 hover:border-neutral-700 hover:bg-[#181818] hover:text-white"
                       aria-label={`Verify ${badge.title} credential`}
                     >
                       Verify Credential
-                      <ArrowUpRight className="size-3 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                      <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </a>
                   </div>
                 </motion.article>
@@ -257,14 +259,13 @@ export function CertificationsSection() {
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
-              className="group inline-flex items-center gap-2 chamfer-btn-lg border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+              className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-800 bg-[#0a0a0a] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
             >
               <span>
                 {showAll
                   ? "Show Fewer"
                   : `See All ${filteredCertifications.length} Credentials`}
               </span>
-              <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </button>
           </div>
         )}
