@@ -600,7 +600,7 @@ export function ProjectsPageClient() {
                 transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
                 className={cn(
                   "grid gap-6 mt-8 items-stretch",
-                  viewMode === "grid" ? "sm:grid-cols-2" : "grid-cols-1"
+                  viewMode === "grid" ? "sm:grid-cols-2 max-w-[780px]" : "grid-cols-1 max-w-[780px]"
                 )}
               >
                 {paginatedProjects.map((project, i) => (

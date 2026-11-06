@@ -293,7 +293,7 @@ export function ProjectsSection() {
             transition: { staggerChildren: 0.12 }
           }
         }}
-        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 items-stretch"
+        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 max-w-[780px] items-stretch"
       >
         {displayedProjects.map((project) => (
           <motion.div
