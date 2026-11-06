@@ -236,32 +236,35 @@ export function ProjectsSection() {
 
   return (
     <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
-      <nav className="mb-4 flex flex-wrap items-baseline gap-x-5 gap-y-2" aria-label="Project filters">
-        {projectFilters.map((filter) => (
-          <button
-            key={filter}
-            type="button"
-            onClick={() => {
-              setActiveFilter(filter);
-              setShowAll(false); // Reset see more state when changing filter
-            }}
-            className={cn(
-              "group relative cursor-pointer font-mono text-[11px] uppercase tracking-[0.14em] transition-colors duration-300",
-              activeFilter === filter
-                ? "text-foreground"
-                : "text-muted-foreground/55 hover:text-foreground",
-            )}
-          >
-            {filter}
-            <span
-              className={cn(
-                "absolute -bottom-1 left-0 h-px w-full origin-left bg-foreground transition-transform duration-300",
-                activeFilter === filter ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100",
-              )}
-            />
-          </button>
-        ))}
-      </nav>
+      {/* Vercel Project Filter Tabs */}
+      <div className="mb-6 w-fit max-w-full overflow-x-auto rounded-full border border-border/80 bg-foreground/[0.02] p-1 shadow-xs scrollbar-none">
+        <nav className="flex items-center gap-1" aria-label="Project filters">
+          {projectFilters.map((filter) => {
+            const isActive = activeFilter === filter;
+            const count = filter === "All" ? projects.length : projects.filter((p) => p.category === filter).length;
+
+            return (
+              <button
+                key={filter}
+                type="button"
+                onClick={() => {
+                  setActiveFilter(filter);
+                  setShowAll(false);
+                }}
+                className={cn(
+                  "inline-flex items-center gap-2 rounded-full py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
+                  isActive
+                    ? "bg-foreground text-background font-semibold shadow-xs"
+                    : "text-muted-foreground hover:text-foreground hover:bg-foreground/[0.04]"
+                )}
+              >
+                <span>{filter}</span>
+                <span className="text-[10px] tabular-nums opacity-60">({count})</span>
+              </button>
+            );
+          })}
+        </nav>
+      </div>
 
       <motion.div
         variants={{
@@ -270,7 +273,7 @@ export function ProjectsSection() {
             transition: { staggerChildren: 0.12 }
           }
         }}
-        className="mt-8 grid gap-x-8 gap-y-2 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
+        className="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
       >
         {displayedProjects.map((project) => (
           <motion.div
@@ -287,12 +290,10 @@ export function ProjectsSection() {
         <div className="mt-14 flex justify-center">
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-1.5 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-muted-foreground transition-colors duration-300 hover:text-foreground"
+            className="group inline-flex items-center gap-2 rounded-full border border-border/80 bg-foreground/[0.03] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-foreground shadow-xs hover:border-foreground/30 hover:bg-foreground/[0.08] transition-all cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
           >
-            <span className="decoration-border underline-offset-4 group-hover:underline">
-              See All Projects
-            </span>
-            <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <span>See All Projects</span>
+            <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
         </div>
       )}

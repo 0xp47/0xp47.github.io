@@ -49,24 +49,24 @@
 
 :root {
   color-scheme: light;
-  --background: #e8e8ea;
-  --foreground: #09090b;
-  --card: #f4f4f6;
-  --card-foreground: #18181b;
-  --popover: #f4f4f6;
-  --popover-foreground: #18181b;
-  --primary: #09090b;
-  --primary-foreground: #fafafa;
-  --secondary: #e1e1e4;
-  --secondary-foreground: #18181b;
-  --muted: #dfdfdf;
-  --muted-foreground: #52525b;
-  --accent: #e4e4e7;
-  --accent-foreground: #18181b;
+  --background: #ffffff;
+  --foreground: #000000;
+  --card: #fafafa;
+  --card-foreground: #000000;
+  --popover: #ffffff;
+  --popover-foreground: #000000;
+  --primary: #000000;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f5f5;
+  --secondary-foreground: #000000;
+  --muted: #f5f5f5;
+  --muted-foreground: #666666;
+  --accent: #f5f5f5;
+  --accent-foreground: #000000;
   --destructive: oklch(0.577 0.245 27.325);
-  --border: rgb(9 9 11 / 12%);
-  --input: rgb(9 9 11 / 12%);
-  --ring: rgb(9 9 11 / 30%);
+  --border: #eaeaea;
+  --input: #eaeaea;
+  --ring: rgba(0, 0, 0, 0.15);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -85,24 +85,24 @@
 
 .dark {
   color-scheme: dark;
-  --background: #09090b;
-  --foreground: #fafafa;
-  --card: #111113;
-  --card-foreground: #fafafa;
-  --popover: #111113;
-  --popover-foreground: #fafafa;
-  --primary: #fafafa;
-  --primary-foreground: #09090b;
-  --secondary: #18181b;
-  --secondary-foreground: #fafafa;
-  --muted: #18181b;
-  --muted-foreground: #a1a1aa;
-  --accent: #172033;
-  --accent-foreground: #fafafa;
+  --background: #000000;
+  --foreground: #ededed;
+  --card: #0a0a0a;
+  --card-foreground: #ededed;
+  --popover: #0a0a0a;
+  --popover-foreground: #ededed;
+  --primary: #ffffff;
+  --primary-foreground: #000000;
+  --secondary: #111111;
+  --secondary-foreground: #ededed;
+  --muted: #111111;
+  --muted-foreground: #888888;
+  --accent: #111111;
+  --accent-foreground: #ededed;
   --destructive: oklch(0.704 0.191 22.216);
-  --border: rgb(255 255 255 / 10%);
-  --input: rgb(255 255 255 / 12%);
-  --ring: rgb(255 255 255 / 36%);
+  --border: #222222;
+  --input: #222222;
+  --ring: rgba(255, 255, 255, 0.2);
   --chart-1: oklch(0.87 0 0);
   --chart-2: oklch(0.556 0 0);
   --chart-3: oklch(0.439 0 0);
@@ -215,6 +215,39 @@
   .custom-scrollbar::-webkit-scrollbar-thumb:hover {
     background: color-mix(in srgb, var(--foreground) 22%, transparent);
   }
+
+
+
+  /* Vercel Design System Tokens & Classes */
+  .vercel-card {
+    position: relative;
+    border-radius: 0.75rem;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1), transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .vercel-card:hover {
+    border-color: color-mix(in srgb, var(--foreground) 30%, transparent);
+  }
+
+  .vercel-pill-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    padding: 0.25rem 0.625rem;
+    border-radius: 9999px;
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    background: color-mix(in srgb, var(--foreground) 4%, transparent);
+    color: var(--foreground);
+    border: 1px solid var(--border);
+  }
+
+
 
   .custom-scrollbar {
     scrollbar-width: thin;

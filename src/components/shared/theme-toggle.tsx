@@ -17,8 +17,6 @@ export function ThemeToggle() {
     const root = document.documentElement;
     const next = !root.classList.contains("dark");
 
-    // Freeze ALL transitions for this frame group: text, cards, buttons,
-    // backgrounds, borders — everything flips at once, no fade.
     root.classList.add("theme-switching");
     if (releaseTimer.current !== null) window.clearTimeout(releaseTimer.current);
     releaseTimer.current = window.setTimeout(() => {
@@ -30,7 +28,7 @@ export function ThemeToggle() {
     try {
       localStorage.setItem(THEME_KEY, next ? "dark" : "light");
     } catch {
-      // private mode etc. — theme still applies for the session
+      // private mode fallback
     }
   }, []);
 
@@ -40,9 +38,9 @@ export function ThemeToggle() {
       onClick={toggle}
       aria-label="Toggle light and dark theme"
       title="Toggle theme"
-      className="fixed top-4 right-4 sm:top-5 sm:right-5 md:top-auto md:bottom-6 md:left-6 z-40 flex size-9 sm:size-10 cursor-pointer items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-[0_16px_48px_rgba(0,0,0,0.25)] ring-1 ring-border backdrop-blur-xl transition duration-300 hover:bg-foreground hover:text-background"
+      className="fixed top-4 right-4 sm:top-5 sm:right-5 md:top-auto md:bottom-6 md:left-6 z-40 flex size-9 sm:size-10 cursor-pointer items-center justify-center rounded-full bg-background/80 text-muted-foreground shadow-md ring-1 ring-border/80 backdrop-blur-xl transition-all duration-200 hover:bg-foreground hover:text-background focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
     >
-      {/* Sun in dark mode (click to go light) / Moon in light mode — pure CSS swap, no hydration mismatch */}
+      {/* Sun in dark mode / Moon in light mode */}
       <Sun className="size-4 hidden dark:block" />
       <Moon className="size-4 dark:hidden" />
     </button>

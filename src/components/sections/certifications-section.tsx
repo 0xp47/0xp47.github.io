@@ -124,7 +124,7 @@ export function CertificationsSection() {
     >
       <div className="flex flex-col gap-10">
         {/* 1. TOP METRICS & REGISTRY PASSPORTS */}
-        <div className="rounded-2xl border border-border/70 bg-gradient-to-b from-foreground/[0.03] to-transparent p-5 sm:p-6 md:p-8 backdrop-blur-xs">
+        <div className="rounded-3xl border border-neutral-200/90 bg-white p-6 sm:p-8 dark:border-neutral-800/90 dark:bg-[#131316] shadow-sm">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
             {/* Description & Verification Badge */}
             <div className="max-w-2xl space-y-3">
@@ -204,7 +204,7 @@ export function CertificationsSection() {
                     href={badge.badgeUrl}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-border/80 bg-card/60 p-4.5 backdrop-blur-sm transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-lg hover:shadow-black/10 dark:bg-neutral-900/50"
+                    className="group relative flex flex-col justify-between overflow-hidden rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-lg dark:border-neutral-800/80 dark:bg-[#131316] dark:hover:border-neutral-700"
                   >
                     {/* Top Accent Line */}
                     <div
@@ -280,7 +280,7 @@ export function CertificationsSection() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search credentials by title, skill, or issuer..."
-                className="w-full rounded-xl border border-border/80 bg-foreground/[0.02] py-2 pl-9 pr-9 text-xs text-foreground placeholder:text-muted-foreground/50 transition-colors focus:border-foreground/30 focus:outline-hidden focus:ring-1 focus:ring-foreground/20"
+                className="w-full rounded-full border border-border/80 bg-foreground/[0.02] py-2 pl-9 pr-9 text-xs text-foreground placeholder:text-muted-foreground/50 transition-colors focus:border-foreground/30 focus:outline-hidden focus:ring-1 focus:ring-foreground/20"
               />
               {searchQuery && (
                 <button
@@ -296,13 +296,13 @@ export function CertificationsSection() {
 
             {/* Issuer Filter Tabs & View Toggle */}
             <div className="flex flex-wrap items-center gap-2">
-              {/* Issuer Pills */}
-              <div className="flex items-center rounded-xl border border-border/80 bg-foreground/[0.02] p-1">
+              {/* Vercel Issuer Tabs */}
+              <div className="flex items-center rounded-full border border-border/80 bg-foreground/[0.02] p-1">
                 <button
                   type="button"
                   onClick={() => setActiveIssuer("All")}
                   className={cn(
-                    "rounded-lg px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-all duration-200 cursor-pointer",
+                    "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-all duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                     activeIssuer === "All"
                       ? "bg-foreground text-background font-semibold shadow-xs"
                       : "text-muted-foreground hover:text-foreground"
@@ -314,7 +314,7 @@ export function CertificationsSection() {
                   type="button"
                   onClick={() => setActiveIssuer("Anthropic")}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-all duration-200 cursor-pointer",
+                    "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-all duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                     activeIssuer === "Anthropic"
                       ? "bg-[#D97757] text-white font-semibold shadow-xs"
                       : "text-muted-foreground hover:text-foreground"
@@ -327,7 +327,7 @@ export function CertificationsSection() {
                   type="button"
                   onClick={() => setActiveIssuer("Cisco")}
                   className={cn(
-                    "inline-flex items-center gap-1.5 rounded-lg px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-all duration-200 cursor-pointer",
+                    "inline-flex items-center gap-1.5 rounded-full px-3 py-1.5 font-mono text-[10.5px] uppercase tracking-wider transition-all duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                     activeIssuer === "Cisco"
                       ? "bg-sky-600 text-white font-semibold shadow-xs"
                       : "text-muted-foreground hover:text-foreground"
@@ -462,7 +462,7 @@ export function CertificationsSection() {
                       delay: Math.min(idx * 0.025, 0.2),
                       ease: [0.16, 1, 0.3, 1],
                     }}
-                    className="group relative flex flex-col justify-between rounded-2xl border border-border/80 bg-card/40 p-5 backdrop-blur-xs transition-all duration-300 hover:-translate-y-1 hover:border-foreground/30 hover:shadow-lg hover:shadow-black/10 dark:bg-neutral-900/40"
+                    className="group relative flex flex-col justify-between rounded-2xl border border-neutral-200/80 bg-white p-5 shadow-xs transition-all duration-300 hover:-translate-y-1 hover:border-neutral-300 hover:shadow-lg dark:border-neutral-800/80 dark:bg-[#131316] dark:hover:border-neutral-700"
                   >
                     <div>
                       {/* Top Header: Badge Graphic + Issuer Tag + Link */}

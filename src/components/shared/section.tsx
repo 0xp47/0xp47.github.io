@@ -44,7 +44,7 @@ export function Section({ id, eyebrow, title, children }: SectionProps) {
       variants={sectionVariants}
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
-      transition={{ duration: prefersReducedMotion ? 0 : 1.4, ease: [0.16, 1, 0.3, 1] as const }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] as const }}
       className="mx-auto w-full max-w-[1120px] px-6 py-16 sm:px-8 sm:py-20 md:py-24 lg:px-10 scroll-mt-20"
     >
       <div className="mb-10 grid gap-4 md:grid-cols-[200px_1fr] md:gap-10">
@@ -64,7 +64,7 @@ export function Section({ id, eyebrow, title, children }: SectionProps) {
             aria-hidden="true"
             initial={{ scaleX: 0 }}
             animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-            transition={{ duration: prefersReducedMotion ? 0 : 1.85, ease: "easeOut", delay: prefersReducedMotion ? 0 : 0.15 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.7, ease: "easeOut", delay: prefersReducedMotion ? 0 : 0.15 }}
             className="mt-6 h-px origin-left bg-border"
           />
         </div>
