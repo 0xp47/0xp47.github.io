@@ -96,7 +96,7 @@ export function CertificationsSection() {
               className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-colors duration-200 hover:text-black dark:text-neutral-400 dark:hover:text-white"
               title="View verified credentials on Anthropic Academy"
             >
-              <SiAnthropic className="size-3 text-[#D97757]" />
+              <SiAnthropic className="size-3 text-foreground/80 group-hover:text-foreground" />
               <span>Anthropic Academy</span>
               <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
@@ -112,7 +112,7 @@ export function CertificationsSection() {
               className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-colors duration-200 hover:text-black dark:text-neutral-400 dark:hover:text-white"
               title="View verified credentials on Credly"
             >
-              <SiCredly className="size-3 text-[#ff6b00]" />
+              <SiCredly className="size-3 text-foreground/80 group-hover:text-foreground" />
               <span>Credly Registry</span>
               <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>

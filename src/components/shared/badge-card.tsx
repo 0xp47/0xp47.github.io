@@ -64,7 +64,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
                 width={40}
                 height={40}
                 unoptimized
-                className="size-8 object-contain drop-shadow-xs transition-transform duration-300 group-hover:scale-105"
+                className="size-8 object-contain grayscale contrast-125 group-hover:grayscale-0 drop-shadow-xs transition-all duration-300 group-hover:scale-105"
               />
             </div>
             <div className="min-w-0 flex-1">
@@ -72,7 +72,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
                 {badge.title}
               </h3>
               <p className="mt-1 flex items-center gap-1.5 font-mono text-[9px] text-neutral-600 dark:text-neutral-400">
-                <ShieldCheck className="size-3 text-emerald-400 shrink-0" />
+                <ShieldCheck className="size-3 text-foreground/80 shrink-0" />
                 <span className="truncate">{badge.organization}</span>
               </p>
             </div>

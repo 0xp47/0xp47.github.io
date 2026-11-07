@@ -204,10 +204,10 @@ export function ProjectsSection() {
           try {
             await navigator.clipboard.writeText(textToCopy);
             target.textContent = "Copied!";
-            target.classList.add("text-emerald-400");
+            target.classList.add("text-foreground font-bold");
             setTimeout(() => {
               target.textContent = "Copy";
-              target.classList.remove("text-emerald-400");
+              target.classList.remove("text-foreground font-bold");
             }, 2000);
           } catch (err) {
             console.error("Failed to copy code: ", err);

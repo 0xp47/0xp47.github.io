@@ -87,11 +87,11 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
         const codeText = pre.querySelector("code")?.innerText || pre.innerText;
         try {
           await navigator.clipboard.writeText(codeText.trim());
-          copyButton.innerHTML = "<span class='text-emerald-400 font-bold'>Copied!</span>";
-          copyButton.classList.add("border-emerald-500/40");
+          copyButton.innerHTML = "<span class='text-foreground font-bold'>Copied!</span>";
+          copyButton.classList.add("border-foreground/40");
           setTimeout(() => {
             copyButton.innerHTML = "<span>Copy</span>";
-            copyButton.classList.remove("border-emerald-500/40");
+            copyButton.classList.remove("border-foreground/40");
           }, 2000);
         } catch (err) {
           console.error("Failed to copy code:", err);
@@ -165,8 +165,8 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             >
               {copied ? (
                 <>
-                  <Check className="size-3 text-emerald-400" />
-                  <span className="text-emerald-400">Copied</span>
+                  <Check className="size-3 text-foreground" />
+                  <span className="text-foreground">Copied</span>
                 </>
               ) : (
                 <>
@@ -289,8 +289,8 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 >
                   {copied ? (
                     <>
-                      <Check className="size-3 text-emerald-400" />
-                      <span className="text-emerald-400 font-bold">Copied URL</span>
+                      <Check className="size-3 text-foreground" />
+                      <span className="text-foreground font-bold">Copied URL</span>
                     </>
                   ) : (
                     <>

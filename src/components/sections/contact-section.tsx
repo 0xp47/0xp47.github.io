@@ -97,10 +97,10 @@ export function ContactSection() {
 
         {/* Right: big typographic email CTA */}
         <motion.div variants={cardVariants} className="flex flex-col items-start gap-3 md:items-end">
-          <div className="inline-flex items-center gap-2 px-3 py-1 chamfer-btn border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 chamfer-btn border border-foreground/30 bg-foreground/5 text-foreground font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
             <span className="relative flex h-1.5 w-1.5">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground/40 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-foreground"></span>
             </span>
             Available for new projects
           </div>
@@ -135,7 +135,7 @@ export function ContactSection() {
             >
               {copied ? (
                 <>
-                  <Check className="size-3.5 text-emerald-500" />
+                  <Check className="size-3.5 text-foreground" />
                   Copied
                 </>
               ) : (

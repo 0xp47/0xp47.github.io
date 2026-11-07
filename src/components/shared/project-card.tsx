@@ -236,7 +236,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
                   <path
                     d="M 23 14 A 9 9 0 0 0 14 5"
                     fill="none"
-                    stroke="#0070f3"
+                    className="stroke-foreground"
                     strokeWidth="2.2"
                     strokeLinecap="round"
                   />

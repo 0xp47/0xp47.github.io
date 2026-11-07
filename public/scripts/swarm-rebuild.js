@@ -1660,11 +1660,21 @@
       scrollTo(y, x) {
         const opts = { top: y, behavior: "instant" };
         if (x != null) opts.left = x;
-        if (isRoot) window.scrollTo(opts);
+        if (isRoot) {
+          try {
+            if (window.__lenis) window.__lenis.scrollTo(y, { immediate: true });
+          } catch (_) {}
+          window.scrollTo(opts);
+        }
         else scroller.scrollTo(opts);
       },
       scrollBy(dy) {
-        if (isRoot) window.scrollBy({ top: dy, behavior: "instant" });
+        if (isRoot) {
+          try {
+            if (window.__lenis) window.__lenis.scrollTo(window.scrollY + dy, { immediate: true });
+          } catch (_) {}
+          window.scrollBy({ top: dy, behavior: "instant" });
+        }
         else scroller.scrollBy({ top: dy, behavior: "instant" });
       },
     };
@@ -3132,6 +3142,10 @@
 
     async run() {
       this.env = detectEnv();
+      this.env.scrollTo(0, 0);
+      try {
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      } catch (_) {}
       const shotP = this.loadShot();
       this.view = new View(this.env);
       this.engine = new Engine(this.view);
@@ -3185,7 +3199,10 @@
       const env = this.env;
       const g = env.geom();
       const H = env.scrollHeight();
-      if (H <= g.vh * 1.25) return;
+      if (H <= g.vh * 1.25) {
+        env.scrollTo(0, 0);
+        return;
+      }
       this.view.frozen = { ...this.view.vp };
       const steps = Math.min(28, Math.ceil(H / (g.vh * 0.85)));
       for (let i = 1; i <= steps && !this.dead; i++) {
@@ -3193,10 +3210,10 @@
         await nextFrame();
         await sleep(30);
       }
-      env.scrollTo(g.sy, g.sx);
+      env.scrollTo(0, 0);
       await nextFrame();
       await sleep(750);
-      env.scrollTo(g.sy, g.sx);
+      env.scrollTo(0, 0);
       this.view.frozen = null;
     }
 
@@ -3416,6 +3433,10 @@
 
   function start() {
     if (app) return;
+    try {
+      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+    } catch (_) {}
+    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
     app = new App();
     app.run().catch((err) => console.error("[swarm-rebuild]", err));
   }
@@ -3436,8 +3457,11 @@
       cancelAnimationFrame(a.raf);
       for (const u of a.unbinds || []) u();
       a.view.host.remove();
-      // rebuild from where the first run started so screenshot crops line up again
-      if (lastShot) a.env.scrollTo(lastShot.at.sy, lastShot.at.sx);
+      // rebuild from the first page (top)
+      try {
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      } catch (_) {}
+      a.env.scrollTo(0, 0);
     }
     start();
   }

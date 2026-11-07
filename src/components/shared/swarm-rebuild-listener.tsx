@@ -1,9 +1,18 @@
 "use client";
 
 import { useEffect } from "react";
+import { useLenis } from "lenis/react";
 import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 
 export function SwarmRebuildListener() {
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (lenis && typeof window !== "undefined") {
+      window.__lenis = lenis;
+    }
+  }, [lenis]);
+
   useEffect(() => {
     // 1. Listen for Alt+Shift+S (matching the original extension shortcut)
     const handleKeyDown = (e: KeyboardEvent) => {

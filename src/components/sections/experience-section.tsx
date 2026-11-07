@@ -36,8 +36,8 @@ export function ExperienceSection() {
                   <div className="absolute left-0 top-[22px] flex size-6 items-center justify-center bg-background z-10">
                     {isPresent ? (
                       <span className="relative flex size-4 items-center justify-center">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-500/25 opacity-75"></span>
-                        <span className="relative inline-flex rounded-full h-3 w-3 bg-emerald-500 border-2 border-background"></span>
+                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground/20 opacity-75"></span>
+                        <span className="relative inline-flex rounded-full h-3 w-3 bg-foreground border-2 border-background"></span>
                       </span>
                     ) : (
                       <span className="flex size-3.5 items-center justify-center rounded-full border border-border/60 bg-background group-hover:border-foreground/45 transition-colors duration-300">
@@ -62,10 +62,10 @@ export function ExperienceSection() {
                       {item.position}
                     </h3>
                     {isPresent && (
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[8.5px] font-semibold tracking-wider uppercase">
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-emerald-500/30 bg-foreground/10 text-emerald-600 dark:text-emerald-400 font-mono text-[8.5px] font-semibold tracking-wider uppercase">
                         <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground/50 opacity-75"></span>
+                          <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-foreground"></span>
                         </span>
                         Active
                       </span>

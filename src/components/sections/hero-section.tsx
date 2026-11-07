@@ -4,6 +4,7 @@ import { type ComponentType } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { useLenis } from "lenis/react";
 import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import * as BrandIcons from "@/components/shared/brand-icons";
@@ -40,6 +41,7 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ onScrollToSection }: HeroSectionProps) {
+  const lenis = useLenis();
   return (
     <div className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-10 md:pt-20 overflow-hidden">
       <ParticlesBackground />
@@ -65,7 +67,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
             fill
             priority
             unoptimized
-            className="object-contain object-bottom contrast-[1.03] transition duration-500"
+            className="object-contain object-bottom grayscale contrast-[1.12] transition duration-500"
           />
         </div>
       </div>
@@ -76,6 +78,17 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
             
             {/* Left Column: Headline and scroll down indicator */}
             <div className="pb-8 md:pb-16 lg:pb-24 order-2 md:order-1">
+              <motion.div
+                initial={{ opacity: 0, y: -8 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5 }}
+                className="mb-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground select-none"
+              >
+                <span className="size-1.5 bg-foreground" />
+                <span>SYS.SPEC // 2026</span>
+                <span className="opacity-40">|</span>
+                <span>MAASIN_PH // 10.1335°N 124.8724°E</span>
+              </motion.div>
               <motion.div
                 initial={{ opacity: 0, scaleX: 0 }}
                 animate={{ opacity: 1, scaleX: 1 }}
@@ -114,7 +127,11 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 {/* Swarm Rebuild / Explore Button */}
                 <button
                   type="button"
-                  onClick={() => triggerSwarmRebuild()}
+                  onClick={() => {
+                    lenis?.scrollTo(0, { immediate: true });
+                    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+                    triggerSwarmRebuild();
+                  }}
                   className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 cursor-pointer"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
@@ -144,7 +161,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                   fill
                   priority
                   unoptimized
-                  className="object-contain object-bottom contrast-[1.03]"
+                  className="object-contain object-bottom grayscale contrast-[1.12]"
                 />
               </div>
             </div>
