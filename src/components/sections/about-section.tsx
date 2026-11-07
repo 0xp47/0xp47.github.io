@@ -61,7 +61,7 @@ export function AboutSection() {
           </div>
           
           {/* Stats Highlights */}
-          <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-2">
+          <div className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-2">
             {heroStats.map((stat, i) => (
               <div
                 key={i}
@@ -71,15 +71,15 @@ export function AboutSection() {
                 }}
               >
                 <div
-                  className="flex flex-col p-3 sm:p-3.5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
+                  className="flex flex-col p-2.5 sm:p-3.5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                   }}
                 >
-                  <span className="tabular-nums text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+                  <span className="tabular-nums text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </span>
-                  <span className="text-[9px] font-mono font-bold tracking-wider text-neutral-400 uppercase mt-1 leading-snug">
+                  <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-neutral-400 uppercase mt-1 leading-tight sm:leading-snug truncate">
                     {stat.label}
                   </span>
                 </div>

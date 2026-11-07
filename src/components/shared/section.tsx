@@ -62,25 +62,25 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-      className="relative mx-auto w-full max-w-[1160px] px-4 sm:px-6 md:px-8 lg:px-10 py-10 sm:py-12 md:py-14 scroll-mt-20"
+      className="relative mx-auto w-full max-w-[1160px] px-4 sm:px-6 md:px-8 lg:px-10 py-10 sm:py-12 md:py-14 pb-24 sm:pb-12 md:pb-14 scroll-mt-20"
     >
-      {/* Continuous Vertical Spine Line connecting all section numbers */}
+      {/* Continuous Vertical Spine Line connecting all section numbers (tablet & desktop only) */}
       <div
         aria-hidden="true"
         className={cn(
-          "absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none z-0",
-          "left-[96px] sm:left-[120px] md:left-[144px] lg:left-[168px]",
-          isFirst && "top-[74px] sm:top-[91px] md:top-[103px] lg:top-[110px] bottom-0",
+          "hidden sm:block absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none z-0",
+          "sm:left-[120px] md:left-[144px] lg:left-[168px]",
+          isFirst && "sm:top-[91px] md:top-[103px] lg:top-[110px] bottom-0",
           !isFirst && !isLast && "top-0 bottom-0",
-          isLast && "top-0 h-[146px] sm:h-[174px] md:h-[194px] lg:h-[208px]"
+          isLast && "top-0 sm:h-[174px] md:h-[194px] lg:h-[208px]"
         )}
       />
 
-      {/* Terminal Target and Arrow on the last section */}
+      {/* Terminal Target and Arrow on the last section (tablet & desktop only) */}
       {isLast && (
         <div
           aria-hidden="true"
-          className="absolute z-10 -translate-x-1/2 left-[96px] sm:left-[120px] md:left-[144px] lg:left-[168px] top-[146px] sm:top-[174px] md:top-[194px] lg:top-[208px] flex items-center justify-center text-foreground/70"
+          className="hidden sm:flex absolute z-10 -translate-x-1/2 sm:left-[120px] md:left-[144px] lg:left-[168px] sm:top-[174px] md:top-[194px] lg:top-[208px] items-center justify-center text-foreground/70"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             {/* Corner bracket ticks [ ] */}
@@ -94,16 +94,38 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
         </div>
       )}
 
-      {/* Content wrapper indented so content never collides with the vertical line */}
-      <div className="relative z-10 pl-[80px] sm:pl-[96px] md:pl-[112px] lg:pl-[128px]">
+      {/* Content wrapper: Full width on mobile (<sm), cleanly indented on tablet & desktop (sm+) */}
+      <div className="relative z-10 pl-0 sm:pl-[96px] md:pl-[112px] lg:pl-[128px]">
         {/* Editorial Section Header with Badge + Node + Number + Dividing Line */}
         <div className={headerMarginBottom ?? "mb-5 sm:mb-6"}>
+          
+          {/* Mobile Badge & Reticle Eyebrow (< sm) */}
+          <div className="flex sm:hidden items-center gap-2 mb-2 select-none">
+            <div className="flex size-5 items-center justify-center text-neutral-400 shrink-0">
+              <svg viewBox="0 0 36 36" fill="none" className="size-4 text-neutral-300">
+                <line x1="18" y1="1" x2="18" y2="7" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
+                <line x1="18" y1="29" x2="18" y2="35" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
+                <line x1="1" y1="18" x2="7" y2="18" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
+                <line x1="29" y1="18" x2="35" y2="18" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
+                <circle cx="18" cy="18" r="10.5" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
+                <circle cx="18" cy="18" r="4.5" fill="currentColor" />
+              </svg>
+            </div>
+            {badge && (
+              <div className="flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-wider">
+                <span className="text-neutral-500 font-medium text-[8px]">{badge.tag}</span>
+                <span className="text-neutral-700">/</span>
+                <span className="text-neutral-300 font-semibold">{badge.range}</span>
+              </div>
+            )}
+          </div>
+
           <div className="relative w-full">
-            {/* Left bracket badge (matching the design roadmap bracket badge) */}
+            {/* Desktop Left bracket badge (matching the design roadmap bracket badge) */}
             {badge && (
               <div
                 aria-hidden="true"
-                className="absolute right-full mr-7 sm:mr-8 top-1/2 -translate-y-1/2 flex items-center gap-1.5 select-none"
+                className="hidden sm:flex absolute right-full mr-7 sm:mr-8 top-1/2 -translate-y-1/2 items-center gap-1.5 select-none"
               >
                 <svg width="5" height="26" viewBox="0 0 5 26" fill="none" className="text-neutral-500/80 shrink-0">
                   <path d="M4 1H1V25H4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="square" />
@@ -115,10 +137,10 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
               </div>
             )}
 
-            {/* Target Reticle Circle Node centered directly on the spine */}
+            {/* Desktop Target Reticle Circle Node centered directly on the spine */}
             <div
               aria-hidden="true"
-              className="absolute left-0 -translate-x-1/2 flex size-8 sm:size-9 items-center justify-center z-10 text-foreground top-1/2 -translate-y-1/2"
+              className="hidden sm:flex absolute left-0 -translate-x-1/2 size-8 sm:size-9 items-center justify-center z-10 text-foreground top-1/2 -translate-y-1/2"
             >
               <svg
                 viewBox="0 0 36 36"
@@ -139,17 +161,17 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
               </svg>
             </div>
 
-            {/* Massive Section Number container: bottom ~30% is cleanly hidden by overflow-hidden and border-b */}
-            <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[68px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-6 sm:pl-7 md:pl-8">
-              <div className="font-sans text-8xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
+            {/* Massive Section Number container: clean border-b cutoff */}
+            <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[64px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-0 sm:pl-7 md:pl-8">
+              <div className="font-sans text-7xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
                 {index}
               </div>
             </div>
           </div>
 
           {/* Section Title below the line */}
-          <div className="pt-3.5 sm:pt-4 pl-6 sm:pl-7 md:pl-8 flex flex-row items-end justify-between gap-4">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug max-w-xs sm:max-w-sm md:max-w-md">
+          <div className="pt-3 sm:pt-4 pl-0 sm:pl-7 md:pl-8 flex flex-row items-end justify-between gap-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug max-w-sm sm:max-w-sm md:max-w-md">
               {title}
             </h2>
             {headerAction && (
@@ -160,6 +182,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
           </div>
         </div>
 
+        {/* Children content area */}
         <motion.div
           variants={{
             hidden: {},
@@ -167,7 +190,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
               transition: { staggerChildren: prefersReducedMotion ? 0 : 0.28 },
             },
           }}
-          className="pl-6 sm:pl-7 md:pl-8"
+          className="pl-0 sm:pl-7 md:pl-8"
         >
           {children}
         </motion.div>
