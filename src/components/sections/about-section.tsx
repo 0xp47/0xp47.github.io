@@ -93,19 +93,29 @@ export function AboutSection() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="group flex gap-4 items-start p-4 sm:p-5 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] hover:border-neutral-700 transition-colors duration-200 select-none"
+                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600"
+                style={{
+                  clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
+                }}
               >
-                {/* Framed icon container */}
-                <div className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-neutral-800 bg-[#121212] text-neutral-400 transition-colors duration-200 group-hover:border-neutral-700 group-hover:text-white">
-                  <IconComponent className="size-4" strokeWidth={1.75} />
-                </div>
-                <div className="flex flex-col gap-1 min-w-0">
-                  <h4 className="text-[15px] font-semibold text-white tracking-tight">
-                    {item.title}
-                  </h4>
-                  <p className="text-xs leading-relaxed text-neutral-400 text-pretty">
-                    {item.description}
-                  </p>
+                <div
+                  className="relative flex gap-4 items-start p-3.5 sm:p-4 bg-[#0a0a0a] transition-colors duration-200 group-hover:bg-[#0d0d10] h-full"
+                  style={{
+                    clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
+                  }}
+                >
+                  {/* Framed icon container */}
+                  <div className="flex size-9 shrink-0 items-center justify-center chamfer-btn border border-neutral-800 bg-[#121212] text-neutral-400 transition-colors duration-200 group-hover:border-neutral-700 group-hover:text-white">
+                    <IconComponent className="size-4" strokeWidth={1.75} />
+                  </div>
+                  <div className="flex flex-col gap-1 min-w-0 pr-1">
+                    <h4 className="text-[14px] sm:text-[14.5px] font-semibold text-white tracking-tight">
+                      {item.title}
+                    </h4>
+                    <p className="text-xs leading-relaxed text-neutral-400 text-pretty">
+                      {item.description}
+                    </p>
+                  </div>
                 </div>
               </motion.div>
             );

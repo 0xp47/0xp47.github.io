@@ -147,52 +147,59 @@ export function BlogPageClient() {
                   /* Grid Card View (Vertical) */
                   <BlogCard post={post} />
                 ) : (
-                  /* List Row View (Horizontal - Vercel Changelog Style) */
+                  /* List Row View (Horizontal - Chamfered Card Style) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 text-left w-full transition-all duration-300 hover:border-neutral-700 hover:bg-[#0d0d10] select-none"
+                    className="group relative flex flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600 w-full"
+                    style={{
+                      clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
+                    }}
                   >
-                    {/* Top Specular Edge Highlight */}
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neutral-600/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-
-                    <div className="relative z-10 flex-1 min-w-0 space-y-1.5">
-                      {/* Category, Date and Reading Time */}
-                      <div className="flex items-center gap-2.5">
-                        <span className="font-mono text-[9.5px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-[#121212] border border-neutral-800 text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200">
-                          {post.category}
-                        </span>
-                        <time className="text-[11px] font-mono text-neutral-500 tracking-tight">
-                          {post.dateDisplay}
-                        </time>
-                        <span className="text-neutral-700 font-mono text-[11px]">·</span>
-                        <span className="text-[11px] font-mono text-neutral-500">
-                          {post.readingTime}
-                        </span>
-                      </div>
-
-                      {/* Title */}
-                      <h3 className="text-[15px] sm:text-[15.5px] font-semibold text-white tracking-tight line-clamp-1 group-hover:text-white transition-colors">
-                        {post.title}
-                      </h3>
-
-                      {/* Description */}
-                      <p className="text-xs leading-relaxed text-neutral-400 line-clamp-2 sm:line-clamp-1">
-                        {post.description}
-                      </p>
-
-                      {/* Tags */}
-                      <div className="flex items-center gap-2 font-mono text-[9.5px] text-neutral-500 truncate pt-1">
-                        {post.tags.map((tag) => (
-                          <span key={tag} className="truncate">
-                            #{tag.toLowerCase().replace(/[^a-z0-9]/g, "")}
+                    <div
+                      className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 h-full bg-[#0a0a0a] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#0d0d10]"
+                      style={{
+                        clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
+                      }}
+                    >
+                      <div className="relative z-10 flex-1 min-w-0 space-y-1.5">
+                        {/* Category, Date and Reading Time */}
+                        <div className="flex items-center gap-2.5">
+                          <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#121212] text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200">
+                            {post.category}
                           </span>
-                        ))}
-                      </div>
-                    </div>
+                          <time className="text-[11px] font-mono text-neutral-500 tracking-tight">
+                            {post.dateDisplay}
+                          </time>
+                          <span className="text-neutral-700 font-mono text-[11px]">·</span>
+                          <span className="text-[11px] font-mono text-neutral-500">
+                            {post.readingTime}
+                          </span>
+                        </div>
 
-                    <div className="relative z-10 hidden sm:flex items-center gap-1 text-[11px] font-medium text-neutral-400 group-hover:text-white transition-colors duration-200 shrink-0 pl-4 border-l border-neutral-800/60">
-                      <span>Read post</span>
-                      <ArrowRight className="size-3 text-neutral-500 group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
+                        {/* Title */}
+                        <h3 className="text-[15px] sm:text-[15.5px] font-semibold text-white tracking-tight line-clamp-1 group-hover:text-white transition-colors">
+                          {post.title}
+                        </h3>
+
+                        {/* Description */}
+                        <p className="text-xs leading-relaxed text-neutral-400 line-clamp-2 sm:line-clamp-1">
+                          {post.description}
+                        </p>
+
+                        {/* Tags */}
+                        <div className="flex items-center gap-2 font-mono text-[9.5px] text-neutral-500 truncate pt-1">
+                          {post.tags.map((tag) => (
+                            <span key={tag} className="truncate">
+                              #{tag.toLowerCase().replace(/[^a-z0-9]/g, "")}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="relative z-10 hidden sm:flex items-center gap-1 text-[11px] font-medium text-neutral-400 group-hover:text-white transition-colors duration-200 shrink-0 pl-4 border-l border-neutral-800/60">
+                        <span>Read post</span>
+                        <ArrowRight className="size-3 text-neutral-500 group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
+                      </div>
                     </div>
                   </Link>
                 )}
