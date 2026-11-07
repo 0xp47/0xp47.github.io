@@ -16,7 +16,7 @@ export function ServicesSection() {
       const container = scrollContainerRef.current;
       const card = container.firstElementChild as HTMLElement;
       const cardWidth = card ? card.offsetWidth : container.clientWidth;
-      const gap = 24; // 24px gap between cards
+      const gap = 20; // 20px gap between cards
       const scrollAmount = cardWidth + gap;
 
       if (direction === "left") {
@@ -87,7 +87,7 @@ export function ServicesSection() {
         {/* Carousel Container */}
         <div 
           ref={scrollContainerRef}
-          className="flex gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pb-4"
+          className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pb-3"
         >
           {services.map((service, index) => {
             const formattedIndex = String(index + 1).padStart(2, "0");
@@ -96,26 +96,36 @@ export function ServicesSection() {
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                className="group relative flex flex-col justify-between rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 transition-colors duration-200 hover:border-neutral-700 select-none snap-start shrink-0 w-full sm:w-[calc((100%-24px)/2)] lg:w-[calc((100%-48px)/3)]"
+                className="group relative snap-start shrink-0 w-full sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-40px)/3)] select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600"
+                style={{
+                  clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
+                }}
               >
-                {/* Header: Title and Index Number */}
-                <div className="flex items-start justify-between gap-3 w-full">
-                  <h3 className="text-[15px] font-semibold text-white tracking-tight leading-snug">
-                    {service.title}
-                  </h3>
-                  <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400 select-none tabular-nums group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
-                    {formattedIndex}
-                  </span>
-                </div>
+                <div
+                  className="relative flex flex-col justify-between h-full bg-[#0a0a0a] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#0d0d10]"
+                  style={{
+                    clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
+                  }}
+                >
+                  {/* Header: Title and Index Number */}
+                  <div className="flex items-center justify-between gap-3 w-full pr-1">
+                    <h3 className="text-[14px] sm:text-[14.5px] font-semibold text-white tracking-tight leading-snug">
+                      {service.title}
+                    </h3>
+                    <span className="font-mono text-[9px] font-bold px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#121212] text-neutral-400 select-none tabular-nums group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
+                      {formattedIndex}
+                    </span>
+                  </div>
 
-                {/* Description */}
-                <p className="text-xs leading-relaxed text-neutral-400 mt-2.5 text-pretty">
-                  {service.description}
-                </p>
+                  {/* Description (concise 2 lines) */}
+                  <p className="text-[11.5px] leading-relaxed text-neutral-400 mt-2 line-clamp-2 text-pretty">
+                    {service.description}
+                  </p>
 
-                {/* Tech/Keyword tags list */}
-                <div className="mt-auto pt-5 font-mono text-[9px] uppercase tracking-[0.16em] text-neutral-500 leading-relaxed">
-                  {service.tags.join("  ·  ")}
+                  {/* Tech/Keyword tags list */}
+                  <div className="mt-3 pt-2.5 border-t border-neutral-800/60 font-mono text-[8.5px] uppercase tracking-[0.16em] text-neutral-500 truncate">
+                    {service.tags.join("  ·  ")}
+                  </div>
                 </div>
               </motion.div>
             );
