@@ -66,18 +66,18 @@ export const sectionMeta = {
 
 export const aboutHighlights = [
   {
-    title: "Aspiring Full-Stack Engineer",
-    description: "Learning and building across the stack—from responsive web apps and mobile interfaces to backend APIs and automated scripts.",
+    title: "Full-Stack Engineering",
+    description: "Building responsive web applications, cross-platform mobile apps, and robust backend systems with modern tools.",
     icon: "Terminal",
   },
   {
     title: "GroundZero Community",
-    description: "An early-stage open-source group I started where a small, growing group of curious developers collaborate, learn together, and build tools.",
+    description: "An open-source initiative where developers connect, collaborate on projects, and build useful software together.",
     icon: "GitMerge",
   },
   {
-    title: "Studying Business & Tech",
-    description: "Currently studying business and entrepreneurship to better understand how practical software can solve genuine real-world problems.",
+    title: "Business & Entrepreneurship",
+    description: "Studying business and entrepreneurship to learn how to design software that delivers real practical value.",
     icon: "Briefcase",
   },
 ];
@@ -132,11 +132,11 @@ export const skillGroups = [
   },
 ];
 
-export const heroDescription = "I am an aspiring full-stack engineer and continuous learner building custom software, cross-platform mobile apps, and automated workflows while studying business and entrepreneurship.";
-export const heroAboutSegment = "I focus on clean architecture, practical features, and continuously improving my craft as an aspiring full-stack developer.";
+export const heroDescription = "Aspiring full-stack engineer building custom software, mobile applications, and automated workflows while learning business and entrepreneurship.";
+export const heroAboutSegment = "I focus on clean architecture, practical features, and continuously learning as an aspiring full-stack developer.";
 export const heroWorkSegment = "A selection of projects showing how I approach web, mobile, and custom system development.";
 
-export const aboutDescription = "I am an aspiring full-stack engineer passionate about building practical software, cross-platform mobile applications, and automated workflows. My focus is on learning and improving every day—deepening my understanding of clean architecture, resilient APIs, and intuitive user interfaces through hands-on projects and continuous practice.\n\nAlongside coding, I am studying business and entrepreneurship. While I am still learning the ropes and don't consider myself an established entrepreneur yet, I enjoy exploring how software can help solve real business challenges. I also started GroundZero Community, an early-stage open-source initiative that is still just starting out, where a small and growing group of developers collaborate, learn from each other, and build useful tools from the ground up.";
+export const aboutDescription = "I am an aspiring full-stack engineer focused on building practical software, cross-platform mobile applications, and automated workflows. My priority is continuous learning—deepening my skills in clean architecture, resilient APIs, and intuitive user interfaces through hands-on projects.\n\nAlongside software development, I am learning business and entrepreneurship to understand how technology can solve real-world problems. I also founded GroundZero Community, an open-source initiative where developers collaborate, share knowledge, and build tools together.";
 
 export const contactDescription = "I am open to freelance projects, custom business automations, full-stack collaborations, and software partnerships.";
 
