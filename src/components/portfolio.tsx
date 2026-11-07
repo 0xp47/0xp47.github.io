@@ -190,7 +190,7 @@ export function Portfolio() {
         onClick={() => handleScrollToSection("#")}
         initial={false}
         animate={!isLoading && showBackToTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        className="fixed bottom-20 right-4 sm:right-6 md:bottom-6 md:right-6 z-40 flex size-10 items-center justify-center rounded-full bg-background/70 text-foreground shadow-md ring-1 ring-border/80 backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 hover:bg-foreground hover:text-background focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer"
+        className="fixed bottom-20 right-4 sm:right-6 md:bottom-6 md:right-6 z-40 flex size-9 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a]/90 text-neutral-400 shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 hover:border-neutral-700 hover:bg-white hover:text-black focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer"
       >
         <ArrowUp className="size-4" />
       </motion.button>
