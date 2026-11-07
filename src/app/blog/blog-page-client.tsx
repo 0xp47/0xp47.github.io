@@ -167,7 +167,7 @@ export function BlogPageClient() {
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-[15px] font-semibold text-white tracking-tight line-clamp-1">
+                      <h3 className="font-mono text-[14.5px] sm:text-[15px] font-semibold text-white tracking-tight line-clamp-1">
                         {post.title}
                       </h3>
 

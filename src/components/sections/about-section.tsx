@@ -100,7 +100,7 @@ export function AboutSection() {
                   <IconComponent className="size-4" strokeWidth={1.75} />
                 </div>
                 <div className="flex flex-col gap-1 min-w-0">
-                  <h4 className="text-[15px] font-semibold text-white tracking-tight">
+                  <h4 className="font-mono text-[14.5px] sm:text-[15px] font-semibold text-white tracking-tight">
                     {item.title}
                   </h4>
                   <p className="text-xs leading-relaxed text-neutral-400 text-pretty">

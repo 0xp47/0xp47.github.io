@@ -59,7 +59,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
             />
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="text-[14px] sm:text-[14.5px] font-semibold tracking-tight text-white leading-snug line-clamp-2">
+            <h3 className="font-mono text-[13.5px] sm:text-[14px] font-semibold tracking-tight text-white leading-snug line-clamp-2">
               {badge.title}
             </h3>
             <p className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-neutral-400">

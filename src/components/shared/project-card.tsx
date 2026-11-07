@@ -153,7 +153,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0 flex flex-col justify-center">
           <h4
-            className="text-[15px] font-semibold text-white tracking-tight truncate leading-tight group-hover:text-white hover:underline cursor-pointer"
+            className="font-mono text-[14.5px] sm:text-[15px] font-semibold text-white tracking-tight truncate leading-tight group-hover:text-white hover:underline cursor-pointer"
             onClick={(e) => {
               if (effectiveLive) {
                 e.stopPropagation();
