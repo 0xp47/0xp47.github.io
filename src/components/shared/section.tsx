@@ -19,6 +19,8 @@ interface SectionProps {
   eyebrow?: string;
   title: string;
   children: ReactNode;
+  headerAction?: ReactNode;
+  headerMarginBottom?: string;
 }
 
 /** Maps an `id` to a stable editorial index (01, 02, ...) for the section headers. */
@@ -43,7 +45,7 @@ const sectionBadges: Record<string, { tag: string; range: string }> = {
   contact: { tag: "SECT", range: "07 — SYNC" },
 };
 
-export function Section({ id, title, children }: SectionProps) {
+export function Section({ id, title, children, headerAction, headerMarginBottom }: SectionProps) {
   const ref = useRef<HTMLElement>(null);
   const isInView = useInView(ref, { once: true, margin: "-12% 0px" });
   const prefersReducedMotion = useSafeReducedMotion();
@@ -95,7 +97,7 @@ export function Section({ id, title, children }: SectionProps) {
       {/* Content wrapper indented so content never collides with the vertical line */}
       <div className="relative z-10 pl-[80px] sm:pl-[96px] md:pl-[112px] lg:pl-[128px]">
         {/* Editorial Section Header with Badge + Node + Number + Dividing Line */}
-        <div className="mb-12 md:mb-16">
+        <div className={headerMarginBottom ?? "mb-12 md:mb-16"}>
           <div className="relative w-full">
             {/* Left bracket badge (matching the design roadmap bracket badge) */}
             {badge && (
@@ -146,10 +148,15 @@ export function Section({ id, title, children }: SectionProps) {
           </div>
 
           {/* Section Title below the line */}
-          <div className="pt-3.5 sm:pt-4 pl-6 sm:pl-7 md:pl-8 max-w-xs sm:max-w-sm md:max-w-md">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug">
+          <div className="pt-3.5 sm:pt-4 pl-6 sm:pl-7 md:pl-8 flex flex-row items-end justify-between gap-4">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug max-w-xs sm:max-w-sm md:max-w-md">
               {title}
             </h2>
+            {headerAction && (
+              <div className="shrink-0 flex items-center gap-2">
+                {headerAction}
+              </div>
+            )}
           </div>
         </div>
 

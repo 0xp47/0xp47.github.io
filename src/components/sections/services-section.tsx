@@ -62,10 +62,13 @@ export function ServicesSection() {
   };
 
   return (
-    <Section id="services" eyebrow={sectionMeta.services.eyebrow} title={sectionMeta.services.title}>
-      <div className="relative w-full">
-        {/* Navigation Buttons (Top Right of Carousel) */}
-        <div className="flex justify-end gap-2 mb-6">
+    <Section
+      id="services"
+      eyebrow={sectionMeta.services.eyebrow}
+      title={sectionMeta.services.title}
+      headerMarginBottom="mb-4 sm:mb-5"
+      headerAction={
+        <div className="flex items-center gap-2">
           <button
             type="button"
             onClick={() => handleManualScroll("left")}
@@ -83,7 +86,9 @@ export function ServicesSection() {
             <ChevronRight className="size-4" />
           </button>
         </div>
-
+      }
+    >
+      <div className="relative w-full">
         {/* Carousel Container */}
         <div 
           ref={scrollContainerRef}
