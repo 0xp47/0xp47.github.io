@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import { useLenis } from "lenis/react";
 
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
+import { cn } from "@/lib/utils";
 import { SiteNav } from "@/components/layout/site-nav";
 import { HeroSection } from "@/components/sections/hero-section";
 import { AboutSection } from "@/components/sections/about-section";
@@ -124,29 +125,7 @@ export function Portfolio() {
   }, []);
 
   return (
-    <main className="relative isolate min-h-screen overflow-hidden bg-background">
-      {/* Subtle fixed background watermark GZ logo on the top right side, slanted (rotated) and fades in on scroll */}
-      <motion.div
-        className="fixed -right-24 -top-16 -z-20 pointer-events-none select-none"
-        style={{
-          opacity: watermarkOpacity,
-          rotate: watermarkRotate,
-          y: watermarkY,
-        }}
-        aria-hidden="true"
-      >
-        <div className="relative w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] md:w-[680px] md:h-[680px] lg:w-[820px] lg:h-[820px] aspect-square">
-          <Image
-            src="/Ground Zero-ink.png"
-            alt="Jay Patrick Cano - Ground Zero Logo Watermark Background"
-            fill
-            unoptimized
-            /* Ink is white: invert to near-black in light mode so it stays a subtle watermark on white. */
-            className="object-contain grayscale invert dark:invert-0"
-          />
-        </div>
-      </motion.div>
-
+    <>
       <AnimatePresence>
         {isLoading && (
           <IntroLoader onComplete={() => setIsLoading(false)} />
@@ -160,40 +139,66 @@ export function Portfolio() {
         />
       )}
 
-      <motion.div
-        initial={{ opacity: 0, y: 12 }}
-        animate={isLoading ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <HeroSection onScrollToSection={handleScrollToSection} />
-
-        <AboutSection />
-
-        <ServicesSection />
-
-        <ProjectsSection />
-
-        <BlogSection />
-
-        <ExperienceSection />
-
-        <CertificationsSection />
-
-        <ContactSection />
-
-        <Footer />
-      </motion.div>
-
       <motion.button
         type="button"
         aria-label="Back to top"
         onClick={() => handleScrollToSection("#")}
         initial={false}
         animate={!isLoading && showBackToTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
-        className="fixed bottom-6 right-6 z-[2147483646] hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer"
+        className={cn(
+          "fixed bottom-6 right-6 z-[2147483647] hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer",
+          (!showBackToTop || isLoading) && "pointer-events-none"
+        )}
       >
         <ArrowUp className="size-4" />
       </motion.button>
+
+      <main className="relative isolate min-h-screen overflow-hidden bg-background">
+        {/* Subtle fixed background watermark GZ logo on the top right side, slanted (rotated) and fades in on scroll */}
+        <motion.div
+          className="fixed -right-24 -top-16 -z-20 pointer-events-none select-none"
+          style={{
+            opacity: watermarkOpacity,
+            rotate: watermarkRotate,
+            y: watermarkY,
+          }}
+          aria-hidden="true"
+        >
+          <div className="relative w-[320px] h-[320px] sm:w-[480px] sm:h-[480px] md:w-[680px] md:h-[680px] lg:w-[820px] lg:h-[820px] aspect-square">
+            <Image
+              src="/Ground Zero-ink.png"
+              alt="Jay Patrick Cano - Ground Zero Logo Watermark Background"
+              fill
+              unoptimized
+              /* Ink is white: invert to near-black in light mode so it stays a subtle watermark on white. */
+              className="object-contain grayscale invert dark:invert-0"
+            />
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 12 }}
+          animate={isLoading ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <HeroSection onScrollToSection={handleScrollToSection} />
+
+          <AboutSection />
+
+          <ServicesSection />
+
+          <ProjectsSection />
+
+          <BlogSection />
+
+          <ExperienceSection />
+
+          <CertificationsSection />
+
+          <ContactSection />
+
+          <Footer />
+        </motion.div>
 
       {/* Generative Engine & Search Engine Optimization (SEO/GEO/AEO) semantic summary block */}
       <section className="sr-only" aria-hidden="false" itemScope itemType="https://schema.org/Person">
@@ -347,5 +352,6 @@ export function Portfolio() {
         </nav>
       </section>
     </main>
+  </>
   );
 }
