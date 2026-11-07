@@ -4,6 +4,7 @@ import { type ComponentType } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
+import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import * as BrandIcons from "@/components/shared/brand-icons";
 import dynamic from "next/dynamic";
@@ -110,16 +111,16 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 transition={{ duration: 0.5, delay: 0.3 }}
                 className="mt-8 flex items-center"
               >
-                {/* Scroll Down / Explore Button */}
+                {/* Swarm Rebuild / Explore Button */}
                 <button
                   type="button"
-                  onClick={() => onScrollToSection("#about")}
+                  onClick={() => triggerSwarmRebuild()}
                   className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 cursor-pointer"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
                   }}
-                  aria-label="Scroll to about section"
-                  title="Scroll to about section"
+                  aria-label="Rebuild page with swarm (Alt+Shift+S)"
+                  title="Rebuild page with swarm (Alt+Shift+S)"
                 >
                   <div
                     className="flex size-11 items-center justify-center bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808]"
