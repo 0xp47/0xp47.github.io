@@ -31,7 +31,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
   return (
     <article
       className={cn(
-        "group relative flex flex-col justify-between select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 h-full",
+        "group relative flex flex-col justify-between select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 h-full",
         className
       )}
       style={{
@@ -39,7 +39,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
+        className="relative flex flex-col justify-between h-full bg-white p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
@@ -47,7 +47,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
         <div>
           {/* Category & Issue Date */}
           <div className="mb-2.5 flex w-full items-center justify-between gap-3 pr-1">
-            <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-400 truncate">
+            <span className="font-mono text-[9px] font-semibold uppercase tracking-[0.16em] text-neutral-500 dark:text-neutral-400 truncate">
               {badge.issuer} · {badge.category}
             </span>
             <span className="font-mono text-[9.5px] text-neutral-500 tabular-nums shrink-0">
@@ -57,7 +57,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
 
           {/* Badge Graphic + Title */}
           <div className="flex items-start gap-3 w-full">
-            <div className="relative size-10 shrink-0 rounded-lg overflow-hidden border border-neutral-800/60 bg-[#0a0a0a] p-1 flex items-center justify-center">
+            <div className="relative size-10 shrink-0 rounded-lg overflow-hidden border border-neutral-200 bg-neutral-50 dark:border-neutral-800/60 dark:bg-[#0a0a0a] p-1 flex items-center justify-center">
               <Image
                 src={badge.imageUrl}
                 alt=""
@@ -68,10 +68,10 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
               />
             </div>
             <div className="min-w-0 flex-1">
-              <h3 className="text-[13.5px] sm:text-[14px] font-semibold tracking-tight text-white leading-snug line-clamp-2">
+              <h3 className="text-[13.5px] sm:text-[14px] font-semibold tracking-tight text-neutral-900 dark:text-white leading-snug line-clamp-2">
                 {badge.title}
               </h3>
-              <p className="mt-1 flex items-center gap-1.5 font-mono text-[9px] text-neutral-400">
+              <p className="mt-1 flex items-center gap-1.5 font-mono text-[9px] text-neutral-600 dark:text-neutral-400">
                 <ShieldCheck className="size-3 text-emerald-400 shrink-0" />
                 <span className="truncate">{badge.organization}</span>
               </p>
@@ -80,12 +80,12 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
         </div>
 
         {/* Skills Chips + Action Button */}
-        <div className="mt-3.5 flex items-center justify-between gap-2.5 pt-2.5 border-t border-neutral-800/40">
+        <div className="mt-3.5 flex items-center justify-between gap-2.5 pt-2.5 border-t border-neutral-200 dark:border-neutral-800/40">
           <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
             {topSkills.map((skill) => (
               <span
                 key={skill}
-                className="font-mono text-[8.5px] px-2 py-0.5 rounded border border-neutral-800 bg-[#0a0a0a] text-neutral-400 truncate max-w-[120px]"
+                className="font-mono text-[8.5px] px-2 py-0.5 rounded border border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 truncate max-w-[120px]"
               >
                 {skill}
               </span>
@@ -101,7 +101,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
             href={badge.badgeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex cursor-pointer items-center gap-1.5 px-3 py-1 chamfer-btn border border-neutral-800 bg-[#0a0a0a] font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-neutral-300 transition-colors duration-200 hover:border-neutral-700 hover:bg-[#121212] hover:text-white shrink-0 ml-auto"
+            className="inline-flex cursor-pointer items-center gap-1.5 px-3 py-1 chamfer-btn border border-neutral-300 bg-white font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-neutral-700 transition-colors duration-200 hover:border-neutral-400 hover:bg-neutral-100 hover:text-black dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white shrink-0 ml-auto"
             aria-label={`Verify ${badge.title} credential`}
           >
             Verify

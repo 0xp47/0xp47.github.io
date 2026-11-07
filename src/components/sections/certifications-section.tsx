@@ -80,8 +80,8 @@ export function CertificationsSection() {
       <div className="flex flex-col">
         {/* Header Summary & Registry Links */}
         <div className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
-          <p className="max-w-xl text-sm leading-relaxed text-neutral-400">
-            <span className="font-semibold text-white">
+          <p className="max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
+            <span className="font-semibold text-neutral-900 dark:text-white">
               {certifications.length} verified credentials
             </span>{" "}
             earned through Anthropic Education and Cisco Networking Academy,
@@ -93,7 +93,7 @@ export function CertificationsSection() {
               href={profile.anthropic || "https://anthropic.skilljar.com/"}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-400 transition-colors duration-200 hover:text-white"
+              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-colors duration-200 hover:text-black dark:text-neutral-400 dark:hover:text-white"
               title="View verified credentials on Anthropic Academy"
             >
               <SiAnthropic className="size-3 text-[#D97757]" />
@@ -109,7 +109,7 @@ export function CertificationsSection() {
               href={profile.credly}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-400 transition-colors duration-200 hover:text-white"
+              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-colors duration-200 hover:text-black dark:text-neutral-400 dark:hover:text-white"
               title="View verified credentials on Credly"
             >
               <SiCredly className="size-3 text-[#ff6b00]" />
@@ -138,8 +138,8 @@ export function CertificationsSection() {
                   className={cn(
                     "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-colors duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden whitespace-nowrap shrink-0",
                     isActive
-                      ? "bg-white text-black font-semibold shadow-xs"
-                      : "border border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white"
+                      ? "bg-neutral-900 text-white dark:bg-white dark:text-black font-semibold shadow-xs"
+                      : "border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white"
                   )}
                 >
                   <span>{filter}</span>
@@ -182,7 +182,7 @@ export function CertificationsSection() {
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
-              className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-800 bg-[#0a0a0a] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+              className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-300 bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
             >
               <span>
                 {showAll

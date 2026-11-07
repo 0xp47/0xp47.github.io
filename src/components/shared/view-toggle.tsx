@@ -17,8 +17,8 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
         className={cn(
           "size-7 chamfer-btn transition duration-200 cursor-pointer flex items-center justify-center border",
           viewMode === "list"
-            ? "border-white bg-white text-black font-semibold"
-            : "border-neutral-800 bg-[#040404] text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#0a0a0a]"
+            ? "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-black font-semibold"
+            : "border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white dark:hover:bg-[#0a0a0a]"
         )}
         aria-label="List View"
       >
@@ -30,8 +30,8 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
         className={cn(
           "size-7 chamfer-btn transition duration-200 cursor-pointer flex items-center justify-center border",
           viewMode === "grid"
-            ? "border-white bg-white text-black font-semibold"
-            : "border-neutral-800 bg-[#040404] text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#0a0a0a]"
+            ? "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-black font-semibold"
+            : "border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white dark:hover:bg-[#0a0a0a]"
         )}
         aria-label="Grid View"
       >

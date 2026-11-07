@@ -127,7 +127,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
     <main className="relative isolate min-h-screen bg-background text-foreground flex flex-col justify-between">
       {/* Reading Progress Indicator */}
       <motion.div
-        className="fixed top-0 left-0 right-0 h-[2px] bg-white origin-left z-50 shadow-[0_0_12px_rgba(255,255,255,0.8)]"
+        className="fixed top-0 left-0 right-0 h-[2px] bg-neutral-900 dark:bg-white origin-left z-50 shadow-[0_0_12px_rgba(0,0,0,0.4)] dark:shadow-[0_0_12px_rgba(255,255,255,0.8)]"
         style={{ scaleX }}
       />
 
@@ -138,7 +138,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
       />
 
       {/* Top Sticky Navigation Bar */}
-      <header className="sticky top-0 z-40 w-full border-b border-neutral-800/80 bg-background/80 backdrop-blur-xl">
+      <header className="sticky top-0 z-40 w-full border-b border-neutral-200 dark:border-neutral-800/80 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Breadcrumbs */}
           <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-mono text-xs text-neutral-400">
@@ -160,7 +160,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-800 bg-[#040404] px-2.5 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white px-2.5 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer"
               title="Copy article link"
             >
               {copied ? (
@@ -178,7 +178,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
             <Link
               href="/blog/"
-              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-800 bg-[#040404] px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:bg-[#0a0a0a] hover:text-white transition-colors duration-200"
+              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-[#0a0a0a] dark:hover:text-white px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider transition-colors duration-200"
             >
               <ArrowLeft className="size-3.5" />
               <span className="hidden sm:inline">All Articles</span>
@@ -199,23 +199,23 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
           <header className="mb-10 sm:mb-12">
             {/* Category Pill */}
             <div className="flex items-center gap-2 mb-4 font-mono">
-              <span className="inline-flex items-center px-2.5 py-1 chamfer-btn border border-neutral-800 bg-[#121212] text-[9.5px] font-bold uppercase tracking-wider text-neutral-300">
+              <span className="inline-flex items-center px-2.5 py-1 chamfer-btn border border-neutral-200 bg-neutral-100 text-neutral-700 dark:border-neutral-800 dark:bg-[#121212] dark:text-neutral-300 text-[9.5px] font-bold uppercase tracking-wider">
                 {post.category}
               </span>
             </div>
 
             {/* Article Headline */}
-            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-white leading-[1.14] text-balance mb-4">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-900 dark:text-white leading-[1.14] text-balance mb-4">
               {post.title}
             </h1>
 
             {/* Subtitle / Excerpt */}
-            <p className="text-base sm:text-lg text-neutral-400 leading-relaxed text-pretty font-light mb-8">
+            <p className="text-base sm:text-lg text-neutral-600 dark:text-neutral-400 leading-relaxed text-pretty font-light mb-8">
               {post.description}
             </p>
 
             {/* Author and Metadata Bar */}
-            <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-800/80">
+            <div className="flex flex-wrap items-center justify-between gap-4 py-4 border-y border-neutral-200 dark:border-neutral-800/80">
               {/* Author Info */}
               <Link
                 href="/"
@@ -231,7 +231,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                   />
                 </div>
                 <div>
-                  <div className="text-xs font-semibold text-white group-hover:text-neutral-200 transition-colors">
+                  <div className="text-xs font-semibold text-neutral-900 group-hover:text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors">
                     Jay Patrick Cano
                   </div>
                   <div className="font-mono text-[10px] text-neutral-500 uppercase tracking-wider">
@@ -263,7 +263,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
           />
 
           {/* Article Footer: Tags & Share */}
-          <div className="mt-14 pt-8 border-t border-neutral-800/80">
+          <div className="mt-14 pt-8 border-t border-neutral-200 dark:border-neutral-800/80">
             <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               {/* Tags */}
               <div className="flex flex-wrap items-center gap-2">
@@ -273,7 +273,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 {post.tags.map((tag) => (
                   <span
                     key={tag}
-                    className="inline-flex items-center px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#101012] font-mono text-[9px] uppercase tracking-wider text-neutral-400"
+                    className="inline-flex items-center px-2 py-0.5 chamfer-btn border border-neutral-200 bg-neutral-100 text-neutral-600 dark:border-neutral-800 dark:bg-[#101012] dark:text-neutral-400 font-mono text-[9px] uppercase tracking-wider"
                   >
                     #{tag}
                   </span>
@@ -285,7 +285,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 <button
                   type="button"
                   onClick={handleCopyLink}
-                  className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-800 bg-[#121212] px-3 py-1 font-mono text-[10px] uppercase tracking-wider text-neutral-300 hover:border-neutral-600 hover:text-white transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#121212] dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:text-white px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
                 >
                   {copied ? (
                     <>
@@ -305,18 +305,18 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
           {/* Previous / Next Article Navigation Cards */}
           {(prevPost || nextPost) && (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12 pt-8 border-t border-neutral-800/80">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-12 pt-8 border-t border-neutral-200 dark:border-neutral-800/80">
               {/* Previous Post */}
               {prevPost ? (
                 <Link
                   href={`/blog/${prevPost.slug}`}
-                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
+                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
                   }}
                 >
                   <div
-                    className="flex flex-col justify-between p-4 sm:p-5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
+                    className="flex flex-col justify-between p-4 sm:p-5 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))",
                     }}
@@ -325,7 +325,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                       <ChevronLeft className="size-3 transition-transform group-hover:-translate-x-0.5" />
                       <span>Previous Article</span>
                     </div>
-                    <h4 className="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors line-clamp-2">
+                    <h4 className="text-sm font-semibold text-neutral-900 group-hover:text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors line-clamp-2">
                       {prevPost.title}
                     </h4>
                     <div className="mt-3 font-mono text-[9px] text-neutral-500">
@@ -341,13 +341,13 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 text-right sm:text-right"
+                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 text-right sm:text-right"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
                   }}
                 >
                   <div
-                    className="flex flex-col justify-between p-4 sm:p-5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
+                    className="flex flex-col justify-between p-4 sm:p-5 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))",
                     }}
@@ -356,7 +356,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                       <span>Next Article</span>
                       <ChevronRight className="size-3 transition-transform group-hover:translate-x-0.5" />
                     </div>
-                    <h4 className="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors line-clamp-2">
+                    <h4 className="text-sm font-semibold text-neutral-900 group-hover:text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors line-clamp-2">
                       {nextPost.title}
                     </h4>
                     <div className="mt-3 font-mono text-[9px] text-neutral-500">
@@ -372,7 +372,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
           {/* Related Articles Section */}
           {relatedPosts.length > 0 && (
-            <section className="mt-16 pt-10 border-t border-neutral-800/80">
+            <section className="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800/80">
               <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">
                   <Sparkles className="size-3 text-neutral-400" />
@@ -396,7 +396,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
         </motion.article>
 
         {/* Footer Area with Back Link */}
-        <footer className="mt-20 pt-8 border-t border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
+        <footer className="mt-20 pt-8 border-t border-neutral-200 dark:border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
           <Link
             href="/blog/"
             className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors duration-200 group"

@@ -186,7 +186,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
     <article
       onClick={() => onViewDetails(project)}
       className={cn(
-        "group relative flex flex-col justify-between cursor-pointer select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 h-full",
+        "group relative flex flex-col justify-between cursor-pointer select-none p-[1px] transition-colors duration-200 bg-neutral-200/80 hover:bg-neutral-300 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 h-full",
         className
       )}
       style={{
@@ -194,7 +194,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
+        className="relative flex flex-col justify-between h-full bg-white p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-neutral-50/90 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
@@ -203,13 +203,13 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
         <div className="flex items-center justify-between gap-3 w-full pr-1">
           <div className="min-w-0 flex flex-col justify-center">
             <h4
-              className="text-[14px] sm:text-[14.5px] font-semibold text-white tracking-tight truncate leading-tight group-hover:text-white hover:underline cursor-pointer"
+              className="text-[14px] sm:text-[14.5px] font-semibold text-neutral-900 dark:text-white tracking-tight truncate leading-tight group-hover:text-black dark:group-hover:text-white hover:underline cursor-pointer"
               onClick={handleHeaderClick}
             >
               {displayName}
             </h4>
             <span
-              className="text-xs text-neutral-400 truncate hover:text-white hover:underline transition-colors leading-tight mt-1 cursor-pointer font-mono"
+              className="text-xs text-neutral-500 dark:text-neutral-400 truncate hover:text-neutral-900 dark:hover:text-white hover:underline transition-colors leading-tight mt-1 cursor-pointer font-mono"
               onClick={handleHeaderClick}
             >
               {subtitle}
@@ -221,12 +221,18 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
             {isDeployed ? (
               /* Circular Deployed Status Ring (Double checkmark + blue arc) */
               <div
-                className="relative flex size-7 items-center justify-center rounded-full bg-[#0a0a0a] border border-neutral-800 shrink-0"
+                className="relative flex size-7 items-center justify-center rounded-full bg-neutral-100 border border-neutral-200 dark:bg-[#0a0a0a] dark:border-neutral-800 shrink-0"
                 title="Deployed to Production"
                 aria-label="Deployed to Production"
               >
                 <svg className="size-7" viewBox="0 0 28 28">
-                  <circle cx="14" cy="14" r="12" fill="#0a0a0a" stroke="#1f1f1f" strokeWidth="1.2" />
+                  <circle
+                    cx="14"
+                    cy="14"
+                    r="12"
+                    className="fill-neutral-100 stroke-neutral-200 dark:fill-[#0a0a0a] dark:stroke-[#1f1f1f]"
+                    strokeWidth="1.2"
+                  />
                   <path
                     d="M 23 14 A 9 9 0 0 0 14 5"
                     fill="none"
@@ -237,7 +243,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
                   <path
                     d="M8.5 14.5 L11.5 17.5 L17.5 11"
                     fill="none"
-                    stroke="#ffffff"
+                    className="stroke-neutral-800 dark:stroke-white"
                     strokeWidth="1.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -245,7 +251,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
                   <path
                     d="M12 14.5 L14.5 17 L20 11.5"
                     fill="none"
-                    stroke="#ffffff"
+                    className="stroke-neutral-800 dark:stroke-white"
                     strokeWidth="1.6"
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -255,21 +261,21 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
             ) : (
               /* Non-deployed repository badge */
               <div
-                className="relative flex size-7 items-center justify-center rounded-full bg-[#0a0a0a] border border-neutral-800 shrink-0"
+                className="relative flex size-7 items-center justify-center rounded-full bg-neutral-100 border border-neutral-200 dark:bg-[#0a0a0a] dark:border-neutral-800 shrink-0"
                 title="Source Repository"
                 aria-label="Source Repository"
               >
-                <GitBranch className="size-3.5 text-neutral-400 group-hover:text-neutral-300 transition-colors" strokeWidth={1.8} />
+                <GitBranch className="size-3.5 text-neutral-500 group-hover:text-neutral-800 dark:text-neutral-400 dark:group-hover:text-neutral-300 transition-colors" strokeWidth={1.8} />
               </div>
             )}
-            <ChevronsUpDown className="size-3.5 text-neutral-500 group-hover:text-neutral-300 transition-colors" />
+            <ChevronsUpDown className="size-3.5 text-neutral-400 group-hover:text-neutral-600 dark:text-neutral-500 dark:group-hover:text-neutral-300 transition-colors" />
           </div>
         </div>
 
         {/* Middle/Bottom Commit Details */}
-        <div className="mt-3.5 pt-2.5 border-t border-neutral-800/60 flex flex-col gap-1.5">
+        <div className="mt-3.5 pt-2.5 border-t border-neutral-200 dark:border-neutral-800/60 flex flex-col gap-1.5">
           {/* Latest Commit Message */}
-          <div className="flex items-center gap-2 text-neutral-200 min-w-0" title={commitMsg}>
+          <div className="flex items-center gap-2 text-neutral-700 dark:text-neutral-200 min-w-0" title={commitMsg}>
             <svg
               width="14"
               height="14"
@@ -279,20 +285,20 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-neutral-400 shrink-0"
+              className="text-neutral-400 dark:text-neutral-400 shrink-0"
             >
               <circle cx="12" cy="12" r="3" />
               <line x1="3" y1="12" x2="9" y2="12" />
               <line x1="15" y1="12" x2="21" y2="12" />
             </svg>
-            <span className="truncate font-sans text-xs text-neutral-300 leading-snug">{commitMsg}</span>
+            <span className="truncate font-sans text-xs text-neutral-700 dark:text-neutral-300 leading-snug">{commitMsg}</span>
           </div>
 
           {/* GitHub Repository and Relative Time */}
-          <div className="flex items-center gap-2 text-neutral-400">
-            <SiGithub className="size-3.5 shrink-0 text-neutral-400" />
+          <div className="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
+            <SiGithub className="size-3.5 shrink-0 text-neutral-500 dark:text-neutral-400" />
             <span
-              className="truncate font-mono text-[10.5px] text-neutral-400 leading-none"
+              className="truncate font-mono text-[10.5px] text-neutral-500 dark:text-neutral-400 leading-none"
               suppressHydrationWarning
             >
               {repoSlug} &middot; {relativeDate}

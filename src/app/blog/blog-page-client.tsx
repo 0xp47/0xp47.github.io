@@ -107,7 +107,7 @@ export function BlogPageClient() {
               placeholder="Search articles…"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full chamfer-btn border border-neutral-800 bg-[#040404] py-2 pl-9 pr-9 text-xs text-white placeholder:text-neutral-500 focus:border-neutral-700 focus:outline-none transition-colors duration-200"
+              className="w-full chamfer-btn border border-neutral-300 bg-white text-neutral-900 placeholder:text-neutral-400 focus:border-neutral-500 dark:border-neutral-800 dark:bg-[#040404] dark:text-white dark:placeholder:text-neutral-500 dark:focus:border-neutral-700 py-2 pl-9 pr-9 text-xs focus:outline-none transition-colors duration-200"
             />
             {searchQuery && (
               <button
@@ -150,13 +150,13 @@ export function BlogPageClient() {
                   /* List Row View (Horizontal - Chamfered Card Style) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group relative flex flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 w-full"
+                    className="group relative flex flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 w-full"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
                     }}
                   >
                     <div
-                      className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
+                      className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 h-full bg-white p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
                       style={{
                         clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
                       }}
@@ -164,7 +164,7 @@ export function BlogPageClient() {
                       <div className="relative z-10 flex-1 min-w-0 space-y-1.5">
                         {/* Category, Date and Reading Time */}
                         <div className="flex items-center gap-2.5">
-                          <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200">
+                          <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 chamfer-btn border border-neutral-200 bg-neutral-100 text-neutral-600 group-hover:border-neutral-300 group-hover:text-neutral-900 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:group-hover:border-neutral-700 dark:group-hover:text-white transition-colors duration-200">
                             {post.category}
                           </span>
                           <time className="text-[11px] font-mono text-neutral-500 tracking-tight">
@@ -177,12 +177,12 @@ export function BlogPageClient() {
                         </div>
 
                         {/* Title */}
-                        <h3 className="text-[15px] sm:text-[15.5px] font-semibold text-white tracking-tight line-clamp-1 group-hover:text-white transition-colors">
+                        <h3 className="text-[15px] sm:text-[15.5px] font-semibold text-neutral-900 dark:text-white tracking-tight line-clamp-1 group-hover:text-black dark:group-hover:text-white transition-colors">
                           {post.title}
                         </h3>
 
                         {/* Description */}
-                        <p className="text-xs leading-relaxed text-neutral-400 line-clamp-2 sm:line-clamp-1">
+                        <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 line-clamp-2 sm:line-clamp-1">
                           {post.description}
                         </p>
 
@@ -216,7 +216,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#040404] hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-white transition-colors duration-200 cursor-pointer"
               aria-label="Previous page"
             >
               <ChevronLeft className="size-4" />
@@ -247,7 +247,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#040404] hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-white transition-colors duration-200 cursor-pointer"
               aria-label="Next page"
             >
               <ChevronRight className="size-4" />
@@ -269,7 +269,7 @@ export function BlogPageClient() {
             </p>
             <button
               onClick={() => setSearchQuery("")}
-              className="mt-4 chamfer-btn border border-neutral-800 bg-[#040404] px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="mt-4 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white px-5 py-1.5 text-[10px] font-mono font-bold tracking-widest uppercase transition-colors duration-200 cursor-pointer"
             >
               Clear search
             </button>

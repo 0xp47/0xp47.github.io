@@ -66,7 +66,7 @@ export function ContactSection() {
 
   return (
     <Section id="contact" eyebrow={sectionMeta.contact.eyebrow} title={sectionMeta.contact.title}>
-      <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-end">
+      <motion.div variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.15 } } }} className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-end">
         {/* Left: description + socials */}
         <motion.div variants={cardVariants} className="space-y-5">
           <p className="text-sm leading-relaxed text-muted-foreground max-w-md text-pretty">
@@ -84,7 +84,7 @@ export function ContactSection() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex size-9 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#121212] transition-colors duration-200 shadow-sm"
+                  className="flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white dark:hover:bg-[#121212] transition-colors duration-200 shadow-sm"
                   aria-label={link.label}
                   title={link.label}
                 >
@@ -97,7 +97,7 @@ export function ContactSection() {
 
         {/* Right: big typographic email CTA */}
         <motion.div variants={cardVariants} className="flex flex-col items-start gap-3 md:items-end">
-          <div className="inline-flex items-center gap-2 px-3 py-1 chamfer-btn border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 chamfer-btn border border-emerald-500/30 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
@@ -107,7 +107,7 @@ export function ContactSection() {
 
           <a
             href={`mailto:${profile.email}`}
-            className="group relative text-2xl font-semibold tracking-tight text-foreground sm:text-3xl leading-tight"
+            className="group relative text-xl sm:text-2xl md:text-3xl font-semibold tracking-tight text-foreground leading-tight break-all sm:break-normal"
           >
             {"hello@"}
             <span className="text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
@@ -122,7 +122,7 @@ export function ContactSection() {
           <div className="flex items-center gap-2.5 mt-1">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 px-3.5 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-border/50 dark:bg-foreground/[0.02] dark:text-muted-foreground dark:hover:border-foreground/40 dark:hover:text-foreground dark:hover:bg-foreground/[0.05] font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition-all duration-300"
             >
               <Mail className="size-3.5" />
               Send Email
@@ -130,7 +130,7 @@ export function ContactSection() {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
+              className="inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-border/50 dark:bg-foreground/[0.02] dark:text-muted-foreground dark:hover:border-foreground/40 dark:hover:text-foreground dark:hover:bg-foreground/[0.05] font-mono text-[10px] font-bold uppercase tracking-[0.16em] transition-all duration-300"
               title="Copy email address"
             >
               {copied ? (
@@ -147,7 +147,7 @@ export function ContactSection() {
             </button>
           </div>
         </motion.div>
-      </div>
+      </motion.div>
     </Section>
   );
 }

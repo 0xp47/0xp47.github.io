@@ -54,7 +54,7 @@ export function AboutSection() {
           variants={cardVariants}
           className="flex flex-col gap-6"
         >
-          <div className="space-y-3.5 text-sm leading-relaxed text-neutral-400 text-pretty">
+          <div className="space-y-3.5 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 text-pretty">
             {aboutDescription.split("\n\n").map((paragraph, idx) => (
               <p key={idx}>{paragraph}</p>
             ))}
@@ -65,21 +65,21 @@ export function AboutSection() {
             {heroStats.map((stat, i) => (
               <div
                 key={i}
-                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
+                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
                 }}
               >
                 <div
-                  className="flex flex-col p-2.5 sm:p-3.5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
+                  className="flex flex-col p-2.5 sm:p-3.5 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                   }}
                 >
-                  <span className="tabular-nums text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-white">
+                  <span className="tabular-nums text-xl sm:text-2xl lg:text-3xl font-extrabold tracking-tight text-neutral-900 dark:text-white">
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </span>
-                  <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-neutral-400 uppercase mt-1 leading-tight sm:leading-snug truncate">
+                  <span className="text-[8.5px] sm:text-[9px] font-mono font-bold tracking-wider text-neutral-500 dark:text-neutral-400 uppercase mt-1 leading-tight sm:leading-snug truncate">
                     {stat.label}
                   </span>
                 </div>
@@ -105,26 +105,26 @@ export function AboutSection() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
+                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
                 }}
               >
                 <div
-                  className="relative flex gap-4 items-start p-3.5 sm:p-4 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
+                  className="relative flex gap-4 items-start p-3.5 sm:p-4 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
                   }}
                 >
                   {/* Framed icon container */}
-                  <div className="flex size-9 shrink-0 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 transition-colors duration-200 group-hover:border-neutral-700 group-hover:text-white">
+                  <div className="flex size-9 shrink-0 items-center justify-center chamfer-btn border border-neutral-200 bg-neutral-100 text-neutral-600 transition-colors duration-200 group-hover:border-neutral-300 group-hover:text-neutral-900 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:group-hover:border-neutral-700 dark:group-hover:text-white">
                     <IconComponent className="size-4" strokeWidth={1.75} />
                   </div>
                   <div className="flex flex-col gap-1 min-w-0 pr-1">
-                    <h4 className="text-[14px] sm:text-[14.5px] font-semibold text-white tracking-tight">
+                    <h4 className="text-[14px] sm:text-[14.5px] font-semibold text-neutral-900 dark:text-white tracking-tight">
                       {item.title}
                     </h4>
-                    <p className="text-xs leading-relaxed text-neutral-400 text-pretty">
+                    <p className="text-xs leading-relaxed text-neutral-600 dark:text-neutral-400 text-pretty">
                       {item.description}
                     </p>
                   </div>

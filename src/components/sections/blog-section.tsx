@@ -41,7 +41,7 @@ export function BlogSection() {
         <div className="flex justify-center mt-8 sm:mt-10">
           <Link
             href="/blog"
-            className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-800 bg-[#0a0a0a] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-300 bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
           >
             <span>See All Posts</span>
             <ArrowRight className="size-3.5 transition-transform duration-200 group-hover:translate-x-0.5" />

@@ -16,7 +16,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "group relative flex h-full flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 outline-none focus-visible:ring-1 focus-visible:ring-neutral-600",
+        "group relative flex h-full flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 outline-none focus-visible:ring-1 focus-visible:ring-neutral-600",
         className
       )}
       style={{
@@ -24,7 +24,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
+        className="relative flex flex-col justify-between h-full bg-white p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
@@ -32,7 +32,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
         <div>
           {/* Meta Header: Category Badge + Date */}
           <div className="flex items-center justify-between gap-2 w-full pr-1">
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
+            <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 chamfer-btn border border-neutral-200 bg-neutral-100 text-neutral-600 group-hover:border-neutral-300 group-hover:text-neutral-900 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:group-hover:border-neutral-700 dark:group-hover:text-white transition-colors duration-200 shrink-0">
               {post.category}
             </span>
             <time className="text-[10.5px] font-mono text-neutral-500 tracking-tight shrink-0">
@@ -41,25 +41,25 @@ export function BlogCard({ post, className }: BlogCardProps) {
           </div>
 
           {/* Title */}
-          <h3 className="mt-2.5 text-[14px] sm:text-[14.5px] font-semibold leading-snug tracking-tight text-white line-clamp-2 group-hover:text-white transition-colors duration-200">
+          <h3 className="mt-2.5 text-[14px] sm:text-[14.5px] font-semibold leading-snug tracking-tight text-neutral-900 dark:text-white line-clamp-2 group-hover:text-black dark:group-hover:text-white transition-colors duration-200">
             {post.title}
           </h3>
 
           {/* Description */}
-          <p className="mt-2 text-[11.5px] leading-relaxed text-neutral-400 font-normal line-clamp-2 text-pretty">
+          <p className="mt-2 text-[11.5px] leading-relaxed text-neutral-600 dark:text-neutral-400 font-normal line-clamp-2 text-pretty">
             {post.description}
           </p>
         </div>
 
         {/* Footer: Reading Time + Read Post Action */}
-        <div className="mt-3.5 pt-2.5 border-t border-neutral-800/40 flex items-center justify-between gap-2">
+        <div className="mt-3.5 pt-2.5 border-t border-neutral-200 dark:border-neutral-800/40 flex items-center justify-between gap-2">
           <span className="font-mono text-[10px] text-neutral-500 tracking-tight">
             {post.readingTime}
           </span>
 
-          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-400 group-hover:text-white transition-colors duration-200 shrink-0">
+          <span className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-600 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-white transition-colors duration-200 shrink-0">
             <span>Read post</span>
-            <ArrowRight className="size-3 text-neutral-500 group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="size-3 text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-500 dark:group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
           </span>
         </div>
       </div>

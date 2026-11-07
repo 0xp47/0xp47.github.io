@@ -38,7 +38,7 @@ export function SectionHeader({ eyebrow, title, index }: SectionHeaderProps) {
             </svg>
             <div className="flex flex-col font-mono text-[9px] uppercase tracking-wider leading-none shrink-0 whitespace-nowrap">
               <span className="text-neutral-500 font-medium tracking-widest text-[7.5px] mb-0.5">{badge.tag}</span>
-              <span className="text-neutral-300 font-semibold">{badge.range}</span>
+              <span className="text-neutral-700 dark:text-neutral-300 font-semibold">{badge.range}</span>
             </div>
           </div>
         )}
@@ -48,7 +48,7 @@ export function SectionHeader({ eyebrow, title, index }: SectionHeaderProps) {
           aria-hidden="true"
           className="hidden sm:flex absolute left-0 -translate-x-1/2 size-8 sm:size-9 items-center justify-center z-10 text-foreground top-1/2 -translate-y-1/2"
         >
-          <svg viewBox="0 0 36 36" fill="none" className="size-8 sm:size-9 text-neutral-300">
+          <svg viewBox="0 0 36 36" fill="none" className="size-8 sm:size-9 text-neutral-700 dark:text-neutral-300">
             <line x1="18" y1="1" x2="18" y2="7" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.85" />
             <line x1="18" y1="29" x2="18" y2="35" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.85" />
             <line x1="1" y1="18" x2="7" y2="18" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.85" />

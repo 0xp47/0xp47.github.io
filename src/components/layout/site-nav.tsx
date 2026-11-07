@@ -48,13 +48,13 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
         {/* Chamfered double-shell card container background */}
         <div
           aria-hidden="true"
-          className="absolute inset-0 pointer-events-none p-[1px] bg-neutral-800/60 shadow-[0_16px_48px_rgba(0,0,0,0.6)]"
+          className="absolute inset-0 pointer-events-none p-[1px] bg-neutral-300/80 shadow-[0_8px_30px_rgba(0,0,0,0.1)] dark:bg-neutral-800/60 dark:shadow-[0_16px_48px_rgba(0,0,0,0.6)]"
           style={{
             clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
           }}
         >
           <div
-            className="w-full h-full bg-[#040404]/95 backdrop-blur-xl"
+            className="w-full h-full bg-white/95 dark:bg-[#040404]/95 backdrop-blur-xl"
             style={{
               clipPath: "polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))",
             }}
@@ -68,7 +68,7 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
             {isTopActive && (
               <motion.div
                 layoutId="activeNavPill"
-                className="absolute inset-0 chamfer-btn bg-white shadow-xs"
+                className="absolute inset-0 chamfer-btn bg-neutral-900 dark:bg-white shadow-xs"
                 transition={{ type: "spring", stiffness: 380, damping: 28 }}
               />
             )}
@@ -81,19 +81,19 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
               aria-label="Home / Back to top"
               aria-current={isTopActive ? "page" : undefined}
               className={cn(
-                "relative z-10 flex size-8 sm:size-8.5 items-center justify-center chamfer-btn transition-colors duration-200 cursor-pointer",
+                "relative z-10 flex size-7.5 sm:size-8.5 max-[360px]:size-7 items-center justify-center chamfer-btn transition-colors duration-200 cursor-pointer",
                 isTopActive
-                  ? "text-black font-semibold"
-                  : "border border-neutral-800/80 bg-[#0a0a0a]/90 text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#121212]"
+                  ? "text-white dark:text-black font-semibold"
+                  : "border border-neutral-200 bg-neutral-100/90 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900 hover:bg-neutral-200/80 dark:border-neutral-800/80 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white dark:hover:bg-[#121212]"
               )}
             >
-              <Home className="size-4" strokeWidth={1.8} />
+              <Home className="size-3.5 sm:size-4" strokeWidth={1.8} />
             </a>
 
             {/* Desktop Tooltip */}
             <span
               role="tooltip"
-              className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-800 bg-[#040404]/95 px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
+              className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-200 bg-white/95 text-neutral-900 dark:border-neutral-800 dark:bg-[#040404]/95 dark:text-white px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
             >
               Home
             </span>
@@ -101,7 +101,7 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
 
           {/* Subtle divider: vertical on mobile horizontal bar, horizontal on desktop vertical bar */}
           <span
-            className="h-4 w-px md:h-px md:w-5 bg-neutral-800/80 my-0 mx-1 md:my-1 md:mx-0 shrink-0"
+            className="h-4 w-px md:h-px md:w-5 bg-neutral-300 dark:bg-neutral-800/80 my-0 mx-1 md:my-1 md:mx-0 shrink-0"
             aria-hidden="true"
           />
 
@@ -116,7 +116,7 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
                 {isActive && (
                   <motion.div
                     layoutId="activeNavPill"
-                    className="absolute inset-0 chamfer-btn bg-white shadow-xs"
+                    className="absolute inset-0 chamfer-btn bg-neutral-900 dark:bg-white shadow-xs"
                     transition={{ type: "spring", stiffness: 380, damping: 28 }}
                   />
                 )}
@@ -129,19 +129,19 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
                     onNavItemClick(item.href);
                   }}
                   className={cn(
-                    "relative z-10 flex size-8 sm:size-8.5 items-center justify-center chamfer-btn transition-colors duration-200 cursor-pointer",
+                    "relative z-10 flex size-7.5 sm:size-8.5 max-[360px]:size-7 items-center justify-center chamfer-btn transition-colors duration-200 cursor-pointer",
                     isActive
-                      ? "text-black font-semibold"
-                      : "border border-neutral-800/80 bg-[#0a0a0a]/90 text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#121212]"
+                      ? "text-white dark:text-black font-semibold"
+                      : "border border-neutral-200 bg-neutral-100/90 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900 hover:bg-neutral-200/80 dark:border-neutral-800/80 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white dark:hover:bg-[#121212]"
                   )}
                 >
-                  <Icon className="size-4" strokeWidth={1.8} />
+                  <Icon className="size-3.5 sm:size-4" strokeWidth={1.8} />
                 </a>
 
                 {/* Desktop Tooltip */}
                 <span
                   role="tooltip"
-                  className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-800 bg-[#040404]/95 px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider text-white shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
+                  className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-200 bg-white/95 text-neutral-900 dark:border-neutral-800 dark:bg-[#040404]/95 dark:text-white px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
                 >
                   {item.label}
                 </span>

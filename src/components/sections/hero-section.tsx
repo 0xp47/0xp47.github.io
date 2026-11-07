@@ -90,7 +90,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 className="mt-6 text-3xl font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]"
               >
                 {"I'm Pat, a"}<br />
-                <span className="text-foreground block whitespace-nowrap">
+                <span className="text-foreground block sm:whitespace-nowrap">
                   Full-Stack Engineer
                 </span>
               </motion.h1>
@@ -115,7 +115,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 <button
                   type="button"
                   onClick={() => triggerSwarmRebuild()}
-                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 cursor-pointer"
+                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 cursor-pointer"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
                   }}
@@ -123,12 +123,12 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                   title="Rebuild page with swarm (Alt+Shift+S)"
                 >
                   <div
-                    className="flex size-11 items-center justify-center bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808]"
+                    className="flex size-11 items-center justify-center bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                     }}
                   >
-                    <ArrowDown className="size-4.5 text-neutral-300 group-hover:text-white transition-transform duration-200 group-hover:translate-y-0.5" />
+                    <ArrowDown className="size-4.5 text-neutral-700 group-hover:text-black dark:text-neutral-300 dark:group-hover:text-white transition-transform duration-200 group-hover:translate-y-0.5" />
                   </div>
                 </button>
               </motion.div>
@@ -170,19 +170,19 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                     e.preventDefault();
                     onScrollToSection("#about");
                   }}
-                  className="group relative inline-flex items-center select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 mt-3"
+                  className="group relative inline-flex items-center select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 mt-3"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
                   }}
                 >
                   <span
-                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] font-mono text-[9.5px] font-bold tracking-widest text-neutral-300 group-hover:text-white"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] font-mono text-[9.5px] font-bold tracking-widest text-neutral-800 group-hover:text-black dark:text-neutral-300 dark:group-hover:text-white"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 7.5px) 0, 100% 7.5px, 100% 100%, 7.5px 100%, 0 calc(100% - 7.5px))",
                     }}
                   >
                     <span>LEARN MORE</span>
-                    <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-2.5 text-neutral-400 group-hover:text-white" />
+                    <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-2.5 text-neutral-500 group-hover:text-black dark:text-neutral-400 dark:group-hover:text-white" />
                   </span>
                 </a>
               </motion.div>
@@ -205,19 +205,19 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                     e.preventDefault();
                     onScrollToSection("#projects");
                   }}
-                  className="group relative inline-flex items-center select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 mt-3"
+                  className="group relative inline-flex items-center select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 mt-3"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
                   }}
                 >
                   <span
-                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] font-mono text-[9.5px] font-bold tracking-widest text-neutral-300 group-hover:text-white"
+                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] font-mono text-[9.5px] font-bold tracking-widest text-neutral-800 group-hover:text-black dark:text-neutral-300 dark:group-hover:text-white"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 7.5px) 0, 100% 7.5px, 100% 100%, 7.5px 100%, 0 calc(100% - 7.5px))",
                     }}
                   >
                     <span>VIEW PROJECTS</span>
-                    <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-2.5 text-neutral-400 group-hover:text-white" />
+                    <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-2.5 text-neutral-500 group-hover:text-black dark:text-neutral-400 dark:group-hover:text-white" />
                   </span>
                 </a>
               </motion.div>
@@ -279,13 +279,13 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                       rel="noreferrer"
                       aria-label={item.label}
                       title={item.label}
-                      className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
+                      className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700"
                       style={{
                         clipPath: "polygon(0 0, calc(100% - 7px) 0, 100% 7px, 100% 100%, 7px 100%, 0 calc(100% - 7px))",
                       }}
                     >
                       <div
-                        className="flex size-8 items-center justify-center bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] text-neutral-400 group-hover:text-white"
+                        className="flex size-8 items-center justify-center bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] text-neutral-700 group-hover:text-black dark:text-neutral-400 dark:group-hover:text-white"
                         style={{
                           clipPath: "polygon(0 0, calc(100% - 6.5px) 0, 100% 6.5px, 100% 100%, 6.5px 100%, 0 calc(100% - 6.5px))",
                         }}

@@ -111,7 +111,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
                 </svg>
                 <div className="flex flex-col font-mono text-[9px] uppercase tracking-wider leading-none shrink-0 whitespace-nowrap">
                   <span className="text-neutral-500 font-medium tracking-widest text-[7.5px] mb-0.5">{badge.tag}</span>
-                  <span className="text-neutral-300 font-semibold">{badge.range}</span>
+                  <span className="text-neutral-700 dark:text-neutral-300 font-semibold">{badge.range}</span>
                 </div>
               </div>
             )}
@@ -124,7 +124,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
               <svg
                 viewBox="0 0 36 36"
                 fill="none"
-                className="size-8 sm:size-9 text-neutral-300"
+                className="size-8 sm:size-9 text-neutral-700 dark:text-neutral-300"
               >
                 {/* 4 Crosshair Ticks */}
                 <line x1="18" y1="1" x2="18" y2="7" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.85" />
