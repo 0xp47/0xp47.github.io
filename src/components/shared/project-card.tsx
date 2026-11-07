@@ -5,7 +5,7 @@ import { ChevronsUpDown } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { cn } from "@/lib/utils";
 
-export interface Project {
+interface Project {
   name: string;
   description: string;
   category: string;

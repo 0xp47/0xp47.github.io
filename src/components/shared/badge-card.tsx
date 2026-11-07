@@ -5,7 +5,7 @@ import { ArrowUpRight, ShieldCheck } from "lucide-react";
 import { certifications } from "@/lib/portfolio-data";
 import { cn } from "@/lib/utils";
 
-export type BadgeData = (typeof certifications)[number];
+type BadgeData = (typeof certifications)[number];
 
 interface BadgeCardProps {
   badge: BadgeData;

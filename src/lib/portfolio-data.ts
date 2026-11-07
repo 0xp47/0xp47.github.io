@@ -181,13 +181,4 @@ export const services = [
 
 export const certifications = certificationsData;
 
-export const certificationCategories = [
-  "All",
-  "AI",
-  "Security",
-  "Development",
-  "Systems & Networks",
-  "Business",
-];
-
 export * from "./blog-posts";
