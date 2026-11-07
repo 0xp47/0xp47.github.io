@@ -146,7 +146,7 @@ export function Portfolio() {
         initial={false}
         animate={!isLoading && showBackToTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
         className={cn(
-          "fixed bottom-6 right-6 z-[2147483647] hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer",
+          "fixed bottom-6 right-6 z-30 hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer",
           (!showBackToTop || isLoading) && "pointer-events-none"
         )}
       >

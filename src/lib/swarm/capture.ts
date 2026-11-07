@@ -1201,11 +1201,6 @@ export function captureModel(env: Env, shot: Shot | null): SwarmModel {
     if (items.length >= MAX_ITEMS) return;
     const tag = el.localName;
     if (SKIP.has(tag) || el === env.host) return;
-    if (
-      tag === "aside" ||
-      (el.getAttribute && el.getAttribute("aria-label") === "Site navigation")
-    )
-      return;
     const cs = css(el);
     const disp = cs.display;
     if (disp === "none") return;

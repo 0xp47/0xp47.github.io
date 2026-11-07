@@ -36,7 +36,7 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
   return (
     <aside
       aria-label="Site navigation"
-      className="fixed z-[2147483647] bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-6 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center justify-center pointer-events-none"
+      className="fixed z-30 bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-6 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center justify-center pointer-events-none"
     >
       {/* Desktop Vertical Username Handle: 0xp47 */}
       <div className="hidden md:flex flex-col items-center gap-2.5 mb-3 select-none pointer-events-auto group">
