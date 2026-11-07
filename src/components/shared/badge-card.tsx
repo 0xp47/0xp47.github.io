@@ -106,7 +106,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
         </div>
 
         {/* Center Card Body (Typography & Org Details) */}
-        <div className="my-3 pr-[58px] sm:pr-[66px]">
+        <div className="my-3">
           <div className="font-mono text-[8.5px] font-bold uppercase tracking-[0.18em] text-neutral-400 mb-1">
             CREDENTIAL // {badge.category}
           </div>
@@ -127,7 +127,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
         </div>
 
         {/* Footer: Skills Chips & Bottom ID Bar */}
-        <div className="pr-[58px] sm:pr-[66px] mt-auto pt-2">
+        <div className="mt-auto pt-2">
           {topSkills.length > 0 && (
             <div className="flex flex-wrap items-center gap-1.5 mb-2">
               {topSkills.map((skill: string) => (
@@ -150,33 +150,6 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
             <span>VERIFIED ID</span>
           </div>
         </div>
-      </div>
-
-      {/* Vertical Floating Pill Capsule on the Right Edge (Reference: VISA capsule) */}
-      <div className="absolute right-3 sm:right-3.5 bottom-3.5 sm:bottom-4 w-[44px] sm:w-[48px] h-[138px] sm:h-[148px] rounded-full border border-neutral-700/80 bg-gradient-to-b from-[#222228] via-[#141418] to-[#0a0a0d] shadow-2xl flex flex-col items-center justify-between py-2.5 sm:py-3 px-1 z-10 transition-all duration-300 group-hover:scale-105 group-hover:border-neutral-500 shadow-[inset_0_1px_1px_rgba(255,255,255,0.12)]">
-        {/* Top Dots */}
-        <div className="flex items-center gap-0.5">
-          <div className="size-1 rounded-full bg-neutral-400" />
-          <div className="size-1 rounded-full bg-neutral-400" />
-          <div className="size-1 rounded-full bg-neutral-400" />
-        </div>
-
-        {/* Center Badge Seal */}
-        <div className="relative size-7 sm:size-8 rounded-full overflow-hidden flex items-center justify-center p-0.5 bg-black/50 border border-neutral-700/60 shadow-inner">
-          <Image
-            src={badge.imageUrl}
-            alt=""
-            width={32}
-            height={32}
-            unoptimized
-            className="size-full object-contain drop-shadow-sm"
-          />
-        </div>
-
-        {/* Bottom Vertical Brand */}
-        <span className="font-mono text-[8px] sm:text-[8.5px] font-black uppercase tracking-[0.24em] text-neutral-300 [writing-mode:vertical-rl] rotate-180">
-          {badge.issuer.slice(0, 10)}
-        </span>
       </div>
     </div>
   );
