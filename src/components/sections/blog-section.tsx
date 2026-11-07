@@ -28,11 +28,11 @@ export function BlogSection() {
             transition: { staggerChildren: 0.12 },
           },
         }}
-        className="grid gap-6 grid-cols-1 lg:grid-cols-2 mt-8 items-stretch"
+        className="grid gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4 mt-8"
       >
-        {visiblePosts.map((post, idx) => (
+        {visiblePosts.map((post) => (
           <motion.div key={post.slug} variants={cardVariants} className="h-full">
-            <BlogCard post={post} index={idx} />
+            <BlogCard post={post} />
           </motion.div>
         ))}
       </motion.div>

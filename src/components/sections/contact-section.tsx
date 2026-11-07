@@ -66,24 +66,16 @@ export function ContactSection() {
 
   return (
     <Section id="contact" eyebrow={sectionMeta.contact.eyebrow} title={sectionMeta.contact.title}>
-      <div className="grid gap-8 md:grid-cols-2 md:items-stretch max-w-[900px]">
+      <div className="grid gap-12 md:grid-cols-2 md:items-end">
         {/* Left: description + socials */}
-        <motion.div
-          variants={cardVariants}
-          className="flex flex-col justify-between rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-5 sm:p-6 transition-colors duration-200 hover:border-neutral-700 select-none"
-        >
-          <div>
-            <span className="block font-mono text-[9.5px] uppercase text-neutral-400 tracking-[0.2em] mb-2">
-              Let&apos;s Talk
-            </span>
-            <p className="text-sm leading-relaxed text-neutral-400 text-pretty">
-              {contactDescription}
-            </p>
-          </div>
+        <motion.div variants={cardVariants} className="space-y-8">
+          <p className="text-sm leading-relaxed text-muted-foreground max-w-md text-pretty">
+            {contactDescription}
+          </p>
 
-          <div className="pt-6">
-            <span className="block font-mono text-[9px] uppercase text-neutral-500 tracking-[0.2em] mb-3">
-              Social Profiles
+          <div className="space-y-3">
+            <span className="block font-mono text-[9px] uppercase text-muted-foreground/50 tracking-[0.2em]">
+              Connect
             </span>
             <div className="flex flex-wrap gap-2.5">
               {contactLinks.map((link) => (
@@ -92,7 +84,7 @@ export function ContactSection() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex size-9 items-center justify-center chamfer-btn border border-neutral-800 bg-[#121212] text-neutral-400 hover:border-neutral-700 hover:bg-[#181818] hover:text-white transition-colors duration-200"
+                  className="flex size-9 items-center justify-center rounded-full border border-border/50 bg-foreground/[0.02] text-muted-foreground/80 hover:border-foreground/40 hover:bg-foreground hover:text-background transition-all duration-300 hover:scale-105 shadow-sm"
                   aria-label={link.label}
                   title={link.label}
                 >
@@ -103,35 +95,34 @@ export function ContactSection() {
           </div>
         </motion.div>
 
-        {/* Right: email CTA card */}
-        <motion.div
-          variants={cardVariants}
-          className="flex flex-col justify-between rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-5 sm:p-6 transition-colors duration-200 hover:border-neutral-700 select-none"
-        >
-          <div>
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-4">
-              <span className="relative flex h-1.5 w-1.5">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
-              </span>
-              Available for new projects
-            </div>
-
-            <h3 className="text-xs font-mono uppercase tracking-wider text-neutral-400 mb-2">
-              Direct Contact
-            </h3>
-            <a
-              href={`mailto:${profile.email}`}
-              className="text-xl sm:text-2xl font-bold tracking-tight text-white hover:underline transition-colors block break-all"
-            >
-              {profile.email}
-            </a>
+        {/* Right: big typographic email CTA */}
+        <motion.div variants={cardVariants} className="flex flex-col items-start gap-3 md:items-end">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
+            <span className="relative flex h-1.5 w-1.5">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
+            </span>
+            Available for new projects
           </div>
 
-          <div className="flex items-center gap-2.5 pt-6 flex-wrap">
+          <a
+            href={`mailto:${profile.email}`}
+            className="group relative text-2xl font-semibold tracking-tight text-foreground sm:text-3xl leading-tight"
+          >
+            {"hello@"}
+            <span className="text-muted-foreground transition-colors duration-300 group-hover:text-foreground">
+              jaypatrickcano.dev
+            </span>
+            <span
+              aria-hidden="true"
+              className="absolute -bottom-1.5 left-0 h-px w-full origin-left scale-x-0 bg-foreground transition-transform duration-500 group-hover:scale-x-100"
+            />
+          </a>
+
+          <div className="flex items-center gap-2.5 mt-1">
             <a
               href={`mailto:${profile.email}`}
-              className="inline-flex items-center gap-2 px-4 py-2 chamfer-btn border border-neutral-800 bg-[#121212] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-300 transition-colors duration-200 hover:border-neutral-700 hover:bg-[#181818] hover:text-white"
+              className="inline-flex items-center gap-2 px-3.5 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
             >
               <Mail className="size-3.5" />
               Send Email
@@ -139,15 +130,20 @@ export function ContactSection() {
             <button
               type="button"
               onClick={handleCopy}
-              className="inline-flex cursor-pointer items-center gap-1.5 px-4 py-2 chamfer-btn border border-neutral-800 bg-[#121212] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-300 transition-colors duration-200 hover:border-neutral-700 hover:bg-[#181818] hover:text-white"
+              className="inline-flex cursor-pointer items-center gap-1.5 px-3.5 py-1.5 chamfer-btn border border-border/50 bg-foreground/[0.02] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-muted-foreground transition-all duration-300 hover:border-foreground/40 hover:text-foreground hover:bg-foreground/[0.05]"
               title="Copy email address"
             >
               {copied ? (
-                <Check className="size-3.5 text-emerald-500" />
+                <>
+                  <Check className="size-3.5 text-emerald-500" />
+                  Copied
+                </>
               ) : (
-                <Copy className="size-3.5" />
+                <>
+                  <Copy className="size-3.5" />
+                  Copy Email
+                </>
               )}
-              {copied ? "Copied" : "Copy"}
             </button>
           </div>
         </motion.div>

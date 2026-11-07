@@ -134,7 +134,7 @@ export function BlogPageClient() {
             transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             className={cn(
               "grid gap-6 mt-8",
-              viewMode === "grid" ? "grid-cols-1 lg:grid-cols-2" : "grid-cols-1 max-w-3xl mx-auto"
+              viewMode === "grid" ? "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-1 max-w-3xl mx-auto"
             )}
           >
             {paginatedPosts.map((post, i) => (
@@ -146,7 +146,7 @@ export function BlogPageClient() {
               >
                 {viewMode === "grid" ? (
                   /* Grid Card View (Vertical) */
-                  <BlogCard post={post} index={i} />
+                  <BlogCard post={post} />
                 ) : (
                   /* List Row View (Horizontal) */
                   <Link
