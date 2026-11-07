@@ -150,15 +150,15 @@ export function BlogPageClient() {
                   /* List Row View (Horizontal - Vercel Changelog Style) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden rounded-xl border border-white/[0.08] bg-black p-4 sm:p-5 text-left w-full transition-all duration-300 hover:border-white/[0.22] hover:bg-[#050505] select-none"
+                    className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 text-left w-full transition-all duration-300 hover:border-neutral-700 hover:bg-[#0d0d10] select-none"
                   >
                     {/* Top Specular Edge Highlight */}
-                    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-neutral-600/60 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
 
                     <div className="relative z-10 flex-1 min-w-0 space-y-1.5">
                       {/* Category, Date and Reading Time */}
                       <div className="flex items-center gap-2.5">
-                        <span className="font-mono text-[9.5px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-neutral-300 group-hover:border-white/20 group-hover:text-white transition-colors duration-200">
+                        <span className="font-mono text-[9.5px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-[#121212] border border-neutral-800 text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200">
                           {post.category}
                         </span>
                         <time className="text-[11px] font-mono text-neutral-500 tracking-tight">
@@ -190,9 +190,9 @@ export function BlogPageClient() {
                       </div>
                     </div>
 
-                    <div className="relative z-10 hidden sm:flex items-center gap-1 text-[11px] font-medium text-neutral-300 group-hover:text-white transition-colors duration-200 shrink-0 pl-4 border-l border-white/[0.06]">
+                    <div className="relative z-10 hidden sm:flex items-center gap-1 text-[11px] font-medium text-neutral-400 group-hover:text-white transition-colors duration-200 shrink-0 pl-4 border-l border-neutral-800/60">
                       <span>Read post</span>
-                      <ArrowRight className="size-3 text-neutral-400 group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
+                      <ArrowRight className="size-3 text-neutral-500 group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
                     </div>
                   </Link>
                 )}

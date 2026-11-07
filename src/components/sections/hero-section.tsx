@@ -8,6 +8,9 @@ import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import * as BrandIcons from "@/components/shared/brand-icons";
 import dynamic from "next/dynamic";
+import { ScrambleText, ScrambleTextOnHover } from "@/components/shared/scramble-text";
+import { BitmapChevron } from "@/components/shared/bitmap-chevron";
+import { AnimatedNoise } from "@/components/shared/animated-noise";
 
 const ParticlesBackground = dynamic(
   () => import("@/components/shared/particles-background").then((mod) => mod.ParticlesBackground),
@@ -41,6 +44,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
   return (
     <div className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-10 md:pt-20 overflow-hidden">
       <ParticlesBackground />
+      <AnimatedNoise opacity={0.03} />
       
       
       {/* Subtle tech background grids covering entire viewport */}
@@ -88,7 +92,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
               >
                 {"I'm Pat, a"}<br />
                 <span className="text-foreground block whitespace-nowrap">
-                  Full{"\u2011"}Stack Engineer
+                  <ScrambleText text="Full-Stack Engineer" delayMs={300} duration={0.9} />
                 </span>
               </motion.h1>
 
@@ -155,9 +159,10 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                     e.preventDefault();
                     onScrollToSection("#about");
                   }}
-                  className="inline-block mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:underline transition duration-300"
+                  className="group inline-flex items-center gap-2 mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:text-white transition duration-200"
                 >
-                  LEARN MORE &rarr;
+                  <ScrambleTextOnHover text="LEARN MORE" as="span" duration={0.4} />
+                  <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-3" />
                 </a>
               </motion.div>
 
@@ -175,9 +180,10 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 </p>
                 <a
                   href="#projects"
-                  className="inline-block mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:underline transition duration-300"
+                  className="group inline-flex items-center gap-2 mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:text-white transition duration-200"
                 >
-                  BROWSE PORTFOLIO &rarr;
+                  <ScrambleTextOnHover text="BROWSE PORTFOLIO" as="span" duration={0.4} />
+                  <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-3" />
                 </a>
               </motion.div>
 
