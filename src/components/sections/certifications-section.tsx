@@ -1,14 +1,14 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, ShieldCheck } from "lucide-react";
+import { ArrowUpRight } from "lucide-react";
 import { SiCredly, SiAnthropic } from "react-icons/si";
 import { certifications, sectionMeta, profile } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 import { cn } from "@/lib/utils";
+import { BadgeCard } from "@/components/shared/badge-card";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -156,100 +156,23 @@ export function CertificationsSection() {
           className="mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
         >
           <AnimatePresence mode="popLayout">
-            {displayedCertifications.map((badge, index) => {
-              const topSkills = badge.skills.slice(0, 3);
-              const remaining = badge.skills.length - topSkills.length;
-
-              return (
-                <motion.article
-                  key={badge.id}
-                  layout={!prefersReducedMotion}
-                  initial={{ opacity: 0, y: 16 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{
-                    duration: 0.3,
-                    delay: prefersReducedMotion ? 0 : Math.min(index * 0.04, 0.24),
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className="group relative flex h-full flex-col justify-between rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 transition-colors duration-200 hover:border-neutral-700 select-none"
-                >
-                  <div>
-                    {/* Category & Issue Date */}
-                    <div className="mb-3 flex w-full items-center justify-between gap-3">
-                      <span className="font-mono text-[9.5px] font-semibold uppercase tracking-[0.18em] text-neutral-400">
-                        {badge.issuer} · {badge.category}
-                      </span>
-                      <span className="font-mono text-[10px] text-neutral-500 tabular-nums">
-                        {formatDate(badge.issueDate)}
-                      </span>
-                    </div>
-
-                    {/* Badge Graphic + Title */}
-                    <div className="flex items-start gap-3 w-full">
-                      <div className="relative size-11 shrink-0 rounded-lg overflow-hidden border border-neutral-800/60 bg-[#121212] p-1 flex items-center justify-center">
-                        <Image
-                          src={badge.imageUrl}
-                          alt=""
-                          width={44}
-                          height={44}
-                          unoptimized
-                          className="size-9 object-contain drop-shadow-xs transition-transform duration-300 group-hover:scale-105"
-                        />
-                      </div>
-                      <div className="min-w-0 flex-1">
-                        <h3 className="text-[15px] font-semibold tracking-tight text-white leading-snug">
-                          {badge.title}
-                        </h3>
-                        <p className="mt-1 flex items-center gap-1.5 font-mono text-[10px] text-neutral-400">
-                          <ShieldCheck className="size-3 text-emerald-500/80 shrink-0" />
-                          <span className="truncate">{badge.organization}</span>
-                        </p>
-                      </div>
-                    </div>
-
-                    {/* Description */}
-                    {badge.description && (
-                      <p className="mt-3 text-xs leading-relaxed text-neutral-400 line-clamp-2">
-                        {badge.description}
-                      </p>
-                    )}
-                  </div>
-
-                  {/* Skills Chips + Action Button */}
-                  <div className="mt-auto w-full pt-4">
-                    {topSkills.length > 0 && (
-                      <div className="flex flex-wrap gap-1.5">
-                        {topSkills.map((skill) => (
-                          <span
-                            key={skill}
-                            className="font-mono text-[9px] px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                        {remaining > 0 && (
-                          <span className="font-mono text-[9px] px-1 py-0.5 text-neutral-500">
-                            +{remaining}
-                          </span>
-                        )}
-                      </div>
-                    )}
-
-                    <a
-                      href={badge.badgeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="mt-3.5 inline-flex cursor-pointer items-center gap-1.5 px-3 py-1.5 chamfer-btn border border-neutral-800 bg-[#121212] font-mono text-[10px] font-bold uppercase tracking-[0.16em] text-neutral-300 transition-colors duration-200 hover:border-neutral-700 hover:bg-[#181818] hover:text-white"
-                      aria-label={`Verify ${badge.title} credential`}
-                    >
-                      Verify Credential
-                      <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </a>
-                  </div>
-                </motion.article>
-              );
-            })}
+            {displayedCertifications.map((badge, index) => (
+              <motion.div
+                key={badge.id}
+                layout={!prefersReducedMotion}
+                initial={{ opacity: 0, y: 16 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0 }}
+                transition={{
+                  duration: 0.3,
+                  delay: prefersReducedMotion ? 0 : Math.min(index * 0.04, 0.24),
+                  ease: [0.16, 1, 0.3, 1],
+                }}
+                className="h-full"
+              >
+                <BadgeCard badge={badge} index={index} />
+              </motion.div>
+            ))}
           </AnimatePresence>
         </motion.div>
 
