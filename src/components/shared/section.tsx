@@ -142,7 +142,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
 
             {/* Massive Section Number container: clean border-b cutoff */}
             <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[64px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-0 sm:pl-7 md:pl-8">
-              <div className="font-sans text-7xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
+              <div className="font-mono text-7xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
                 {index}
               </div>
             </div>
@@ -150,7 +150,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
 
           {/* Section Title below the line */}
           <div className="pt-3 sm:pt-4 pl-0 sm:pl-7 md:pl-8 flex flex-row items-end justify-between gap-4">
-            <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug max-w-sm sm:max-w-sm md:max-w-md">
+            <h2 className="font-mono text-xl sm:text-2xl md:text-3xl font-normal text-neutral-800 dark:text-neutral-200 tracking-tight leading-snug max-w-sm sm:max-w-sm md:max-w-md">
               {title}
             </h2>
             {headerAction && (
