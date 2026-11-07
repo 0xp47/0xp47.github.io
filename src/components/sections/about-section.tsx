@@ -54,23 +54,35 @@ export function AboutSection() {
           variants={cardVariants}
           className="flex flex-col gap-6"
         >
-          <p className="text-sm leading-relaxed text-neutral-400 text-pretty">
-            {aboutDescription}
-          </p>
+          <div className="space-y-3.5 text-sm leading-relaxed text-neutral-400 text-pretty">
+            {aboutDescription.split("\n\n").map((paragraph, idx) => (
+              <p key={idx}>{paragraph}</p>
+            ))}
+          </div>
           
           {/* Stats Highlights */}
           <div className="grid grid-cols-3 gap-3 sm:gap-4 pt-2">
             {heroStats.map((stat, i) => (
               <div
                 key={i}
-                className="flex flex-col p-3.5 sm:p-4 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] hover:border-neutral-700 transition-colors duration-200 select-none"
+                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600"
+                style={{
+                  clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
+                }}
               >
-                <span className="tabular-nums text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
-                  <AnimatedCounter value={stat.value} suffix={stat.suffix} />
-                </span>
-                <span className="text-[9px] font-mono font-bold tracking-wider text-neutral-400 uppercase mt-1 leading-snug">
-                  {stat.label}
-                </span>
+                <div
+                  className="flex flex-col p-3 sm:p-3.5 bg-[#0a0a0a] transition-colors duration-200 group-hover:bg-[#0d0d10] h-full"
+                  style={{
+                    clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 9.5px 100%, 0 calc(100% - 9.5px))",
+                  }}
+                >
+                  <span className="tabular-nums text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
+                    <AnimatedCounter value={stat.value} suffix={stat.suffix} />
+                  </span>
+                  <span className="text-[9px] font-mono font-bold tracking-wider text-neutral-400 uppercase mt-1 leading-snug">
+                    {stat.label}
+                  </span>
+                </div>
               </div>
             ))}
           </div>

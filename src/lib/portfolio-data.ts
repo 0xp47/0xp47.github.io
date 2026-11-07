@@ -136,7 +136,7 @@ export const heroDescription = "I am a developer and entrepreneur building custo
 export const heroAboutSegment = "I focus on clean architecture and solid features, helping businesses digitize their workflows with tailored software.";
 export const heroWorkSegment = "A selection of projects showing how I approach web, mobile, and custom system development.";
 
-export const aboutDescription = "I build custom software, mobile applications, and automated workflows. Beyond writing code, I am an entrepreneur and open-source creator focused on building useful business products and leading global developer collaborations.";
+export const aboutDescription = "I build custom software, cross-platform mobile applications, and automated workflows designed to solve real-world operational challenges. With an engineering philosophy rooted in clean architecture, performance, and developer ergonomics, I bridge the gap between business vision and production-ready systems — from resilient backend APIs and responsive web interfaces to seamless cloud integrations.\n\nBeyond writing code, I am an entrepreneur, startup consultant, and open-source creator. As the founder of GroundZero Community, I actively lead global developer collaborations, mentor emerging builders, and ship tools that empower businesses and communities to scale with confidence.";
 
 export const contactDescription = "I am open to freelance projects, custom business automations, full-stack collaborations, and software partnerships.";
 
