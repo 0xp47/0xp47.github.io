@@ -67,7 +67,7 @@ export function Section({ id, title, children }: SectionProps) {
         aria-hidden="true"
         className={cn(
           "absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none z-0",
-          "left-[80px] sm:left-[96px] md:left-[112px] lg:left-[128px]",
+          "left-[96px] sm:left-[120px] md:left-[144px] lg:left-[168px]",
           isFirst && "top-[98px] sm:top-[124px] md:top-[146px] bottom-0",
           !isFirst && !isLast && "top-0 bottom-0",
           isLast && "top-0 h-[210px] sm:h-[240px] md:h-[270px]"
@@ -78,7 +78,7 @@ export function Section({ id, title, children }: SectionProps) {
       {isLast && (
         <div
           aria-hidden="true"
-          className="absolute z-10 -translate-x-1/2 left-[80px] sm:left-[96px] md:left-[112px] lg:left-[128px] top-[210px] sm:top-[240px] md:top-[270px] flex items-center justify-center text-foreground/70"
+          className="absolute z-10 -translate-x-1/2 left-[96px] sm:left-[120px] md:left-[144px] lg:left-[168px] top-[210px] sm:top-[240px] md:top-[270px] flex items-center justify-center text-foreground/70"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             {/* Corner bracket ticks [ ] */}
