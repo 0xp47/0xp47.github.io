@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, LayoutGroup } from "framer-motion";
-import { ArrowLeft, ArrowRight, Calendar, Clock, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, ArrowRight, Search, X, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useLenis } from "lenis/react";
@@ -147,30 +147,31 @@ export function BlogPageClient() {
                   /* Grid Card View (Vertical) */
                   <BlogCard post={post} />
                 ) : (
-                  /* List Row View (Horizontal) */
+                  /* List Row View (Horizontal - Vercel Changelog Style) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 text-left w-full transition-all duration-200 hover:border-neutral-700 hover:bg-[#0d0d10] select-none"
+                    className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 overflow-hidden rounded-xl border border-white/[0.08] bg-black p-4 sm:p-5 text-left w-full transition-all duration-300 hover:border-white/[0.22] hover:bg-[#050505] select-none"
                   >
-                    <div className="flex-1 min-w-0 space-y-1.5">
+                    {/* Top Specular Edge Highlight */}
+                    <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-white/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                    <div className="relative z-10 flex-1 min-w-0 space-y-1.5">
                       {/* Category, Date and Reading Time */}
                       <div className="flex items-center gap-2.5">
-                        <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200">
+                        <span className="font-mono text-[9.5px] font-medium tracking-wide uppercase px-2 py-0.5 rounded-full bg-white/[0.04] border border-white/[0.08] text-neutral-300 group-hover:border-white/20 group-hover:text-white transition-colors duration-200">
                           {post.category}
                         </span>
-                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-400">
-                          <Calendar className="size-3 text-neutral-500" />
+                        <time className="text-[11px] font-mono text-neutral-500 tracking-tight">
                           {post.dateDisplay}
-                        </span>
-                        <span className="text-neutral-600 font-mono text-[9.5px]">·</span>
-                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-500">
-                          <Clock className="size-3 text-neutral-500" />
+                        </time>
+                        <span className="text-neutral-700 font-mono text-[11px]">·</span>
+                        <span className="text-[11px] font-mono text-neutral-500">
                           {post.readingTime}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-[15px] font-semibold text-white tracking-tight line-clamp-1 group-hover:text-neutral-200 transition-colors">
+                      <h3 className="text-[15px] sm:text-[15.5px] font-semibold text-white tracking-tight line-clamp-1 group-hover:text-white transition-colors">
                         {post.title}
                       </h3>
 
@@ -180,14 +181,18 @@ export function BlogPageClient() {
                       </p>
 
                       {/* Tags */}
-                      <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-neutral-500 truncate pt-1">
-                        {post.tags.join("  ·  ")}
+                      <div className="flex items-center gap-2 font-mono text-[9.5px] text-neutral-500 truncate pt-1">
+                        {post.tags.map((tag) => (
+                          <span key={tag} className="truncate">
+                            #{tag.toLowerCase().replace(/[^a-z0-9]/g, "")}
+                          </span>
+                        ))}
                       </div>
                     </div>
 
-                    <div className="hidden sm:flex items-center gap-1.5 font-mono text-[9.5px] font-bold uppercase tracking-wider text-neutral-400 group-hover:text-white transition-colors shrink-0 pl-4 border-l border-neutral-800/60">
-                      <span>Read</span>
-                      <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform duration-200" />
+                    <div className="relative z-10 hidden sm:flex items-center gap-1 text-[11px] font-medium text-neutral-300 group-hover:text-white transition-colors duration-200 shrink-0 pl-4 border-l border-white/[0.06]">
+                      <span>Read post</span>
+                      <ArrowRight className="size-3 text-neutral-400 group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
                     </div>
                   </Link>
                 )}
