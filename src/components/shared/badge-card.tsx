@@ -31,7 +31,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
   return (
     <article
       className={cn(
-        "group relative flex flex-col justify-between select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600 h-full",
+        "group relative flex flex-col justify-between select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 h-full",
         className
       )}
       style={{
@@ -39,7 +39,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-[#0a0a0a] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#0d0d10]"
+        className="relative flex flex-col justify-between h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
@@ -57,7 +57,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
 
           {/* Badge Graphic + Title */}
           <div className="flex items-start gap-3 w-full">
-            <div className="relative size-10 shrink-0 rounded-lg overflow-hidden border border-neutral-800/60 bg-[#121212] p-1 flex items-center justify-center">
+            <div className="relative size-10 shrink-0 rounded-lg overflow-hidden border border-neutral-800/60 bg-[#0a0a0a] p-1 flex items-center justify-center">
               <Image
                 src={badge.imageUrl}
                 alt=""
@@ -80,12 +80,12 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
         </div>
 
         {/* Skills Chips + Action Button */}
-        <div className="mt-3.5 flex items-center justify-between gap-2.5 pt-2.5 border-t border-neutral-800/60">
+        <div className="mt-3.5 flex items-center justify-between gap-2.5 pt-2.5 border-t border-neutral-800/40">
           <div className="flex items-center gap-1.5 min-w-0 overflow-hidden">
             {topSkills.map((skill) => (
               <span
                 key={skill}
-                className="font-mono text-[8.5px] px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400 truncate max-w-[120px]"
+                className="font-mono text-[8.5px] px-2 py-0.5 rounded border border-neutral-800 bg-[#0a0a0a] text-neutral-400 truncate max-w-[120px]"
               >
                 {skill}
               </span>
@@ -101,7 +101,7 @@ export function BadgeCard({ badge, className }: BadgeCardProps) {
             href={badge.badgeUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex cursor-pointer items-center gap-1.5 px-3 py-1 chamfer-btn border border-neutral-800 bg-[#121212] font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-neutral-300 transition-colors duration-200 hover:border-neutral-700 hover:bg-[#181818] hover:text-white shrink-0 ml-auto"
+            className="inline-flex cursor-pointer items-center gap-1.5 px-3 py-1 chamfer-btn border border-neutral-800 bg-[#0a0a0a] font-mono text-[9px] font-bold uppercase tracking-[0.14em] text-neutral-300 transition-colors duration-200 hover:border-neutral-700 hover:bg-[#121212] hover:text-white shrink-0 ml-auto"
             aria-label={`Verify ${badge.title} credential`}
           >
             Verify

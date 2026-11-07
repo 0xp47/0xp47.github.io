@@ -16,7 +16,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "group relative flex h-full flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600 outline-none focus-visible:ring-1 focus-visible:ring-neutral-600",
+        "group relative flex h-full flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 outline-none focus-visible:ring-1 focus-visible:ring-neutral-600",
         className
       )}
       style={{
@@ -24,7 +24,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-[#0a0a0a] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#0d0d10]"
+        className="relative flex flex-col justify-between h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
@@ -32,7 +32,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
         <div>
           {/* Meta Header: Category Badge + Date */}
           <div className="flex items-center justify-between gap-2 w-full pr-1">
-            <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#121212] text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
+            <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
               {post.category}
             </span>
             <time className="text-[10.5px] font-mono text-neutral-500 tracking-tight shrink-0">
@@ -52,7 +52,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
         </div>
 
         {/* Footer: Reading Time + Read Post Action */}
-        <div className="mt-3.5 pt-2.5 border-t border-neutral-800/60 flex items-center justify-between gap-2">
+        <div className="mt-3.5 pt-2.5 border-t border-neutral-800/40 flex items-center justify-between gap-2">
           <span className="font-mono text-[10px] text-neutral-500 tracking-tight">
             {post.readingTime}
           </span>

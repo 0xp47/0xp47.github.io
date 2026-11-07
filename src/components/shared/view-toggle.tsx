@@ -10,15 +10,15 @@ interface ViewToggleProps {
 
 export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
   return (
-    <div className="flex items-center gap-1 w-fit select-none">
+    <div className="flex items-center gap-1.5 w-fit select-none">
       <button
         type="button"
         onClick={() => onViewModeChange("list")}
         className={cn(
-          "rounded-md p-1.5 transition duration-300 cursor-pointer flex items-center justify-center",
+          "size-7 chamfer-btn transition duration-200 cursor-pointer flex items-center justify-center border",
           viewMode === "list"
-            ? "bg-foreground text-background"
-            : "text-muted-foreground/60 hover:text-foreground hover:bg-foreground/5"
+            ? "border-white bg-white text-black font-semibold"
+            : "border-neutral-800 bg-[#040404] text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#0a0a0a]"
         )}
         aria-label="List View"
       >
@@ -28,10 +28,10 @@ export function ViewToggle({ viewMode, onViewModeChange }: ViewToggleProps) {
         type="button"
         onClick={() => onViewModeChange("grid")}
         className={cn(
-          "rounded-md p-1.5 transition duration-300 cursor-pointer flex items-center justify-center",
+          "size-7 chamfer-btn transition duration-200 cursor-pointer flex items-center justify-center border",
           viewMode === "grid"
-            ? "bg-foreground text-background"
-            : "text-muted-foreground/60 hover:text-foreground hover:bg-foreground/5"
+            ? "border-white bg-white text-black font-semibold"
+            : "border-neutral-800 bg-[#040404] text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#0a0a0a]"
         )}
         aria-label="Grid View"
       >

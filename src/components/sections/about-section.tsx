@@ -65,15 +65,15 @@ export function AboutSection() {
             {heroStats.map((stat, i) => (
               <div
                 key={i}
-                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600"
+                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
                 }}
               >
                 <div
-                  className="flex flex-col p-3 sm:p-3.5 bg-[#0a0a0a] transition-colors duration-200 group-hover:bg-[#0d0d10] h-full"
+                  className="flex flex-col p-3 sm:p-3.5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
                   style={{
-                    clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 9.5px 100%, 0 calc(100% - 9.5px))",
+                    clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                   }}
                 >
                   <span className="tabular-nums text-2xl font-extrabold tracking-tight text-white sm:text-3xl">
@@ -105,19 +105,19 @@ export function AboutSection() {
               <motion.div
                 key={index}
                 variants={cardVariants}
-                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600"
+                className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
                 }}
               >
                 <div
-                  className="relative flex gap-4 items-start p-3.5 sm:p-4 bg-[#0a0a0a] transition-colors duration-200 group-hover:bg-[#0d0d10] h-full"
+                  className="relative flex gap-4 items-start p-3.5 sm:p-4 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
                   }}
                 >
                   {/* Framed icon container */}
-                  <div className="flex size-9 shrink-0 items-center justify-center chamfer-btn border border-neutral-800 bg-[#121212] text-neutral-400 transition-colors duration-200 group-hover:border-neutral-700 group-hover:text-white">
+                  <div className="flex size-9 shrink-0 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 transition-colors duration-200 group-hover:border-neutral-700 group-hover:text-white">
                     <IconComponent className="size-4" strokeWidth={1.75} />
                   </div>
                   <div className="flex flex-col gap-1 min-w-0 pr-1">

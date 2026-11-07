@@ -145,7 +145,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
     <article
       onClick={() => onViewDetails(project)}
       className={cn(
-        "group relative flex flex-col justify-between cursor-pointer select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600 h-full",
+        "group relative flex flex-col justify-between cursor-pointer select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 h-full",
         className
       )}
       style={{
@@ -153,7 +153,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-[#0a0a0a] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#0d0d10]"
+        className="relative flex flex-col justify-between h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
@@ -187,9 +187,9 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
 
           {/* Right Status Ring + Up-Down Chevrons */}
           <div className="flex items-center gap-2.5 shrink-0">
-            <div className="relative flex size-7 items-center justify-center rounded-full bg-[#121212] border border-[#2a2a2a]">
+            <div className="relative flex size-7 items-center justify-center rounded-full bg-[#0a0a0a] border border-neutral-800">
               <svg className="size-7" viewBox="0 0 28 28">
-                <circle cx="14" cy="14" r="12" fill="#121212" stroke="#262626" strokeWidth="1.2" />
+                <circle cx="14" cy="14" r="12" fill="#0a0a0a" stroke="#1f1f1f" strokeWidth="1.2" />
                 <path
                   d="M 23 14 A 9 9 0 0 0 14 5"
                   fill="none"

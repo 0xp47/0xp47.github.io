@@ -72,7 +72,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("left")}
-            className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
+            className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#040404] hover:border-neutral-700 text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
             aria-label="Previous service"
           >
             <ChevronLeft className="size-4" />
@@ -80,7 +80,7 @@ export function ServicesSection() {
           <button
             type="button"
             onClick={() => handleManualScroll("right")}
-            className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] hover:border-neutral-700 text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
+            className="flex size-8 items-center justify-center chamfer-btn border border-neutral-800 bg-[#040404] hover:border-neutral-700 text-neutral-400 hover:text-white transition-colors duration-200 cursor-pointer"
             aria-label="Next service"
           >
             <ChevronRight className="size-4" />
@@ -101,13 +101,13 @@ export function ServicesSection() {
               <motion.div
                 key={service.title}
                 variants={cardVariants}
-                className="group relative snap-start shrink-0 w-full sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-40px)/3)] select-none p-[1px] transition-colors duration-200 bg-neutral-800/90 hover:bg-neutral-600"
+                className="group relative snap-start shrink-0 w-full sm:w-[calc((100%-20px)/2)] lg:w-[calc((100%-40px)/3)] select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
                 }}
               >
                 <div
-                  className="relative flex flex-col justify-between h-full bg-[#0a0a0a] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#0d0d10]"
+                  className="relative flex flex-col justify-between h-full bg-[#040404] p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-[#080808]"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
                   }}
@@ -117,7 +117,7 @@ export function ServicesSection() {
                     <h3 className="text-[14px] sm:text-[14.5px] font-semibold text-white tracking-tight leading-snug">
                       {service.title}
                     </h3>
-                    <span className="font-mono text-[9px] font-bold px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#121212] text-neutral-400 select-none tabular-nums group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
+                    <span className="font-mono text-[9px] font-bold px-2 py-0.5 chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 select-none tabular-nums group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">
                       {formattedIndex}
                     </span>
                   </div>
@@ -128,7 +128,7 @@ export function ServicesSection() {
                   </p>
 
                   {/* Tech/Keyword tags list */}
-                  <div className="mt-3 pt-2.5 border-t border-neutral-800/60 font-mono text-[8.5px] uppercase tracking-[0.16em] text-neutral-500 truncate">
+                  <div className="mt-3 pt-2.5 border-t border-neutral-800/40 font-mono text-[8.5px] uppercase tracking-[0.16em] text-neutral-500 truncate">
                     {service.tags.join("  ·  ")}
                   </div>
                 </div>
