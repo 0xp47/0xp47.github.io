@@ -66,18 +66,18 @@ export const sectionMeta = {
 
 export const aboutHighlights = [
   {
-    title: "Software & System Design",
-    description: "I don't just build websites; I design and develop cross-platform mobile apps, custom business software, and automated backend systems.",
+    title: "Aspiring Full-Stack Engineer",
+    description: "Learning and building across the stack—from responsive web apps and mobile interfaces to backend APIs and automated scripts.",
     icon: "Terminal",
   },
   {
-    title: "Open-Source Leadership",
-    description: "I am the founder of GroundZero, a global open-source developer community connecting contributors worldwide to build utilities and packages.",
+    title: "GroundZero Community",
+    description: "An early-stage open-source group I started where a small, growing group of curious developers collaborate, learn together, and build tools.",
     icon: "GitMerge",
   },
   {
-    title: "Tech Entrepreneurship",
-    description: "As an entrepreneur, I co-founded CodeTriad Solutions and have spearheaded various software ventures, building scalable web platforms and custom digital products.",
+    title: "Studying Business & Tech",
+    description: "Currently studying business and entrepreneurship to better understand how practical software can solve genuine real-world problems.",
     icon: "Briefcase",
   },
 ];
@@ -89,18 +89,18 @@ export const projectFilters = ["All", "Web", "Mobile", "Tool", "AI/ML"];
 export const experience = [
   {
     company: "GroundZero Community",
-    position: "Founder & Lead Maintainer",
+    position: "Founder & Maintainer",
     duration: "2024 - Present",
     description:
-      "Founded and lead GroundZero, a global open-source community of developers collaborating on software projects, system architecture, and tech tools.",
+      "Started an early-stage open-source developer initiative where builders connect, share knowledge, and collaborate on software tools together.",
     tags: ["Open Source", "Community", "Architecture"],
   },
   {
     company: "CodeTriad Solutions",
-    position: "Co-Founder & Lead Developer",
+    position: "Co-Founder & Developer",
     duration: "2023 - Present",
     description:
-      "Co-founded a technology startup, leading the design and development of modern web applications, custom software products, and high-performance digital solutions.",
+      "Co-founded a development initiative focusing on building modern web applications, custom software utilities, and exploring client-focused digital solutions.",
     tags: ["SaaS", "Next.js", "Product Design"],
   },
   {
@@ -132,11 +132,11 @@ export const skillGroups = [
   },
 ];
 
-export const heroDescription = "I am a developer and entrepreneur building custom software, cross-platform mobile apps, and business automations to solve real-world operational problems.";
-export const heroAboutSegment = "I focus on clean architecture and solid features, helping businesses digitize their workflows with tailored software.";
+export const heroDescription = "I am an aspiring full-stack engineer and continuous learner building custom software, cross-platform mobile apps, and automated workflows while studying business and entrepreneurship.";
+export const heroAboutSegment = "I focus on clean architecture, practical features, and continuously improving my craft as an aspiring full-stack developer.";
 export const heroWorkSegment = "A selection of projects showing how I approach web, mobile, and custom system development.";
 
-export const aboutDescription = "I build custom software, cross-platform mobile applications, and automated workflows designed to solve real-world operational challenges. With an engineering philosophy rooted in clean architecture, performance, and developer ergonomics, I bridge the gap between business vision and production-ready systems — from resilient backend APIs and responsive web interfaces to seamless cloud integrations.\n\nBeyond writing code, I am an entrepreneur, startup consultant, and open-source creator. As the founder of GroundZero Community, I actively lead global developer collaborations, mentor emerging builders, and ship tools that empower businesses and communities to scale with confidence.";
+export const aboutDescription = "I am an aspiring full-stack engineer passionate about building practical software, cross-platform mobile applications, and automated workflows. My focus is on learning and improving every day—deepening my understanding of clean architecture, resilient APIs, and intuitive user interfaces through hands-on projects and continuous practice.\n\nAlongside coding, I am studying business and entrepreneurship. While I am still learning the ropes and don't consider myself an established entrepreneur yet, I enjoy exploring how software can help solve real business challenges. I also started GroundZero Community, an early-stage open-source initiative that is still just starting out, where a small and growing group of developers collaborate, learn from each other, and build useful tools from the ground up.";
 
 export const contactDescription = "I am open to freelance projects, custom business automations, full-stack collaborations, and software partnerships.";
 

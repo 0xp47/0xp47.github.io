@@ -130,7 +130,7 @@ const jsonLd = {
     "https://www.facebook.com/0xp47"
   ],
   "email": "hello@jaypatrickcano.dev",
-  "description": "Developer and entrepreneur building custom software, cross-platform mobile apps, and automated workflows. Founder of GroundZero global community and co-founder of CodeTriad Solutions.",
+  "description": "Aspiring full-stack engineer building custom software, cross-platform mobile apps, and automated workflows while studying business and entrepreneurship.",
   "hasCredential": certificationsData.map((c) => ({
     "@type": "EducationalOccupationalCredential",
     name: c.title,
@@ -291,7 +291,7 @@ const faqJsonLd = {
       "name": "Who is Jay Patrick Cano (0xp47)?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Jay Patrick Cano, known as 0xp47, is a Full-Stack Software Engineer, open-source developer, and tech entrepreneur based in Maasin City, Southern Leyte, Philippines. He is the founder of GroundZero global developer community and co-founder of CodeTriad Solutions."
+        "text": "Jay Patrick Cano, known as 0xp47, is an aspiring Full-Stack Software Engineer and tech learner based in Maasin City, Southern Leyte, Philippines. He is the founder of GroundZero Community and co-founder of CodeTriad Solutions, continuously learning software engineering and business fundamentals."
       }
     },
     {

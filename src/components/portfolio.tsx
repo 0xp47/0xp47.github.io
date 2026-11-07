@@ -205,11 +205,11 @@ export function Portfolio() {
         <meta itemProp="image" content="https://jaypatrickcano.dev/images/me-thumbnail.png" />
 
         <header>
-          <h2>Jay Patrick Cano (0xp47) — Full-Stack Engineer, Entrepreneur & Open-Source Leader</h2>
+          <h2>Jay Patrick Cano (0xp47) — Aspiring Full-Stack Engineer & Open-Source Builder</h2>
           <p itemProp="description">
-            Jay Patrick Cano, known as 0xp47, is a Full-Stack Software Engineer, open-source maintainer, and tech entrepreneur based in Maasin City, Southern Leyte, Philippines.
-            He is the founder of GroundZero, a global open-source developer community, and the co-founder of CodeTriad Solutions.
-            He specializes in building custom software, cross-platform mobile applications, and business automation systems.
+            Jay Patrick Cano, known as 0xp47, is an aspiring Full-Stack Software Engineer and tech learner based in Maasin City, Southern Leyte, Philippines.
+            He is the founder of GroundZero Community, an early-stage open-source group, and co-founder of CodeTriad Solutions.
+            He builds custom software, cross-platform mobile applications, and automated workflows while studying business and entrepreneurship.
             Available for freelance projects, technical collaborations, and software partnerships.
           </p>
         </header>
@@ -273,7 +273,7 @@ export function Portfolio() {
         <article>
           <h3>Professional Experience</h3>
           <ul>
-            <li><strong>Founder & Lead Maintainer</strong> — GroundZero Community (2024–Present). Built and leads a global open-source developer community collaborating on system architectures, software tooling, and community packages.</li>
+            <li><strong>Founder & Maintainer</strong> — GroundZero Community (2024–Present). Started an early-stage open-source developer initiative where builders connect, share knowledge, and collaborate on software tools together.</li>
             <li><strong>Co-Founder & Lead Developer</strong> — CodeTriad Solutions (2023–Present). Technology startup delivering modern web applications, custom software products, and digital transformation solutions.</li>
             <li><strong>Freelance Full-Stack Engineer</strong> — Independent Developer (2020–2023). Designed and delivered custom web portals, cross-platform mobile apps, and business integration scripts for local and international clients.</li>
           </ul>
@@ -306,7 +306,7 @@ export function Portfolio() {
 
           <details>
             <summary>Who is Jay Patrick Cano (0xp47)?</summary>
-            <p>Jay Patrick Cano, known as 0xp47, is a Full-Stack Software Engineer, open-source developer, and tech entrepreneur based in Maasin City, Southern Leyte, Philippines. He is the founder of GroundZero global developer community and the co-founder of CodeTriad Solutions.</p>
+            <p>Jay Patrick Cano, known as 0xp47, is an aspiring Full-Stack Software Engineer and tech learner based in Maasin City, Southern Leyte, Philippines. He is the founder of GroundZero Community and co-founder of CodeTriad Solutions, continuously learning software engineering and business fundamentals.</p>
           </details>
 
           <details>
