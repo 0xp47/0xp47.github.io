@@ -1,11 +1,15 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { motion } from "framer-motion";
-import { ArrowLeft, ArrowRight, Clock, Calendar } from "lucide-react";
+import { useEffect, useRef, useState, useMemo } from "react";
+import { motion, useScroll, useSpring } from "framer-motion";
+import { ArrowLeft, Calendar, Clock, Copy, Check } from "lucide-react";
 import Link from "next/link";
-import { blogPosts, type BlogPost } from "@/lib/portfolio-data";
+import Image from "next/image";
 import { marked } from "marked";
+
+import { blogPosts, type BlogPost } from "@/lib/portfolio-data";
+import { BlogHeader } from "@/components/blog/blog-header";
+import { EditorialCard } from "@/components/blog/editorial-card";
 import { BlogThumbnail } from "@/components/shared/blog-thumbnail";
 
 function parseContent(content: string): string {
@@ -17,47 +21,67 @@ function parseContent(content: string): string {
 }
 
 export function BlogPostPage({ post }: { post: BlogPost }) {
-  const otherPosts = [...blogPosts]
-    .filter((p) => p.slug !== post.slug)
-    .sort((a, b) => b.date.localeCompare(a.date));
+  const [copied, setCopied] = useState(false);
+  const [imageError, setImageError] = useState(false);
   const articleRef = useRef<HTMLDivElement>(null);
+
+  // Reading progress bar
+  const { scrollYProgress } = useScroll();
+  const scaleX = useSpring(scrollYProgress, {
+    stiffness: 100,
+    damping: 30,
+    restDelta: 0.001,
+  });
+
+  // Related posts (exclude current, take 3)
+  const relatedPosts = useMemo(() => {
+    return blogPosts
+      .filter((p) => p.slug !== post.slug)
+      .slice(0, 3);
+  }, [post.slug]);
+
+  const handleCopyLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // ignore
+    }
+  };
 
   useEffect(() => {
     const article = articleRef.current;
     if (!article) return;
 
-    // Find all <pre> elements
+    // Enhance pre elements with copy button
     const preElements = article.querySelectorAll("pre");
     preElements.forEach((pre) => {
-      // Avoid duplicate wrappers if useEffect runs multiple times
       if (pre.parentElement?.classList.contains("code-block-wrapper")) return;
 
-      // Create wrapper element
       const wrapper = document.createElement("div");
-      wrapper.className = "code-block-wrapper relative group";
+      wrapper.className = "code-block-wrapper relative group my-6 rounded-sm border border-neutral-200 overflow-hidden bg-neutral-900";
 
-      // Insert wrapper before pre, and move pre inside it
       pre.parentNode?.insertBefore(wrapper, pre);
       wrapper.appendChild(pre);
 
-      // Create copy button
+      pre.className = "p-4 text-xs font-mono leading-relaxed overflow-x-auto text-neutral-100 bg-neutral-900";
+
       const copyButton = document.createElement("button");
-      copyButton.className = "absolute right-3 top-3 px-2 py-1 text-[10px] font-mono rounded bg-foreground/10 hover:bg-foreground/20 text-foreground/70 hover:text-foreground border border-border opacity-0 group-hover:opacity-100 focus:opacity-100 transition duration-200 select-none cursor-pointer";
+      copyButton.className = "absolute right-3 top-3 px-2 py-1 text-[10px] font-mono rounded-xs bg-neutral-800 hover:bg-neutral-700 text-neutral-300 hover:text-white border border-neutral-700 opacity-80 group-hover:opacity-100 transition duration-150 select-none cursor-pointer";
       copyButton.innerText = "Copy";
 
-      // Add click handler
       copyButton.addEventListener("click", async () => {
         const codeText = pre.querySelector("code")?.innerText || pre.innerText;
         try {
           await navigator.clipboard.writeText(codeText.trim());
           copyButton.innerText = "Copied!";
-          copyButton.classList.add("bg-green-500/20", "text-green-400", "border-green-500/30");
+          copyButton.classList.add("bg-neutral-700", "text-white");
           setTimeout(() => {
             copyButton.innerText = "Copy";
-            copyButton.classList.remove("bg-green-500/20", "text-green-400", "border-green-500/30");
+            copyButton.classList.remove("bg-neutral-700", "text-white");
           }, 2000);
-        } catch (err) {
-          console.error("Failed to copy text:", err);
+        } catch {
           copyButton.innerText = "Error";
           setTimeout(() => {
             copyButton.innerText = "Copy";
@@ -69,147 +93,183 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
     });
   }, [post]);
 
+  const coverSrc = post.coverImage || `/images/blog/${post.slug}.png`;
+
   return (
-    <main className="min-h-screen bg-background flex flex-col justify-between">
+    <div className="min-h-screen bg-white text-neutral-900 font-sans antialiased selection:bg-neutral-950 selection:text-white">
+      {/* Sticky Reading Progress Bar */}
       <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-        className="mx-auto max-w-4xl w-full px-6 py-16 sm:px-8 sm:py-24 flex-grow"
-      >
-        {/* Two-Column Layout: Article + Sidebar */}
-        <div className="lg:grid lg:grid-cols-[1fr_260px] lg:gap-16">
-          {/* Article Column */}
-          <article>
-            {/* Header */}
-            <header className="mb-10">
-              {/* Tags — plain text, no boxes */}
-              <div className="flex flex-wrap gap-x-4 gap-y-1 mb-5">
-                {post.tags.map((tag) => (
-                  <span
-                    key={tag}
-                    className="font-mono text-[9px] uppercase tracking-[0.18em] text-muted-foreground/55"
-                  >
-                    {tag}
-                  </span>
-                ))}
+        style={{ scaleX }}
+        className="fixed top-0 left-0 right-0 h-[2.5px] bg-neutral-950 z-50 origin-left"
+      />
+
+      {/* Blog Navigation Header */}
+      <BlogHeader showSearch={false} />
+
+      {/* Main Article Container */}
+      <main className="mx-auto max-w-3xl px-4 sm:px-6 py-12 sm:py-16">
+        {/* Back Link */}
+        <Link
+          href="/blog"
+          className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-neutral-500 hover:text-neutral-950 transition-colors mb-8 select-none"
+        >
+          <ArrowLeft className="size-3" />
+          <span>All Articles</span>
+        </Link>
+
+        {/* Article Header */}
+        <header className="space-y-4">
+          {/* Category & Tags */}
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="rounded-xs border border-neutral-200 bg-neutral-50 px-2 py-0.5 font-mono text-[10px] font-semibold uppercase tracking-wider text-neutral-700">
+              {post.category || "ENGINEERING"}
+            </span>
+            {post.tags.map((tag) => (
+              <span
+                key={tag}
+                className="font-mono text-[10px] uppercase tracking-wider text-neutral-400"
+              >
+                #{tag}
+              </span>
+            ))}
+          </div>
+
+          {/* Title */}
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold tracking-tight text-neutral-950 leading-[1.12]">
+            {post.title}
+          </h1>
+
+          {/* Subtitle / Description */}
+          <p className="text-base sm:text-lg text-neutral-600 leading-relaxed font-normal text-pretty">
+            {post.description}
+          </p>
+
+          {/* Author and Publication Information Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-4 py-4 my-6 border-t border-b border-neutral-200 font-mono text-xs text-neutral-500">
+            <div className="flex items-center gap-3">
+              <div className="flex size-7 items-center justify-center rounded-full bg-neutral-900 text-white font-mono text-[10px] font-bold">
+                0x
               </div>
-
-              <h1 className="text-3xl font-semibold text-foreground tracking-tight leading-tight sm:text-4xl">
-                {post.title}
-              </h1>
-
-              {/* Meta */}
-              <div className="flex items-center gap-4 mt-5 mb-6">
-                <span className="flex items-center gap-1.5 text-xs text-muted-foreground/70">
-                  <Calendar className="size-3.5" />
-                  {post.dateDisplay}
-                </span>
-                <span className="flex items-center gap-1.5 text-xs text-muted-foreground/70">
-                  <Clock className="size-3.5" />
-                  {post.readingTime}
-                </span>
-              </div>
-
-              {/* Cover Thumbnail */}
-              <BlogThumbnail slug={post.slug} className="w-full aspect-video rounded-lg max-h-[260px] md:max-h-[320px] object-cover mb-8" />
-
-              {/* Divider */}
-              <div className="h-px bg-border" />
-            </header>
-
-            {/* Article Body */}
-            <div
-              ref={articleRef}
-              className="article-body max-w-[70ch]"
-              dangerouslySetInnerHTML={{ __html: parseContent(post.content) }}
-            />
-
-            {/* Footer Divider */}
-            <div className="mt-16 h-px bg-gradient-to-r from-foreground/15 via-border to-transparent" />
-
-            {/* Mobile: More Posts (visible only on smaller screens) */}
-            <section className="mt-12 lg:hidden">
-              <h2 className="text-sm font-bold text-foreground tracking-tight mb-6">
-                More Posts
-              </h2>
-              <div className="space-y-0">
-                {otherPosts.map((otherPost) => (
-                  <Link
-                    key={otherPost.slug}
-                    href={`/blog/${otherPost.slug}`}
-                    className="group flex items-center justify-between gap-4 border-t border-border/10 py-4 hover:border-foreground/30 transition-colors duration-500"
-                  >
-                    <div className="min-w-0">
-                      <h3 className="text-xs font-semibold text-foreground/80 group-hover:text-foreground transition-colors duration-300 truncate">
-                        {otherPost.title}
-                      </h3>
-                      <div className="flex items-center gap-3 mt-1.5">
-                        <span className="text-[10px] font-mono text-muted-foreground/50">
-                          {otherPost.dateDisplay}
-                        </span>
-                        <span className="text-[10px] font-mono text-muted-foreground/50">
-                          {otherPost.readingTime}
-                        </span>
-                      </div>
-                    </div>
-                    <ArrowRight className="size-3.5 text-muted-foreground/30 group-hover:text-foreground/70 group-hover:translate-x-0.5 transition duration-300 shrink-0" />
-                  </Link>
-                ))}
-              </div>
-            </section>
-          </article>
-
-          {/* Desktop Sidebar: More Posts (sticky, visible only on lg+) */}
-          <aside className="hidden lg:block">
-            <div className="sticky top-24">
-              <h2 className="text-xs font-bold text-foreground tracking-tight mb-5 uppercase">
-                More Posts
-              </h2>
-              <div className="space-y-0">
-                {otherPosts.map((otherPost) => (
-                  <Link
-                    key={otherPost.slug}
-                    href={`/blog/${otherPost.slug}`}
-                    className="group flex flex-col border-t border-border/10 py-4 hover:border-foreground/30 transition-colors duration-500"
-                  >
-                    <h3 className="text-xs font-semibold text-foreground/70 group-hover:text-foreground transition-colors duration-300 leading-snug">
-                      {otherPost.title}
-                    </h3>
-                    <div className="flex items-center gap-2 mt-2">
-                      <span className="text-[9px] font-mono text-muted-foreground/40">
-                        {otherPost.dateDisplay}
-                      </span>
-                      <span className="text-[9px] font-mono text-muted-foreground/40">
-                        •
-                      </span>
-                      <span className="text-[9px] font-mono text-muted-foreground/40">
-                        {otherPost.readingTime}
-                      </span>
-                    </div>
-                  </Link>
-                ))}
+              <div>
+                <p className="font-semibold text-neutral-950">Jay Patrick Cano</p>
+                <p className="text-[10px] text-neutral-400">Software Engineer</p>
               </div>
             </div>
-          </aside>
+
+            <div className="flex items-center gap-4 text-[11px]">
+              <span className="flex items-center gap-1.5">
+                <Calendar className="size-3 text-neutral-400" />
+                {post.dateDisplay}
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Clock className="size-3 text-neutral-400" />
+                {post.readingTime}
+              </span>
+              <button
+                type="button"
+                onClick={handleCopyLink}
+                className="inline-flex items-center gap-1 text-neutral-600 hover:text-neutral-950 transition-colors cursor-pointer"
+                title="Copy link to clipboard"
+              >
+                {copied ? <Check className="size-3 text-emerald-600" /> : <Copy className="size-3" />}
+                <span>{copied ? "Copied" : "Share"}</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* Cover Image */}
+        <div className="relative aspect-[16/9] w-full overflow-hidden rounded-sm border border-neutral-200 bg-neutral-100 my-8">
+          {!imageError ? (
+            <Image
+              src={coverSrc}
+              alt={post.title}
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 800px"
+              className="object-cover"
+              onError={() => setImageError(true)}
+              unoptimized
+            />
+          ) : (
+            <BlogThumbnail slug={post.slug} className="size-full object-cover" />
+          )}
         </div>
 
-        {/* Footer Area with Back Link */}
-        <footer className="mt-20 pt-8 border-t border-border/10 flex items-center justify-between w-full">
+        {/* Article Body Content */}
+        <div
+          ref={articleRef}
+          className="article-body"
+          dangerouslySetInnerHTML={{ __html: parseContent(post.content) }}
+        />
+
+        {/* Article Footer Author Bio */}
+        <div className="mt-14 pt-8 border-t border-neutral-200 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+          <div className="space-y-1">
+            <h4 className="text-sm font-bold text-neutral-950">Written by Jay Patrick Cano (0xp47)</h4>
+            <p className="text-xs text-neutral-600 max-w-md leading-relaxed">
+              Full-stack engineer, open-source maintainer, and founder building software in Maasin City, Philippines.
+            </p>
+          </div>
           <Link
-            href="/blog"
-            className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground/50 hover:text-foreground transition-colors duration-300 group"
+            href="/#contact"
+            className="inline-flex items-center gap-2 rounded-sm bg-neutral-950 px-4 py-2 font-mono text-xs font-semibold text-white hover:bg-neutral-800 transition-colors"
           >
-            <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform duration-300" />
-            Back to blog
+            Connect
           </Link>
-          <span className="text-[10px] font-mono text-muted-foreground/30">
-            © {new Date().getFullYear()} Jay Patrick Cano
-          </span>
-        </footer>
-      </motion.div>
-    </main>
+        </div>
+
+        {/* Related Articles Section */}
+        {relatedPosts.length > 0 && (
+          <section className="mt-16 pt-12 border-t border-neutral-200">
+            <div className="flex items-center justify-between mb-8">
+              <h3 className="text-xl font-bold tracking-tight text-neutral-950">
+                Related Articles
+              </h3>
+              <Link
+                href="/blog"
+                className="font-mono text-xs font-medium text-neutral-500 hover:text-neutral-950 transition-colors"
+              >
+                View all articles →
+              </Link>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {relatedPosts.map((relatedPost) => (
+                <div key={relatedPost.slug} className="h-full">
+                  <EditorialCard post={relatedPost} />
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+      </main>
+
+      {/* Minimalist Editorial Footer */}
+      <footer className="border-t border-neutral-200 bg-white py-12 mt-20">
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="flex items-center gap-3">
+            <Link
+              href="/blog"
+              className="inline-flex items-center gap-1.5 font-mono text-xs font-semibold text-neutral-600 hover:text-neutral-950 transition-colors"
+            >
+              <ArrowLeft className="size-3" />
+              <span>Back to Blog</span>
+            </Link>
+            <span className="text-neutral-300">|</span>
+            <Link
+              href="/"
+              className="font-mono text-xs text-neutral-500 hover:text-neutral-950 transition-colors"
+            >
+              Portfolio
+            </Link>
+          </div>
+
+          <div className="font-mono text-[11px] text-neutral-400">
+            <span>© {new Date().getFullYear()} Jay Patrick Cano. All rights reserved.</span>
+          </div>
+        </div>
+      </footer>
+    </div>
   );
 }
-
-

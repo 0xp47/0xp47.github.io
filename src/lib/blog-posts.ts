@@ -2,6 +2,8 @@ export interface BlogPost {
   slug: string;
   title: string;
   shortTitle: string;
+  category: string;
+  coverImage: string;
   icon: string;
   date: string;
   dateDisplay: string;
@@ -14,6 +16,8 @@ export interface BlogPost {
 export const blogPosts: BlogPost[] = [
   {
     slug: "why-i-build-open-source",
+    category: "Open Source",
+    coverImage: "/images/blog/why-i-build-open-source.png",
     title: "Why I Build Open Source",
     shortTitle: "Open Source",
     icon: "git-branch",
@@ -26,6 +30,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "my-stack-in-2026",
+    category: "Engineering",
+    coverImage: "/images/blog/my-stack-in-2026.png",
     title: "My Tech Stack in 2026",
     shortTitle: "Tech Stack",
     icon: "layers",
@@ -38,6 +44,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "lessons-from-freelancing",
+    category: "Career",
+    coverImage: "/images/blog/lessons-from-freelancing.png",
     title: "5 Lessons from 3 Years of Freelancing",
     shortTitle: "Freelancing",
     icon: "coffee",
@@ -50,6 +58,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "building-scalable-apis",
+    category: "Architecture",
+    coverImage: "/images/blog/building-scalable-apis.png",
     title: "Building Scalable APIs: A Practical Guide",
     shortTitle: "Scalable APIs",
     icon: "database",
@@ -62,6 +72,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "learning-how-to-learn",
+    category: "Productivity",
+    coverImage: "/images/blog/learning-how-to-learn.png",
     title: "Learning How to Learn: The Ultimate Developer Skill",
     shortTitle: "Learning",
     icon: "book-open",
@@ -74,6 +86,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "ai-assisted-coding",
+    category: "AI & Tools",
+    coverImage: "/images/blog/ai-assisted-coding.png",
     title: "AI-Assisted Coding: How to Pair Program with AI in 2026",
     shortTitle: "AI Pair Coding",
     icon: "terminal",
@@ -86,6 +100,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "github-education-student-pack",
+    category: "Education",
+    coverImage: "/images/blog/github-education-student-pack.png",
     title: "Leveraging GitHub Education: How It Launched My Student Developer Journey",
     shortTitle: "GitHub Student",
     icon: "graduation-cap",
@@ -98,6 +114,8 @@ export const blogPosts: BlogPost[] = [
   },
   {
     slug: "mobile-only-developer-journey",
+    category: "Journey",
+    coverImage: "/images/blog/mobile-only-developer-journey.png",
     title: "No Laptop? No Problem: How I Learned to Code on My Phone",
     shortTitle: "Mobile Coding",
     icon: "smartphone",
