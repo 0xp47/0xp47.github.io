@@ -320,7 +320,7 @@ export function ProjectsSection() {
           <>
             {/* Backdrop */}
             <motion.div
-              className="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm cursor-pointer"
+              className="fixed inset-0 z-[2147483648] bg-black/60 backdrop-blur-sm cursor-pointer"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
@@ -334,7 +334,7 @@ export function ProjectsSection() {
               role="dialog"
               aria-modal="true"
               aria-label={selectedProject?.name ? `${selectedProject.name} details` : 'Project details'}
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a] px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
+              className="fixed inset-y-0 right-0 z-[2147483648] flex h-full w-full max-w-lg flex-col border-l border-neutral-200 bg-white dark:border-neutral-800 dark:bg-[#0a0a0a] px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}

@@ -1439,9 +1439,9 @@
   // ------------------------------------------------------------------ styles
 
   const STYLE = `
-:host{all:initial}
+:host{all:initial;pointer-events:none !important}
 *{box-sizing:border-box}
-.bg{position:absolute;inset:0;opacity:0;transition:opacity .5s ease}
+.bg{position:absolute;inset:0;opacity:0;transition:opacity .5s ease;pointer-events:none}
 .bg.on{opacity:1}
 .layer,.port{position:absolute;overflow:hidden;pointer-events:none}
 .layer{inset:0}
@@ -1690,7 +1690,7 @@
       for (const old of document.querySelectorAll("swarm-rebuild")) old.remove();
       const host = document.createElement("swarm-rebuild");
       host.style.cssText =
-        "all:initial !important;position:fixed !important;inset:0 !important;z-index:2147483640 !important;display:block !important;pointer-events:auto !important;contain:strict !important;opacity:1;transition:opacity .6s ease;";
+        "all:initial !important;position:fixed !important;inset:0 !important;z-index:2147483640 !important;display:block !important;pointer-events:none !important;contain:strict !important;opacity:1;transition:opacity .6s ease;";
       env.host = host;
       this.host = host;
       const root = host.attachShadow({ mode: "open" });
@@ -3229,7 +3229,14 @@
       on(window, "resize", () => this.view.measure());
       on(window, "orientationchange", () => setTimeout(() => this.view.measure(), 100));
       on(window, "wheel", () => {
+        this.pauseTour();
         if (this.engine.ready) this.engine.start();
+      }, { passive: true });
+      on(window, "touchstart", () => {
+        this.pauseTour();
+      }, { passive: true });
+      on(window, "touchmove", () => {
+        this.pauseTour();
       }, { passive: true });
       on(window, "pointermove", (e) => {
         this.engine.mouse = { x: e.clientX, y: e.clientY };
@@ -3241,6 +3248,8 @@
         if (e.key === "Escape") {
           e.stopPropagation();
           stop(false);
+        } else if (["ArrowDown", "ArrowUp", "PageDown", "PageUp", "Space", "Home", "End"].includes(e.key)) {
+          this.pauseTour();
         }
       }, true);
       if (!this.env.isRoot) {
@@ -3286,9 +3295,14 @@
           }
         });
       }
-      on(this.view.host, "pointerdown", () => {
+      on(document, "pointerdown", (e) => {
+        const path = e.composedPath ? e.composedPath() : [];
+        const isHud = this.view && this.view.hud && path.includes(this.view.hud);
+        if (!isHud) {
+          this.pauseTour();
+        }
         if (this.musicPlaying) this.sendYt("playVideo");
-      }, { once: true, passive: true });
+      }, { passive: true });
     }
 
     frame(now) {
@@ -3316,6 +3330,16 @@
           f.contentWindow.postMessage(JSON.stringify({ event: "command", func, args }), "*");
         }
       } catch (_) {}
+    }
+
+    pauseTour() {
+      if (!this.tour) return;
+      this.tour = false;
+      const b = this.view && this.view.hud ? this.view.hud.querySelector('[data-a="tour"]') : null;
+      if (b) {
+        b.classList.remove("on");
+        b.textContent = "Tour";
+      }
     }
 
     tourStep(dt) {
