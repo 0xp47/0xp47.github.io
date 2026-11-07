@@ -25,10 +25,15 @@
     "Joan", "Donald", "Sophie", "Niklaus", "Anita", "Brian", "Mary", "Rob",
     "Ida", "Yukihiro", "Shafi", "Leslie", "Jean", "Vint", "Lynn", "Bram",
   ];
-  const COLORS = [
+  const LIGHT_COLORS = [
     "#FFFFFF", "#F8FAFC", "#F1F5F9", "#E2E8F0", "#E4E4E7", "#D4D4D8",
     "#FFFFFF", "#F8FAFC", "#F1F5F9", "#E2E8F0", "#E4E4E7", "#D4D4D8",
   ];
+  const DARK_COLORS = [
+    "#18181B", "#27272A", "#3F3F46", "#09090B", "#1E293B", "#334155",
+    "#18181B", "#27272A", "#3F3F46", "#09090B", "#1E293B", "#334155",
+  ];
+  const COLORS = LIGHT_COLORS;
   const BLUE = "#A1A1AA";
   const RED = "#71717A";
   const RULER = 20;
@@ -89,46 +94,47 @@
     ns: [12, 12],
   };
 
-  function cursorSVG(shape, c) {
-    const st = 'stroke="#18181b" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"';
+  function cursorSVG(shape, c, isDark = true) {
+    const st = isDark
+      ? 'stroke="#18181b" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"'
+      : 'stroke="#ffffff" stroke-width="1.25" stroke-linejoin="round" stroke-linecap="round"';
     switch (shape) {
       case "arrow":
         return `<path d="${ARROW_D}" fill="${c}" ${st}/>`;
       case "dup":
         return (
-          `<path d="${ARROW_D}" transform="translate(3.5 3)" fill="#CBD5E1" stroke="#18181b" stroke-width="1.2" stroke-linejoin="round"/>` +
+          `<path d="${ARROW_D}" transform="translate(3.5 3)" fill="${isDark ? "#CBD5E1" : "#52525B"}" stroke="${isDark ? "#18181b" : "#ffffff"}" stroke-width="1.2" stroke-linejoin="round"/>` +
           `<path d="${ARROW_D}" fill="${c}" ${st}/>`
         );
       case "pen":
       case "pen-add":
       case "pen-close": {
+        const lineSt = isDark ? "#18181b" : "#ffffff";
         let s =
           `<path d="M17.4 10.6 L20.6 13.8 L13.8 20.6 L10.6 17.4 Z" fill="${c}" ${st}/>` +
           `<path d="M3 3 L13.1 6.3 L17.4 10.6 L10.6 17.4 L6.3 13.1 Z" fill="${c}" ${st}/>` +
-          `<path d="M3.6 3.6 L8.9 8.9" stroke="#18181b" stroke-width="1.2" stroke-linecap="round"/>` +
-          `<circle cx="10.2" cy="10.2" r="1.75" fill="none" stroke="#18181b" stroke-width="1.2"/>`;
+          `<path d="M3.6 3.6 L8.9 8.9" stroke="${lineSt}" stroke-width="1.2" stroke-linecap="round"/>` +
+          `<circle cx="10.2" cy="10.2" r="1.75" fill="none" stroke="${lineSt}" stroke-width="1.2"/>`;
         if (shape === "pen-add")
           s +=
-            `<g stroke-linecap="round"><path d="M23 19.5 V26.5 M19.5 23 H26.5" stroke="#fff" stroke-width="3"/>` +
-            `<path d="M23 19.5 V26.5 M19.5 23 H26.5" stroke="#18181b" stroke-width="1.3"/></g>`;
+            `<g stroke-linecap="round"><path d="M23 19.5 V26.5 M19.5 23 H26.5" stroke="${isDark ? "#fff" : "#18181b"}" stroke-width="3"/>` +
+            `<path d="M23 19.5 V26.5 M19.5 23 H26.5" stroke="${isDark ? "#18181b" : "#fff"}" stroke-width="1.3"/></g>`;
         if (shape === "pen-close")
           s +=
-            `<circle cx="23" cy="23" r="2.8" fill="none" stroke="#fff" stroke-width="3"/>` +
-            `<circle cx="23" cy="23" r="2.8" fill="none" stroke="#18181b" stroke-width="1.3"/>`;
+            `<circle cx="23" cy="23" r="2.8" fill="none" stroke="${isDark ? "#fff" : "#18181b"}" stroke-width="3"/>` +
+            `<circle cx="23" cy="23" r="2.8" fill="none" stroke="${isDark ? "#18181b" : "#fff"}" stroke-width="1.3"/>`;
         return s;
       }
       case "cross":
-        return (
-          `<g stroke-linecap="round"><path d="M12 3.5 V20.5 M3.5 12 H20.5" stroke="#fff" stroke-width="3.2"/>` +
-          `<path d="M12 3.5 V20.5 M3.5 12 H20.5" stroke="#18181b" stroke-width="1.4"/></g>`
-        );
+        return isDark
+          ? `<g stroke-linecap="round"><path d="M12 3.5 V20.5 M3.5 12 H20.5" stroke="#fff" stroke-width="3.2"/><path d="M12 3.5 V20.5 M3.5 12 H20.5" stroke="#18181b" stroke-width="1.4"/></g>`
+          : `<g stroke-linecap="round"><path d="M12 3.5 V20.5 M3.5 12 H20.5" stroke="#18181b" stroke-width="3.2"/><path d="M12 3.5 V20.5 M3.5 12 H20.5" stroke="#fff" stroke-width="1.4"/></g>`;
       case "ibeam": {
         const d =
           "M8.5 4.5 H10.5 Q12 4.5 12 6 Q12 4.5 13.5 4.5 H15.5 M12 6 V18 M8.5 19.5 H10.5 Q12 19.5 12 18 Q12 19.5 13.5 19.5 H15.5";
-        return (
-          `<g fill="none" stroke-linecap="round"><path d="${d}" stroke="#fff" stroke-width="3.2"/>` +
-          `<path d="${d}" stroke="#18181b" stroke-width="1.4"/></g>`
-        );
+        return isDark
+          ? `<g fill="none" stroke-linecap="round"><path d="${d}" stroke="#fff" stroke-width="3.2"/><path d="${d}" stroke="#18181b" stroke-width="1.4"/></g>`
+          : `<g fill="none" stroke-linecap="round"><path d="${d}" stroke="#18181b" stroke-width="3.2"/><path d="${d}" stroke="#fff" stroke-width="1.4"/></g>`;
       }
       case "ew":
       case "ns":
@@ -1479,6 +1485,31 @@
 .ruler-corner{position:absolute;top:0;left:0;width:20px;height:20px;background:#2c2c2c}
 .rtext{font:500 9px Inter,system-ui,-apple-system,sans-serif;fill:#8c8c8c}
 .rsel{fill:#ffffff}
+
+/* Light Theme Overrides */
+:host(.light) .ruler{background:#f4f4f5;border-color:#e4e4e7}
+:host(.light) .ruler-top{border-bottom:1px solid #e4e4e7}
+:host(.light) .ruler-left{border-right:1px solid #e4e4e7}
+:host(.light) .ruler-corner{background:#f4f4f5}
+:host(.light) .rtext{fill:#71717a}
+:host(.light) .rsel{fill:#18181b}
+:host(.light) .hud{background:rgba(255,255,255,0.92);border-color:rgba(0,0,0,0.12);box-shadow:0 16px 48px rgba(0,0,0,0.18),0 0 0 1px rgba(0,0,0,0.05);color:#18181b}
+:host(.light) .hud .dots i{border-color:#ffffff;color:#ffffff!important;box-shadow:0 1px 4px rgba(0,0,0,0.25)}
+:host(.light) .hud .txt b{color:#09090b}
+:host(.light) .hud .txt, :host(.light) .hud .status{color:#52525b}
+:host(.light) .hud .sep{background:rgba(0,0,0,0.1)}
+:host(.light) .hud .bar{background:rgba(0,0,0,0.08)}
+:host(.light) .hud .bar i{background:#18181b;box-shadow:0 0 8px rgba(0,0,0,0.2)}
+:host(.light) .hud button{background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.08);color:#52525b}
+:host(.light) .hud button:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.14);color:#09090b}
+:host(.light) .hud button.pri{background:#18181b;color:#ffffff;border-color:#18181b;box-shadow:0 2px 10px rgba(0,0,0,0.15)}
+:host(.light) .hud button.pri:hover{background:#27272a;border-color:#27272a}
+:host(.light) .hud button.on{background:rgba(0,0,0,0.1);border-color:rgba(0,0,0,0.2);color:#09090b}
+:host(.light) .hud .x{color:#71717a}
+:host(.light) .hud .x:hover{color:#09090b;background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.12)}
+:host(.light) .hud .mbtn{background:rgba(0,0,0,0.04);border-color:rgba(0,0,0,0.08);color:#52525b}
+:host(.light) .hud .mbtn:hover{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.14);color:#09090b}
+:host(.light) .hud .mbtn.playing{background:rgba(0,0,0,0.08);border-color:rgba(0,0,0,0.18);color:#09090b}
 .intro{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%) scale(.92);opacity:0;transition:opacity .35s ease,transform .45s cubic-bezier(.2,.8,.2,1);pointer-events:none}
 .intro.on{opacity:1;transform:translate(-50%,-50%)}
 .intro.gone{opacity:0;transform:translate(-50%,-50%) scale(.9)}
@@ -1693,6 +1724,9 @@
         "all:initial !important;position:fixed !important;inset:0 !important;z-index:2147483640 !important;display:block !important;pointer-events:none !important;contain:strict !important;opacity:1;transition:opacity .6s ease;";
       env.host = host;
       this.host = host;
+      const isDark = document.documentElement.classList.contains("dark");
+      this.isDark = isDark;
+      if (!isDark) host.classList.add("light");
       const root = host.attachShadow({ mode: "open" });
       this.root = root;
       root.innerHTML = `<style>${STYLE}</style>
@@ -2016,7 +2050,7 @@
         el.style.transform = `translate(${f1(X)}px,${f1(Y)}px)`;
         const svg = el.firstChild;
         if (el._shape !== c.shape) {
-          svg.innerHTML = cursorSVG(c.shape, c.color);
+          svg.innerHTML = cursorSVG(c.shape, c.color, this.view.isDark !== false);
           el._shape = c.shape;
           const [hx, hy] = HOT[c.shape];
           el._hx = hx;
@@ -2243,7 +2277,7 @@
       return {
         id, x, y, home,
         name: NAMES[id % NAMES.length],
-        color: COLORS[id % COLORS.length],
+        color: (this.view.isDark !== false ? LIGHT_COLORS : DARK_COLORS)[id % COLORS.length],
         shape: "arrow", press: 0, task: null, gen: null, ov: null,
         idleFor: 0, leaving: false, worked: false, sticky: false,
         vx: 0, vy: 0, angle: 0,
@@ -3109,18 +3143,20 @@
   // -------------------------------------------------------------------- app
 
   class App {
-    constructor() {
+    constructor(opts = {}) {
       this.dead = false;
       this.t0 = performance.now();
-      this.tour = true;
+      this.tour = opts.tour !== undefined ? opts.tour : true;
       this.tourV = 0;
       this.tourAcc = 0;
       this.speeds = [1, 2, 3];
       this.speedIx = 0;
       this.complete = false;
       this.timing = {};
-      this.musicPlaying = true;
-      this.musicMuted = false;
+      this.musicPlaying = opts.musicPlaying !== undefined ? opts.musicPlaying : true;
+      this.musicMuted = opts.musicMuted !== undefined ? opts.musicMuted : false;
+      this.preserveScroll = !!opts.preserveScroll;
+      this.isThemeRestart = !!opts.isThemeRestart;
     }
 
     async loadShot() {
@@ -3142,10 +3178,12 @@
 
     async run() {
       this.env = detectEnv();
-      this.env.scrollTo(0, 0);
-      try {
-        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
-      } catch (_) {}
+      if (!this.preserveScroll) {
+        this.env.scrollTo(0, 0);
+        try {
+          if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        } catch (_) {}
+      }
       const shotP = this.loadShot();
       this.view = new View(this.env);
       this.engine = new Engine(this.view);
@@ -3156,14 +3194,20 @@
       this.raf = requestAnimationFrame((t) => this.frame(t));
       await nextFrame();
       this.view.bg.classList.add("on");
-      this.view.intro.classList.add("on");
+      if (!this.isThemeRestart) {
+        this.view.intro.classList.add("on");
+      }
       this.view.hud.classList.add("on");
       const mark = (k) => (this.timing[k] = Math.round(performance.now() - this.t0));
-      await sleep(520);
+      if (!this.isThemeRestart) {
+        await sleep(520);
+      }
       await unhidePage();
       mark("blank");
       if (this.dead) return;
-      await this.scan();
+      if (!this.preserveScroll) {
+        await this.scan();
+      }
       mark("scan");
       if (this.dead) return;
       try {
@@ -3189,8 +3233,10 @@
       this.engine.setModel(model);
       this.model = model;
       mark("mount");
-      const wait = 1500 - (performance.now() - this.t0);
-      if (wait > 0) await sleep(wait);
+      if (!this.isThemeRestart) {
+        const wait = 1500 - (performance.now() - this.t0);
+        if (wait > 0) await sleep(wait);
+      }
       if (this.dead) return;
       this.engine.start();
     }
@@ -3228,6 +3274,24 @@
       }, { passive: true });
       on(window, "resize", () => this.view.measure());
       on(window, "orientationchange", () => setTimeout(() => this.view.measure(), 100));
+      // Automatically adapt to Dark/Light mode toggle while swarm is running
+      let currentDark = document.documentElement.classList.contains("dark");
+      const themeObserver = new MutationObserver(() => {
+        const isDark = document.documentElement.classList.contains("dark");
+        if (isDark !== currentDark) {
+          currentDark = isDark;
+          restart({
+            preserveScroll: true,
+            musicPlaying: this.musicPlaying,
+            musicMuted: this.musicMuted,
+            tour: this.tour,
+            isThemeRestart: true,
+          });
+        }
+      });
+      themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
+      (this.unbinds || (this.unbinds = [])).push(() => themeObserver.disconnect());
+
       on(window, "wheel", () => {
         this.pauseTour();
         if (this.engine.ready) this.engine.start();
@@ -3455,13 +3519,15 @@
   let app = null;
   let lastShot = null;
 
-  function start() {
+  function start(opts = {}) {
     if (app) return;
-    try {
-      if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
-    } catch (_) {}
-    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-    app = new App();
+    if (!opts.preserveScroll) {
+      try {
+        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+      } catch (_) {}
+      window.scrollTo({ top: 0, left: 0, behavior: "instant" });
+    }
+    app = new App(opts);
     app.run().catch((err) => console.error("[swarm-rebuild]", err));
   }
 
@@ -3472,22 +3538,26 @@
     a.destroy(reveal);
   }
 
-  function restart() {
+  function restart(opts = {}) {
     if (app) {
       const a = app;
-      try { a.sendYt("stopVideo"); } catch (_) {}
+      const keepMusic = opts.musicPlaying ?? a.musicPlaying;
+      if (!keepMusic) {
+        try { a.sendYt("stopVideo"); } catch (_) {}
+      }
       app = null;
       a.dead = true;
       cancelAnimationFrame(a.raf);
       for (const u of a.unbinds || []) u();
       a.view.host.remove();
-      // rebuild from the first page (top)
-      try {
-        if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
-      } catch (_) {}
-      a.env.scrollTo(0, 0);
+      if (!opts.preserveScroll) {
+        try {
+          if (window.__lenis) window.__lenis.scrollTo(0, { immediate: true });
+        } catch (_) {}
+        a.env.scrollTo(0, 0);
+      }
     }
-    start();
+    start(opts);
   }
 
   window[KEY] = {
