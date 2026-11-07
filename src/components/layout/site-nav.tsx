@@ -39,7 +39,7 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
       className="fixed z-[2147483647] bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-6 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center justify-center pointer-events-none"
     >
       {/* Desktop Vertical Username Handle: 0xp47 */}
-      <div className="hidden md:flex flex-col items-center gap-2 mb-2.5 select-none pointer-events-auto group">
+      <div className="hidden md:flex flex-col items-center gap-2.5 mb-3 select-none pointer-events-auto group">
         <a
           href="#"
           onClick={(e) => {
@@ -48,13 +48,13 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
           }}
           aria-label="0xp47 (Back to top)"
           title="0xp47 — Back to top"
-          className="font-mono text-[10.5px] font-semibold text-neutral-400 group-hover:text-foreground dark:text-neutral-500 dark:group-hover:text-white transition-colors duration-200 tracking-[0.2em] [writing-mode:vertical-rl] rotate-180 cursor-pointer"
+          className="font-mono text-sm font-bold text-neutral-700 hover:text-black dark:text-neutral-200 dark:hover:text-white transition-colors duration-200 tracking-[0.25em] [writing-mode:vertical-rl] rotate-180 cursor-pointer"
         >
           0xp47
         </a>
         <span
           aria-hidden="true"
-          className="w-px h-5 bg-neutral-300 group-hover:bg-foreground dark:bg-neutral-800 dark:group-hover:bg-white transition-colors duration-200"
+          className="w-px h-6 bg-neutral-300 group-hover:bg-foreground dark:bg-neutral-800 dark:group-hover:bg-white transition-colors duration-200"
         />
       </div>
 
