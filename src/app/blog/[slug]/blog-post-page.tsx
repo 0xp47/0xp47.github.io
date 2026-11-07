@@ -160,7 +160,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-800 bg-[#0a0a0a] px-2.5 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-600 hover:text-white transition-colors duration-200 cursor-pointer"
+              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-800 bg-[#040404] px-2.5 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer"
               title="Copy article link"
             >
               {copied ? (
@@ -178,7 +178,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
             <Link
               href="/blog/"
-              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-800 bg-[#0a0a0a] px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-600 hover:bg-[#141416] hover:text-white transition-colors duration-200"
+              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-800 bg-[#040404] px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:bg-[#0a0a0a] hover:text-white transition-colors duration-200"
             >
               <ArrowLeft className="size-3.5" />
               <span className="hidden sm:inline">All Articles</span>
@@ -253,21 +253,6 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 </span>
               </div>
             </div>
-
-            {/* Hero Cover Image */}
-            {post.coverImage && (
-              <div className="relative aspect-[16/9] w-full overflow-hidden rounded-xl border border-neutral-800/90 bg-[#0e0e10] mt-8 shadow-[0_16px_48px_rgba(0,0,0,0.6)]">
-                <Image
-                  src={post.coverImage}
-                  alt={post.title}
-                  fill
-                  priority
-                  sizes="(max-width: 820px) 100vw, 820px"
-                  className="object-cover object-center"
-                />
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
-              </div>
-            )}
           </header>
 
           {/* Article Body Content */}
@@ -325,17 +310,27 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               {prevPost ? (
                 <Link
                   href={`/blog/${prevPost.slug}`}
-                  className="group flex flex-col justify-between p-4 sm:p-5 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] hover:border-neutral-600 transition-colors"
+                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700"
+                  style={{
+                    clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
+                  }}
                 >
-                  <div className="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-neutral-500 mb-2">
-                    <ChevronLeft className="size-3 transition-transform group-hover:-translate-x-0.5" />
-                    <span>Previous Article</span>
-                  </div>
-                  <h4 className="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors line-clamp-2">
-                    {prevPost.title}
-                  </h4>
-                  <div className="mt-3 font-mono text-[9px] text-neutral-500">
-                    {prevPost.dateDisplay} · {prevPost.readingTime}
+                  <div
+                    className="flex flex-col justify-between p-4 sm:p-5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
+                    style={{
+                      clipPath: "polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))",
+                    }}
+                  >
+                    <div className="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-neutral-500 mb-2">
+                      <ChevronLeft className="size-3 transition-transform group-hover:-translate-x-0.5" />
+                      <span>Previous Article</span>
+                    </div>
+                    <h4 className="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors line-clamp-2">
+                      {prevPost.title}
+                    </h4>
+                    <div className="mt-3 font-mono text-[9px] text-neutral-500">
+                      {prevPost.dateDisplay} · {prevPost.readingTime}
+                    </div>
                   </div>
                 </Link>
               ) : (
@@ -346,17 +341,27 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group flex flex-col justify-between p-4 sm:p-5 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] hover:border-neutral-600 transition-colors text-right sm:text-right"
+                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 text-right sm:text-right"
+                  style={{
+                    clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
+                  }}
                 >
-                  <div className="flex items-center justify-end gap-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-neutral-500 mb-2">
-                    <span>Next Article</span>
-                    <ChevronRight className="size-3 transition-transform group-hover:translate-x-0.5" />
-                  </div>
-                  <h4 className="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors line-clamp-2">
-                    {nextPost.title}
-                  </h4>
-                  <div className="mt-3 font-mono text-[9px] text-neutral-500">
-                    {nextPost.dateDisplay} · {nextPost.readingTime}
+                  <div
+                    className="flex flex-col justify-between p-4 sm:p-5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] h-full"
+                    style={{
+                      clipPath: "polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))",
+                    }}
+                  >
+                    <div className="flex items-center justify-end gap-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-neutral-500 mb-2">
+                      <span>Next Article</span>
+                      <ChevronRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+                    </div>
+                    <h4 className="text-sm font-semibold text-white group-hover:text-neutral-200 transition-colors line-clamp-2">
+                      {nextPost.title}
+                    </h4>
+                    <div className="mt-3 font-mono text-[9px] text-neutral-500">
+                      {nextPost.dateDisplay} · {nextPost.readingTime}
+                    </div>
                   </div>
                 </Link>
               ) : (
