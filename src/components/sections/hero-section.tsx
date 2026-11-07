@@ -103,12 +103,12 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 {heroDescription}
               </motion.p>
 
-              {/* Hero Action Buttons (styled same to cards) */}
+              {/* Scroll down button */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-8 flex flex-wrap items-center gap-3"
+                className="mt-8 flex items-center"
               >
                 {/* Scroll Down / Explore Button */}
                 <button
@@ -130,50 +130,6 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                     <ArrowDown className="size-4.5 text-neutral-300 group-hover:text-white transition-transform duration-200 group-hover:translate-y-0.5" />
                   </div>
                 </button>
-
-                {/* View Projects CTA */}
-                <a
-                  href="#projects"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onScrollToSection("#projects");
-                  }}
-                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 cursor-pointer"
-                  style={{
-                    clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
-                  }}
-                >
-                  <div
-                    className="flex h-11 items-center gap-2 px-4 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] font-mono text-[10.5px] font-bold tracking-widest text-neutral-300 group-hover:text-white"
-                    style={{
-                      clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
-                    }}
-                  >
-                    <span>VIEW PROJECTS</span>
-                  </div>
-                </a>
-
-                {/* Contact CTA */}
-                <a
-                  href="#contact"
-                  onClick={(e) => {
-                    e.preventDefault();
-                    onScrollToSection("#contact");
-                  }}
-                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 cursor-pointer"
-                  style={{
-                    clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
-                  }}
-                >
-                  <div
-                    className="flex h-11 items-center gap-2 px-4 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] font-mono text-[10.5px] font-bold tracking-widest text-neutral-400 group-hover:text-white"
-                    style={{
-                      clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
-                    }}
-                  >
-                    <span>CONTACT</span>
-                  </div>
-                </a>
               </motion.div>
             </div>
 
@@ -244,10 +200,24 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 </p>
                 <a
                   href="#projects"
-                  className="group inline-flex items-center gap-2 mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:text-white transition duration-200"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onScrollToSection("#projects");
+                  }}
+                  className="group relative inline-flex items-center select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 mt-3"
+                  style={{
+                    clipPath: "polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px))",
+                  }}
                 >
-                  <span>BROWSE PORTFOLIO</span>
-                  <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-3" />
+                  <span
+                    className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#040404] transition-colors duration-200 group-hover:bg-[#080808] font-mono text-[9.5px] font-bold tracking-widest text-neutral-300 group-hover:text-white"
+                    style={{
+                      clipPath: "polygon(0 0, calc(100% - 7.5px) 0, 100% 7.5px, 100% 100%, 7.5px 100%, 0 calc(100% - 7.5px))",
+                    }}
+                  >
+                    <span>VIEW PROJECTS</span>
+                    <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-2.5 text-neutral-400 group-hover:text-white" />
+                  </span>
                 </a>
               </motion.div>
 
