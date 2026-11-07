@@ -1,17 +1,15 @@
 "use client";
 
-interface SwarmRebuildInstance {
-  toggle: () => void;
-  start: () => void;
-  stop: (reveal?: boolean) => void;
-  app: unknown;
-}
+import type { AppOptions, SwarmRebuildInstance } from "./swarm/types";
 
 declare global {
   interface Window {
     __swarmRebuild?: SwarmRebuildInstance;
     __lenis?: {
-      scrollTo: (target: number | HTMLElement | string, options?: { immediate?: boolean; offset?: number; duration?: number }) => void;
+      scrollTo: (
+        target: number | HTMLElement | string,
+        options?: { immediate?: boolean; offset?: number; duration?: number }
+      ) => void;
     };
   }
 }
@@ -19,10 +17,9 @@ declare global {
 /**
  * Triggers the Swarm Rebuild animation on the current page.
  * Resets scroll position to the first page (top) so the rebuild starts from the beginning.
- * If already loaded, toggles it. If not yet loaded, dynamically injects
- * the script and starts the rebuild immediately.
+ * Dynamically imports the TypeScript swarm module and executes it.
  */
-export function triggerSwarmRebuild() {
+export async function triggerSwarmRebuild(opts?: AppOptions): Promise<void> {
   if (typeof window === "undefined") return;
 
   // Always reset scroll to the first page (top of page: 0, 0)
@@ -37,30 +34,23 @@ export function triggerSwarmRebuild() {
 
   if (window.location.hash) {
     try {
-      window.history.replaceState(null, "", window.location.pathname + window.location.search);
+      window.history.replaceState(
+        null,
+        "",
+        window.location.pathname + window.location.search
+      );
     } catch {
       // ignore
     }
   }
 
-  const instance = window.__swarmRebuild;
-  if (instance) {
-    instance.toggle();
-    return;
-  }
-
-  const existing = document.querySelector<HTMLScriptElement>('script[data-swarm-script="true"]');
-  if (existing) {
-    const existingInstance = window.__swarmRebuild;
-    if (existingInstance) {
-      existingInstance.start();
-    }
-    return;
-  }
-
-  const script = document.createElement("script");
-  script.src = "/scripts/swarm-rebuild.js";
-  script.setAttribute("data-swarm-script", "true");
-  script.async = true;
-  document.body.appendChild(script);
+  const { toggleSwarmRebuild } = await import("./swarm");
+  toggleSwarmRebuild(opts);
 }
+
+export {
+  startSwarmRebuild,
+  stopSwarmRebuild,
+  restartSwarmRebuild,
+  toggleSwarmRebuild,
+} from "./swarm";
