@@ -259,7 +259,7 @@ export function ProjectsSection() {
   return (
     <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
       {/* Vercel Project Filter Tabs — individual chamfered buttons */}
-      <div className="mb-8 w-fit max-w-full overflow-x-auto scrollbar-none">
+      <div className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none">
         <nav className="flex items-center gap-2" aria-label="Project filters">
           {projectFilters.map((filter) => {
             const isActive = activeFilter === filter;
@@ -309,7 +309,7 @@ export function ProjectsSection() {
       </motion.div>
 
       {filteredProjects.length > 8 && (
-        <div className="mt-14 flex justify-center">
+        <div className="mt-8 sm:mt-10 flex justify-center">
           <Link
             href="/projects"
             className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-800 bg-[#0a0a0a] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"

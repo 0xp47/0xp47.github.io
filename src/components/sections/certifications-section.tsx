@@ -79,7 +79,7 @@ export function CertificationsSection() {
     >
       <div className="flex flex-col">
         {/* Header Summary & Registry Links */}
-        <div className="mb-8 flex flex-col gap-5 md:flex-row md:items-end md:justify-between">
+        <div className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <p className="max-w-xl text-sm leading-relaxed text-neutral-400">
             <span className="font-semibold text-white">
               {certifications.length} verified credentials
@@ -120,7 +120,7 @@ export function CertificationsSection() {
         </div>
 
         {/* Filter Tabs — individual chamfered buttons */}
-        <div className="mb-8 w-fit max-w-full overflow-x-auto scrollbar-none">
+        <div className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none">
           <nav className="flex items-center gap-2" aria-label="Certification filters">
             {CERT_FILTERS.map((filter) => {
               const count = getFilterCount(filter);
@@ -178,7 +178,7 @@ export function CertificationsSection() {
 
         {/* See All Button — matching the Projects section button */}
         {filteredCertifications.length > INITIAL_DISPLAY_COUNT && (
-          <div className="mt-14 flex justify-center">
+          <div className="mt-8 sm:mt-10 flex justify-center">
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}

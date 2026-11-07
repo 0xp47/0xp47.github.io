@@ -8,7 +8,7 @@ import { cardVariants } from "@/lib/animation-variants";
 export function ExperienceSection() {
   return (
     <Section id="experience" eyebrow={sectionMeta.experience.eyebrow} title={sectionMeta.experience.title}>
-      <div className="relative mt-12 max-w-4xl">
+      <div className="relative max-w-4xl">
         {/* Sleek Vertical Progress Line */}
         <div className="absolute left-[11px] top-3 bottom-3 w-px bg-gradient-to-b from-foreground/30 via-border/40 to-transparent" />
 
@@ -28,7 +28,7 @@ export function ExperienceSection() {
               <motion.article
                 key={item.company}
                 variants={cardVariants}
-                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 border-b border-border/40 py-6 hover:border-foreground/30 hover:pl-11 md:hover:pl-13 transition-all duration-300 pl-10 md:pl-12"
+                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 border-b border-border/40 py-4 sm:py-5 hover:border-foreground/30 hover:pl-11 md:hover:pl-13 transition-all duration-300 pl-10 md:pl-12"
               >
                 {/* Left Column: Company & Timeline Dot */}
                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 min-w-[140px] md:min-w-[180px] shrink-0">

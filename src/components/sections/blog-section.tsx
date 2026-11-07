@@ -28,7 +28,7 @@ export function BlogSection() {
             transition: { staggerChildren: 0.12 },
           },
         }}
-        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mt-8"
+        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
       >
         {visiblePosts.map((post) => (
           <motion.div key={post.slug} variants={cardVariants} className="h-full">
@@ -38,7 +38,7 @@ export function BlogSection() {
       </motion.div>
 
       {blogPosts.length > INITIAL_COUNT && (
-        <div className="flex justify-center mt-16">
+        <div className="flex justify-center mt-8 sm:mt-10">
           <Link
             href="/blog"
             className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-800 bg-[#0a0a0a] px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-300 hover:border-neutral-700 hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"

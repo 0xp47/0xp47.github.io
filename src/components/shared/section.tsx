@@ -62,7 +62,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
       initial="hidden"
       animate={isInView ? "visible" : "hidden"}
       transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] as const }}
-      className="relative mx-auto w-full max-w-[1160px] px-4 sm:px-6 md:px-8 lg:px-10 py-16 sm:py-20 md:py-24 scroll-mt-20"
+      className="relative mx-auto w-full max-w-[1160px] px-4 sm:px-6 md:px-8 lg:px-10 py-10 sm:py-12 md:py-14 scroll-mt-20"
     >
       {/* Continuous Vertical Spine Line connecting all section numbers */}
       <div
@@ -70,9 +70,9 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
         className={cn(
           "absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none z-0",
           "left-[96px] sm:left-[120px] md:left-[144px] lg:left-[168px]",
-          isFirst && "top-[98px] sm:top-[124px] md:top-[146px] bottom-0",
+          isFirst && "top-[74px] sm:top-[91px] md:top-[103px] lg:top-[110px] bottom-0",
           !isFirst && !isLast && "top-0 bottom-0",
-          isLast && "top-0 h-[210px] sm:h-[240px] md:h-[270px]"
+          isLast && "top-0 h-[146px] sm:h-[174px] md:h-[194px] lg:h-[208px]"
         )}
       />
 
@@ -80,7 +80,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
       {isLast && (
         <div
           aria-hidden="true"
-          className="absolute z-10 -translate-x-1/2 left-[96px] sm:left-[120px] md:left-[144px] lg:left-[168px] top-[210px] sm:top-[240px] md:top-[270px] flex items-center justify-center text-foreground/70"
+          className="absolute z-10 -translate-x-1/2 left-[96px] sm:left-[120px] md:left-[144px] lg:left-[168px] top-[146px] sm:top-[174px] md:top-[194px] lg:top-[208px] flex items-center justify-center text-foreground/70"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
             {/* Corner bracket ticks [ ] */}
@@ -97,7 +97,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
       {/* Content wrapper indented so content never collides with the vertical line */}
       <div className="relative z-10 pl-[80px] sm:pl-[96px] md:pl-[112px] lg:pl-[128px]">
         {/* Editorial Section Header with Badge + Node + Number + Dividing Line */}
-        <div className={headerMarginBottom ?? "mb-12 md:mb-16"}>
+        <div className={headerMarginBottom ?? "mb-5 sm:mb-6"}>
           <div className="relative w-full">
             {/* Left bracket badge (matching the design roadmap bracket badge) */}
             {badge && (

@@ -47,7 +47,7 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 export function AboutSection() {
   return (
     <Section id="about" eyebrow={sectionMeta.about.eyebrow} title={sectionMeta.about.title}>
-      <motion.div className="grid gap-10 lg:grid-cols-[1fr_1.2fr] items-start">
+      <motion.div className="grid gap-6 lg:gap-8 lg:grid-cols-[1fr_1.2fr] items-start">
         
         {/* Left Column: Bio and Stats Grid */}
         <motion.div 

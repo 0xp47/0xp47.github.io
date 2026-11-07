@@ -66,9 +66,9 @@ export function ContactSection() {
 
   return (
     <Section id="contact" eyebrow={sectionMeta.contact.eyebrow} title={sectionMeta.contact.title}>
-      <div className="grid gap-12 md:grid-cols-2 md:items-end">
+      <div className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-end">
         {/* Left: description + socials */}
-        <motion.div variants={cardVariants} className="space-y-8">
+        <motion.div variants={cardVariants} className="space-y-5">
           <p className="text-sm leading-relaxed text-muted-foreground max-w-md text-pretty">
             {contactDescription}
           </p>
@@ -84,7 +84,7 @@ export function ContactSection() {
                   href={link.href}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex size-9 items-center justify-center rounded-full border border-border/50 bg-foreground/[0.02] text-muted-foreground/80 hover:border-foreground/40 hover:bg-foreground hover:text-background transition-all duration-300 hover:scale-105 shadow-sm"
+                  className="flex size-9 items-center justify-center chamfer-btn border border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white hover:bg-[#121212] transition-colors duration-200 shadow-sm"
                   aria-label={link.label}
                   title={link.label}
                 >
@@ -97,7 +97,7 @@ export function ContactSection() {
 
         {/* Right: big typographic email CTA */}
         <motion.div variants={cardVariants} className="flex flex-col items-start gap-3 md:items-end">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full border border-emerald-500/25 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
+          <div className="inline-flex items-center gap-2 px-3 py-1 chamfer-btn border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 font-mono text-[9px] font-semibold tracking-wider uppercase mb-1">
             <span className="relative flex h-1.5 w-1.5">
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-emerald-500"></span>
