@@ -7,7 +7,7 @@ import Link from "next/link";
 import { blogPosts, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 
-const INITIAL_COUNT = 3;
+const INITIAL_COUNT = 4;
 
 import { cardVariants } from "@/lib/animation-variants";
 import { BlogCard } from "@/components/shared/blog-card";
@@ -28,11 +28,11 @@ export function BlogSection() {
             transition: { staggerChildren: 0.12 },
           },
         }}
-        className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-8"
+        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4 mt-8"
       >
-        {visiblePosts.map((post, index) => (
+        {visiblePosts.map((post) => (
           <motion.div key={post.slug} variants={cardVariants} className="h-full">
-            <BlogCard post={post} index={index} />
+            <BlogCard post={post} />
           </motion.div>
         ))}
       </motion.div>

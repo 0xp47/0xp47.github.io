@@ -13,7 +13,6 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { ViewToggle } from "@/components/shared/view-toggle";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { BlogCard } from "@/components/shared/blog-card";
-import { BlogThumbnail } from "@/components/shared/blog-thumbnail";
 import { cn } from "@/lib/utils";
 
 export function BlogPageClient() {
@@ -25,7 +24,7 @@ export function BlogPageClient() {
   const [searchQuery, setSearchQuery] = useState("");
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid");
   const [currentPage, setCurrentPage] = useState(1);
-  const POSTS_PER_PAGE = 9;
+  const POSTS_PER_PAGE = 8;
 
   const handleScrollToTop = () => {
     lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
@@ -134,7 +133,7 @@ export function BlogPageClient() {
             transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
             className={cn(
               "grid gap-6 mt-8",
-              viewMode === "grid" ? "grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" : "grid-cols-1 max-w-3xl mx-auto"
+              viewMode === "grid" ? "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-1 max-w-3xl mx-auto"
             )}
           >
             {paginatedPosts.map((post, i) => (
@@ -145,55 +144,50 @@ export function BlogPageClient() {
                 transition={{ duration: 0.3, delay: i * 0.04, ease: "easeOut" }}
               >
                 {viewMode === "grid" ? (
-                  /* Grid Card View */
-                  <BlogCard post={post} index={i} />
+                  /* Grid Card View (Vertical) */
+                  <BlogCard post={post} />
                 ) : (
                   /* List Row View (Horizontal) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group relative flex flex-row gap-4 sm:gap-6 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 items-center justify-between text-left w-full transition-colors duration-200 hover:border-neutral-700 select-none"
+                    className="group relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 rounded-xl border border-neutral-800/80 bg-[#0a0a0a] p-4 sm:p-5 text-left w-full transition-all duration-200 hover:border-neutral-700 hover:bg-[#0d0d10] select-none"
                   >
-                    <div className="flex-1 min-w-0 space-y-2">
-                      {/* Date and Reading Time */}
-                      <div className="flex items-center gap-3">
-                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-400 uppercase tracking-wider">
+                    <div className="flex-1 min-w-0 space-y-1.5">
+                      {/* Category, Date and Reading Time */}
+                      <div className="flex items-center gap-2.5">
+                        <span className="font-mono text-[9px] font-bold uppercase tracking-wider px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400 group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200">
+                          {post.category}
+                        </span>
+                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-400">
                           <Calendar className="size-3 text-neutral-500" />
                           {post.dateDisplay}
                         </span>
-                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-400 uppercase tracking-wider">
+                        <span className="text-neutral-600 font-mono text-[9.5px]">·</span>
+                        <span className="flex items-center gap-1.5 text-[9.5px] font-mono text-neutral-500">
                           <Clock className="size-3 text-neutral-500" />
                           {post.readingTime}
                         </span>
                       </div>
 
                       {/* Title */}
-                      <h3 className="text-[15px] font-semibold text-white tracking-tight line-clamp-1">
+                      <h3 className="text-[15px] font-semibold text-white tracking-tight line-clamp-1 group-hover:text-neutral-200 transition-colors">
                         {post.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-xs leading-relaxed text-neutral-400 line-clamp-2">
+                      <p className="text-xs leading-relaxed text-neutral-400 line-clamp-2 sm:line-clamp-1">
                         {post.description}
                       </p>
 
-                      {/* Footer: Tags + Read More */}
-                      <div className="flex items-center justify-between pt-2">
-                        <div className="font-mono text-[9px] uppercase tracking-[0.16em] text-neutral-500 tracking-wider truncate max-w-[70%]">
-                          {post.tags.join("  ·  ")}
-                        </div>
-                        <span className="flex items-center gap-1 text-[9px] font-bold uppercase tracking-wider text-neutral-400 group-hover:text-white transition-colors shrink-0">
-                          read
-                          <ArrowRight className="size-3 group-hover:translate-x-0.5 transition-transform duration-200" />
-                        </span>
+                      {/* Tags */}
+                      <div className="font-mono text-[9px] uppercase tracking-[0.14em] text-neutral-500 truncate pt-1">
+                        {post.tags.join("  ·  ")}
                       </div>
                     </div>
 
-                    {/* Right Thumbnail Cover */}
-                    <div className="size-16 sm:size-24 shrink-0 rounded-lg overflow-hidden border border-neutral-800/60 bg-[#121212]">
-                      <BlogThumbnail
-                        slug={post.slug}
-                        className="size-full object-cover"
-                      />
+                    <div className="hidden sm:flex items-center gap-1.5 font-mono text-[9.5px] font-bold uppercase tracking-wider text-neutral-400 group-hover:text-white transition-colors shrink-0 pl-4 border-l border-neutral-800/60">
+                      <span>Read</span>
+                      <ArrowRight className="size-3.5 group-hover:translate-x-0.5 transition-transform duration-200" />
                     </div>
                   </Link>
                 )}
