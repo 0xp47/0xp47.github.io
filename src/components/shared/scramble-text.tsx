@@ -11,6 +11,10 @@ interface ScrambleTextProps {
   delayMs?: number
   /** Duration of the scramble animation in seconds */
   duration?: number
+  /** Whether to re-scramble on hover */
+  scrambleOnHover?: boolean
+  /** Duration of hover scramble animation in seconds */
+  hoverDuration?: number
 }
 
 interface ScrambleTextOnHoverProps {
@@ -68,12 +72,20 @@ function runScrambleAnimation(
 }
 
 /**
- * Scramble text animation component - animates on mount.
+ * Scramble text animation component - animates on mount and optionally on hover.
  */
-export function ScrambleText({ text, className, delayMs = 0, duration = 0.9 }: ScrambleTextProps) {
+export function ScrambleText({
+  text,
+  className,
+  delayMs = 0,
+  duration = 0.9,
+  scrambleOnHover = true,
+  hoverDuration = 0.5,
+}: ScrambleTextProps) {
   // Initialize with text to avoid flash of empty content
   const [displayText, setDisplayText] = useState(text)
   const [hasAnimated, setHasAnimated] = useState(false)
+  const isHoverAnimating = useRef(false)
   const containerRef = useRef<HTMLSpanElement>(null)
   const animationRef = useRef<gsap.core.Tween | null>(null)
   const timeoutRef = useRef<NodeJS.Timeout | null>(null)
@@ -103,13 +115,36 @@ export function ScrambleText({ text, className, delayMs = 0, duration = 0.9 }: S
 
   // Handle text prop changes after initial animation
   useEffect(() => {
-    if (hasAnimated && displayText !== text) {
+    if (hasAnimated && displayText !== text && !isHoverAnimating.current) {
       setDisplayText(text)
     }
   }, [text, hasAnimated, displayText])
 
+  const handleMouseEnter = useCallback(() => {
+    if (!scrambleOnHover || isHoverAnimating.current) return
+    isHoverAnimating.current = true
+
+    if (animationRef.current) {
+      animationRef.current.kill()
+    }
+
+    const scrambledStart = text
+      .split("")
+      .map(() => GLYPHS[Math.floor(Math.random() * GLYPHS.length)])
+      .join("")
+    setDisplayText(scrambledStart)
+
+    animationRef.current = runScrambleAnimation(text, hoverDuration, setDisplayText, () => {
+      isHoverAnimating.current = false
+    })
+  }, [text, scrambleOnHover, hoverDuration])
+
   return (
-    <span ref={containerRef} className={className}>
+    <span
+      ref={containerRef}
+      className={className}
+      onMouseEnter={handleMouseEnter}
+    >
       {displayText || text}
     </span>
   )

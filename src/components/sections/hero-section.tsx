@@ -91,8 +91,8 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 className="mt-6 text-balance text-3xl font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]"
               >
                 {"I'm Pat, a"}<br />
-                <span className="text-foreground block whitespace-nowrap">
-                  <ScrambleText text="Full-Stack Engineer" delayMs={300} duration={0.9} />
+                <span className="text-foreground block whitespace-nowrap cursor-pointer select-none">
+                  <ScrambleText text="Full-Stack Engineer" delayMs={300} duration={0.9} scrambleOnHover hoverDuration={0.6} />
                 </span>
               </motion.h1>
 
@@ -154,7 +154,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                       clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                     }}
                   >
-                    <span>VIEW PROJECTS</span>
+                    <ScrambleTextOnHover text="VIEW PROJECTS" as="span" duration={0.4} />
                   </div>
                 </a>
 
@@ -176,7 +176,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                       clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                     }}
                   >
-                    <span>CONTACT</span>
+                    <ScrambleTextOnHover text="CONTACT" as="span" duration={0.4} />
                   </div>
                 </a>
               </motion.div>
