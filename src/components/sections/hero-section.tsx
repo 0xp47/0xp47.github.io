@@ -4,11 +4,9 @@ import { type ComponentType } from "react";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import * as BrandIcons from "@/components/shared/brand-icons";
 import dynamic from "next/dynamic";
-import { ScrambleText, ScrambleTextOnHover } from "@/components/shared/scramble-text";
 import { BitmapChevron } from "@/components/shared/bitmap-chevron";
 import { AnimatedNoise } from "@/components/shared/animated-noise";
 
@@ -88,11 +86,11 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.1 }}
-                className="mt-6 text-balance text-3xl font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]"
+                className="mt-6 text-3xl font-extrabold leading-[1.12] tracking-tight text-foreground sm:text-4xl lg:text-[2.75rem]"
               >
                 {"I'm Pat, a"}<br />
-                <span className="text-foreground block whitespace-nowrap cursor-pointer select-none">
-                  <ScrambleText text="Full-Stack Engineer" delayMs={300} duration={0.9} scrambleOnHover hoverDuration={0.6} />
+                <span className="text-foreground block whitespace-nowrap">
+                  Full-Stack Engineer
                 </span>
               </motion.h1>
 
@@ -115,10 +113,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 {/* Scroll Down / Explore Button */}
                 <button
                   type="button"
-                  onClick={() => {
-                    onScrollToSection("#about");
-                    triggerSwarmRebuild();
-                  }}
+                  onClick={() => onScrollToSection("#about")}
                   className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-800/60 hover:bg-neutral-700 cursor-pointer"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
@@ -154,7 +149,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                       clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                     }}
                   >
-                    <ScrambleTextOnHover text="VIEW PROJECTS" as="span" duration={0.4} />
+                    <span>VIEW PROJECTS</span>
                   </div>
                 </a>
 
@@ -176,7 +171,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                       clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                     }}
                   >
-                    <ScrambleTextOnHover text="CONTACT" as="span" duration={0.4} />
+                    <span>CONTACT</span>
                   </div>
                 </a>
               </motion.div>
@@ -229,7 +224,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                       clipPath: "polygon(0 0, calc(100% - 7.5px) 0, 100% 7.5px, 100% 100%, 7.5px 100%, 0 calc(100% - 7.5px))",
                     }}
                   >
-                    <ScrambleTextOnHover text="LEARN MORE" as="span" duration={0.4} />
+                    <span>LEARN MORE</span>
                     <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-2.5 text-neutral-400 group-hover:text-white" />
                   </span>
                 </a>
@@ -251,7 +246,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                   href="#projects"
                   className="group inline-flex items-center gap-2 mt-3 font-mono text-[10px] font-bold tracking-widest text-foreground hover:text-white transition duration-200"
                 >
-                  <ScrambleTextOnHover text="BROWSE PORTFOLIO" as="span" duration={0.4} />
+                  <span>BROWSE PORTFOLIO</span>
                   <BitmapChevron className="transition-transform duration-300 ease-in-out group-hover:rotate-45 size-3" />
                 </a>
               </motion.div>
