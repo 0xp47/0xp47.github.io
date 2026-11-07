@@ -78,6 +78,57 @@ function callGithubApi(endpoint) {
   return null;
 }
 
+// Fetch latest commits for all owned repositories in a single fast GraphQL query
+function fetchCommitMap() {
+  if (hasGhCli) {
+    try {
+      const query = `query {
+        viewer {
+          repositories(first: 100, ownerAffiliations: OWNER, orderBy: {field: PUSHED_AT, direction: DESC}) {
+            nodes {
+              name
+              defaultBranchRef {
+                target {
+                  ... on Commit {
+                    message
+                    committedDate
+                    oid
+                  }
+                }
+              }
+            }
+          }
+        }
+      }`;
+      const output = execFileSync('gh', ['api', 'graphql', '-f', `query=${query}`], {
+        encoding: 'utf8',
+        maxBuffer: 20 * 1024 * 1024,
+        stdio: ['ignore', 'pipe', 'ignore'],
+        timeout: 10000,
+      });
+      const parsed = JSON.parse(output);
+      const commitMap = {};
+      const nodes = parsed?.data?.viewer?.repositories?.nodes || [];
+      for (const node of nodes) {
+        if (node && node.name && node.defaultBranchRef?.target) {
+          const target = node.defaultBranchRef.target;
+          const fullMsg = target.message || '';
+          const subject = fullMsg.split('\n')[0].trim();
+          commitMap[node.name.toLowerCase()] = {
+            message: subject || 'Update repository',
+            date: target.committedDate,
+            sha: (target.oid || '').substring(0, 7),
+          };
+        }
+      }
+      return commitMap;
+    } catch (err) {
+      console.warn('Failed to fetch commits via gh graphql:', err.message);
+    }
+  }
+  return {};
+}
+
 async function fetchRepos() {
   console.log("Fetching repositories from GitHub for 0xp47...");
   try {
@@ -91,6 +142,9 @@ async function fetchRepos() {
     }
 
     console.log(`Successfully fetched ${rawRepos.length} raw repositories from GitHub.`);
+
+    const commitMap = fetchCommitMap();
+    console.log(`Fetched latest commits for ${Object.keys(commitMap).length} repositories via GraphQL.`);
 
     const repos = [];
     for (const repo of rawRepos) {
@@ -219,6 +273,28 @@ async function fetchRepos() {
         liveUrl = liveUrlOverrides[repoName];
       }
 
+      let commitInfo = commitMap[repoName] || null;
+      if (!commitInfo && repoName === "lumora") {
+        commitInfo = commitMap["lumora-frontend"] || null;
+      }
+      if (!commitInfo) {
+        try {
+          const commits = callGithubApi(`repos/${repo.owner.login}/${repo.name}/commits?per_page=1`);
+          if (commits && Array.isArray(commits) && commits.length > 0) {
+            const firstCommit = commits[0];
+            const fullMsg = firstCommit?.commit?.message || '';
+            const subject = fullMsg.split('\n')[0].trim();
+            commitInfo = {
+              message: subject || 'Update repository',
+              date: firstCommit?.commit?.committer?.date || firstCommit?.commit?.author?.date || repo.pushed_at,
+              sha: (firstCommit?.sha || '').substring(0, 7),
+            };
+          }
+        } catch {
+          // ignore
+        }
+      }
+
       repos.push({
         name: repo.name,
         category: category,
@@ -231,6 +307,11 @@ async function fetchRepos() {
         createdAt: repo.created_at,
         updatedAt: repo.pushed_at || repo.updated_at,
         stars: repo.stargazers_count || 0,
+        latestCommit: commitInfo ? {
+          message: commitInfo.message,
+          date: commitInfo.date,
+          sha: commitInfo.sha,
+        } : undefined,
       });
     }
 

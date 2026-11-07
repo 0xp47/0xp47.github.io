@@ -13,22 +13,8 @@ import { PageHeader } from "@/components/shared/page-header";
 import { SectionHeader } from "@/components/shared/section-header";
 import { ViewToggle } from "@/components/shared/view-toggle";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
-import { ProjectCard, VERCEL_METADATA_MAP } from "@/components/shared/project-card";
+import { ProjectCard, VERCEL_METADATA_MAP, type Project } from "@/components/shared/project-card";
 import { cn } from "@/lib/utils";
-
-interface Project {
-  name: string;
-  description: string;
-  category: string;
-  stack: string[];
-  live?: string;
-  github?: string;
-  readme?: string;
-  isPrivate?: boolean;
-  createdAt?: string;
-  updatedAt?: string;
-  stars?: number;
-}
 
 const CASE_STUDIES: Record<string, { architecture: string; challenge: string; features: string[] }> = {
   "LeafSense Mobile": {

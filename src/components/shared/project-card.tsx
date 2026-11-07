@@ -1,11 +1,11 @@
 "use client";
 
 import { useMemo } from "react";
-import { ChevronsUpDown } from "lucide-react";
+import { ChevronsUpDown, GitBranch } from "lucide-react";
 import { SiGithub } from "react-icons/si";
 import { cn } from "@/lib/utils";
 
-interface Project {
+export interface Project {
   name: string;
   description: string;
   category: string;
@@ -17,6 +17,11 @@ interface Project {
   createdAt?: string;
   updatedAt?: string;
   stars?: number;
+  latestCommit?: {
+    message: string;
+    date?: string;
+    sha?: string;
+  };
 }
 
 export interface ProjectCardProps {
@@ -39,107 +44,143 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
     displayName: "tdrive",
     domain: "tdrv.vercel.app",
     liveUrl: "http://tdrv.vercel.app/",
-    commitMsg: "Remove Copy Link from public share page and ...",
     repo: "0xp47/Tdrive",
-    updated: "Oct 31",
   },
   "axiom-lms": {
     displayName: "axiom-lms",
     domain: "axiom-lms.vercel.app",
     liveUrl: "https://axiom-lms.vercel.app",
-    commitMsg: "fix(api): use deterministic bootstrap UUIDs for m...",
     repo: "0xp47/Axiom-LMS",
-    updated: "2d ago",
   },
   "pos-and-inventory-system": {
     displayName: "pos-and-inventory-system",
     domain: "pos-and-inventory-system-navy.ver...",
     liveUrl: "https://pos-and-inventory-system-navy.vercel.app",
-    commitMsg: "Modify project description in README",
     repo: "0xp47/POS-and-Inventory-System",
-    updated: "3d ago",
   },
   lumora: {
     displayName: "lumora",
     domain: "lumora-social.vercel.app",
     liveUrl: "https://lumora-social.vercel.app",
-    commitMsg: "feat: add dynamic lumens short-url routes, rede...",
     repo: "0xp47/Lumora-Frontend",
-    updated: "Aug 12",
   },
   "lumora-frontend": {
     displayName: "lumora",
     domain: "lumora-social.vercel.app",
     liveUrl: "https://lumora-social.vercel.app",
-    commitMsg: "feat: add dynamic lumens short-url routes, rede...",
     repo: "0xp47/Lumora-Frontend",
-    updated: "Aug 12",
   },
   "ccs-assistant": {
     displayName: "ccs-assistant",
     domain: "ccs-assistant.vercel.app",
     liveUrl: "https://ccs-assistant.vercel.app",
-    commitMsg: "fix(mobile): resolve mobile burger menu drawer ...",
     repo: "0xp47/ccs-assistant",
-    updated: "Oct 27",
   },
   "room-209": {
     displayName: "room-209",
     domain: "room-209.vercel.app",
     liveUrl: "https://room-209.vercel.app",
-    commitMsg: "fix(admin): use generic placeholders on login pa...",
     repo: "0xp47/room-209",
-    updated: "Oct 26",
   },
   "philnits-ip-exam": {
     displayName: "philnits-reviewer",
     domain: "philnits-prep.vercel.app",
     liveUrl: "https://philnits-prep.vercel.app",
-    commitMsg: "feat(presence): accurate cumulative study timer...",
     repo: "0xp47/PhilNITS-IP-Exam",
-    updated: "Oct 24",
   },
   "philnits-reviewer": {
     displayName: "philnits-reviewer",
     domain: "philnits-prep.vercel.app",
     liveUrl: "https://philnits-prep.vercel.app",
-    commitMsg: "feat(presence): accurate cumulative study timer...",
     repo: "0xp47/PhilNITS-IP-Exam",
-    updated: "Oct 24",
   },
   "ccsas-dashboard": {
     displayName: "ccsas-dashboard",
     domain: "ccsas-dashboard.vercel.app",
     liveUrl: "https://ccsas-dashboard.vercel.app",
-    commitMsg: "sync: update dashboard with latest fixes from m...",
     repo: "0xp47/CCSAS-Dashboard",
-    updated: "Oct 6",
   },
 };
+
+export function formatCommitDate(dateStr?: string): string {
+  if (!dateStr) return "Recent";
+  const date = new Date(dateStr);
+  if (isNaN(date.getTime())) return "Recent";
+
+  const now = new Date();
+  const diffMs = now.getTime() - date.getTime();
+  const diffSec = Math.floor(diffMs / 1000);
+  const diffMin = Math.floor(diffSec / 60);
+  const diffHours = Math.floor(diffMin / 60);
+  const diffDays = Math.floor(diffHours / 24);
+
+  if (diffSec < 60) return "just now";
+  if (diffMin < 60) return `${diffMin}m ago`;
+  if (diffHours < 24) return `${diffHours}h ago`;
+  if (diffDays === 1) return "1d ago";
+  if (diffDays <= 7) return `${diffDays}d ago`;
+
+  const isCurrentYear = date.getFullYear() === now.getFullYear();
+  return date.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: isCurrentYear ? undefined : "numeric",
+  });
+}
 
 export function ProjectCard({ project, onViewDetails, className }: ProjectCardProps) {
   const meta = useMemo(() => {
     const slug = project.name.toLowerCase();
-    const found = VERCEL_METADATA_MAP[slug];
-    if (found) return found;
+    return VERCEL_METADATA_MAP[slug] || null;
+  }, [project.name]);
 
-    // Derived metadata fallback for other projects
-    const cleanDomain = project.live
-      ? project.live.replace(/^https?:\/\//, "").replace(/\/.*$/, "")
-      : `${slug}.vercel.app`;
+  // A project is considered deployed if it has an active live URL not pointing to github.com
+  const isDeployed = Boolean(
+    (project.live && !project.live.includes("github.com")) || meta?.liveUrl
+  );
 
-    return {
-      displayName: slug,
-      domain: cleanDomain,
-      commitMsg: project.description || "Deploy from GitHub repository",
-      repo: `0xp47/${project.name}`,
-      updated: project.updatedAt
-        ? new Date(project.updatedAt).toLocaleDateString("en-US", { month: "short", day: "numeric" })
-        : "Recent",
-    };
-  }, [project]);
+  const effectiveLive = isDeployed
+    ? (project.live && !project.live.includes("github.com") ? project.live : meta?.liveUrl)
+    : undefined;
 
-  const effectiveLive = meta.liveUrl || (project.live && !project.live.includes("github.com") ? project.live : undefined);
+  const repoSlug = useMemo(() => {
+    if (meta?.repo) return meta.repo;
+    if (project.github) {
+      return project.github.replace(/^https?:\/\/github\.com\//, "");
+    }
+    return `0xp47/${project.name}`;
+  }, [project, meta]);
+
+  const displayName = meta?.displayName || project.name.toLowerCase();
+
+  const subtitle = useMemo(() => {
+    if (isDeployed) {
+      if (meta?.domain) return meta.domain;
+      if (effectiveLive) {
+        return effectiveLive.replace(/^https?:\/\//, "").replace(/\/.*$/, "");
+      }
+    }
+    return repoSlug;
+  }, [isDeployed, meta, effectiveLive, repoSlug]);
+
+  const commitMsg =
+    project.latestCommit?.message ||
+    meta?.commitMsg ||
+    project.description ||
+    "Deploy from GitHub repository";
+
+  const commitDate = project.latestCommit?.date || project.updatedAt;
+  const relativeDate = formatCommitDate(commitDate);
+
+  const handleHeaderClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const targetUrl = isDeployed
+      ? effectiveLive
+      : (project.github || `https://github.com/0xp47/${project.name}`);
+    if (targetUrl) {
+      window.open(targetUrl, "_blank", "noopener,noreferrer");
+    }
+  };
 
   return (
     <article
@@ -163,58 +204,64 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
           <div className="min-w-0 flex flex-col justify-center">
             <h4
               className="text-[14px] sm:text-[14.5px] font-semibold text-white tracking-tight truncate leading-tight group-hover:text-white hover:underline cursor-pointer"
-              onClick={(e) => {
-                if (effectiveLive) {
-                  e.stopPropagation();
-                  window.open(effectiveLive, "_blank", "noopener,noreferrer");
-                }
-              }}
+              onClick={handleHeaderClick}
             >
-              {meta.displayName || project.name.toLowerCase()}
+              {displayName}
             </h4>
             <span
-              className="text-xs text-neutral-400 truncate hover:text-white hover:underline transition-colors leading-tight mt-1 cursor-pointer"
-              onClick={(e) => {
-                if (effectiveLive) {
-                  e.stopPropagation();
-                  window.open(effectiveLive, "_blank", "noopener,noreferrer");
-                }
-              }}
+              className="text-xs text-neutral-400 truncate hover:text-white hover:underline transition-colors leading-tight mt-1 cursor-pointer font-mono"
+              onClick={handleHeaderClick}
             >
-              {meta.domain}
+              {subtitle}
             </span>
           </div>
 
           {/* Right Status Ring + Up-Down Chevrons */}
           <div className="flex items-center gap-2.5 shrink-0">
-            <div className="relative flex size-7 items-center justify-center rounded-full bg-[#0a0a0a] border border-neutral-800">
-              <svg className="size-7" viewBox="0 0 28 28">
-                <circle cx="14" cy="14" r="12" fill="#0a0a0a" stroke="#1f1f1f" strokeWidth="1.2" />
-                <path
-                  d="M 23 14 A 9 9 0 0 0 14 5"
-                  fill="none"
-                  stroke="#0070f3"
-                  strokeWidth="2.2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M8.5 14.5 L11.5 17.5 L17.5 11"
-                  fill="none"
-                  stroke="#ffffff"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-                <path
-                  d="M12 14.5 L14.5 17 L20 11.5"
-                  fill="none"
-                  stroke="#ffffff"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+            {isDeployed ? (
+              /* Circular Deployed Status Ring (Double checkmark + blue arc) */
+              <div
+                className="relative flex size-7 items-center justify-center rounded-full bg-[#0a0a0a] border border-neutral-800 shrink-0"
+                title="Deployed to Production"
+                aria-label="Deployed to Production"
+              >
+                <svg className="size-7" viewBox="0 0 28 28">
+                  <circle cx="14" cy="14" r="12" fill="#0a0a0a" stroke="#1f1f1f" strokeWidth="1.2" />
+                  <path
+                    d="M 23 14 A 9 9 0 0 0 14 5"
+                    fill="none"
+                    stroke="#0070f3"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M8.5 14.5 L11.5 17.5 L17.5 11"
+                    fill="none"
+                    stroke="#ffffff"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d="M12 14.5 L14.5 17 L20 11.5"
+                    fill="none"
+                    stroke="#ffffff"
+                    strokeWidth="1.6"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </div>
+            ) : (
+              /* Non-deployed repository badge */
+              <div
+                className="relative flex size-7 items-center justify-center rounded-full bg-[#0a0a0a] border border-neutral-800 shrink-0"
+                title="Source Repository"
+                aria-label="Source Repository"
+              >
+                <GitBranch className="size-3.5 text-neutral-400 group-hover:text-neutral-300 transition-colors" strokeWidth={1.8} />
+              </div>
+            )}
             <ChevronsUpDown className="size-3.5 text-neutral-500 group-hover:text-neutral-300 transition-colors" />
           </div>
         </div>
@@ -222,7 +269,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
         {/* Middle/Bottom Commit Details */}
         <div className="mt-3.5 pt-2.5 border-t border-neutral-800/60 flex flex-col gap-1.5">
           {/* Latest Commit Message */}
-          <div className="flex items-center gap-2 text-neutral-200 min-w-0">
+          <div className="flex items-center gap-2 text-neutral-200 min-w-0" title={commitMsg}>
             <svg
               width="14"
               height="14"
@@ -238,14 +285,17 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
               <line x1="3" y1="12" x2="9" y2="12" />
               <line x1="15" y1="12" x2="21" y2="12" />
             </svg>
-            <span className="truncate font-sans text-xs text-neutral-300 leading-snug">{meta.commitMsg}</span>
+            <span className="truncate font-sans text-xs text-neutral-300 leading-snug">{commitMsg}</span>
           </div>
 
           {/* GitHub Repository and Relative Time */}
           <div className="flex items-center gap-2 text-neutral-400">
             <SiGithub className="size-3.5 shrink-0 text-neutral-400" />
-            <span className="truncate font-mono text-[10.5px] text-neutral-400 leading-none">
-              {meta.repo} &middot; {meta.updated}
+            <span
+              className="truncate font-mono text-[10.5px] text-neutral-400 leading-none"
+              suppressHydrationWarning
+            >
+              {repoSlug} &middot; {relativeDate}
             </span>
           </div>
         </div>

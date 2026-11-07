@@ -11,7 +11,7 @@ import { Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
 
 import { cardVariants } from "@/lib/animation-variants";
-import { ProjectCard, VERCEL_METADATA_MAP } from "@/components/shared/project-card";
+import { ProjectCard, VERCEL_METADATA_MAP, type Project } from "@/components/shared/project-card";
 
 const FEATURED_PROJECT_ORDER = [
   "tdrive",
@@ -62,17 +62,6 @@ const CASE_STUDIES: Record<string, { architecture: string; challenge: string; fe
     ]
   }
 };
-
-interface Project {
-  name: string;
-  description: string;
-  category: string;
-  stack: string[];
-  live?: string;
-  github?: string;
-  readme?: string;
-  isPrivate?: boolean;
-}
 
 // Set up custom renderer to append copy button to code blocks
 const customRenderer = {
