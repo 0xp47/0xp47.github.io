@@ -75,15 +75,15 @@ export const metadata: Metadata = {
     siteName: "Jay Patrick Cano",
     images: [
       {
-        url: "/images/me-thumbnail.png",
-        width: 300,
-        height: 300,
+        url: "/images/og-hero.png",
+        width: 1200,
+        height: 630,
         alt: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
       },
     ],
   },
   twitter: {
-    card: "summary",
+    card: "summary_large_image",
     title: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
     description:
       "Building custom software, cross-platform mobile apps, and automated workflows.",
@@ -91,9 +91,9 @@ export const metadata: Metadata = {
     creator: "@0xp47",
     images: [
       {
-        url: "/images/me-thumbnail.png",
-        width: 300,
-        height: 300,
+        url: "/images/og-hero.png",
+        width: 1200,
+        height: 630,
         alt: "Jay Patrick Cano (0xp47) - Full-Stack Engineer & Entrepreneur",
       },
     ],

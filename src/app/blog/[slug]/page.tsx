@@ -37,22 +37,22 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       tags: post.tags,
       images: [
         {
-          url: "/images/me-thumbnail.png",
-          width: 300,
-          height: 300,
+          url: "/images/og-hero.png",
+          width: 1200,
+          height: 630,
           alt: `${post.title} — Jay Patrick Cano`,
         },
       ],
     },
     twitter: {
-      card: "summary",
+      card: "summary_large_image",
       title: post.title,
       description: post.description,
       images: [
         {
-          url: "/images/me-thumbnail.png",
-          width: 300,
-          height: 300,
+          url: "/images/og-hero.png",
+          width: 1200,
+          height: 630,
           alt: `${post.title} — Jay Patrick Cano`,
         },
       ],

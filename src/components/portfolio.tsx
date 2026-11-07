@@ -202,7 +202,7 @@ export function Portfolio() {
         <meta itemProp="jobTitle" content="Full-Stack Software Engineer & Entrepreneur" />
         <meta itemProp="url" content="https://jaypatrickcano.dev" />
         <meta itemProp="email" content="hello@jaypatrickcano.dev" />
-        <meta itemProp="image" content="https://jaypatrickcano.dev/images/me-thumbnail.png" />
+        <meta itemProp="image" content="https://jaypatrickcano.dev/images/og-hero.png" />
 
         <header>
           <h2>Jay Patrick Cano (0xp47) — Aspiring Full-Stack Engineer & Open-Source Builder</h2>
