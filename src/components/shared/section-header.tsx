@@ -19,19 +19,19 @@ export function SectionHeader({ eyebrow, title, index }: SectionHeaderProps) {
   const badge = sectionBadgesByIndex[displayIndex] || { tag: "SECT", range: `${displayIndex} — VIEW` };
 
   return (
-    <div className="relative mb-12 md:mb-16 pl-[80px] sm:pl-[96px] md:pl-[112px] lg:pl-[128px]">
-      {/* Short vertical spine segment */}
+    <div className="relative mb-8 sm:mb-12 md:mb-16 pl-0 sm:pl-[96px] md:pl-[112px] lg:pl-[128px]">
+      {/* Short vertical spine segment (desktop only) */}
       <div
         aria-hidden="true"
-        className="absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none left-[80px] sm:left-[96px] md:left-[112px] lg:left-[128px] top-[10px] bottom-[20px]"
+        className="hidden sm:block absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none sm:left-[96px] md:left-[112px] lg:left-[128px] top-[10px] bottom-[20px]"
       />
 
       <div className="relative w-full">
-        {/* Left bracket badge */}
+        {/* Left bracket badge (desktop only) */}
         {badge && (
           <div
             aria-hidden="true"
-            className="absolute right-full mr-7 sm:mr-8 top-1/2 -translate-y-1/2 flex items-center gap-1.5 select-none"
+            className="hidden sm:flex absolute right-full mr-7 sm:mr-8 top-1/2 -translate-y-1/2 items-center gap-1.5 select-none"
           >
             <svg width="5" height="26" viewBox="0 0 5 26" fill="none" className="text-neutral-500/80 shrink-0">
               <path d="M4 1H1V25H4" stroke="currentColor" strokeWidth="1.2" strokeLinecap="square" />
@@ -43,10 +43,10 @@ export function SectionHeader({ eyebrow, title, index }: SectionHeaderProps) {
           </div>
         )}
 
-        {/* Target Reticle Circle Node centered on spine and aligned with the number */}
+        {/* Target Reticle Circle Node centered on spine (desktop only) */}
         <div
           aria-hidden="true"
-          className="absolute left-0 -translate-x-1/2 flex size-8 sm:size-9 items-center justify-center z-10 text-foreground top-1/2 -translate-y-1/2"
+          className="hidden sm:flex absolute left-0 -translate-x-1/2 size-8 sm:size-9 items-center justify-center z-10 text-foreground top-1/2 -translate-y-1/2"
         >
           <svg viewBox="0 0 36 36" fill="none" className="size-8 sm:size-9 text-neutral-300">
             <line x1="18" y1="1" x2="18" y2="7" stroke="currentColor" strokeWidth="1.5" strokeOpacity="0.85" />
@@ -59,15 +59,15 @@ export function SectionHeader({ eyebrow, title, index }: SectionHeaderProps) {
         </div>
 
         {/* Massive Section Number container: bottom ~30% is cleanly hidden by overflow-hidden and border-b */}
-        <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[68px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-6 sm:pl-7 md:pl-8">
-          <div className="font-sans text-8xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
+        <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[64px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-0 sm:pl-7 md:pl-8">
+          <div className="font-sans text-7xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none">
             {displayIndex}
           </div>
         </div>
       </div>
 
       {/* Section Title below the line */}
-      <div className="pt-3.5 sm:pt-4 pl-6 sm:pl-7 md:pl-8 max-w-xs sm:max-w-sm md:max-w-md">
+      <div className="pt-3.5 sm:pt-4 pl-0 sm:pl-7 md:pl-8 max-w-sm sm:max-w-sm md:max-w-md">
         <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug">
           {title}
         </h2>

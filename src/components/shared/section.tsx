@@ -99,27 +99,6 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
         {/* Editorial Section Header with Badge + Node + Number + Dividing Line */}
         <div className={headerMarginBottom ?? "mb-5 sm:mb-6"}>
           
-          {/* Mobile Badge & Reticle Eyebrow (< sm) */}
-          <div className="flex sm:hidden items-center gap-2 mb-2 select-none">
-            <div className="flex size-5 items-center justify-center text-neutral-400 shrink-0">
-              <svg viewBox="0 0 36 36" fill="none" className="size-4 text-neutral-300">
-                <line x1="18" y1="1" x2="18" y2="7" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
-                <line x1="18" y1="29" x2="18" y2="35" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
-                <line x1="1" y1="18" x2="7" y2="18" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
-                <line x1="29" y1="18" x2="35" y2="18" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
-                <circle cx="18" cy="18" r="10.5" stroke="currentColor" strokeWidth="2" strokeOpacity="0.85" />
-                <circle cx="18" cy="18" r="4.5" fill="currentColor" />
-              </svg>
-            </div>
-            {badge && (
-              <div className="flex items-center gap-1.5 font-mono text-[9.5px] uppercase tracking-wider">
-                <span className="text-neutral-500 font-medium text-[8px]">{badge.tag}</span>
-                <span className="text-neutral-700">/</span>
-                <span className="text-neutral-300 font-semibold">{badge.range}</span>
-              </div>
-            )}
-          </div>
-
           <div className="relative w-full">
             {/* Desktop Left bracket badge (matching the design roadmap bracket badge) */}
             {badge && (
