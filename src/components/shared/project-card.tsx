@@ -28,6 +28,7 @@ export interface ProjectCardProps {
 interface VercelProjectMeta {
   displayName?: string;
   domain?: string;
+  liveUrl?: string;
   commitMsg?: string;
   repo?: string;
   updated?: string;
@@ -37,6 +38,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   tdrive: {
     displayName: "tdrive",
     domain: "tdrv.vercel.app",
+    liveUrl: "http://tdrv.vercel.app/",
     commitMsg: "Remove Copy Link from public share page and ...",
     repo: "0xp47/Tdrive",
     updated: "Oct 31",
@@ -44,6 +46,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   "axiom-lms": {
     displayName: "axiom-lms",
     domain: "axiom-lms.vercel.app",
+    liveUrl: "https://axiom-lms.vercel.app",
     commitMsg: "fix(api): use deterministic bootstrap UUIDs for m...",
     repo: "0xp47/Axiom-LMS",
     updated: "2d ago",
@@ -51,6 +54,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   "pos-and-inventory-system": {
     displayName: "pos-and-inventory-system",
     domain: "pos-and-inventory-system-navy.ver...",
+    liveUrl: "https://pos-and-inventory-system-navy.vercel.app",
     commitMsg: "Modify project description in README",
     repo: "0xp47/POS-and-Inventory-System",
     updated: "3d ago",
@@ -58,6 +62,15 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   lumora: {
     displayName: "lumora",
     domain: "lumora-social.vercel.app",
+    liveUrl: "https://lumora-social.vercel.app",
+    commitMsg: "feat: add dynamic lumens short-url routes, rede...",
+    repo: "0xp47/Lumora-Frontend",
+    updated: "Aug 12",
+  },
+  "lumora-frontend": {
+    displayName: "lumora",
+    domain: "lumora-social.vercel.app",
+    liveUrl: "https://lumora-social.vercel.app",
     commitMsg: "feat: add dynamic lumens short-url routes, rede...",
     repo: "0xp47/Lumora-Frontend",
     updated: "Aug 12",
@@ -65,6 +78,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   "ccs-assistant": {
     displayName: "ccs-assistant",
     domain: "ccs-assistant.vercel.app",
+    liveUrl: "https://ccs-assistant.vercel.app",
     commitMsg: "fix(mobile): resolve mobile burger menu drawer ...",
     repo: "0xp47/ccs-assistant",
     updated: "Oct 27",
@@ -72,6 +86,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   "room-209": {
     displayName: "room-209",
     domain: "room-209.vercel.app",
+    liveUrl: "https://room-209.vercel.app",
     commitMsg: "fix(admin): use generic placeholders on login pa...",
     repo: "0xp47/room-209",
     updated: "Oct 26",
@@ -79,6 +94,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   "philnits-ip-exam": {
     displayName: "philnits-reviewer",
     domain: "philnits-prep.vercel.app",
+    liveUrl: "https://philnits-prep.vercel.app",
     commitMsg: "feat(presence): accurate cumulative study timer...",
     repo: "0xp47/PhilNITS-IP-Exam",
     updated: "Oct 24",
@@ -86,6 +102,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   "philnits-reviewer": {
     displayName: "philnits-reviewer",
     domain: "philnits-prep.vercel.app",
+    liveUrl: "https://philnits-prep.vercel.app",
     commitMsg: "feat(presence): accurate cumulative study timer...",
     repo: "0xp47/PhilNITS-IP-Exam",
     updated: "Oct 24",
@@ -93,6 +110,7 @@ export const VERCEL_METADATA_MAP: Record<string, VercelProjectMeta> = {
   "ccsas-dashboard": {
     displayName: "ccsas-dashboard",
     domain: "ccsas-dashboard.vercel.app",
+    liveUrl: "https://ccsas-dashboard.vercel.app",
     commitMsg: "sync: update dashboard with latest fixes from m...",
     repo: "0xp47/CCSAS-Dashboard",
     updated: "Oct 6",
@@ -121,6 +139,8 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
     };
   }, [project]);
 
+  const effectiveLive = meta.liveUrl || (project.live && !project.live.includes("github.com") ? project.live : undefined);
+
   return (
     <article
       onClick={() => onViewDetails(project)}
@@ -132,15 +152,23 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
       {/* Top Header Row (no avatar icons, clean and compact) */}
       <div className="flex items-center justify-between gap-3">
         <div className="min-w-0 flex flex-col justify-center">
-          <h4 className="text-[15px] font-semibold text-white tracking-tight truncate leading-tight group-hover:text-white">
+          <h4
+            className="text-[15px] font-semibold text-white tracking-tight truncate leading-tight group-hover:text-white hover:underline cursor-pointer"
+            onClick={(e) => {
+              if (effectiveLive) {
+                e.stopPropagation();
+                window.open(effectiveLive, "_blank", "noopener,noreferrer");
+              }
+            }}
+          >
             {meta.displayName || project.name.toLowerCase()}
           </h4>
           <span
-            className="text-xs text-neutral-400 truncate hover:text-white hover:underline transition-colors leading-tight mt-1"
+            className="text-xs text-neutral-400 truncate hover:text-white hover:underline transition-colors leading-tight mt-1 cursor-pointer"
             onClick={(e) => {
-              if (project.live) {
+              if (effectiveLive) {
                 e.stopPropagation();
-                window.open(project.live, "_blank", "noopener,noreferrer");
+                window.open(effectiveLive, "_blank", "noopener,noreferrer");
               }
             }}
           >

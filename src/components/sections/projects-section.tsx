@@ -2,7 +2,7 @@
 
 import { useState, useMemo, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ArrowUpRight, Lock, X, GitBranch } from "lucide-react";
+import { ArrowUpRight, Lock, X, GitBranch, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useLenis } from "lenis/react";
 import { marked } from "marked";
@@ -11,7 +11,7 @@ import { Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
 
 import { cardVariants } from "@/lib/animation-variants";
-import { ProjectCard } from "@/components/shared/project-card";
+import { ProjectCard, VERCEL_METADATA_MAP } from "@/components/shared/project-card";
 
 const FEATURED_PROJECT_ORDER = [
   "tdrive",
@@ -253,6 +253,8 @@ export function ProjectsSection() {
   }, [filteredProjects, showAll]);
 
   const caseStudy = selectedProject ? CASE_STUDIES[selectedProject.name] : null;
+  const projectMeta = selectedProject ? VERCEL_METADATA_MAP[selectedProject.name.toLowerCase()] : null;
+  const effectiveLive = projectMeta?.liveUrl || (selectedProject?.live && !selectedProject.live.includes("github.com") ? selectedProject.live : null);
 
   return (
     <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
@@ -441,6 +443,17 @@ export function ProjectsSection() {
 
               {/* Footer Actions */}
               <div className="flex items-center justify-end gap-3 pt-2.5 border-t border-border/10 mt-3 font-mono text-[9px]">
+                {effectiveLive && (
+                  <a
+                    href={effectiveLive}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-700 bg-white text-black px-4 py-1.5 font-bold uppercase tracking-wider hover:bg-neutral-200 transition duration-200 cursor-pointer"
+                  >
+                    <ExternalLink className="size-3" />
+                    Visit Live App
+                  </a>
+                )}
                 {selectedProject.isPrivate ? (
                   <span className="inline-flex items-center gap-1.5 border border-border/30 chamfer-btn px-4 py-1.5 text-muted-foreground/60">
                     <Lock className="size-3" />

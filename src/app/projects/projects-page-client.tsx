@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, LayoutGroup } from "framer-motion";
-import { ArrowLeft, Lock, X, Search, RotateCcw, GitBranch, Folder, ChevronDown, SlidersHorizontal, ChevronLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft, Lock, X, Search, RotateCcw, GitBranch, Folder, ChevronDown, SlidersHorizontal, ChevronLeft, ChevronRight, ExternalLink } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState, useMemo, useRef } from "react";
 import { useLenis } from "lenis/react";
@@ -13,7 +13,7 @@ import { PageHeader } from "@/components/shared/page-header";
 import { SectionHeader } from "@/components/shared/section-header";
 import { ViewToggle } from "@/components/shared/view-toggle";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
-import { ProjectCard } from "@/components/shared/project-card";
+import { ProjectCard, VERCEL_METADATA_MAP } from "@/components/shared/project-card";
 import { cn } from "@/lib/utils";
 
 interface Project {
@@ -399,6 +399,8 @@ export function ProjectsPageClient() {
   }, []);
 
   const caseStudy = selectedProject ? CASE_STUDIES[selectedProject.name] : null;
+  const projectMeta = selectedProject ? VERCEL_METADATA_MAP[selectedProject.name.toLowerCase()] : null;
+  const effectiveLive = projectMeta?.liveUrl || (selectedProject?.live && !selectedProject.live.includes("github.com") ? selectedProject.live : null);
 
   return (
     <main className="relative isolate min-h-screen overflow-hidden bg-background">
@@ -812,8 +814,19 @@ export function ProjectsPageClient() {
                   </div>
                 )}
 
-                {/* Private vs Public Info */}
+                {/* Private vs Public Info & Live Web Link */}
                 <div className="border-t border-border/10 pt-4 space-y-2.5 pb-4">
+                  {effectiveLive && (
+                    <a
+                      href={effectiveLive}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="w-full rounded border border-neutral-700 bg-white hover:bg-neutral-200 py-2 text-center font-mono text-[9px] font-bold uppercase tracking-widest text-black transition duration-300 cursor-pointer flex items-center justify-center gap-1.5 shadow-sm"
+                    >
+                      <ExternalLink className="size-3" />
+                      Visit Live Website
+                    </a>
+                  )}
                   {selectedProject.isPrivate ? (
                     <div className="flex items-center gap-2 rounded-lg border border-border/15 bg-neutral-900/50 p-3 text-[11px] text-muted-foreground leading-relaxed">
                       <Lock className="size-3.5 text-muted-foreground shrink-0" />

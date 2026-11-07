@@ -198,8 +198,25 @@ async function fetchRepos() {
       }
 
       let liveUrl = repo.homepage || repo.html_url;
-      if (repoName === "0xp47.github.io") {
-        liveUrl = "https://jaypatrickcano.dev/";
+
+      const liveUrlOverrides = {
+        "0xp47.github.io": "https://jaypatrickcano.dev/",
+        "lumora": "https://lumora-social.vercel.app",
+        "lumora-frontend": "https://lumora-social.vercel.app",
+        "lumora-backend": "https://lumora-social.vercel.app",
+        "lumora-new": "https://lumora-social.vercel.app",
+        "tdrive": "http://tdrv.vercel.app/",
+        "axiom-lms": "https://axiom-lms.vercel.app",
+        "pos-and-inventory-system": "https://pos-and-inventory-system-navy.vercel.app",
+        "ccs-assistant": "https://ccs-assistant.vercel.app",
+        "room-209": "https://room-209.vercel.app",
+        "philnits-ip-exam": "https://philnits-prep.vercel.app",
+        "philnits-reviewer": "https://philnits-prep.vercel.app",
+        "ccsas-dashboard": "https://ccsas-dashboard.vercel.app",
+      };
+
+      if (liveUrlOverrides[repoName]) {
+        liveUrl = liveUrlOverrides[repoName];
       }
 
       repos.push({
