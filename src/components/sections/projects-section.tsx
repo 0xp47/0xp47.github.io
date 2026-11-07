@@ -1,6 +1,7 @@
 "use client";
 
-import { useState, useMemo, useEffect, useRef } from "react";
+import { useState, useMemo, useEffect, useRef, useSyncExternalStore } from "react";
+import { createPortal } from "react-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUpRight, Lock, X, GitBranch, ExternalLink } from "lucide-react";
 import Link from "next/link";
@@ -111,11 +112,14 @@ function formatRepoName(name: string): string {
     .replace(/\b\w/g, (char) => char.toUpperCase());
 }
 
+const emptySubscribe = () => () => {};
+
 export function ProjectsSection() {
   const lenis = useLenis();
   const [activeFilter, setActiveFilter] = useState("All");
   const [showAll, setShowAll] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const isMounted = useSyncExternalStore(emptySubscribe, () => true, () => false);
 
   const drawerRef = useRef<HTMLDivElement>(null);
 
@@ -310,6 +314,7 @@ export function ProjectsSection() {
       )}
 
       {/* Case Study Drawer */}
+      {isMounted && typeof document !== "undefined" ? createPortal(
       <AnimatePresence>
         {selectedProject && (
           <>
@@ -329,7 +334,7 @@ export function ProjectsSection() {
               role="dialog"
               aria-modal="true"
               aria-label={selectedProject?.name ? `${selectedProject.name} details` : 'Project details'}
-              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-neutral-800 bg-[#0a0a0a]/95 px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
+              className="fixed inset-y-0 right-0 z-50 flex h-full w-full max-w-lg flex-col border-l border-neutral-800 bg-[#0a0a0a] px-4 py-3 shadow-2xl backdrop-blur-xl sm:px-8 sm:py-4"
               initial={{ x: "100%" }}
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
@@ -431,7 +436,7 @@ export function ProjectsSection() {
               </div>
 
               {/* Footer Actions */}
-              <div className="flex items-center justify-end gap-3 pt-2.5 border-t border-border/10 mt-3 font-mono text-[9px]">
+              <div className="flex items-center justify-start flex-wrap gap-3 pt-2.5 border-t border-border/10 mt-3 font-mono text-[9px]">
                 {effectiveLive && (
                   <a
                     href={effectiveLive}
@@ -463,7 +468,8 @@ export function ProjectsSection() {
             </motion.div>
           </>
         )}
-      </AnimatePresence>
+      </AnimatePresence>,
+      document.body) : null}
     </Section>
   );
 }
