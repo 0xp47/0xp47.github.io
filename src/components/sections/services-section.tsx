@@ -100,7 +100,7 @@ export function ServicesSection() {
               >
                 {/* Header: Title and Index Number */}
                 <div className="flex items-start justify-between gap-3 w-full">
-                  <h3 className="font-mono text-[14.5px] sm:text-[15px] font-semibold text-white tracking-tight leading-snug">
+                  <h3 className="text-[15px] font-semibold text-white tracking-tight leading-snug">
                     {service.title}
                   </h3>
                   <span className="font-mono text-[9px] font-bold px-2 py-0.5 rounded border border-neutral-800 bg-[#121212] text-neutral-400 select-none tabular-nums group-hover:border-neutral-700 group-hover:text-white transition-colors duration-200 shrink-0">

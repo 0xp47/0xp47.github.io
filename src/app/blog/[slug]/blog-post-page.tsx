@@ -95,7 +95,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 ))}
               </div>
 
-              <h1 className="font-mono text-3xl font-semibold text-foreground tracking-tight leading-tight sm:text-4xl">
+              <h1 className="text-3xl font-semibold text-foreground tracking-tight leading-tight sm:text-4xl">
                 {post.title}
               </h1>
 

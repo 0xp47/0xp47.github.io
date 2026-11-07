@@ -136,7 +136,7 @@ export function CertificationsSection() {
                     setShowAll(false);
                   }}
                   className={cn(
-                    "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-colors duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
+                    "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-colors duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden whitespace-nowrap shrink-0",
                     isActive
                       ? "bg-white text-black font-semibold shadow-xs"
                       : "border border-neutral-800 bg-[#0a0a0a] text-neutral-400 hover:border-neutral-700 hover:text-white"

@@ -147,7 +147,7 @@ export function Section({ id, title, children }: SectionProps) {
 
           {/* Section Title below the line */}
           <div className="pt-3.5 sm:pt-4 pl-6 sm:pl-7 md:pl-8 max-w-xs sm:max-w-sm md:max-w-md">
-            <h2 className="font-mono text-xl sm:text-2xl md:text-3xl font-normal text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug">
+            <h2 className="text-xl sm:text-2xl md:text-3xl font-light text-neutral-700 dark:text-neutral-300 tracking-tight leading-snug">
               {title}
             </h2>
           </div>

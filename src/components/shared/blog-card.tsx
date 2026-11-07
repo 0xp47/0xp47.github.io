@@ -42,7 +42,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
           </span>
         </div>
 
-        <h3 className="font-mono mt-2 text-[14.5px] sm:text-[15px] font-semibold leading-snug tracking-tight text-white line-clamp-2 group-hover:text-white">
+        <h3 className="mt-2 text-[15px] font-semibold leading-snug tracking-tight text-white line-clamp-2 group-hover:text-white">
           {post.title}
         </h3>
 

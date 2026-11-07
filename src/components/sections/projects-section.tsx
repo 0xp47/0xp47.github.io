@@ -353,7 +353,7 @@ export function ProjectsSection() {
                   <span className="font-mono text-[9px] font-bold text-neutral-400 uppercase tracking-widest block mb-0.5">
                     {selectedProject.category} Case Study
                   </span>
-                  <h2 className="font-mono text-lg font-bold tracking-tight text-white">
+                  <h2 className="text-lg font-bold tracking-tight text-white">
                     {formatRepoName(selectedProject.name)}
                   </h2>
                 </div>

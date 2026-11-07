@@ -46,7 +46,7 @@ export function ExperienceSection() {
                     )}
                   </div>
                   <div>
-                    <h4 className="font-mono text-xs font-bold text-foreground tracking-tight leading-none uppercase">
+                    <h4 className="text-xs font-bold text-foreground tracking-tight leading-none uppercase">
                       {item.company}
                     </h4>
                     <span className="mt-1.5 inline-block font-mono text-[10px] text-muted-foreground/60">
@@ -58,7 +58,7 @@ export function ExperienceSection() {
                 {/* Right Column: Role Details & Tags */}
                 <div className="flex-grow max-w-2xl">
                   <div className="flex items-center gap-2.5">
-                    <h3 className="font-mono text-sm font-bold text-foreground tracking-tight leading-snug">
+                    <h3 className="text-sm font-bold text-foreground tracking-tight leading-snug">
                       {item.position}
                     </h3>
                     {isPresent && (
