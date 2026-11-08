@@ -88,7 +88,7 @@ export function CertificationsSection() {
             registered on official credential registries — latest issued {lastIssued}.
           </p>
 
-          <div className="flex flex-wrap items-center gap-3 text-[11px] self-start md:self-auto">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-[11px] self-start md:self-auto">
             <a
               href={profile.anthropic || "https://anthropic.skilljar.com/"}
               target="_blank"
@@ -120,7 +120,7 @@ export function CertificationsSection() {
         </div>
 
         {/* Filter Tabs — individual chamfered buttons */}
-        <div className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none">
+        <div className="mb-4 sm:mb-5 w-full max-w-full overflow-x-auto scrollbar-none pb-1">
           <nav className="flex items-center gap-2" aria-label="Certification filters">
             {CERT_FILTERS.map((filter) => {
               const count = getFilterCount(filter);
@@ -153,7 +153,7 @@ export function CertificationsSection() {
         {/* Grid of Credentials — matching the ProjectCard layout */}
         <motion.div
           layout={!prefersReducedMotion}
-          className="mt-2 grid gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch"
+          className="mt-2 grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch w-full"
         >
           <AnimatePresence mode="popLayout">
             {displayedCertifications.map((badge, index) => (
@@ -168,7 +168,7 @@ export function CertificationsSection() {
                   delay: prefersReducedMotion ? 0 : Math.min(index * 0.04, 0.24),
                   ease: [0.16, 1, 0.3, 1],
                 }}
-                className="h-full"
+                className="h-full w-full min-w-0"
               >
                 <BadgeCard badge={badge} index={index} />
               </motion.div>
