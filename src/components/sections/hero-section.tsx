@@ -1,11 +1,11 @@
 "use client";
 
-import { type ComponentType, useRef } from "react";
+import { type ComponentType, useRef, useSyncExternalStore } from "react";
 import Image from "next/image";
-import { motion, useInView } from "framer-motion";
+import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useLenis } from "lenis/react";
-import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
+import { isSwarmRebuildActive, triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 import * as BrandIcons from "@/components/shared/brand-icons";
@@ -37,6 +37,14 @@ const technologyIcons: Record<string, ComponentType<{ className?: string }>> = {
   "Linux": BrandIcons.LinuxIcon,
 };
 
+function subscribeSwarmState(callback: () => void) {
+  if (typeof window === "undefined") return () => {};
+  window.addEventListener("swarm-rebuild-state", callback);
+  return () => {
+    window.removeEventListener("swarm-rebuild-state", callback);
+  };
+}
+
 interface HeroSectionProps {
   onScrollToSection: (sectionId: string) => void;
   isReady?: boolean;
@@ -46,6 +54,11 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
   const lenis = useLenis();
   const heroRef = useRef<HTMLDivElement>(null);
   const isHeroInView = useInView(heroRef, { once: false, amount: 0.12 });
+  const isSwarmActive = useSyncExternalStore(
+    subscribeSwarmState,
+    () => isSwarmRebuildActive(),
+    () => false
+  );
 
   const showHero = isReady && isHeroInView;
   const animateState = showHero ? "visible" : "hidden";
@@ -217,7 +230,7 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                 {heroDescription}
               </motion.p>
 
-              {/* Swarm Rebuild / Explore Button */}
+              {/* Swarm Rebuild button + Right-side supporting animation description */}
               <motion.div
                 initial="hidden"
                 animate={animateState}
@@ -235,6 +248,7 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                 }}
                 className="mt-8 flex flex-wrap items-center gap-3.5 will-change-transform"
               >
+                {/* Swarm Rebuild / Explore Button */}
                 <button
                   type="button"
                   onClick={() => {
@@ -258,6 +272,62 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                     <ArrowDown className="size-4.5 text-neutral-700 group-hover:text-black dark:text-neutral-300 dark:group-hover:text-white transition-transform duration-200 group-hover:translate-y-0.5" />
                   </div>
                 </button>
+
+                {/* Supporting animation description on the right side of the Swarm Rebuild button */}
+                <motion.div
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={showHero ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                  transition={{
+                    duration: 1.1,
+                    delay: 0.72,
+                    ease: EASE_OUT_EXPO,
+                  }}
+                  className="pointer-events-none select-none min-w-0 flex items-center gap-3 will-change-transform"
+                >
+                  <span
+                    aria-hidden="true"
+                    className="h-6 w-px shrink-0 bg-neutral-300/80 dark:bg-neutral-800/90"
+                  />
+                  <AnimatePresence mode="wait" initial={false}>
+                    {isSwarmActive ? (
+                      <motion.div
+                        key="swarm-active"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
+                        className="flex flex-col justify-center gap-1 font-mono"
+                      >
+                        <span className="inline-flex items-center gap-1.5 text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground leading-none">
+                          <span className="relative flex size-1.5 shrink-0">
+                            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/60 opacity-75" />
+                            <span className="relative inline-flex size-1.5 rounded-full bg-foreground" />
+                          </span>
+                          <span>Reconstructing UI</span>
+                        </span>
+                        <span className="text-[9.5px] tracking-[0.06em] text-muted-foreground/75 leading-none">
+                          Visual sequence active
+                        </span>
+                      </motion.div>
+                    ) : (
+                      <motion.div
+                        key="swarm-idle"
+                        initial={{ opacity: 0, y: 4 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -4 }}
+                        transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
+                        className="flex flex-col justify-center gap-1 font-mono"
+                      >
+                        <span className="text-[10px] font-semibold uppercase tracking-[0.18em] text-foreground/85 leading-none">
+                          Deconstruct UI
+                        </span>
+                        <span className="text-[9.5px] tracking-[0.06em] text-muted-foreground/65 leading-none">
+                          Trigger visual sequence
+                        </span>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+                </motion.div>
               </motion.div>
             </div>
 
