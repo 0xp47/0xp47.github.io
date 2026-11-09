@@ -62,9 +62,9 @@ export function ExperienceSection() {
                       {item.position}
                     </h3>
                     {isPresent && (
-                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-emerald-500/30 bg-foreground/10 text-emerald-600 dark:text-emerald-400 font-mono text-[8.5px] font-semibold tracking-wider uppercase">
+                      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full border border-foreground/25 bg-foreground/5 text-foreground font-mono text-[8.5px] font-semibold tracking-wider uppercase">
                         <span className="relative flex h-1.5 w-1.5">
-                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground/50 opacity-75"></span>
+                          <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-foreground/40 opacity-75"></span>
                           <span className="relative inline-flex rounded-full h-1.5 w-1.5 bg-foreground"></span>
                         </span>
                         Active
