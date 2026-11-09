@@ -1,9 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { useLenis } from "lenis/react";
 
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
@@ -28,7 +28,32 @@ export function Portfolio() {
   const [isLoading, setIsLoading] = useState(true);
   const [activeSection, setActiveSection] = useState("");
   const [showBackToTop, setShowBackToTop] = useState(false);
+  const activeSectionRef = useRef("");
+  const showBackToTopRef = useRef(false);
+  const metricsRef = useRef<{
+    innerHeight: number;
+    scrollHeight: number;
+    sections: { id: string; top: number }[];
+  }>({
+    innerHeight: 0,
+    scrollHeight: 0,
+    sections: [],
+  });
   const prefersReducedMotion = useSafeReducedMotion();
+
+  const setActiveSectionSafe = useCallback((next: string) => {
+    if (activeSectionRef.current !== next) {
+      activeSectionRef.current = next;
+      setActiveSection(next);
+    }
+  }, []);
+
+  const setShowBackToTopSafe = useCallback((next: boolean) => {
+    if (showBackToTopRef.current !== next) {
+      showBackToTopRef.current = next;
+      setShowBackToTop(next);
+    }
+  }, []);
 
   // Disable body scroll when loading
   useEffect(() => {
@@ -51,7 +76,7 @@ export function Portfolio() {
         if (lenis) {
           lenis.scrollTo(0, {
             offset: 0,
-            duration: prefersReducedMotion ? 0 : 1.25,
+            duration: prefersReducedMotion ? 0 : 1.5,
             easing: smoothScrollEasing,
           });
         } else {
@@ -60,7 +85,7 @@ export function Portfolio() {
             behavior: prefersReducedMotion ? "auto" : "smooth",
           });
         }
-        setActiveSection("");
+        setActiveSectionSafe("");
         return;
       }
       const cleanId = sectionId.replace("#", "");
@@ -69,7 +94,7 @@ export function Portfolio() {
         if (lenis) {
           lenis.scrollTo(element, {
             offset: -64,
-            duration: prefersReducedMotion ? 0 : 1.25,
+            duration: prefersReducedMotion ? 0 : 1.5,
             easing: smoothScrollEasing,
           });
         } else {
@@ -77,10 +102,10 @@ export function Portfolio() {
             behavior: prefersReducedMotion ? "auto" : "smooth",
           });
         }
-        setActiveSection(cleanId);
+        setActiveSectionSafe(cleanId);
       }
     },
-    [isLoading, lenis, prefersReducedMotion]
+    [isLoading, lenis, prefersReducedMotion, setActiveSectionSafe]
   );
 
   // Support deep links (hash navigation) once the intro loader finishes
@@ -96,69 +121,95 @@ export function Portfolio() {
   }, [isLoading, handleScrollToSection]);
 
   const { scrollY } = useScroll();
-  const watermarkOpacity = useTransform(scrollY, [800, 1200], [0, 0.035]);
-  const watermarkRotate = useTransform(scrollY, [0, 3000], [-12, 6]);
-  const watermarkY = useTransform(scrollY, [0, 3000], [-64, 40]);
+  const smoothScrollY = useSpring(scrollY, {
+    stiffness: 110,
+    damping: 28,
+    mass: 0.2,
+    restDelta: 0.5,
+  });
+  const watermarkOpacity = useTransform(smoothScrollY, [800, 1200], [0, 0.035]);
+  const watermarkRotate = useTransform(smoothScrollY, [0, 3000], [-12, 6]);
+  const watermarkY = useTransform(smoothScrollY, [0, 3000], [-64, 40]);
 
   useEffect(() => {
     if (isLoading) return;
 
-    const updateActiveSection = () => {
-      const scrollY = window.scrollY;
-
-      // When near top, activate Home
-      if (scrollY < 180) {
-        setActiveSection("");
-        return;
-      }
-
-      // When near page bottom, activate last section (Contact)
-      const isAtBottom =
-        window.innerHeight + scrollY >= document.documentElement.scrollHeight - 100;
-      if (isAtBottom && navItems.length > 0) {
-        const lastSectionId = navItems[navItems.length - 1].href.replace("#", "");
-        setActiveSection(lastSectionId);
-        return;
-      }
-
-      // Check section offsets in document order
-      const probeY = scrollY + Math.min(window.innerHeight * 0.35, 280);
-      let current = "";
-
+    const measureSections = () => {
+      const sections: { id: string; top: number }[] = [];
       for (const item of navItems) {
         const id = item.href.replace("#", "");
         const el = document.getElementById(id);
         if (el) {
-          if (el.offsetTop <= probeY) {
-            current = id;
-          } else {
-            break;
-          }
+          sections.push({ id, top: el.offsetTop });
+        }
+      }
+      metricsRef.current = {
+        innerHeight: window.innerHeight,
+        scrollHeight: document.documentElement.scrollHeight,
+        sections,
+      };
+    };
+
+    const onScroll = () => {
+      const y = window.scrollY;
+      setShowBackToTopSafe(y > 720);
+
+      // When near top, activate Home
+      if (y < 180) {
+        setActiveSectionSafe("");
+        return;
+      }
+
+      const { innerHeight, scrollHeight, sections } = metricsRef.current;
+
+      // When near page bottom, activate last section (Contact)
+      if (scrollHeight > 0 && innerHeight + y >= scrollHeight - 100 && sections.length > 0) {
+        setActiveSectionSafe(sections[sections.length - 1].id);
+        return;
+      }
+
+      // Check cached section offsets in document order (zero DOM reflows during scroll)
+      const probeY = y + Math.min(innerHeight * 0.35, 280);
+      let current = "";
+
+      for (let i = 0; i < sections.length; i++) {
+        if (sections[i].top <= probeY) {
+          current = sections[i].id;
+        } else {
+          break;
         }
       }
 
       if (current) {
-        setActiveSection(current);
+        setActiveSectionSafe(current);
       }
     };
 
-    updateActiveSection();
-    window.addEventListener("scroll", updateActiveSection, { passive: true });
-    window.addEventListener("resize", updateActiveSection, { passive: true });
+    measureSections();
+    onScroll();
+
+    const handleResize = () => {
+      measureSections();
+      onScroll();
+    };
+
+    let resizeObserver: ResizeObserver | null = null;
+    if (typeof ResizeObserver !== "undefined") {
+      resizeObserver = new ResizeObserver(() => {
+        measureSections();
+      });
+      resizeObserver.observe(document.body);
+    }
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", updateActiveSection);
-      window.removeEventListener("resize", updateActiveSection);
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", handleResize);
+      resizeObserver?.disconnect();
     };
-  }, [isLoading]);
-
-  useEffect(() => {
-    const onScroll = () => setShowBackToTop(window.scrollY > 720);
-
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
+  }, [isLoading, setActiveSectionSafe, setShowBackToTopSafe]);
 
   return (
     <>
@@ -183,7 +234,7 @@ export function Portfolio() {
         animate={!isLoading && showBackToTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
         transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "group fixed bottom-6 right-6 z-30 hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-95 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer",
+          "group fixed bottom-6 right-6 z-30 hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-95 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer will-change-transform transform-gpu",
           (!showBackToTop || isLoading) && "pointer-events-none"
         )}
       >
@@ -193,7 +244,7 @@ export function Portfolio() {
       <main className="relative isolate min-h-screen overflow-hidden bg-background">
         {/* Subtle fixed background watermark GZ logo on the top right side, slanted (rotated) and fades in on scroll */}
         <motion.div
-          className="fixed -right-24 -top-16 -z-20 pointer-events-none select-none"
+          className="fixed -right-24 -top-16 -z-20 pointer-events-none select-none will-change-transform transform-gpu"
           style={{
             opacity: watermarkOpacity,
             rotate: watermarkRotate,
@@ -214,9 +265,9 @@ export function Portfolio() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, y: 12 }}
-          animate={isLoading ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
+          initial={{ opacity: 0 }}
+          animate={isLoading ? { opacity: 0 } : { opacity: 1 }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.45, ease: [0.22, 0.88, 0.26, 1] }}
         >
           <HeroSection
             onScrollToSection={handleScrollToSection}

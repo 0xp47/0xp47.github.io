@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import { experience, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
-import { cardVariants, EASE_OUT_EXPO } from "@/lib/animation-variants";
+import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 
 export function ExperienceSection() {
   return (
@@ -11,34 +11,29 @@ export function ExperienceSection() {
       <div className="relative max-w-4xl">
         {/* Sleek Vertical Progress Line with scroll-triggered draw-in */}
         <motion.div
-          variants={{
-            hidden: { scaleY: 0, opacity: 0 },
-            visible: {
-              scaleY: 1,
-              opacity: 1,
-              transition: { duration: 0.95, ease: EASE_OUT_EXPO },
-            },
-          }}
-          className="absolute left-[11px] top-3 bottom-3 w-px bg-gradient-to-b from-foreground/35 via-border/50 to-transparent origin-top"
+          initial={{ scaleY: 0, opacity: 0 }}
+          whileInView={{ scaleY: 1, opacity: 1 }}
+          viewport={{ once: false, amount: 0.15, margin: "0px 0px -10% 0px" }}
+          transition={{ duration: 1.4, ease: EASE_OUT_EXPO }}
+          className="absolute left-[11px] top-3 bottom-3 w-px bg-gradient-to-b from-foreground/35 via-border/50 to-transparent origin-top will-change-transform"
         />
 
-        <motion.div
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.12 },
-            },
-          }}
-          className="space-y-4"
-        >
-          {experience.map((item) => {
+        <div className="space-y-4">
+          {experience.map((item, idx) => {
             const isPresent = item.duration.toLowerCase().includes("present");
 
             return (
               <motion.article
                 key={item.company}
-                variants={cardVariants}
-                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 border-b border-border/40 py-4 sm:py-5 hover:border-foreground/30 hover:pl-11 md:hover:pl-13 transition-all duration-300 ease-out pl-10 md:pl-12"
+                initial={{ opacity: 0, y: 32 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.25, margin: "0px 0px -10% 0px" }}
+                transition={{
+                  duration: 1.15,
+                  delay: idx * 0.08,
+                  ease: EASE_OUT_EXPO,
+                }}
+                className="group relative flex flex-col md:flex-row md:items-start justify-between gap-4 md:gap-6 border-b border-border/40 py-4 sm:py-5 hover:border-foreground/30 hover:pl-11 md:hover:pl-13 transition-all duration-300 ease-out pl-10 md:pl-12 will-change-transform"
               >
                 {/* Left Column: Company & Timeline Dot */}
                 <div className="flex flex-col md:flex-row md:items-center gap-2 md:gap-4 min-w-[140px] md:min-w-[180px] shrink-0">
@@ -103,7 +98,7 @@ export function ExperienceSection() {
               </motion.article>
             );
           })}
-        </motion.div>
+        </div>
       </div>
     </Section>
   );

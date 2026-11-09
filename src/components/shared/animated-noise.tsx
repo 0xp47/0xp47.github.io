@@ -1,67 +1,109 @@
-"use client"
+"use client";
 
-import { useEffect, useRef } from "react"
+import { useEffect, useRef } from "react";
 
 interface AnimatedNoiseProps {
-  opacity?: number
-  className?: string
+  opacity?: number;
+  className?: string;
 }
 
+const TILE_SIZE = 128;
+const FRAME_COUNT = 4;
+
 export function AnimatedNoise({ opacity = 0.05, className }: AnimatedNoiseProps) {
-  const canvasRef = useRef<HTMLCanvasElement>(null)
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current
-    if (!canvas) return
+    const canvas = canvasRef.current;
+    if (!canvas) return;
 
-    const ctx = canvas.getContext("2d")
-    if (!ctx) return
+    const ctx = canvas.getContext("2d", { alpha: false });
+    if (!ctx) return;
 
-    let animationId: number
-    let frame = 0
+    // Keep the backing buffer compact and let the GPU scale it smoothly;
+    // avoids allocating megabytes of ImageData on every frame.
+    canvas.width = TILE_SIZE * 2;
+    canvas.height = TILE_SIZE * 2;
 
-    const resize = () => {
-      canvas.width = canvas.offsetWidth / 2
-      canvas.height = canvas.offsetHeight / 2
-    }
-
-    const generateNoise = () => {
-      const imageData = ctx.createImageData(canvas.width, canvas.height)
-      const data = imageData.data
-
-      for (let i = 0; i < data.length; i += 4) {
-        const value = Math.random() * 255
-        data[i] = value // R
-        data[i + 1] = value // G
-        data[i + 2] = value // B
-        data[i + 3] = 255 // A
+    // Pre-generate 4 reusable noise tiles ONCE on mount (zero per-frame Math.random/GC).
+    const tiles: HTMLCanvasElement[] = [];
+    for (let t = 0; t < FRAME_COUNT; t++) {
+      const tile = document.createElement("canvas");
+      tile.width = TILE_SIZE;
+      tile.height = TILE_SIZE;
+      const tileCtx = tile.getContext("2d");
+      if (tileCtx) {
+        const imageData = tileCtx.createImageData(TILE_SIZE, TILE_SIZE);
+        const buf32 = new Uint32Array(imageData.data.buffer);
+        for (let i = 0; i < buf32.length; i++) {
+          const v = (Math.random() * 255) | 0;
+          buf32[i] = (255 << 24) | (v << 16) | (v << 8) | v;
+        }
+        tileCtx.putImageData(imageData, 0, 0);
       }
-
-      ctx.putImageData(imageData, 0, 0)
+      tiles.push(tile);
     }
 
-    const animate = () => {
-      frame++
-      // Update noise every 2 frames for performance while still looking animated
-      if (frame % 2 === 0) {
-        generateNoise()
+    let animationId = 0;
+    let frame = 0;
+    let tileIdx = 0;
+    let isVisible = true;
+
+    const drawTile = () => {
+      const tile = tiles[tileIdx];
+      if (!tile) return;
+      tileIdx = (tileIdx + 1) % FRAME_COUNT;
+      ctx.drawImage(tile, 0, 0, TILE_SIZE, TILE_SIZE);
+      ctx.drawImage(tile, TILE_SIZE, 0, TILE_SIZE, TILE_SIZE);
+      ctx.drawImage(tile, 0, TILE_SIZE, TILE_SIZE, TILE_SIZE);
+      ctx.drawImage(tile, TILE_SIZE, TILE_SIZE, TILE_SIZE, TILE_SIZE);
+    };
+
+    const startOrStop = () => {
+      if (animationId) {
+        cancelAnimationFrame(animationId);
+        animationId = 0;
       }
-      animationId = requestAnimationFrame(animate)
-    }
+      if (!isVisible) return;
 
-    resize()
-    window.addEventListener("resize", resize)
-    animate()
+      const animate = () => {
+        if (!isVisible) return;
+        frame++;
+        if (frame % 4 === 0) {
+          drawTile();
+        }
+        animationId = requestAnimationFrame(animate);
+      };
+      drawTile();
+      animationId = requestAnimationFrame(animate);
+    };
+
+    startOrStop();
+
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (!entry) return;
+          isVisible = entry.isIntersecting;
+          startOrStop();
+        },
+        { threshold: 0 }
+      );
+      observer.observe(canvas);
+    }
 
     return () => {
-      window.removeEventListener("resize", resize)
-      cancelAnimationFrame(animationId)
-    }
-  }, [])
+      if (animationId) cancelAnimationFrame(animationId);
+      observer?.disconnect();
+    };
+  }, []);
 
   return (
     <canvas
       ref={canvasRef}
+      aria-hidden="true"
       className={className}
       style={{
         position: "absolute",
@@ -70,8 +112,7 @@ export function AnimatedNoise({ opacity = 0.05, className }: AnimatedNoiseProps)
         height: "100%",
         pointerEvents: "none",
         opacity,
-        mixBlendMode: "overlay",
       }}
     />
-  )
+  );
 }

@@ -11,7 +11,7 @@ import { projects, projectFilters, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
 
-import { cardVariants, fadeUpVariants } from "@/lib/animation-variants";
+import { EASE_OUT_EXPO, fadeUpVariants } from "@/lib/animation-variants";
 import { ProjectCard, VERCEL_METADATA_MAP, type Project } from "@/components/shared/project-card";
 
 const FEATURED_PROJECT_ORDER = [
@@ -253,8 +253,11 @@ export function ProjectsSection() {
     <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
       {/* Vercel Project Filter Tabs — individual chamfered buttons */}
       <motion.div
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.3, margin: "0px 0px -10% 0px" }}
         variants={fadeUpVariants}
-        className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none"
+        className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none will-change-transform"
       >
         <nav className="flex items-center gap-2 py-0.5" aria-label="Project filters">
           {projectFilters.map((filter) => {
@@ -284,33 +287,32 @@ export function ProjectsSection() {
         </nav>
       </motion.div>
 
-      <motion.div
-        key={activeFilter}
-        variants={{
-          hidden: {},
-          visible: {
-            transition: { staggerChildren: 0.08 },
-          },
-        }}
-        initial="hidden"
-        animate="visible"
-        className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 max-w-[780px] items-stretch"
-      >
-        {displayedProjects.map((project) => (
+      <div className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 max-w-[780px] items-stretch">
+        {displayedProjects.map((project, index) => (
           <motion.div
             key={project.name}
-            variants={cardVariants}
-            className="h-full"
+            initial={{ opacity: 0, y: 36, scale: 0.975 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.18, margin: "0px 0px -8% 0px" }}
+            transition={{
+              duration: 1.15,
+              delay: (index % 2) * 0.14,
+              ease: EASE_OUT_EXPO,
+            }}
+            className="h-full will-change-transform"
           >
             <ProjectCard project={project} onViewDetails={setSelectedProject} />
           </motion.div>
         ))}
-      </motion.div>
+      </div>
 
       {filteredProjects.length > 8 && (
         <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3, margin: "0px 0px -8% 0px" }}
           variants={fadeUpVariants}
-          className="mt-8 sm:mt-10 flex justify-center"
+          className="mt-8 sm:mt-10 flex justify-center will-change-transform"
         >
           <Link
             href="/projects"

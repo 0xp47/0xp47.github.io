@@ -11,6 +11,7 @@ export function ServicesSection() {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const autoplayRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const isPausedRef = useRef(false);
+  const isVisibleRef = useRef(false);
 
   const scroll = useCallback((direction: "left" | "right") => {
     if (scrollContainerRef.current) {
@@ -44,7 +45,7 @@ export function ServicesSection() {
       clearInterval(autoplayRef.current);
     }
     autoplayRef.current = setInterval(() => {
-      if (!isPausedRef.current) {
+      if (!isPausedRef.current && isVisibleRef.current) {
         scroll("right");
       }
     }, 4500); // Scroll right every 4.5s
@@ -52,7 +53,22 @@ export function ServicesSection() {
 
   useEffect(() => {
     startAutoplay();
+    const container = scrollContainerRef.current;
+    let observer: IntersectionObserver | null = null;
+    if (container && typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (entry) {
+            isVisibleRef.current = entry.isIntersecting;
+          }
+        },
+        { threshold: 0.2 }
+      );
+      observer.observe(container);
+    }
     return () => {
+      observer?.disconnect();
       if (autoplayRef.current) {
         clearInterval(autoplayRef.current);
       }
@@ -109,10 +125,13 @@ export function ServicesSection() {
         {/* Carousel Container */}
         <motion.div
           ref={scrollContainerRef}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.25, margin: "0px 0px -10% 0px" }}
           variants={{
             hidden: {},
             visible: {
-              transition: { staggerChildren: 0.1 },
+              transition: { staggerChildren: 0.16 },
             },
           }}
           className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pt-1 pb-3"

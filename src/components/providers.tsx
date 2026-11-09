@@ -1,9 +1,9 @@
 "use client";
 
-import { useEffect } from "react";
-import { ReactLenis, useLenis } from "lenis/react";
+import { useEffect, useRef } from "react";
+import { ReactLenis, useLenis, type LenisRef } from "lenis/react";
+import { frame, cancelFrame } from "framer-motion";
 import { SwarmRebuildListener } from "@/components/shared/swarm-rebuild-listener";
-import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 
 function LenisBridge() {
   const lenis = useLenis();
@@ -22,18 +22,34 @@ function LenisBridge() {
 }
 
 export function Providers({ children }: { children: React.ReactNode }) {
-  const prefersReducedMotion = useSafeReducedMotion();
+  const lenisRef = useRef<LenisRef>(null);
+
+  // Drive Lenis directly from Framer Motion's unified frame loop so scroll
+  // interpolation and scroll-linked transforms execute in the exact same frame.
+  useEffect(() => {
+    function update(data: { timestamp: number }) {
+      lenisRef.current?.lenis?.raf(data.timestamp);
+    }
+
+    frame.update(update, true);
+    return () => cancelFrame(update);
+  }, []);
 
   return (
     <ReactLenis
+      ref={lenisRef}
       root
+      autoRaf={false}
       options={{
-        lerp: prefersReducedMotion ? 1 : 0.085,
-        duration: prefersReducedMotion ? 0 : 1.25,
-        smoothWheel: !prefersReducedMotion,
-        wheelMultiplier: 0.9,
-        touchMultiplier: 1.5,
+        // Pure exponential damping (lerp without duration) ensures silky-smooth
+        // velocity blending and instant, natural reversal when scrolling down & up.
+        lerp: 0.06,
+        smoothWheel: true,
+        wheelMultiplier: 0.88,
+        touchMultiplier: 1.15,
         syncTouch: false,
+        overscroll: true,
+        respectReducedMotion: false,
       }}
     >
       <LenisBridge />

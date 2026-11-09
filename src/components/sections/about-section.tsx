@@ -5,7 +5,7 @@ import { motion, useMotionValue, useTransform, animate, useInView } from "framer
 import { Terminal, GitMerge, Briefcase, type LucideIcon } from "lucide-react";
 import { aboutHighlights, aboutDescription, heroStats, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
-import { cardVariants, fadeUpVariants, EASE_OUT_EXPO } from "@/lib/animation-variants";
+import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 
 const iconMap: Record<string, LucideIcon> = {
   Terminal,
@@ -47,41 +47,43 @@ function AnimatedCounter({ value, suffix }: { value: number; suffix: string }) {
 export function AboutSection() {
   return (
     <Section id="about" eyebrow={sectionMeta.about.eyebrow} title={sectionMeta.about.title}>
-      <motion.div className="grid gap-6 lg:gap-8 lg:grid-cols-[1fr_1.2fr] items-start">
+      <div className="grid gap-6 lg:gap-8 lg:grid-cols-[1fr_1.2fr] items-start">
         
         {/* Left Column: Bio and Stats Grid */}
-        <motion.div
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.1 },
-            },
-          }}
-          className="flex flex-col gap-6"
-        >
+        <div className="flex flex-col gap-6">
           <div className="space-y-3.5 text-sm leading-relaxed text-neutral-600 dark:text-neutral-400 text-pretty">
             {aboutDescription.split("\n\n").map((paragraph, idx) => (
-              <motion.p key={idx} variants={fadeUpVariants}>
+              <motion.p
+                key={idx}
+                initial={{ opacity: 0, y: 28 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: false, amount: 0.25, margin: "0px 0px -10% 0px" }}
+                transition={{
+                  duration: 1.15,
+                  delay: idx * 0.12,
+                  ease: EASE_OUT_EXPO,
+                }}
+                className="will-change-transform"
+              >
                 {paragraph}
               </motion.p>
             ))}
           </div>
           
           {/* Stats Highlights */}
-          <motion.div
-            variants={{
-              hidden: {},
-              visible: {
-                transition: { staggerChildren: 0.09 },
-              },
-            }}
-            className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-2"
-          >
+          <div className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-2">
             {heroStats.map((stat, i) => (
               <motion.div
                 key={i}
-                variants={cardVariants}
-                className="group relative select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_12px_28px_rgba(0,0,0,0.45)]"
+                initial={{ opacity: 0, y: 32, scale: 0.975 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.2, margin: "0px 0px -10% 0px" }}
+                transition={{
+                  duration: 1.15,
+                  delay: i * 0.14,
+                  ease: EASE_OUT_EXPO,
+                }}
+                className="group relative select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_12px_28px_rgba(0,0,0,0.45)] will-change-transform"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
                 }}
@@ -105,27 +107,26 @@ export function AboutSection() {
                 </div>
               </motion.div>
             ))}
-          </motion.div>
-        </motion.div>
+          </div>
+        </div>
 
         {/* Right Column: Highlights Cards */}
-        <motion.div 
-          variants={{
-            hidden: {},
-            visible: {
-              transition: { staggerChildren: 0.11 },
-            },
-          }}
-          className="flex flex-col gap-4"
-        >
+        <div className="flex flex-col gap-4">
           {aboutHighlights.map((item, index) => {
             const IconComponent = iconMap[item.icon] || Terminal;
 
             return (
               <motion.div
                 key={index}
-                variants={cardVariants}
-                className="group relative select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-0.5 hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_14px_32px_rgba(0,0,0,0.5)]"
+                initial={{ opacity: 0, y: 32, scale: 0.975 }}
+                whileInView={{ opacity: 1, y: 0, scale: 1 }}
+                viewport={{ once: false, amount: 0.2, margin: "0px 0px -10% 0px" }}
+                transition={{
+                  duration: 1.15,
+                  delay: index * 0.14,
+                  ease: EASE_OUT_EXPO,
+                }}
+                className="group relative select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-0.5 hover:shadow-[0_14px_32px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_14px_32px_rgba(0,0,0,0.5)] will-change-transform"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
                 }}
@@ -156,9 +157,9 @@ export function AboutSection() {
               </motion.div>
             );
           })}
-        </motion.div>
+        </div>
 
-      </motion.div>
+      </div>
     </Section>
   );
 }

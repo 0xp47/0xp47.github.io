@@ -6,7 +6,7 @@ import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 import { blogPosts, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
-import { cardVariants, fadeUpVariants } from "@/lib/animation-variants";
+import { EASE_OUT_EXPO, fadeUpVariants } from "@/lib/animation-variants";
 import { BlogCard } from "@/components/shared/blog-card";
 
 const INITIAL_COUNT = 4;
@@ -20,26 +20,32 @@ export function BlogSection() {
 
   return (
     <Section id="blog" eyebrow={sectionMeta.blog.eyebrow} title={sectionMeta.blog.title}>
-      <motion.div
-        variants={{
-          hidden: {},
-          visible: {
-            transition: { staggerChildren: 0.1 },
-          },
-        }}
-        className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4"
-      >
-        {visiblePosts.map((post) => (
-          <motion.div key={post.slug} variants={cardVariants} className="h-full">
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {visiblePosts.map((post, index) => (
+          <motion.div
+            key={post.slug}
+            initial={{ opacity: 0, y: 36, scale: 0.975 }}
+            whileInView={{ opacity: 1, y: 0, scale: 1 }}
+            viewport={{ once: false, amount: 0.2, margin: "0px 0px -10% 0px" }}
+            transition={{
+              duration: 1.15,
+              delay: (index % 4) * 0.14,
+              ease: EASE_OUT_EXPO,
+            }}
+            className="h-full will-change-transform"
+          >
             <BlogCard post={post} />
           </motion.div>
         ))}
-      </motion.div>
+      </div>
 
       {blogPosts.length > INITIAL_COUNT && (
         <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3, margin: "0px 0px -8% 0px" }}
           variants={fadeUpVariants}
-          className="flex justify-center mt-8 sm:mt-10"
+          className="flex justify-center mt-8 sm:mt-10 will-change-transform"
         >
           <Link
             href="/blog"

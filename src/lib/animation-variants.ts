@@ -1,26 +1,28 @@
-export const EASE_OUT_EXPO = [0.16, 1, 0.3, 1] as const;
-export const EASE_OUT_QUART = [0.25, 1, 0.5, 1] as const;
+// Silky, unhurried cubic-bezier curve with a gradual initial acceleration and
+// a long, feathered deceleration tail so section reveals glide smoothly.
+export const EASE_OUT_EXPO = [0.22, 0.88, 0.26, 1] as const;
+export const EASE_OUT_QUART = [0.25, 0.9, 0.35, 1] as const;
 
 export const cardVariants = {
-  hidden: { opacity: 0, y: 18, scale: 0.985 },
+  hidden: { opacity: 0, y: 28, scale: 0.98 },
   visible: {
     opacity: 1,
     y: 0,
     scale: 1,
     transition: {
-      duration: 0.85,
+      duration: 1.15,
       ease: EASE_OUT_EXPO,
     },
   },
 };
 
 export const fadeUpVariants = {
-  hidden: { opacity: 0, y: 16 },
+  hidden: { opacity: 0, y: 24 },
   visible: {
     opacity: 1,
     y: 0,
     transition: {
-      duration: 0.75,
+      duration: 1.1,
       ease: EASE_OUT_EXPO,
     },
   },
@@ -31,19 +33,20 @@ export const fadeInVariants = {
   visible: {
     opacity: 1,
     transition: {
-      duration: 0.7,
+      duration: 1.05,
       ease: EASE_OUT_QUART,
     },
   },
 };
 
 export const scaleInVariants = {
-  hidden: { opacity: 0, scale: 0.94 },
+  hidden: { opacity: 0, scale: 0.92, y: 12 },
   visible: {
     opacity: 1,
     scale: 1,
+    y: 0,
     transition: {
-      duration: 0.65,
+      duration: 1.0,
       ease: EASE_OUT_EXPO,
     },
   },
@@ -55,13 +58,13 @@ export const maskRevealVariants = {
     y: "0%",
     opacity: 1,
     transition: {
-      duration: 0.85,
+      duration: 1.2,
       ease: EASE_OUT_EXPO,
     },
   },
 };
 
-export const staggerContainer = (staggerChildren = 0.08, delayChildren = 0.04) => ({
+export const staggerContainer = (staggerChildren = 0.14, delayChildren = 0.12) => ({
   hidden: { opacity: 0 },
   visible: {
     opacity: 1,

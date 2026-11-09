@@ -67,11 +67,14 @@ export function ContactSection() {
   return (
     <Section id="contact" eyebrow={sectionMeta.contact.eyebrow} title={sectionMeta.contact.title}>
       <motion.div
-        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.14 } } }}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, amount: 0.25, margin: "0px 0px -10% 0px" }}
+        variants={{ hidden: {}, visible: { transition: { staggerChildren: 0.2 } } }}
         className="grid gap-6 md:gap-8 md:grid-cols-2 md:items-end"
       >
         {/* Left: description + socials */}
-        <motion.div variants={cardVariants} className="space-y-5">
+        <motion.div variants={cardVariants} className="space-y-5 will-change-transform">
           <p className="text-sm leading-relaxed text-muted-foreground max-w-md text-pretty">
             {contactDescription}
           </p>
@@ -83,7 +86,7 @@ export function ContactSection() {
             <motion.div
               variants={{
                 hidden: {},
-                visible: { transition: { staggerChildren: 0.06 } },
+                visible: { transition: { staggerChildren: 0.09 } },
               }}
               className="flex flex-wrap gap-2.5"
             >

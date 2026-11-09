@@ -1,14 +1,13 @@
 "use client";
 
-import { type ComponentType, useSyncExternalStore } from "react";
+import { type ComponentType, useRef } from "react";
 import Image from "next/image";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion, useInView } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useLenis } from "lenis/react";
-import { isSwarmRebuildActive, triggerSwarmRebuild } from "@/lib/swarm-rebuild";
+import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import { EASE_OUT_EXPO } from "@/lib/animation-variants";
-import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 import * as BrandIcons from "@/components/shared/brand-icons";
 import dynamic from "next/dynamic";
 import { BitmapChevron } from "@/components/shared/bitmap-chevron";
@@ -38,14 +37,6 @@ const technologyIcons: Record<string, ComponentType<{ className?: string }>> = {
   "Linux": BrandIcons.LinuxIcon,
 };
 
-function subscribeSwarmState(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  window.addEventListener("swarm-rebuild-state", callback);
-  return () => {
-    window.removeEventListener("swarm-rebuild-state", callback);
-  };
-}
-
 interface HeroSectionProps {
   onScrollToSection: (sectionId: string) => void;
   isReady?: boolean;
@@ -53,17 +44,17 @@ interface HeroSectionProps {
 
 export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionProps) {
   const lenis = useLenis();
-  const prefersReducedMotion = useSafeReducedMotion();
-  const isSwarmActive = useSyncExternalStore(
-    subscribeSwarmState,
-    () => isSwarmRebuildActive(),
-    () => false
-  );
+  const heroRef = useRef<HTMLDivElement>(null);
+  const isHeroInView = useInView(heroRef, { once: false, amount: 0.12 });
 
-  const animateState = isReady ? "visible" : "hidden";
+  const showHero = isReady && isHeroInView;
+  const animateState = showHero ? "visible" : "hidden";
 
   return (
-    <div className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-10 md:pt-20 overflow-hidden">
+    <div
+      ref={heroRef}
+      className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-10 md:pt-20 overflow-hidden"
+    >
       <ParticlesBackground />
       <AnimatedNoise opacity={0.03} />
 
@@ -71,8 +62,8 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
       <motion.div
         aria-hidden="true"
         initial={{ opacity: 0 }}
-        animate={isReady ? { opacity: 0.15 } : { opacity: 0 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 1.2, ease: EASE_OUT_EXPO }}
+        animate={showHero ? { opacity: 0.15 } : { opacity: 0 }}
+        transition={{ duration: 1.4, delay: 0.15, ease: EASE_OUT_EXPO }}
         className="bg-grid mask-fade-bottom absolute inset-0 -z-10 h-full"
       />
       <div
@@ -83,18 +74,18 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
       {/* Large Centered Portrait Cutout (positioned absolutely in background, sitting flush on top of marquee) */}
       <div className="absolute inset-x-0 bottom-16 top-0 z-0 hidden md:flex items-end justify-center pointer-events-none">
         <motion.div
-          initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.965, y: 18 }}
+          initial={{ opacity: 0, scale: 0.92, y: 36 }}
           animate={
-            isReady
+            showHero
               ? { opacity: 1, scale: 1, y: 0 }
-              : { opacity: 0, scale: 0.965, y: 18 }
+              : { opacity: 0, scale: 0.92, y: 36 }
           }
           transition={{
-            duration: prefersReducedMotion ? 0 : 0.95,
-            delay: prefersReducedMotion ? 0 : 0.22,
+            duration: 1.35,
+            delay: 0.3,
             ease: EASE_OUT_EXPO,
           }}
-          className="relative h-[80%] md:h-[84%] lg:h-[88%] w-full max-w-[400px] md:max-w-[460px] lg:max-w-[520px] origin-bottom [mask-image:linear-gradient(to_bottom,black_88%,transparent)]"
+          className="relative h-[80%] md:h-[84%] lg:h-[88%] w-full max-w-[400px] md:max-w-[460px] lg:max-w-[520px] origin-bottom [mask-image:linear-gradient(to_bottom,black_88%,transparent)] will-change-transform"
         >
           <Image
             src="/images/me.png"
@@ -114,21 +105,21 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
             {/* Left Column: Headline and scroll down indicator */}
             <div className="pb-8 md:pb-16 lg:pb-24 order-2 md:order-1">
               <motion.div
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
-                  hidden: { opacity: 0, y: -10 },
+                  hidden: { opacity: 0, y: -16 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     transition: {
-                      duration: prefersReducedMotion ? 0 : 0.65,
-                      delay: prefersReducedMotion ? 0 : 0.04,
+                      duration: 1.05,
+                      delay: 0.18,
                       ease: EASE_OUT_EXPO,
                     },
                   },
                 }}
-                className="mb-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground select-none"
+                className="mb-4 flex items-center gap-2 font-mono text-[9px] uppercase tracking-[0.22em] text-muted-foreground select-none will-change-transform"
               >
                 <span className="size-1.5 bg-foreground" />
                 <span>SYS.SPEC // 2026</span>
@@ -136,7 +127,7 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                 <span>MAASIN_PH // 10.1335°N 124.8724°E</span>
               </motion.div>
               <motion.div
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
                   hidden: { opacity: 0, scaleX: 0 },
@@ -144,25 +135,25 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                     opacity: 1,
                     scaleX: 1,
                     transition: {
-                      duration: prefersReducedMotion ? 0 : 0.7,
-                      delay: prefersReducedMotion ? 0 : 0.08,
+                      duration: 1.15,
+                      delay: 0.24,
                       ease: EASE_OUT_EXPO,
                     },
                   },
                 }}
-                className="h-0.5 w-16 bg-foreground origin-left"
+                className="h-0.5 w-16 bg-foreground origin-left will-change-transform"
               />
 
               <motion.h1
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
                   hidden: { opacity: 0 },
                   visible: {
                     opacity: 1,
                     transition: {
-                      staggerChildren: prefersReducedMotion ? 0 : 0.09,
-                      delayChildren: prefersReducedMotion ? 0 : 0.14,
+                      staggerChildren: 0.14,
+                      delayChildren: 0.3,
                     },
                   },
                 }}
@@ -171,17 +162,17 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                 <span className="block overflow-hidden pb-0.5">
                   <motion.span
                     variants={{
-                      hidden: { y: "100%", opacity: 0 },
+                      hidden: { y: "110%", opacity: 0 },
                       visible: {
                         y: "0%",
                         opacity: 1,
                         transition: {
-                          duration: prefersReducedMotion ? 0 : 0.8,
+                          duration: 1.2,
                           ease: EASE_OUT_EXPO,
                         },
                       },
                     }}
-                    className="block"
+                    className="block will-change-transform"
                   >
                     {"I'm Pat, a"}
                   </motion.span>
@@ -189,17 +180,17 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                 <span className="block overflow-hidden pb-1">
                   <motion.span
                     variants={{
-                      hidden: { y: "100%", opacity: 0 },
+                      hidden: { y: "110%", opacity: 0 },
                       visible: {
                         y: "0%",
                         opacity: 1,
                         transition: {
-                          duration: prefersReducedMotion ? 0 : 0.85,
+                          duration: 1.25,
                           ease: EASE_OUT_EXPO,
                         },
                       },
                     }}
-                    className="text-foreground block sm:whitespace-nowrap"
+                    className="text-foreground block sm:whitespace-nowrap will-change-transform"
                   >
                     Full-Stack Engineer
                   </motion.span>
@@ -207,44 +198,43 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
               </motion.h1>
 
               <motion.p
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { opacity: 0, y: 24 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     transition: {
-                      duration: prefersReducedMotion ? 0 : 0.75,
-                      delay: prefersReducedMotion ? 0 : 0.28,
+                      duration: 1.15,
+                      delay: 0.48,
                       ease: EASE_OUT_EXPO,
                     },
                   },
                 }}
-                className="mt-5 max-w-sm text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm sm:leading-6"
+                className="mt-5 max-w-sm text-pretty text-xs leading-relaxed text-muted-foreground sm:text-sm sm:leading-6 will-change-transform"
               >
                 {heroDescription}
               </motion.p>
 
-              {/* Swarm Rebuild button + Right-side supporting animation description */}
+              {/* Swarm Rebuild / Explore Button */}
               <motion.div
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { opacity: 0, y: 24 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     transition: {
-                      duration: prefersReducedMotion ? 0 : 0.75,
-                      delay: prefersReducedMotion ? 0 : 0.36,
+                      duration: 1.15,
+                      delay: 0.6,
                       ease: EASE_OUT_EXPO,
                     },
                   },
                 }}
-                className="mt-8 flex flex-wrap items-center gap-3.5"
+                className="mt-8 flex flex-wrap items-center gap-3.5 will-change-transform"
               >
-                {/* Swarm Rebuild / Explore Button */}
                 <button
                   type="button"
                   onClick={() => {
@@ -268,50 +258,6 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
                     <ArrowDown className="size-4.5 text-neutral-700 group-hover:text-black dark:text-neutral-300 dark:group-hover:text-white transition-transform duration-200 group-hover:translate-y-0.5" />
                   </div>
                 </button>
-
-                {/* Supporting animation description on the right side of the Swarm Rebuild button */}
-                <motion.div
-                  initial={prefersReducedMotion ? false : { opacity: 0, x: -6 }}
-                  animate={isReady ? { opacity: 1, x: 0 } : { opacity: 0, x: -6 }}
-                  transition={{
-                    duration: prefersReducedMotion ? 0 : 0.7,
-                    delay: prefersReducedMotion ? 0 : 0.46,
-                    ease: EASE_OUT_EXPO,
-                  }}
-                  className="pointer-events-none select-none min-w-0 flex items-center"
-                >
-                  <AnimatePresence mode="wait" initial={false}>
-                    {isSwarmActive ? (
-                      <motion.span
-                        key="swarm-active"
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
-                        className="inline-flex items-center gap-2 font-mono text-[10.5px] sm:text-[11px] tracking-[0.12em] text-foreground/85 leading-snug"
-                      >
-                        <span className="relative flex size-1.5 shrink-0">
-                          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-foreground/60 opacity-75" />
-                          <span className="relative inline-flex size-1.5 rounded-full bg-foreground" />
-                        </span>
-                        <span>Rebuilding in progress</span>
-                      </motion.span>
-                    ) : (
-                      <motion.span
-                        key="swarm-idle"
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -4 }}
-                        transition={{ duration: 0.3, ease: EASE_OUT_EXPO }}
-                        className="inline-flex flex-wrap items-center gap-x-1.5 gap-y-0.5 font-mono text-[10.5px] sm:text-[11px] tracking-[0.1em] text-muted-foreground/80 leading-snug"
-                      >
-                        <span className="text-foreground/75 font-medium">Swarm rebuild</span>
-                        <span aria-hidden="true" className="text-muted-foreground/45">·</span>
-                        <span>Live animation</span>
-                      </motion.span>
-                    )}
-                  </AnimatePresence>
-                </motion.div>
               </motion.div>
             </div>
 
@@ -319,18 +265,18 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
             <div className="relative flex justify-center md:block order-1 md:order-2">
               {/* Mobile Portrait cutout (visible only on mobile) */}
               <motion.div
-                initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.96, y: 14 }}
+                initial={{ opacity: 0, scale: 0.93, y: 24 }}
                 animate={
-                  isReady
+                  showHero
                     ? { opacity: 1, scale: 1, y: 0 }
-                    : { opacity: 0, scale: 0.96, y: 14 }
+                    : { opacity: 0, scale: 0.93, y: 24 }
                 }
                 transition={{
-                  duration: prefersReducedMotion ? 0 : 0.85,
-                  delay: prefersReducedMotion ? 0 : 0.16,
+                  duration: 1.25,
+                  delay: 0.24,
                   ease: EASE_OUT_EXPO,
                 }}
-                className="relative aspect-[3.2/4] w-full max-w-[340px] sm:max-w-[420px] md:hidden"
+                className="relative aspect-[3.2/4] w-full max-w-[340px] sm:max-w-[420px] md:hidden will-change-transform"
               >
                 <Image
                   src="/images/me.png"
@@ -348,20 +294,21 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
               
               {/* About Me Segment */}
               <motion.div
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { opacity: 0, y: 24 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     transition: {
-                      duration: prefersReducedMotion ? 0 : 0.75,
-                      delay: prefersReducedMotion ? 0 : 0.26,
+                      duration: 1.15,
+                      delay: 0.42,
                       ease: EASE_OUT_EXPO,
                     },
                   },
                 }}
+                className="will-change-transform"
               >
                 <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-foreground uppercase">
                   ABOUT ME
@@ -394,20 +341,21 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
 
               {/* My Work Segment */}
               <motion.div
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { opacity: 0, y: 24 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     transition: {
-                      duration: prefersReducedMotion ? 0 : 0.75,
-                      delay: prefersReducedMotion ? 0 : 0.34,
+                      duration: 1.15,
+                      delay: 0.56,
                       ease: EASE_OUT_EXPO,
                     },
                   },
                 }}
+                className="will-change-transform"
               >
                 <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-foreground uppercase">
                   MY WORK
@@ -440,20 +388,21 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
 
               {/* Follow Me Segment */}
               <motion.div
-                initial={prefersReducedMotion ? false : "hidden"}
+                initial="hidden"
                 animate={animateState}
                 variants={{
-                  hidden: { opacity: 0, y: 16 },
+                  hidden: { opacity: 0, y: 24 },
                   visible: {
                     opacity: 1,
                     y: 0,
                     transition: {
-                      duration: prefersReducedMotion ? 0 : 0.75,
-                      delay: prefersReducedMotion ? 0 : 0.42,
+                      duration: 1.15,
+                      delay: 0.7,
                       ease: EASE_OUT_EXPO,
                     },
                   },
                 }}
+                className="will-change-transform"
               >
                 <h3 className="font-mono text-[11px] font-bold tracking-[0.22em] text-foreground uppercase mb-3.5">
                   FOLLOW ME
@@ -531,30 +480,26 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
 
       <motion.div
         id="skills"
-        initial={prefersReducedMotion ? false : { opacity: 0, y: 12 }}
-        animate={isReady ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+        initial={{ opacity: 0, y: 18 }}
+        animate={showHero ? { opacity: 1, y: 0 } : { opacity: 0, y: 18 }}
         transition={{
-          duration: prefersReducedMotion ? 0 : 0.8,
-          delay: prefersReducedMotion ? 0 : 0.44,
+          duration: 1.15,
+          delay: 0.65,
           ease: EASE_OUT_EXPO,
         }}
-        className="relative overflow-hidden border-y border-border bg-background py-5 z-10"
+        className="relative overflow-hidden border-y border-border bg-background py-5 z-10 will-change-transform"
       >
         <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-24 bg-gradient-to-r from-background to-transparent" />
         <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-24 bg-gradient-to-l from-background to-transparent" />
 
         <motion.div
           className="flex w-max items-center gap-10 pr-10"
-          animate={prefersReducedMotion ? undefined : { x: ["0%", "-50%"] }}
-          transition={
-            prefersReducedMotion
-              ? undefined
-              : {
-                  ease: "linear",
-                  duration: 34,
-                  repeat: Infinity,
-                }
-          }
+          animate={{ x: ["0%", "-50%"] }}
+          transition={{
+            ease: "linear",
+            duration: 34,
+            repeat: Infinity,
+          }}
         >
           {[...skillGroups, ...skillGroups].flatMap((group, gi) => {
             return group.items.map((item, ii) => {

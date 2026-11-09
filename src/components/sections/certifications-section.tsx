@@ -1,13 +1,12 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
 import { SiCredly, SiAnthropic } from "react-icons/si";
 import { certifications, sectionMeta, profile } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
-import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
-import { fadeUpVariants, EASE_OUT_EXPO } from "@/lib/animation-variants";
+import { EASE_OUT_EXPO, fadeUpVariants } from "@/lib/animation-variants";
 import { cn } from "@/lib/utils";
 import { BadgeCard } from "@/components/shared/badge-card";
 
@@ -32,7 +31,6 @@ const CERT_FILTERS = [
 ];
 
 export function CertificationsSection() {
-  const prefersReducedMotion = useSafeReducedMotion();
   const [activeFilter, setActiveFilter] = useState("All");
   const [showAll, setShowAll] = useState(false);
 
@@ -81,8 +79,11 @@ export function CertificationsSection() {
       <div className="flex flex-col">
         {/* Header Summary & Registry Links */}
         <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3, margin: "0px 0px -10% 0px" }}
           variants={fadeUpVariants}
-          className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
+          className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between will-change-transform"
         >
           <p className="max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
             <span className="font-semibold text-neutral-900 dark:text-white">
@@ -125,8 +126,11 @@ export function CertificationsSection() {
 
         {/* Filter Tabs — individual chamfered buttons */}
         <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, amount: 0.3, margin: "0px 0px -10% 0px" }}
           variants={fadeUpVariants}
-          className="mb-4 sm:mb-5 w-full max-w-full overflow-x-auto scrollbar-none pb-1"
+          className="mb-4 sm:mb-5 w-full max-w-full overflow-x-auto scrollbar-none pb-1 will-change-transform"
         >
           <nav className="flex items-center gap-2 py-0.5" aria-label="Certification filters">
             {CERT_FILTERS.map((filter) => {
@@ -158,37 +162,33 @@ export function CertificationsSection() {
         </motion.div>
 
         {/* Grid of Credentials — matching the ProjectCard layout */}
-        <motion.div
-          variants={fadeUpVariants}
-          layout={!prefersReducedMotion}
-          className="mt-2 grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch w-full"
-        >
-          <AnimatePresence mode="popLayout">
-            {displayedCertifications.map((badge, index) => (
-              <motion.div
-                key={badge.id}
-                layout={!prefersReducedMotion}
-                initial={{ opacity: 0, y: 18, scale: 0.985 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, scale: 0.98 }}
-                transition={{
-                  duration: prefersReducedMotion ? 0 : 0.65,
-                  delay: prefersReducedMotion ? 0 : Math.min(index * 0.05, 0.25),
-                  ease: EASE_OUT_EXPO,
-                }}
-                className="h-full w-full min-w-0"
-              >
-                <BadgeCard badge={badge} index={index} />
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </motion.div>
+        <div className="mt-2 grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch w-full">
+          {displayedCertifications.map((badge, index) => (
+            <motion.div
+              key={badge.id}
+              initial={{ opacity: 0, y: 36, scale: 0.975 }}
+              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              viewport={{ once: false, amount: 0.18, margin: "0px 0px -8% 0px" }}
+              transition={{
+                duration: 1.15,
+                delay: (index % 3) * 0.13,
+                ease: EASE_OUT_EXPO,
+              }}
+              className="h-full w-full min-w-0 will-change-transform"
+            >
+              <BadgeCard badge={badge} index={index} />
+            </motion.div>
+          ))}
+        </div>
 
         {/* See All Button — matching the Projects section button */}
         {filteredCertifications.length > INITIAL_DISPLAY_COUNT && (
           <motion.div
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false, amount: 0.3, margin: "0px 0px -8% 0px" }}
             variants={fadeUpVariants}
-            className="mt-8 sm:mt-10 flex justify-center"
+            className="mt-8 sm:mt-10 flex justify-center will-change-transform"
           >
             <button
               type="button"

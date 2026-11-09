@@ -12,7 +12,7 @@ const smoothScrollEasing = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * 
 export function Footer() {
   const lenis = useLenis();
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-5% 0px" });
+  const isInView = useInView(ref, { once: false, amount: 0.1, margin: "80px 0px -20px 0px" });
   const prefersReducedMotion = useSafeReducedMotion();
 
   const scrollToSection = (href: string) => (e: { preventDefault: () => void }) => {
@@ -46,16 +46,16 @@ export function Footer() {
   return (
     <motion.footer
       ref={ref}
-      initial={prefersReducedMotion ? false : { opacity: 0, y: 16 }}
-      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.75, ease: EASE_OUT_EXPO }}
-      className="mx-auto w-full max-w-[1120px] px-6 pb-24 md:pb-12 sm:px-8 lg:px-10"
+      initial={prefersReducedMotion ? false : { opacity: 0, y: 24 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+      transition={{ duration: prefersReducedMotion ? 0 : 1.15, ease: EASE_OUT_EXPO }}
+      className="mx-auto w-full max-w-[1120px] px-6 pb-24 md:pb-12 sm:px-8 lg:px-10 will-change-transform"
     >
       <motion.div
         initial={prefersReducedMotion ? false : { scaleX: 0 }}
         animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.85, ease: EASE_OUT_EXPO }}
-        className="h-px bg-border origin-left"
+        transition={{ duration: prefersReducedMotion ? 0 : 1.3, ease: EASE_OUT_EXPO }}
+        className="h-px bg-border origin-left will-change-transform"
       />
 
       <div className="flex flex-col gap-8 pt-8 sm:flex-row sm:items-start sm:justify-between">

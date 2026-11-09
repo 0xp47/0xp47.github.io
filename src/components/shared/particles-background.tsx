@@ -166,7 +166,6 @@ export function ParticlesBackground() {
       width = canvas.width = canvas.offsetWidth;
       height = canvas.height = canvas.offsetHeight;
       createParticles();
-      if (reducedMotion.matches) drawFrame();
     };
 
     createParticles();
@@ -250,15 +249,16 @@ export function ParticlesBackground() {
       }
     };
 
-    // Stop the decorative loop when the user prefers reduced motion;
-    // render a single static frame instead.
-    const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+    let isVisible = true;
+
     const renderStaticOrLoop = () => {
-      if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      if (reducedMotion.matches) {
-        drawFrame();
-      } else {
+      if (animationFrameId) {
+        cancelAnimationFrame(animationFrameId);
+        animationFrameId = 0;
+      }
+      if (isVisible) {
         animationFrameId = requestAnimationFrame(function loop() {
+          if (!isVisible) return;
           drawFrame();
           animationFrameId = requestAnimationFrame(loop);
         });
@@ -267,13 +267,25 @@ export function ParticlesBackground() {
 
     renderStaticOrLoop();
 
-    const handleMotionPrefChange = () => renderStaticOrLoop();
-    reducedMotion.addEventListener("change", handleMotionPrefChange);
+    let observer: IntersectionObserver | null = null;
+    if (typeof IntersectionObserver !== "undefined") {
+      observer = new IntersectionObserver(
+        (entries) => {
+          const entry = entries[0];
+          if (!entry) return;
+          isVisible = entry.isIntersecting;
+          renderStaticOrLoop();
+        },
+        { threshold: 0 }
+      );
+      observer.observe(canvas);
+    }
+
     window.addEventListener("resize", handleResize);
 
     return () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
-      reducedMotion.removeEventListener("change", handleMotionPrefChange);
+      observer?.disconnect();
       window.removeEventListener("resize", handleResize);
     };
   }, []);
