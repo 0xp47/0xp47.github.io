@@ -11,7 +11,6 @@ import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 import * as BrandIcons from "@/components/shared/brand-icons";
 import dynamic from "next/dynamic";
 import { BitmapChevron } from "@/components/shared/bitmap-chevron";
-import { AnimatedNoise } from "@/components/shared/animated-noise";
 
 const ParticlesBackground = dynamic(
   () => import("@/components/shared/particles-background").then((mod) => mod.ParticlesBackground),
@@ -69,7 +68,6 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
       className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-10 md:pt-20 overflow-hidden"
     >
       <ParticlesBackground />
-      <AnimatedNoise opacity={0.03} />
 
       {/* Subtle tech background grids covering entire viewport */}
       <motion.div
