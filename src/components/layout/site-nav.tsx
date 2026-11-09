@@ -14,6 +14,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { navItems } from "@/lib/portfolio-data";
+import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 
 interface SiteNavProps {
   activeSection: string;
@@ -39,7 +40,12 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
       className="fixed z-30 bottom-4 left-1/2 -translate-x-1/2 md:bottom-auto md:left-6 md:top-1/2 md:-translate-y-1/2 md:translate-x-0 flex flex-col items-center justify-center pointer-events-none"
     >
       {/* Desktop Vertical Username Handle: 0xp47 */}
-      <div className="hidden md:flex flex-col items-center gap-2.5 mb-3 select-none pointer-events-auto group">
+      <motion.div
+        initial={{ opacity: 0, y: -10 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.1, ease: EASE_OUT_EXPO }}
+        className="hidden md:flex flex-col items-center gap-2.5 mb-3 select-none pointer-events-auto group"
+      >
         <a
           href="#"
           onClick={(e) => {
@@ -48,20 +54,20 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
           }}
           aria-label="0xp47 (Back to top)"
           title="0xp47 — Back to top"
-          className="font-mono text-sm font-bold text-neutral-700 hover:text-black dark:text-neutral-200 dark:hover:text-white transition-colors duration-200 tracking-[0.25em] [writing-mode:vertical-rl] rotate-180 cursor-pointer"
+          className="font-mono text-sm font-bold text-neutral-700 hover:text-black dark:text-neutral-200 dark:hover:text-white transition-all duration-300 group-hover:-translate-y-0.5 tracking-[0.25em] [writing-mode:vertical-rl] rotate-180 cursor-pointer"
         >
           0xp47
         </a>
         <span
           aria-hidden="true"
-          className="w-px h-6 bg-neutral-300 group-hover:bg-foreground dark:bg-neutral-800 dark:group-hover:bg-white transition-colors duration-200"
+          className="w-px h-6 bg-neutral-300 group-hover:bg-foreground dark:bg-neutral-800 dark:group-hover:bg-white transition-all duration-300 group-hover:h-7"
         />
-      </div>
+      </motion.div>
 
       <motion.nav
         initial={{ opacity: 0, y: 16 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: "easeOut" }}
+        transition={{ duration: 0.65, ease: EASE_OUT_EXPO }}
         aria-label="Main navigation"
         className="pointer-events-auto relative p-1.5 max-w-[calc(100vw-2rem)] select-none"
       >
@@ -101,19 +107,19 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
               aria-label="Home / Back to top"
               aria-current={isTopActive ? "page" : undefined}
               className={cn(
-                "relative z-10 flex size-7.5 sm:size-8.5 max-[360px]:size-7 items-center justify-center chamfer-btn transition-colors duration-200 cursor-pointer",
+                "relative z-10 flex size-7.5 sm:size-8.5 max-[360px]:size-7 items-center justify-center chamfer-btn transition-all duration-200 active:scale-95 cursor-pointer",
                 isTopActive
                   ? "text-white dark:text-black font-semibold"
                   : "border border-neutral-200 bg-neutral-100/90 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900 hover:bg-neutral-200/80 dark:border-neutral-800/80 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white dark:hover:bg-[#121212]"
               )}
             >
-              <Home className="size-3.5 sm:size-4" strokeWidth={1.8} />
+              <Home className="size-3.5 sm:size-4 transition-transform duration-200 group-hover:scale-110" strokeWidth={1.8} />
             </a>
 
             {/* Desktop Tooltip */}
             <span
               role="tooltip"
-              className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-200 bg-white/95 text-neutral-900 dark:border-neutral-800 dark:bg-[#040404]/95 dark:text-white px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
+              className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-200 bg-white/95 text-neutral-900 dark:border-neutral-800 dark:bg-[#040404]/95 dark:text-white px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1.5 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
             >
               Home
             </span>
@@ -149,19 +155,19 @@ export function SiteNav({ activeSection, onNavItemClick }: SiteNavProps) {
                     onNavItemClick(item.href);
                   }}
                   className={cn(
-                    "relative z-10 flex size-7.5 sm:size-8.5 max-[360px]:size-7 items-center justify-center chamfer-btn transition-colors duration-200 cursor-pointer",
+                    "relative z-10 flex size-7.5 sm:size-8.5 max-[360px]:size-7 items-center justify-center chamfer-btn transition-all duration-200 active:scale-95 cursor-pointer",
                     isActive
                       ? "text-white dark:text-black font-semibold"
                       : "border border-neutral-200 bg-neutral-100/90 text-neutral-600 hover:border-neutral-300 hover:text-neutral-900 hover:bg-neutral-200/80 dark:border-neutral-800/80 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white dark:hover:bg-[#121212]"
                   )}
                 >
-                  <Icon className="size-3.5 sm:size-4" strokeWidth={1.8} />
+                  <Icon className="size-3.5 sm:size-4 transition-transform duration-200 group-hover:scale-110" strokeWidth={1.8} />
                 </a>
 
                 {/* Desktop Tooltip */}
                 <span
                   role="tooltip"
-                  className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-200 bg-white/95 text-neutral-900 dark:border-neutral-800 dark:bg-[#040404]/95 dark:text-white px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1 transition-all duration-200 group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
+                  className="pointer-events-none absolute left-full ml-3 top-1/2 -translate-y-1/2 hidden md:flex items-center chamfer-btn border border-neutral-200 bg-white/95 text-neutral-900 dark:border-neutral-800 dark:bg-[#040404]/95 dark:text-white px-2.5 py-1 text-[10.5px] font-mono uppercase tracking-wider shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl opacity-0 -translate-x-1.5 transition-all duration-200 ease-out group-hover:opacity-100 group-hover:translate-x-0 z-50 whitespace-nowrap"
                 >
                   {item.label}
                 </span>

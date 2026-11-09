@@ -3,7 +3,7 @@
 import Image from "next/image";
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
 import { ArrowUp } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useLenis } from "lenis/react";
 
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
@@ -21,9 +21,14 @@ import { Footer } from "@/components/layout/footer";
 import { IntroLoader } from "@/components/shared/intro-loader";
 import { navItems, certifications } from "@/lib/portfolio-data";
 
+const smoothScrollEasing = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
+
 export function Portfolio() {
   const lenis = useLenis();
   const [isLoading, setIsLoading] = useState(true);
+  const [activeSection, setActiveSection] = useState("");
+  const [showBackToTop, setShowBackToTop] = useState(false);
+  const prefersReducedMotion = useSafeReducedMotion();
 
   // Disable body scroll when loading
   useEffect(() => {
@@ -39,26 +44,57 @@ export function Portfolio() {
     };
   }, [isLoading, lenis]);
 
-  const handleScrollToSection = (sectionId: string) => {
-    if (isLoading) return;
-    if (sectionId === "#") {
-      lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
-      window.scrollTo({ top: 0, behavior: "smooth" });
-      setActiveSection("");
-      return;
-    }
-    const cleanId = sectionId.replace("#", "");
-    const element = document.getElementById(cleanId);
-    if (element) {
-      lenis?.scrollTo(element, { offset: -80, duration: 1.2 });
-      element.scrollIntoView({ behavior: "smooth" });
-      setActiveSection(cleanId);
-    }
-  };
+  const handleScrollToSection = useCallback(
+    (sectionId: string) => {
+      if (isLoading) return;
+      if (sectionId === "#") {
+        if (lenis) {
+          lenis.scrollTo(0, {
+            offset: 0,
+            duration: prefersReducedMotion ? 0 : 1.25,
+            easing: smoothScrollEasing,
+          });
+        } else {
+          window.scrollTo({
+            top: 0,
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+          });
+        }
+        setActiveSection("");
+        return;
+      }
+      const cleanId = sectionId.replace("#", "");
+      const element = document.getElementById(cleanId);
+      if (element) {
+        if (lenis) {
+          lenis.scrollTo(element, {
+            offset: -64,
+            duration: prefersReducedMotion ? 0 : 1.25,
+            easing: smoothScrollEasing,
+          });
+        } else {
+          element.scrollIntoView({
+            behavior: prefersReducedMotion ? "auto" : "smooth",
+          });
+        }
+        setActiveSection(cleanId);
+      }
+    },
+    [isLoading, lenis, prefersReducedMotion]
+  );
 
-  const [activeSection, setActiveSection] = useState("");
-  const [showBackToTop, setShowBackToTop] = useState(false);
-  const prefersReducedMotion = useSafeReducedMotion();
+  // Support deep links (hash navigation) once the intro loader finishes
+  useEffect(() => {
+    if (isLoading || typeof window === "undefined") return;
+    const hash = window.location.hash;
+    if (hash && hash.length > 1) {
+      const timer = window.setTimeout(() => {
+        handleScrollToSection(hash);
+      }, 120);
+      return () => window.clearTimeout(timer);
+    }
+  }, [isLoading, handleScrollToSection]);
+
   const { scrollY } = useScroll();
   const watermarkOpacity = useTransform(scrollY, [800, 1200], [0, 0.035]);
   const watermarkRotate = useTransform(scrollY, [0, 3000], [-12, 6]);
@@ -145,12 +181,13 @@ export function Portfolio() {
         onClick={() => handleScrollToSection("#")}
         initial={false}
         animate={!isLoading && showBackToTop ? { opacity: 1, y: 0 } : { opacity: 0, y: 12 }}
+        transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
         className={cn(
-          "fixed bottom-6 right-6 z-30 hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-200 hover:-translate-y-1 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer",
+          "group fixed bottom-6 right-6 z-30 hidden md:flex size-9 items-center justify-center chamfer-btn border border-neutral-300 bg-white/90 text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 shadow-[0_8px_24px_rgba(0,0,0,0.08)] dark:border-neutral-800 dark:bg-[#0a0a0a]/90 dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:bg-[#121212] dark:hover:text-white dark:shadow-[0_8px_24px_rgba(0,0,0,0.5)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 active:scale-95 focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden cursor-pointer",
           (!showBackToTop || isLoading) && "pointer-events-none"
         )}
       >
-        <ArrowUp className="size-4" />
+        <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
       </motion.button>
 
       <main className="relative isolate min-h-screen overflow-hidden bg-background">
@@ -181,7 +218,10 @@ export function Portfolio() {
           animate={isLoading ? { opacity: 0, y: 12 } : { opacity: 1, y: 0 }}
           transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
         >
-          <HeroSection onScrollToSection={handleScrollToSection} />
+          <HeroSection
+            onScrollToSection={handleScrollToSection}
+            isReady={!isLoading}
+          />
 
           <AboutSection />
 

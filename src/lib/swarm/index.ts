@@ -12,6 +12,21 @@ declare global {
 
 let appInstance: App | null = null;
 
+function notifySwarmState(active: boolean): void {
+  if (typeof window === "undefined") return;
+  try {
+    window.dispatchEvent(
+      new CustomEvent("swarm-rebuild-state", { detail: { active } })
+    );
+  } catch {
+    // ignore
+  }
+}
+
+export function isSwarmRebuildActive(): boolean {
+  return appInstance !== null;
+}
+
 export function startSwarmRebuild(opts: AppOptions = {}): void {
   if (typeof window === "undefined") return;
   if (appInstance) return;
@@ -27,6 +42,7 @@ export function startSwarmRebuild(opts: AppOptions = {}): void {
   app.onStop = (reveal) => stopSwarmRebuild(reveal);
   app.onRestart = (nextOpts) => restartSwarmRebuild(nextOpts);
   appInstance = app;
+  notifySwarmState(true);
 
   app.run().catch((err) => console.error("[swarm-rebuild]", err));
 }
@@ -35,6 +51,7 @@ export function stopSwarmRebuild(reveal?: boolean): void {
   if (!appInstance) return;
   const a = appInstance;
   appInstance = null;
+  notifySwarmState(false);
   a.destroy(reveal);
 }
 

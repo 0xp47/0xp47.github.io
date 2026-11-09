@@ -49,6 +49,7 @@ export async function triggerSwarmRebuild(opts?: AppOptions): Promise<void> {
 }
 
 export {
+  isSwarmRebuildActive,
   startSwarmRebuild,
   stopSwarmRebuild,
   restartSwarmRebuild,

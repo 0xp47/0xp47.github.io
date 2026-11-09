@@ -252,8 +252,11 @@ export function ProjectsSection() {
   return (
     <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
       {/* Vercel Project Filter Tabs — individual chamfered buttons */}
-      <motion.div variants={fadeUpVariants} className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none">
-        <nav className="flex items-center gap-2" aria-label="Project filters">
+      <motion.div
+        variants={fadeUpVariants}
+        className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none"
+      >
+        <nav className="flex items-center gap-2 py-0.5" aria-label="Project filters">
           {projectFilters.map((filter) => {
             const isActive = activeFilter === filter;
             const count = filter === "All" ? projects.length : projects.filter((p) => p.category === filter).length;
@@ -267,7 +270,7 @@ export function ProjectsSection() {
                   setShowAll(false);
                 }}
                 className={cn(
-                  "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
+                  "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden",
                   isActive
                     ? "bg-neutral-900 text-white dark:bg-white dark:text-black font-semibold shadow-xs"
                     : "border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white"
@@ -282,12 +285,15 @@ export function ProjectsSection() {
       </motion.div>
 
       <motion.div
+        key={activeFilter}
         variants={{
           hidden: {},
           visible: {
-            transition: { staggerChildren: 0.12 }
-          }
+            transition: { staggerChildren: 0.08 },
+          },
         }}
+        initial="hidden"
+        animate="visible"
         className="mt-6 grid gap-4 grid-cols-1 sm:grid-cols-2 max-w-[780px] items-stretch"
       >
         {displayedProjects.map((project) => (
@@ -302,13 +308,16 @@ export function ProjectsSection() {
       </motion.div>
 
       {filteredProjects.length > 8 && (
-        <motion.div variants={fadeUpVariants} className="mt-8 sm:mt-10 flex justify-center">
+        <motion.div
+          variants={fadeUpVariants}
+          className="mt-8 sm:mt-10 flex justify-center"
+        >
           <Link
             href="/projects"
-            className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-300 bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+            className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-300 bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] hover:shadow-[0_10px_24px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_10px_24px_rgba(0,0,0,0.45)] cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
           >
             <span>See All Projects</span>
-            <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
+            <ArrowUpRight className="size-3.5 transition-transform duration-300 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
         </motion.div>
       )}
@@ -354,7 +363,7 @@ export function ProjectsSection() {
                 <button
                   type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="flex size-7 items-center justify-center chamfer-btn border border-neutral-300 bg-neutral-100 hover:border-neutral-400 hover:text-black hover:bg-neutral-200 dark:border-neutral-800 dark:bg-[#121212] dark:hover:border-neutral-700 dark:hover:text-white transition-colors duration-200 text-neutral-600 dark:text-neutral-400 cursor-pointer"
+                  className="flex size-7 items-center justify-center chamfer-btn border border-neutral-300 bg-neutral-100 hover:border-neutral-400 hover:text-black hover:bg-neutral-200 dark:border-neutral-800 dark:bg-[#121212] dark:hover:border-neutral-700 dark:hover:text-white transition-all duration-200 active:scale-95 text-neutral-600 dark:text-neutral-400 cursor-pointer"
                   aria-label="Close details"
                 >
                   <X className="size-3.5" />
@@ -442,7 +451,7 @@ export function ProjectsSection() {
                     href={effectiveLive}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-900 bg-neutral-900 text-white dark:border-neutral-700 dark:bg-white dark:text-black px-4 py-1.5 font-bold uppercase tracking-wider hover:bg-neutral-800 dark:hover:bg-neutral-200 transition duration-200 cursor-pointer"
+                    className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-900 bg-neutral-900 text-white dark:border-neutral-700 dark:bg-white dark:text-black px-4 py-1.5 font-bold uppercase tracking-wider hover:bg-neutral-800 dark:hover:bg-neutral-200 transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                   >
                     <ExternalLink className="size-3" />
                     Visit Live App
@@ -458,7 +467,7 @@ export function ProjectsSection() {
                     href={selectedProject.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="inline-flex items-center gap-1.5 border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-border/30 dark:bg-transparent dark:text-muted-foreground dark:hover:border-foreground/30 dark:hover:bg-foreground dark:hover:text-background chamfer-btn px-4 py-1.5 font-bold uppercase tracking-wider transition duration-300"
+                    className="inline-flex items-center gap-1.5 border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-border/30 dark:bg-transparent dark:text-muted-foreground dark:hover:border-foreground/30 dark:hover:bg-foreground dark:hover:text-background chamfer-btn px-4 py-1.5 font-bold uppercase tracking-wider transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
                   >
                     <GitBranch className="size-3" />
                     View Source

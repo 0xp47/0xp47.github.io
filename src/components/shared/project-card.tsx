@@ -186,7 +186,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
     <article
       onClick={() => onViewDetails(project)}
       className={cn(
-        "group relative flex flex-col justify-between cursor-pointer select-none p-[1px] transition-colors duration-200 bg-neutral-200/80 hover:bg-neutral-300 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 h-full",
+        "group relative flex flex-col justify-between cursor-pointer select-none p-[1px] transition-all duration-300 ease-out bg-neutral-200/80 hover:bg-neutral-400/90 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-1 active:scale-[0.99] hover:shadow-[0_14px_34px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_16px_38px_rgba(0,0,0,0.55)] h-full",
         className
       )}
       style={{
@@ -194,22 +194,27 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-white p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-neutral-50/90 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
+        className="relative flex flex-col justify-between h-full bg-white p-3.5 sm:p-4 transition-colors duration-300 group-hover:bg-neutral-50/95 dark:bg-[#040404] dark:group-hover:bg-[#080808] overflow-hidden"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
       >
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        />
+
         {/* Top Header Row (no avatar icons, clean and compact) */}
         <div className="flex items-center justify-between gap-3 w-full pr-1">
           <div className="min-w-0 flex flex-col justify-center">
             <h4
-              className="text-[14px] sm:text-[14.5px] font-semibold text-neutral-900 dark:text-white tracking-tight truncate leading-tight group-hover:text-black dark:group-hover:text-white hover:underline cursor-pointer"
+              className="text-[14px] sm:text-[14.5px] font-semibold text-neutral-900 dark:text-white tracking-tight truncate leading-tight transition-colors duration-200 group-hover:text-black dark:group-hover:text-white hover:underline cursor-pointer"
               onClick={handleHeaderClick}
             >
               {displayName}
             </h4>
             <span
-              className="text-xs text-neutral-500 dark:text-neutral-400 truncate hover:text-neutral-900 dark:hover:text-white hover:underline transition-colors leading-tight mt-1 cursor-pointer font-mono"
+              className="text-xs text-neutral-500 dark:text-neutral-400 truncate hover:text-neutral-900 dark:hover:text-white hover:underline transition-colors duration-200 leading-tight mt-1 cursor-pointer font-mono"
               onClick={handleHeaderClick}
             >
               {subtitle}
@@ -219,9 +224,9 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
           {/* Right Status Ring + Up-Down Chevrons */}
           <div className="flex items-center gap-2.5 shrink-0">
             {isDeployed ? (
-              /* Circular Deployed Status Ring (Double checkmark + blue arc) */
+              /* Circular Deployed Status Ring (Double checkmark + arc) */
               <div
-                className="relative flex size-7 items-center justify-center rounded-full bg-neutral-100 border border-neutral-200 dark:bg-[#0a0a0a] dark:border-neutral-800 shrink-0"
+                className="relative flex size-7 items-center justify-center rounded-full bg-neutral-100 border border-neutral-200 dark:bg-[#0a0a0a] dark:border-neutral-800 transition-transform duration-300 group-hover:scale-105 shrink-0"
                 title="Deployed to Production"
                 aria-label="Deployed to Production"
               >
@@ -261,14 +266,14 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
             ) : (
               /* Non-deployed repository badge */
               <div
-                className="relative flex size-7 items-center justify-center rounded-full bg-neutral-100 border border-neutral-200 dark:bg-[#0a0a0a] dark:border-neutral-800 shrink-0"
+                className="relative flex size-7 items-center justify-center rounded-full bg-neutral-100 border border-neutral-200 dark:bg-[#0a0a0a] dark:border-neutral-800 transition-transform duration-300 group-hover:scale-105 shrink-0"
                 title="Source Repository"
                 aria-label="Source Repository"
               >
-                <GitBranch className="size-3.5 text-neutral-500 group-hover:text-neutral-800 dark:text-neutral-400 dark:group-hover:text-neutral-300 transition-colors" strokeWidth={1.8} />
+                <GitBranch className="size-3.5 text-neutral-500 group-hover:text-neutral-800 dark:text-neutral-400 dark:group-hover:text-neutral-200 transition-colors duration-200" strokeWidth={1.8} />
               </div>
             )}
-            <ChevronsUpDown className="size-3.5 text-neutral-400 group-hover:text-neutral-600 dark:text-neutral-500 dark:group-hover:text-neutral-300 transition-colors" />
+            <ChevronsUpDown className="size-3.5 text-neutral-400 group-hover:text-neutral-700 dark:text-neutral-500 dark:group-hover:text-neutral-200 transition-all duration-300 group-hover:scale-110" />
           </div>
         </div>
 
@@ -285,7 +290,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="text-neutral-400 dark:text-neutral-400 shrink-0"
+              className="text-neutral-400 dark:text-neutral-400 shrink-0 transition-colors duration-200 group-hover:text-foreground/70"
             >
               <circle cx="12" cy="12" r="3" />
               <line x1="3" y1="12" x2="9" y2="12" />
@@ -296,7 +301,7 @@ export function ProjectCard({ project, onViewDetails, className }: ProjectCardPr
 
           {/* GitHub Repository and Relative Time */}
           <div className="flex items-center gap-2 text-neutral-500 dark:text-neutral-400">
-            <SiGithub className="size-3.5 shrink-0 text-neutral-500 dark:text-neutral-400" />
+            <SiGithub className="size-3.5 shrink-0 text-neutral-500 dark:text-neutral-400 transition-colors duration-200 group-hover:text-foreground/80" />
             <span
               className="truncate font-mono text-[10.5px] text-neutral-500 dark:text-neutral-400 leading-none"
               suppressHydrationWarning

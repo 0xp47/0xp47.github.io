@@ -16,7 +16,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
     <Link
       href={`/blog/${post.slug}`}
       className={cn(
-        "group relative flex h-full flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 outline-none focus-visible:ring-1 focus-visible:ring-neutral-600",
+        "group relative flex h-full flex-col select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-1 active:scale-[0.99] hover:shadow-[0_14px_34px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_16px_38px_rgba(0,0,0,0.55)] outline-none focus-visible:ring-1 focus-visible:ring-neutral-600",
         className
       )}
       style={{
@@ -24,11 +24,16 @@ export function BlogCard({ post, className }: BlogCardProps) {
       }}
     >
       <div
-        className="relative flex flex-col justify-between h-full bg-white p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
+        className="relative flex flex-col justify-between h-full bg-white p-3.5 sm:p-4 transition-colors duration-300 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] overflow-hidden"
         style={{
           clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
         }}
       >
+        <span
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+        />
+
         <div>
           {/* Meta Header: Category Badge + Date */}
           <div className="flex items-center justify-between gap-2 w-full pr-1">
@@ -59,7 +64,7 @@ export function BlogCard({ post, className }: BlogCardProps) {
 
           <span className="inline-flex items-center gap-1 text-[11px] font-medium text-neutral-600 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-white transition-colors duration-200 shrink-0">
             <span>Read post</span>
-            <ArrowRight className="size-3 text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-500 dark:group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
+            <ArrowRight className="size-3 text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-500 dark:group-hover:text-white transition-transform duration-300 group-hover:translate-x-1" />
           </span>
         </div>
       </div>

@@ -20,6 +20,10 @@ import { blogPosts, type BlogPost } from "@/lib/portfolio-data";
 import { marked } from "marked";
 import { BlogCard } from "@/components/shared/blog-card";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
+import { EASE_OUT_EXPO } from "@/lib/animation-variants";
+import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
+
+const smoothScrollEasing = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 function parseContent(content: string): string {
   try {
@@ -31,6 +35,7 @@ function parseContent(content: string): string {
 
 export function BlogPostPage({ post }: { post: BlogPost }) {
   const lenis = useLenis();
+  const prefersReducedMotion = useSafeReducedMotion();
   const [copied, setCopied] = useState(false);
   const [showBackToTop, setShowBackToTop] = useState(false);
   const articleRef = useRef<HTMLDivElement>(null);
@@ -113,7 +118,15 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
   };
 
   const handleScrollToTop = () => {
-    lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
+    if (lenis) {
+      lenis.scrollTo(0, {
+        offset: 0,
+        duration: prefersReducedMotion ? 0 : 1.25,
+        easing: smoothScrollEasing,
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -141,16 +154,16 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
       <header className="sticky top-0 z-40 w-full border-b border-neutral-200 dark:border-neutral-800/80 bg-background/80 backdrop-blur-xl">
         <div className="mx-auto flex h-14 max-w-[1100px] items-center justify-between px-4 sm:px-6 lg:px-8">
           {/* Breadcrumbs */}
-          <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-mono text-xs text-neutral-400">
-            <Link href="/" className="hover:text-white transition-colors">
+          <nav aria-label="Breadcrumb" className="flex items-center gap-2 font-mono text-xs text-neutral-500 dark:text-neutral-400">
+            <Link href="/" className="hover:text-foreground transition-colors">
               0xp47
             </Link>
-            <span className="text-neutral-600">/</span>
-            <Link href="/blog/" className="hover:text-white transition-colors">
+            <span className="text-neutral-400 dark:text-neutral-600">/</span>
+            <Link href="/blog/" className="hover:text-foreground transition-colors">
               Blog
             </Link>
-            <span className="text-neutral-600">/</span>
-            <span className="text-neutral-300 font-medium truncate max-w-[120px] sm:max-w-none">
+            <span className="text-neutral-400 dark:text-neutral-600">/</span>
+            <span className="text-foreground/80 font-medium truncate max-w-[120px] sm:max-w-none">
               {post.category}
             </span>
           </nav>
@@ -160,7 +173,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
             <button
               type="button"
               onClick={handleCopyLink}
-              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white px-2.5 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider transition-colors duration-200 cursor-pointer"
+              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white px-2.5 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               title="Copy article link"
             >
               {copied ? (
@@ -178,9 +191,9 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
 
             <Link
               href="/blog/"
-              className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-[#0a0a0a] dark:hover:text-white px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider transition-colors duration-200"
+              className="group inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:bg-[#0a0a0a] dark:hover:text-white px-3 py-1 font-mono text-[10.5px] font-semibold uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 active:scale-95"
             >
-              <ArrowLeft className="size-3.5" />
+              <ArrowLeft className="size-3.5 transition-transform duration-200 group-hover:-translate-x-0.5" />
               <span className="hidden sm:inline">All Articles</span>
               <span className="sm:hidden">Articles</span>
             </Link>
@@ -191,9 +204,9 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
       {/* Main Article Content Container */}
       <div className="mx-auto max-w-[820px] w-full px-4 sm:px-6 py-10 sm:py-16 flex-grow">
         <motion.article
-          initial={{ opacity: 0, y: 16 }}
+          initial={{ opacity: 0, y: 18 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: prefersReducedMotion ? 0 : 0.75, ease: EASE_OUT_EXPO }}
         >
           {/* Header Area */}
           <header className="mb-10 sm:mb-12">
@@ -221,7 +234,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 href="/"
                 className="group flex items-center gap-3 select-none"
               >
-                <div className="relative size-10 rounded-full overflow-hidden border border-neutral-700 bg-neutral-900 shrink-0">
+                <div className="relative size-10 rounded-full overflow-hidden border border-neutral-300 dark:border-neutral-700 bg-neutral-900 shrink-0 transition-transform duration-300 group-hover:scale-105">
                   <Image
                     src="/images/me-thumbnail.png"
                     alt="Jay Patrick Cano"
@@ -241,12 +254,12 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               </Link>
 
               {/* Publication Meta: Date & Read Time */}
-              <div className="flex items-center gap-4 font-mono text-[10.5px] text-neutral-400 uppercase tracking-wider">
+              <div className="flex items-center gap-4 font-mono text-[10.5px] text-neutral-500 dark:text-neutral-400 uppercase tracking-wider">
                 <span className="flex items-center gap-1.5">
                   <Calendar className="size-3.5 text-neutral-500" />
                   {post.dateDisplay}
                 </span>
-                <span className="text-neutral-700">·</span>
+                <span className="text-neutral-400 dark:text-neutral-700">·</span>
                 <span className="flex items-center gap-1.5">
                   <Clock className="size-3.5 text-neutral-500" />
                   {post.readingTime}
@@ -285,7 +298,7 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
                 <button
                   type="button"
                   onClick={handleCopyLink}
-                  className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#121212] dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:text-white px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-colors cursor-pointer"
+                  className="inline-flex items-center gap-1.5 chamfer-btn border border-neutral-300 bg-white text-neutral-700 hover:border-neutral-400 hover:text-black hover:bg-neutral-50 dark:border-neutral-800 dark:bg-[#121212] dark:text-neutral-300 dark:hover:border-neutral-600 dark:hover:text-white px-3 py-1 font-mono text-[10px] uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                 >
                   {copied ? (
                     <>
@@ -310,19 +323,19 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               {prevPost ? (
                 <Link
                   href={`/blog/${prevPost.slug}`}
-                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700"
+                  className="group relative select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_12px_28px_rgba(0,0,0,0.5)]"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
                   }}
                 >
                   <div
-                    className="flex flex-col justify-between p-4 sm:p-5 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
+                    className="flex flex-col justify-between p-4 sm:p-5 bg-white transition-colors duration-300 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))",
                     }}
                   >
                     <div className="flex items-center gap-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-neutral-500 mb-2">
-                      <ChevronLeft className="size-3 transition-transform group-hover:-translate-x-0.5" />
+                      <ChevronLeft className="size-3 transition-transform duration-300 group-hover:-translate-x-1" />
                       <span>Previous Article</span>
                     </div>
                     <h4 className="text-sm font-semibold text-neutral-900 group-hover:text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors line-clamp-2">
@@ -341,20 +354,20 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
               {nextPost ? (
                 <Link
                   href={`/blog/${nextPost.slug}`}
-                  className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 text-right sm:text-right"
+                  className="group relative select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-1 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_12px_28px_rgba(0,0,0,0.5)] text-right sm:text-right"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 12px) 0, 100% 12px, 100% 100%, 12px 100%, 0 calc(100% - 12px))",
                   }}
                 >
                   <div
-                    className="flex flex-col justify-between p-4 sm:p-5 bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
+                    className="flex flex-col justify-between p-4 sm:p-5 bg-white transition-colors duration-300 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] h-full"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 11.5px) 0, 100% 11.5px, 100% 100%, 11.5px 100%, 0 calc(100% - 11.5px))",
                     }}
                   >
                     <div className="flex items-center justify-end gap-1.5 font-mono text-[9px] font-bold uppercase tracking-widest text-neutral-500 mb-2">
                       <span>Next Article</span>
-                      <ChevronRight className="size-3 transition-transform group-hover:translate-x-0.5" />
+                      <ChevronRight className="size-3 transition-transform duration-300 group-hover:translate-x-1" />
                     </div>
                     <h4 className="text-sm font-semibold text-neutral-900 group-hover:text-black dark:text-white dark:group-hover:text-neutral-200 transition-colors line-clamp-2">
                       {nextPost.title}
@@ -374,13 +387,13 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
           {relatedPosts.length > 0 && (
             <section className="mt-16 pt-10 border-t border-neutral-200 dark:border-neutral-800/80">
               <div className="flex items-center justify-between mb-6">
-                <div className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-400">
+                <div className="flex items-center gap-2 font-mono text-[10px] font-bold uppercase tracking-[0.2em] text-neutral-500 dark:text-neutral-400">
                   <Sparkles className="size-3 text-neutral-400" />
                   <span>Recommended Reading</span>
                 </div>
                 <Link
                   href="/blog/"
-                  className="font-mono text-[10px] uppercase tracking-wider text-neutral-400 hover:text-white transition-colors"
+                  className="font-mono text-[10px] uppercase tracking-wider text-neutral-500 dark:text-neutral-400 hover:text-foreground transition-colors"
                 >
                   View All ({blogPosts.length}) →
                 </Link>
@@ -399,12 +412,12 @@ export function BlogPostPage({ post }: { post: BlogPost }) {
         <footer className="mt-20 pt-8 border-t border-neutral-200 dark:border-neutral-800/80 flex flex-col sm:flex-row items-center justify-between gap-4 w-full">
           <Link
             href="/blog/"
-            className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 text-xs font-mono text-neutral-500 dark:text-neutral-400 hover:text-foreground transition-colors duration-300 group"
           >
-            <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform duration-200" />
+            <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform duration-300" />
             Back to all articles
           </Link>
-          <span className="text-[10px] font-mono text-neutral-600">
+          <span className="text-[10px] font-mono text-neutral-500 dark:text-neutral-600">
             © {new Date().getFullYear()} Jay Patrick Cano (0xp47).
           </span>
         </footer>

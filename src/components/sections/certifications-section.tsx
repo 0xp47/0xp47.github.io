@@ -7,9 +7,9 @@ import { SiCredly, SiAnthropic } from "react-icons/si";
 import { certifications, sectionMeta, profile } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
+import { fadeUpVariants, EASE_OUT_EXPO } from "@/lib/animation-variants";
 import { cn } from "@/lib/utils";
 import { BadgeCard } from "@/components/shared/badge-card";
-import { fadeUpVariants } from "@/lib/animation-variants";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -80,7 +80,10 @@ export function CertificationsSection() {
     >
       <div className="flex flex-col">
         {/* Header Summary & Registry Links */}
-        <motion.div variants={fadeUpVariants} className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <motion.div
+          variants={fadeUpVariants}
+          className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between"
+        >
           <p className="max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
             <span className="font-semibold text-neutral-900 dark:text-white">
               {certifications.length} verified credentials
@@ -94,10 +97,10 @@ export function CertificationsSection() {
               href={profile.anthropic || "https://anthropic.skilljar.com/"}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-colors duration-200 hover:text-black dark:text-neutral-400 dark:hover:text-white"
+              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-all duration-200 hover:text-black hover:-translate-y-0.5 dark:text-neutral-400 dark:hover:text-white"
               title="View verified credentials on Anthropic Academy"
             >
-              <SiAnthropic className="size-3 text-foreground/80 group-hover:text-foreground" />
+              <SiAnthropic className="size-3 text-foreground/80 group-hover:text-foreground transition-transform duration-200 group-hover:scale-110" />
               <span>Anthropic Academy</span>
               <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
@@ -110,10 +113,10 @@ export function CertificationsSection() {
               href={profile.credly}
               target="_blank"
               rel="noopener noreferrer"
-              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-colors duration-200 hover:text-black dark:text-neutral-400 dark:hover:text-white"
+              className="group inline-flex items-center gap-1.5 font-mono tracking-wide text-neutral-600 transition-all duration-200 hover:text-black hover:-translate-y-0.5 dark:text-neutral-400 dark:hover:text-white"
               title="View verified credentials on Credly"
             >
-              <SiCredly className="size-3 text-foreground/80 group-hover:text-foreground" />
+              <SiCredly className="size-3 text-foreground/80 group-hover:text-foreground transition-transform duration-200 group-hover:scale-110" />
               <span>Credly Registry</span>
               <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
@@ -121,8 +124,11 @@ export function CertificationsSection() {
         </motion.div>
 
         {/* Filter Tabs — individual chamfered buttons */}
-        <motion.div variants={fadeUpVariants} className="mb-4 sm:mb-5 w-full max-w-full overflow-x-auto scrollbar-none pb-1">
-          <nav className="flex items-center gap-2" aria-label="Certification filters">
+        <motion.div
+          variants={fadeUpVariants}
+          className="mb-4 sm:mb-5 w-full max-w-full overflow-x-auto scrollbar-none pb-1"
+        >
+          <nav className="flex items-center gap-2 py-0.5" aria-label="Certification filters">
             {CERT_FILTERS.map((filter) => {
               const count = getFilterCount(filter);
               if (count === 0) return null;
@@ -137,7 +143,7 @@ export function CertificationsSection() {
                     setShowAll(false);
                   }}
                   className={cn(
-                    "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-colors duration-200 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden whitespace-nowrap shrink-0",
+                    "inline-flex items-center gap-2 chamfer-btn py-1.5 px-3.5 font-mono text-[11px] uppercase tracking-wider transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer select-none focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden whitespace-nowrap shrink-0",
                     isActive
                       ? "bg-neutral-900 text-white dark:bg-white dark:text-black font-semibold shadow-xs"
                       : "border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white"
@@ -153,6 +159,7 @@ export function CertificationsSection() {
 
         {/* Grid of Credentials — matching the ProjectCard layout */}
         <motion.div
+          variants={fadeUpVariants}
           layout={!prefersReducedMotion}
           className="mt-2 grid grid-cols-1 gap-4 sm:gap-5 sm:grid-cols-2 lg:grid-cols-3 items-stretch w-full"
         >
@@ -161,13 +168,13 @@ export function CertificationsSection() {
               <motion.div
                 key={badge.id}
                 layout={!prefersReducedMotion}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0 }}
+                initial={{ opacity: 0, y: 18, scale: 0.985 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.98 }}
                 transition={{
-                  duration: 0.3,
-                  delay: prefersReducedMotion ? 0 : Math.min(index * 0.04, 0.24),
-                  ease: [0.16, 1, 0.3, 1],
+                  duration: prefersReducedMotion ? 0 : 0.65,
+                  delay: prefersReducedMotion ? 0 : Math.min(index * 0.05, 0.25),
+                  ease: EASE_OUT_EXPO,
                 }}
                 className="h-full w-full min-w-0"
               >
@@ -179,11 +186,14 @@ export function CertificationsSection() {
 
         {/* See All Button — matching the Projects section button */}
         {filteredCertifications.length > INITIAL_DISPLAY_COUNT && (
-          <motion.div variants={fadeUpVariants} className="mt-8 sm:mt-10 flex justify-center">
+          <motion.div
+            variants={fadeUpVariants}
+            className="mt-8 sm:mt-10 flex justify-center"
+          >
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
-              className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-300 bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
+              className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-300 bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white transition-all duration-300 hover:-translate-y-0.5 active:scale-[0.98] hover:shadow-[0_10px_24px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_10px_24px_rgba(0,0,0,0.45)] cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
             >
               <span>
                 {showAll

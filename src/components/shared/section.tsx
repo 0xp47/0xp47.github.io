@@ -3,14 +3,14 @@
 import { type ReactNode, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
+import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 import { cn } from "@/lib/utils";
 
 const sectionVariants = {
-  hidden: { opacity: 0, y: 24, scale: 0.99 },
+  hidden: { opacity: 0, y: 20 },
   visible: {
     opacity: 1,
     y: 0,
-    scale: 1,
   },
 };
 
@@ -47,7 +47,7 @@ const sectionBadges: Record<string, { tag: string; range: string }> = {
 
 export function Section({ id, title, children, headerAction, headerMarginBottom }: SectionProps) {
   const ref = useRef<HTMLElement>(null);
-  const isInView = useInView(ref, { once: true, margin: "-12% 0px" });
+  const isInView = useInView(ref, { once: true, margin: "-10% 0px" });
   const prefersReducedMotion = useSafeReducedMotion();
   const index = sectionIndexes[id];
   const badge = sectionBadges[id];
@@ -59,17 +59,17 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
       ref={ref}
       id={id}
       variants={sectionVariants}
-      initial="hidden"
+      initial={prefersReducedMotion ? false : "hidden"}
       animate={isInView ? "visible" : "hidden"}
-      transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: [0.16, 1, 0.3, 1] as const }}
+      transition={{ duration: prefersReducedMotion ? 0 : 0.75, ease: EASE_OUT_EXPO }}
       className="relative mx-auto w-full max-w-[1160px] px-4 sm:px-6 md:px-8 lg:px-10 py-10 sm:py-12 md:py-14 pb-24 sm:pb-12 md:pb-14 scroll-mt-20"
     >
       {/* Continuous Vertical Spine Line connecting all section numbers (tablet & desktop only) */}
       <motion.div
         aria-hidden="true"
-        initial={{ scaleY: 0 }}
-        animate={isInView ? { scaleY: 1 } : { scaleY: 0 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.85, ease: [0.16, 1, 0.3, 1] }}
+        initial={prefersReducedMotion ? false : { scaleY: 0, opacity: 0 }}
+        animate={isInView ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.9, ease: EASE_OUT_EXPO }}
         className={cn(
           "hidden sm:block absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none z-0 origin-top",
           "sm:left-[120px] md:left-[144px] lg:left-[168px]",
@@ -83,9 +83,13 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
       {isLast && (
         <motion.div
           aria-hidden="true"
-          initial={{ opacity: 0, scale: 0.6 }}
-          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.6 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
+          initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.8 }}
+          animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.8 }}
+          transition={{
+            duration: prefersReducedMotion ? 0 : 0.65,
+            delay: prefersReducedMotion ? 0 : 0.35,
+            ease: EASE_OUT_EXPO,
+          }}
           className="hidden sm:flex absolute z-10 -translate-x-1/2 sm:left-[120px] md:left-[144px] lg:left-[168px] sm:top-[174px] md:top-[194px] lg:top-[208px] items-center justify-center text-foreground/70"
         >
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
@@ -110,9 +114,13 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
             {badge && (
               <motion.div
                 aria-hidden="true"
-                initial={{ opacity: 0, x: -14 }}
-                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -14 }}
-                transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: prefersReducedMotion ? 0 : 0.1, ease: [0.16, 1, 0.3, 1] }}
+                initial={prefersReducedMotion ? false : { opacity: 0, x: -10 }}
+                animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -10 }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.7,
+                  delay: prefersReducedMotion ? 0 : 0.1,
+                  ease: EASE_OUT_EXPO,
+                }}
                 className="hidden sm:flex absolute right-full mr-7 sm:mr-8 top-1/2 -translate-y-1/2 items-center gap-1.5 select-none"
               >
                 <svg width="5" height="26" viewBox="0 0 5 26" fill="none" className="text-neutral-500/80 shrink-0">
@@ -128,9 +136,13 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
             {/* Desktop Target Reticle Circle Node centered directly on the spine */}
             <motion.div
               aria-hidden="true"
-              initial={{ opacity: 0, scale: 0.6, rotate: -35 }}
-              animate={isInView ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0.6, rotate: -35 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.55, delay: prefersReducedMotion ? 0 : 0.15, ease: [0.16, 1, 0.3, 1] }}
+              initial={prefersReducedMotion ? false : { opacity: 0, scale: 0.7 }}
+              animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
+              transition={{
+                duration: prefersReducedMotion ? 0 : 0.65,
+                delay: prefersReducedMotion ? 0 : 0.06,
+                ease: EASE_OUT_EXPO,
+              }}
               className="hidden sm:flex absolute left-0 -translate-x-1/2 size-8 sm:size-9 items-center justify-center z-10 text-foreground top-1/2 -translate-y-1/2"
             >
               <svg
@@ -152,63 +164,56 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
               </svg>
             </motion.div>
 
-            {/* Massive Section Number container with animated bottom dividing line */}
-            <div className="relative w-full overflow-hidden h-[64px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-0 sm:pl-7 md:pl-8">
+            {/* Massive Section Number container: clean border-b cutoff with mask-based upward reveal */}
+            <div className="relative w-full overflow-hidden border-b border-neutral-300 dark:border-neutral-800 h-[64px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-0 sm:pl-7 md:pl-8">
               <motion.div
-                initial={{ opacity: 0, y: 55 }}
-                animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 55 }}
-                transition={{ duration: prefersReducedMotion ? 0 : 0.7, delay: prefersReducedMotion ? 0 : 0.08, ease: [0.16, 1, 0.3, 1] }}
+                initial={prefersReducedMotion ? false : { y: "100%", opacity: 0 }}
+                animate={isInView ? { y: "0%", opacity: 1 } : { y: "100%", opacity: 0 }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.85,
+                  delay: prefersReducedMotion ? 0 : 0.05,
+                  ease: EASE_OUT_EXPO,
+                }}
                 className="font-mono text-7xl sm:text-9xl md:text-[130px] lg:text-[150px] font-bold tracking-tight text-foreground leading-none select-none"
               >
                 {index}
               </motion.div>
-              {/* Animated horizontal dividing line across */}
-              <motion.div
-                initial={{ scaleX: 0 }}
-                animate={isInView ? { scaleX: 1 } : { scaleX: 0 }}
-                transition={{ duration: prefersReducedMotion ? 0 : 0.75, delay: prefersReducedMotion ? 0 : 0.12, ease: [0.16, 1, 0.3, 1] }}
-                className="absolute bottom-0 left-0 right-0 h-px bg-neutral-300 dark:bg-neutral-800 origin-left"
-              />
             </div>
           </div>
 
           {/* Section Title below the line */}
-          <div className="pt-3 sm:pt-4 pl-0 sm:pl-7 md:pl-8 flex flex-row items-end justify-between gap-4">
-            <motion.h2
-              initial={{ opacity: 0, y: 16 }}
-              animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 16 }}
-              transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: prefersReducedMotion ? 0 : 0.2, ease: [0.16, 1, 0.3, 1] }}
-              className="font-mono text-xl sm:text-2xl md:text-3xl font-normal text-neutral-800 dark:text-neutral-200 tracking-tight leading-snug max-w-sm sm:max-w-sm md:max-w-md"
-            >
+          <motion.div
+            initial={prefersReducedMotion ? false : { opacity: 0, y: 14 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 14 }}
+            transition={{
+              duration: prefersReducedMotion ? 0 : 0.75,
+              delay: prefersReducedMotion ? 0 : 0.14,
+              ease: EASE_OUT_EXPO,
+            }}
+            className="pt-3 sm:pt-4 pl-0 sm:pl-7 md:pl-8 flex flex-row items-end justify-between gap-4"
+          >
+            <h2 className="font-mono text-xl sm:text-2xl md:text-3xl font-normal text-neutral-800 dark:text-neutral-200 tracking-tight leading-snug max-w-sm sm:max-w-sm md:max-w-md">
               {title}
-            </motion.h2>
+            </h2>
             {headerAction && (
-              <motion.div
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={isInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.92 }}
-                transition={{ duration: prefersReducedMotion ? 0 : 0.5, delay: prefersReducedMotion ? 0 : 0.25, ease: [0.16, 1, 0.3, 1] }}
-                className="shrink-0 flex items-center gap-2"
-              >
+              <div className="shrink-0 flex items-center gap-2">
                 {headerAction}
-              </motion.div>
+              </div>
             )}
-          </div>
+          </motion.div>
         </div>
 
         {/* Children content area */}
         <motion.div
           variants={{
-            hidden: { opacity: 0 },
+            hidden: {},
             visible: {
-              opacity: 1,
               transition: {
-                staggerChildren: prefersReducedMotion ? 0 : 0.1,
-                delayChildren: prefersReducedMotion ? 0 : 0.22,
+                staggerChildren: prefersReducedMotion ? 0 : 0.14,
+                delayChildren: prefersReducedMotion ? 0 : 0.16,
               },
             },
           }}
-          initial="hidden"
-          animate={isInView ? "visible" : "hidden"}
           className="pl-0 sm:pl-7 md:pl-8"
         >
           {children}

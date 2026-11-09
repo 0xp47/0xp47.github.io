@@ -14,7 +14,10 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { ViewToggle } from "@/components/shared/view-toggle";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { ProjectCard, VERCEL_METADATA_MAP, type Project } from "@/components/shared/project-card";
+import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 import { cn } from "@/lib/utils";
+
+const smoothScrollEasing = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 const CASE_STUDIES: Record<string, { architecture: string; challenge: string; features: string[] }> = {
   "LeafSense Mobile": {
@@ -130,7 +133,15 @@ export function ProjectsPageClient() {
   }, [activeFilter, selectedTech, sortBy]);
 
   const handleScrollToTop = () => {
-    lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
+    if (lenis) {
+      lenis.scrollTo(0, {
+        offset: 0,
+        duration: prefersReducedMotion ? 0 : 1.25,
+        easing: smoothScrollEasing,
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    }
   };
 
   // Compile all unique technologies with counts
@@ -231,8 +242,16 @@ export function ProjectsPageClient() {
       isFirstMount.current = false;
       return;
     }
-    lenis?.scrollTo(0, { offset: 0, duration: 800 });
-  }, [currentPage, lenis]);
+    if (lenis) {
+      lenis.scrollTo(0, {
+        offset: 0,
+        duration: prefersReducedMotion ? 0 : 0.9,
+        easing: smoothScrollEasing,
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    }
+  }, [currentPage, lenis, prefersReducedMotion]);
 
   // Disable scroll when drawer is open
   useEffect(() => {
@@ -394,7 +413,7 @@ export function ProjectsPageClient() {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: EASE_OUT_EXPO }}
         className="mx-auto max-w-[1120px] px-6 py-12 sm:px-8 sm:py-14 md:py-20 lg:px-10"
       >
         {/* Navigation Header */}
@@ -470,10 +489,10 @@ export function ProjectsPageClient() {
                       type="button"
                       onClick={() => setActiveFilter(filter)}
                       className={cn(
-                        "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition duration-300 cursor-pointer hover:bg-foreground/[0.04]",
+                        "w-full flex items-center gap-2 px-3 py-2 rounded-lg text-left transition-all duration-200 cursor-pointer hover:bg-foreground/[0.04]",
                         isActive
                           ? "bg-foreground text-background font-bold"
-                          : "text-muted-foreground hover:text-foreground"
+                          : "text-muted-foreground hover:text-foreground hover:translate-x-0.5"
                       )}
                     >
                       <Folder className={cn("size-3.5", isActive ? "fill-current" : "")} />
@@ -582,10 +601,10 @@ export function ProjectsPageClient() {
             {/* Dynamic View rendering: Toggles columns rather than hiding descriptions */}
             <LayoutGroup>
               <motion.div
-                key={viewMode}
+                key={`${viewMode}-${currentPage}-${activeFilter}`}
                 initial={{ opacity: 0, y: 8 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+                transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
                 className={cn(
                   "grid gap-6 mt-8 items-stretch",
                   viewMode === "grid" ? "sm:grid-cols-2 max-w-[780px]" : "grid-cols-1 max-w-[780px]"
@@ -594,9 +613,13 @@ export function ProjectsPageClient() {
                 {paginatedProjects.map((project, i) => (
                   <motion.div
                     key={project.name}
-                    initial={{ opacity: 0, y: 12 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3, delay: i * 0.04, ease: "easeOut" }}
+                    initial={{ opacity: 0, y: 16, scale: 0.985 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    transition={{
+                      duration: prefersReducedMotion ? 0 : 0.65,
+                      delay: prefersReducedMotion ? 0 : i * 0.05,
+                      ease: EASE_OUT_EXPO,
+                    }}
                     className="h-full"
                   >
                     <ProjectCard project={project} onViewDetails={setSelectedProject} />
@@ -613,7 +636,7 @@ export function ProjectsPageClient() {
                   type="button"
                   disabled={currentPage === 1}
                   onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-                  className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors duration-200 cursor-pointer"
+                  className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                   aria-label="Previous page"
                 >
                   <ChevronLeft className="size-4" />
@@ -628,7 +651,7 @@ export function ProjectsPageClient() {
                       type="button"
                       onClick={() => setCurrentPage(page)}
                       className={cn(
-                        "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition-colors duration-200 cursor-pointer",
+                        "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer",
                         isActive
                           ? "border-neutral-900 bg-neutral-900 text-white font-semibold dark:border-white dark:bg-white dark:text-black"
                           : "border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white"
@@ -644,7 +667,7 @@ export function ProjectsPageClient() {
                   type="button"
                   disabled={currentPage === totalPages}
                   onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-                  className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-colors duration-200 cursor-pointer"
+                  className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white disabled:opacity-30 disabled:pointer-events-none transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
                   aria-label="Next page"
                 >
                   <ChevronRight className="size-4" />
@@ -687,7 +710,7 @@ export function ProjectsPageClient() {
             href="/"
             className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors group"
           >
-            <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform" />
+            <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform duration-300" />
             Back to portfolio
           </Link>
           <span className="text-[10px] font-mono text-muted-foreground/30">
@@ -735,7 +758,7 @@ export function ProjectsPageClient() {
                 <button
                   type="button"
                   onClick={() => setSelectedProject(null)}
-                  className="flex size-7 items-center justify-center chamfer-btn border border-neutral-300 bg-neutral-100 hover:border-neutral-400 hover:text-black hover:bg-neutral-200 dark:border-neutral-800 dark:bg-[#121212] dark:hover:border-neutral-700 dark:hover:text-white transition-colors duration-200 text-neutral-600 dark:text-neutral-400 cursor-pointer"
+                  className="flex size-7 items-center justify-center chamfer-btn border border-neutral-300 bg-neutral-100 hover:border-neutral-400 hover:text-black hover:bg-neutral-200 dark:border-neutral-800 dark:bg-[#121212] dark:hover:border-neutral-700 dark:hover:text-white transition-all duration-200 active:scale-95 text-neutral-600 dark:text-neutral-400 cursor-pointer"
                   aria-label="Close details"
                 >
                   <X className="size-3.5" />

@@ -8,8 +8,11 @@ interface CodeParticle {
   vx: number;
   vy: number;
   fontSize: number;
-  alpha: number;
-  alphaSpeed: number;
+  baseAlpha: number;
+  alphaRange: number;
+  phase: number;
+  phaseSpeed: number;
+  floatAmp: number;
   symbol: string;
 }
 
@@ -134,20 +137,25 @@ export function ParticlesBackground() {
     let width = (canvas.width = canvas.offsetWidth);
     let height = (canvas.height = canvas.offsetHeight);
 
-    // Code particles count based on screen area (increased density and cap)
-    const particleCount = Math.min(Math.floor((width * height) / 10000), 95);
+    // Code particles count based on screen area
+    const getParticleCount = () =>
+      Math.min(Math.floor((width * height) / 11000), 85);
 
     const createParticles = () => {
+      const count = getParticleCount();
       particles = [];
-      for (let i = 0; i < particleCount; i++) {
+      for (let i = 0; i < count; i++) {
         particles.push({
           x: Math.random() * width,
           y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.20, // Slow calm drift
-          vy: (Math.random() - 0.5) * 0.20,
+          vx: (Math.random() - 0.5) * 0.16, // Calm horizontal drift
+          vy: (Math.random() - 0.5) * 0.14 - 0.02, // Slight upward bias
           fontSize: Math.floor(Math.random() * 6) + 10, // Font sizes from 10px to 15px
-          alpha: Math.random() * 0.25 + 0.05,
-          alphaSpeed: (Math.random() * 0.003 + 0.001) * (Math.random() > 0.5 ? 1 : -1),
+          baseAlpha: Math.random() * 0.16 + 0.08,
+          alphaRange: Math.random() * 0.09 + 0.03,
+          phase: Math.random() * Math.PI * 2,
+          phaseSpeed: Math.random() * 0.012 + 0.005,
+          floatAmp: Math.random() * 0.12 + 0.04,
           symbol: CODE_SYMBOLS[Math.floor(Math.random() * CODE_SYMBOLS.length)],
         });
       }
@@ -167,6 +175,8 @@ export function ParticlesBackground() {
     const isDark = () =>
       document.documentElement.classList.contains("dark");
 
+    const currentAlphas = new Float32Array(100);
+
     const drawFrame = () => {
       ctx.clearRect(0, 0, width, height);
 
@@ -174,48 +184,47 @@ export function ParticlesBackground() {
       const themeChanged = isDark() !== themeIsDark;
       if (themeChanged) themeIsDark = isDark();
 
-      // 1. Move and draw particles
-      particles.forEach((p) => {
-        p.x += p.vx;
-        p.y += p.vy;
+      // 1. Move and draw particles with gentle sinusoidal floating & smooth opacity breathing
+      for (let i = 0; i < particles.length; i++) {
+        const p = particles[i];
+        p.phase += p.phaseSpeed;
+        p.x += p.vx + Math.cos(p.phase * 0.7) * p.floatAmp * 0.35;
+        p.y += p.vy + Math.sin(p.phase) * p.floatAmp;
 
-        // Pulse opacity (glow fade)
-        p.alpha += p.alphaSpeed;
-        if (p.alpha <= 0.03 || p.alpha >= 0.35) {
-          p.alphaSpeed = -p.alphaSpeed;
-        }
+        const alpha = Math.max(
+          0.03,
+          Math.min(0.34, p.baseAlpha + Math.sin(p.phase) * p.alphaRange)
+        );
+        currentAlphas[i] = alpha;
 
-        // Keep inside boundaries (wrap around)
-        if (p.x < -40) p.x = width + 40;
-        if (p.x > width + 40) p.x = -40;
-        if (p.y < -20) p.y = height + 20;
-        if (p.y > height + 20) p.y = -20;
+        // Keep inside boundaries (wrap around smoothly)
+        if (p.x < -50) p.x = width + 50;
+        if (p.x > width + 50) p.x = -50;
+        if (p.y < -24) p.y = height + 24;
+        if (p.y > height + 24) p.y = -24;
 
         // Draw coding symbol
-        ctx.beginPath();
         ctx.font = `${p.fontSize}px "Geist Mono", monospace`;
         ctx.fillStyle = themeIsDark
-          ? `rgba(255, 255, 255, ${p.alpha})`
-          : `rgba(9, 9, 11, ${p.alpha * 0.9})`;
+          ? `rgba(255, 255, 255, ${alpha})`
+          : `rgba(9, 9, 11, ${alpha * 0.9})`;
         ctx.fillText(p.symbol, p.x, p.y);
-      });
+      }
 
-      // 2. Draw connecting lines between nearby code particles (matching particles.js style)
-      const maxDistance = 90; // Pixels
+      // 2. Draw subtle connecting lines between nearby code particles
+      const maxDistance = 90;
       const maxDistanceSq = maxDistance * maxDistance;
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const p1 = particles[i];
           const p2 = particles[j];
 
-          // Target centers of the text particles
           const x1 = p1.x + p1.fontSize / 3;
           const y1 = p1.y - p1.fontSize / 3;
           const x2 = p2.x + p2.fontSize / 3;
           const y2 = p2.y - p2.fontSize / 3;
 
           const dx = x1 - x2;
-          // Fast rejection checks
           if (Math.abs(dx) >= maxDistance) continue;
           const dy = y1 - y2;
           if (Math.abs(dy) >= maxDistance) continue;
@@ -224,8 +233,10 @@ export function ParticlesBackground() {
 
           if (distSq < maxDistanceSq) {
             const dist = Math.sqrt(distSq);
-            // Fade lines as they get further away
-            const lineAlpha = (1 - dist / maxDistance) * 0.09 * Math.min(p1.alpha, p2.alpha);
+            const lineAlpha =
+              (1 - dist / maxDistance) *
+              0.085 *
+              Math.min(currentAlphas[i], currentAlphas[j]);
             ctx.beginPath();
             ctx.moveTo(x1, y1);
             ctx.lineTo(x2, y2);
@@ -237,7 +248,6 @@ export function ParticlesBackground() {
           }
         }
       }
-
     };
 
     // Stop the decorative loop when the user prefers reduced motion;

@@ -13,7 +13,10 @@ import { SectionHeader } from "@/components/shared/section-header";
 import { ViewToggle } from "@/components/shared/view-toggle";
 import { ScrollToTop } from "@/components/shared/scroll-to-top";
 import { BlogCard } from "@/components/shared/blog-card";
+import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 import { cn } from "@/lib/utils";
+
+const smoothScrollEasing = (t: number) => Math.min(1, 1.001 - Math.pow(2, -10 * t));
 
 export function BlogPageClient() {
   const lenis = useLenis();
@@ -27,7 +30,15 @@ export function BlogPageClient() {
   const POSTS_PER_PAGE = 8;
 
   const handleScrollToTop = () => {
-    lenis?.scrollTo(0, { offset: 0, duration: 1.2 });
+    if (lenis) {
+      lenis.scrollTo(0, {
+        offset: 0,
+        duration: prefersReducedMotion ? 0 : 1.25,
+        easing: smoothScrollEasing,
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    }
   };
 
   // Filter logic
@@ -72,8 +83,16 @@ export function BlogPageClient() {
       isFirstMount.current = false;
       return;
     }
-    lenis?.scrollTo(0, { offset: 0, duration: 800 });
-  }, [currentPage, lenis]);
+    if (lenis) {
+      lenis.scrollTo(0, {
+        offset: 0,
+        duration: prefersReducedMotion ? 0 : 0.9,
+        easing: smoothScrollEasing,
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: prefersReducedMotion ? "auto" : "smooth" });
+    }
+  }, [currentPage, lenis, prefersReducedMotion]);
 
   useEffect(() => {
     const onScroll = () => setShowBackToTop(window.scrollY > 400);
@@ -88,7 +107,7 @@ export function BlogPageClient() {
       <motion.div
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: [0.16, 1, 0.3, 1] }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.8, ease: EASE_OUT_EXPO }}
         className="mx-auto max-w-[1120px] px-6 py-12 sm:px-8 sm:py-14 md:py-20 lg:px-10"
       >
         {/* Navigation Header */}
@@ -127,10 +146,10 @@ export function BlogPageClient() {
         {/* Dynamic Layout Listing (Toggles columns layout dynamically) */}
         <LayoutGroup>
           <motion.div
-            key={viewMode}
+            key={`${viewMode}-${currentPage}`}
             initial={{ opacity: 0, y: 8 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, ease: [0.25, 0.1, 0.25, 1] }}
+            transition={{ duration: 0.4, ease: EASE_OUT_EXPO }}
             className={cn(
               "grid gap-6 mt-8",
               viewMode === "grid" ? "sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4" : "grid-cols-1 max-w-3xl mx-auto"
@@ -139,9 +158,13 @@ export function BlogPageClient() {
             {paginatedPosts.map((post, i) => (
               <motion.div
                 key={post.slug}
-                initial={{ opacity: 0, y: 12 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: i * 0.04, ease: "easeOut" }}
+                initial={{ opacity: 0, y: 16, scale: 0.985 }}
+                animate={{ opacity: 1, y: 0, scale: 1 }}
+                transition={{
+                  duration: prefersReducedMotion ? 0 : 0.65,
+                  delay: prefersReducedMotion ? 0 : i * 0.05,
+                  ease: EASE_OUT_EXPO,
+                }}
               >
                 {viewMode === "grid" ? (
                   /* Grid Card View (Vertical) */
@@ -150,17 +173,21 @@ export function BlogPageClient() {
                   /* List Row View (Horizontal - Chamfered Card Style) */
                   <Link
                     href={`/blog/${post.slug}`}
-                    className="group relative flex flex-col select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 w-full"
+                    className="group relative flex flex-col select-none p-[1px] transition-all duration-300 ease-out bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-600/80 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_12px_28px_rgba(0,0,0,0.5)] w-full"
                     style={{
                       clipPath: "polygon(0 0, calc(100% - 14px) 0, 100% 14px, 100% 100%, 14px 100%, 0 calc(100% - 14px))",
                     }}
                   >
                     <div
-                      className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 h-full bg-white p-3.5 sm:p-4 transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
+                      className="relative flex flex-col sm:flex-row sm:items-center justify-between gap-4 h-full bg-white p-3.5 sm:p-4 transition-colors duration-300 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808] overflow-hidden"
                       style={{
                         clipPath: "polygon(0 0, calc(100% - 13.5px) 0, 100% 13.5px, 100% 100%, 13.5px 100%, 0 calc(100% - 13.5px))",
                       }}
                     >
+                      <span
+                        aria-hidden="true"
+                        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-foreground/25 to-transparent opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                      />
                       <div className="relative z-10 flex-1 min-w-0 space-y-1.5">
                         {/* Category, Date and Reading Time */}
                         <div className="flex items-center gap-2.5">
@@ -196,9 +223,9 @@ export function BlogPageClient() {
                         </div>
                       </div>
 
-                      <div className="relative z-10 hidden sm:flex items-center gap-1 text-[11px] font-medium text-neutral-400 group-hover:text-white transition-colors duration-200 shrink-0 pl-4 border-l border-neutral-800/60">
+                      <div className="relative z-10 hidden sm:flex items-center gap-1 text-[11px] font-medium text-neutral-500 group-hover:text-neutral-900 dark:text-neutral-400 dark:group-hover:text-white transition-colors duration-200 shrink-0 pl-4 border-l border-neutral-200 dark:border-neutral-800/60">
                         <span>Read post</span>
-                        <ArrowRight className="size-3 text-neutral-500 group-hover:text-white transition-transform duration-200 group-hover:translate-x-1" />
+                        <ArrowRight className="size-3 text-neutral-500 group-hover:text-neutral-900 dark:group-hover:text-white transition-transform duration-300 group-hover:translate-x-1" />
                       </div>
                     </div>
                   </Link>
@@ -216,7 +243,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === 1}
               onClick={() => setCurrentPage((prev) => Math.max(prev - 1, 1))}
-              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-white transition-colors duration-200 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-white transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               aria-label="Previous page"
             >
               <ChevronLeft className="size-4" />
@@ -231,10 +258,10 @@ export function BlogPageClient() {
                   type="button"
                   onClick={() => setCurrentPage(page)}
                   className={cn(
-                    "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition-colors duration-200 cursor-pointer",
+                    "flex size-8 items-center justify-center chamfer-btn border text-[10px] font-bold transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer",
                     isActive
-                      ? "border-white bg-white text-black font-semibold"
-                      : "border-neutral-800 bg-[#040404] text-neutral-400 hover:border-neutral-700 hover:text-white"
+                      ? "border-neutral-900 bg-neutral-900 text-white dark:border-white dark:bg-white dark:text-black font-semibold"
+                      : "border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:text-neutral-400 dark:hover:border-neutral-700 dark:hover:text-white"
                   )}
                 >
                   {page}
@@ -247,7 +274,7 @@ export function BlogPageClient() {
               type="button"
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage((prev) => Math.min(prev + 1, totalPages))}
-              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-white transition-colors duration-200 cursor-pointer"
+              className="flex size-8 items-center justify-center chamfer-btn border border-neutral-300 bg-white text-neutral-600 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#040404] dark:hover:border-neutral-700 disabled:opacity-30 disabled:pointer-events-none dark:text-neutral-400 dark:hover:text-white transition-all duration-200 hover:-translate-y-0.5 active:scale-95 cursor-pointer"
               aria-label="Next page"
             >
               <ChevronRight className="size-4" />
@@ -263,8 +290,8 @@ export function BlogPageClient() {
             className="flex flex-col items-center justify-center py-20 text-center"
           >
             <Search className="size-6 text-neutral-500 mb-3" />
-            <h3 className="text-sm font-semibold text-white">No articles found</h3>
-            <p className="text-xs text-neutral-400 mt-1 max-w-xs leading-relaxed">
+            <h3 className="text-sm font-semibold text-foreground">No articles found</h3>
+            <p className="text-xs text-muted-foreground mt-1 max-w-xs leading-relaxed">
               We couldn&apos;t find any blog posts matching your search query.
             </p>
             <button
@@ -277,15 +304,15 @@ export function BlogPageClient() {
         )}
 
         {/* Footer Area with Back Link */}
-        <footer className="mt-24 pt-8 border-t border-neutral-800/80 flex items-center justify-between w-full">
+        <footer className="mt-24 pt-8 border-t border-border/10 flex items-center justify-between w-full">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 text-xs font-mono text-neutral-400 hover:text-white transition-colors duration-200 group"
+            className="inline-flex items-center gap-2 text-xs font-mono text-muted-foreground hover:text-foreground transition-colors duration-300 group"
           >
-            <ArrowLeft className="size-3.5 group-hover:-translate-x-0.5 transition-transform duration-200" />
+            <ArrowLeft className="size-3.5 group-hover:-translate-x-1 transition-transform duration-300" />
             Back to portfolio
           </Link>
-          <span className="text-[10px] font-mono text-neutral-600">
+          <span className="text-[10px] font-mono text-muted-foreground/40">
             © {new Date().getFullYear()} Jay Patrick Cano
           </span>
         </footer>
