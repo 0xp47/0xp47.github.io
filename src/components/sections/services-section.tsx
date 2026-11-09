@@ -89,9 +89,15 @@ export function ServicesSection() {
       }
     >
       <div className="relative w-full">
-        {/* Carousel Container */}
-        <div 
+        {/* Carousel Container with Staggered Scroll-Down Entrance */}
+        <motion.div 
           ref={scrollContainerRef}
+          variants={{
+            hidden: {},
+            visible: {
+              transition: { staggerChildren: 0.1, delayChildren: 0.08 },
+            },
+          }}
           className="flex gap-5 overflow-x-auto scroll-smooth snap-x snap-mandatory scrollbar-none w-full pb-3"
         >
           {services.map((service, index) => {
@@ -135,7 +141,7 @@ export function ServicesSection() {
               </motion.div>
             );
           })}
-        </div>
+        </motion.div>
       </div>
     </Section>
   );

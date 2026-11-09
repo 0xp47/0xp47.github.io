@@ -11,7 +11,7 @@ import { projects, projectFilters, sectionMeta } from "@/lib/portfolio-data";
 import { Section } from "@/components/shared/section";
 import { cn } from "@/lib/utils";
 
-import { cardVariants } from "@/lib/animation-variants";
+import { cardVariants, fadeUpVariants } from "@/lib/animation-variants";
 import { ProjectCard, VERCEL_METADATA_MAP, type Project } from "@/components/shared/project-card";
 
 const FEATURED_PROJECT_ORDER = [
@@ -252,7 +252,7 @@ export function ProjectsSection() {
   return (
     <Section id="projects" eyebrow={sectionMeta.projects.eyebrow} title={sectionMeta.projects.title}>
       {/* Vercel Project Filter Tabs — individual chamfered buttons */}
-      <div className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none">
+      <motion.div variants={fadeUpVariants} className="mb-4 sm:mb-5 w-fit max-w-full overflow-x-auto scrollbar-none">
         <nav className="flex items-center gap-2" aria-label="Project filters">
           {projectFilters.map((filter) => {
             const isActive = activeFilter === filter;
@@ -279,7 +279,7 @@ export function ProjectsSection() {
             );
           })}
         </nav>
-      </div>
+      </motion.div>
 
       <motion.div
         variants={{
@@ -302,7 +302,7 @@ export function ProjectsSection() {
       </motion.div>
 
       {filteredProjects.length > 8 && (
-        <div className="mt-8 sm:mt-10 flex justify-center">
+        <motion.div variants={fadeUpVariants} className="mt-8 sm:mt-10 flex justify-center">
           <Link
             href="/projects"
             className="group inline-flex items-center gap-2 chamfer-btn-lg border border-neutral-300 bg-white px-6 py-2.5 font-mono text-xs font-semibold uppercase tracking-wider text-neutral-800 hover:border-neutral-400 hover:text-black hover:bg-neutral-100 dark:border-neutral-800 dark:bg-[#0a0a0a] dark:text-neutral-300 dark:hover:border-neutral-700 dark:hover:text-white transition-colors duration-200 cursor-pointer focus-visible:ring-1 focus-visible:ring-foreground focus-visible:outline-hidden"
@@ -310,7 +310,7 @@ export function ProjectsSection() {
             <span>See All Projects</span>
             <ArrowUpRight className="size-3.5 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
           </Link>
-        </div>
+        </motion.div>
       )}
 
       {/* Case Study Drawer */}

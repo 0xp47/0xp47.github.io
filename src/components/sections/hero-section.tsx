@@ -2,10 +2,9 @@
 
 import { type ComponentType } from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
-import { useLenis } from "lenis/react";
-import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
+import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import * as BrandIcons from "@/components/shared/brand-icons";
 import dynamic from "next/dynamic";
@@ -41,12 +40,21 @@ interface HeroSectionProps {
 }
 
 export function HeroSection({ onScrollToSection }: HeroSectionProps) {
-  const lenis = useLenis();
+  const prefersReducedMotion = useSafeReducedMotion();
+  const { scrollY } = useScroll();
+
+  // Scroll-down smooth parallax shifts
+  const portraitY = useTransform(scrollY, [0, 600], [0, prefersReducedMotion ? 0 : 80]);
+  const portraitOpacity = useTransform(scrollY, [0, 480], [1, prefersReducedMotion ? 1 : 0.25]);
+  const portraitScale = useTransform(scrollY, [0, 600], [1, prefersReducedMotion ? 1 : 0.96]);
+
+  const heroContentY = useTransform(scrollY, [0, 480], [0, prefersReducedMotion ? 0 : 45]);
+  const heroContentOpacity = useTransform(scrollY, [0, 380], [1, prefersReducedMotion ? 1 : 0]);
+
   return (
     <div className="relative min-h-screen flex flex-col justify-between pt-6 sm:pt-10 md:pt-20 overflow-hidden">
       <ParticlesBackground />
       <AnimatedNoise opacity={0.03} />
-      
       
       {/* Subtle tech background grids covering entire viewport */}
       <div
@@ -58,8 +66,15 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
         className="absolute inset-0 -z-10 h-full bg-[radial-gradient(circle_at_50%_0%,color-mix(in_srgb,var(--foreground)_2%,transparent),transparent_50%)]"
       />
 
-      {/* Large Centered Portrait Cutout (positioned absolutely in background, sitting flush on top of marquee) */}
-      <div className="absolute inset-x-0 bottom-16 top-0 z-0 hidden md:flex items-end justify-center pointer-events-none">
+      {/* Large Centered Portrait Cutout (positioned absolutely in background, with smooth scroll parallax) */}
+      <motion.div
+        style={{
+          y: portraitY,
+          opacity: portraitOpacity,
+          scale: portraitScale,
+        }}
+        className="absolute inset-x-0 bottom-16 top-0 z-0 hidden md:flex items-end justify-center pointer-events-none"
+      >
         <div className="relative h-[80%] md:h-[84%] lg:h-[88%] w-full max-w-[400px] md:max-w-[460px] lg:max-w-[520px] origin-bottom [mask-image:linear-gradient(to_bottom,black_88%,transparent)]">
           <Image
             src="/images/me.png"
@@ -70,14 +85,20 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
             className="object-contain object-bottom grayscale contrast-[1.12] transition duration-500"
           />
         </div>
-      </div>
+      </motion.div>
 
       <section className="flex-1 flex items-end pb-4 relative z-10">
         <div className="mx-auto w-full max-w-[1120px] px-6 sm:px-8 lg:px-10 pb-4 sm:pb-8 md:pb-12 lg:pb-14">
           <div className="relative z-10 grid gap-8 md:grid-cols-[1.2fr_1.1fr_0.9fr] md:items-end">
             
             {/* Left Column: Headline and scroll down indicator */}
-            <div className="pb-8 md:pb-16 lg:pb-24 order-2 md:order-1">
+            <motion.div
+              style={{
+                y: heroContentY,
+                opacity: heroContentOpacity,
+              }}
+              className="pb-8 md:pb-16 lg:pb-24 order-2 md:order-1"
+            >
               <motion.div
                 initial={{ opacity: 0, y: -8 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -117,27 +138,26 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                 {heroDescription}
               </motion.p>
 
-              {/* Scroll down button */}
+              {/* Scroll down button / prompt */}
               <motion.div
                 initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.3 }}
-                className="mt-8 flex items-center"
+                className="mt-8 flex items-center gap-3.5"
               >
-                {/* Swarm Rebuild / Explore Button */}
-                <button
-                  type="button"
-                  onClick={() => {
-                    lenis?.scrollTo(0, { immediate: true });
-                    window.scrollTo({ top: 0, left: 0, behavior: "instant" });
-                    triggerSwarmRebuild();
+                {/* Scroll Down to Section 01 */}
+                <a
+                  href="#about"
+                  onClick={(e) => {
+                    e.preventDefault();
+                    onScrollToSection("#about");
                   }}
                   className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700 cursor-pointer"
                   style={{
                     clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
                   }}
-                  aria-label="Rebuild page with swarm (Alt+Shift+S)"
-                  title="Rebuild page with swarm (Alt+Shift+S)"
+                  aria-label="Scroll down to About section"
+                  title="Scroll down to explore"
                 >
                   <div
                     className="flex size-11 items-center justify-center bg-white transition-colors duration-200 group-hover:bg-neutral-50 dark:bg-[#040404] dark:group-hover:bg-[#080808]"
@@ -145,11 +165,25 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                       clipPath: "polygon(0 0, calc(100% - 9.5px) 0, 100% 9.5px, 100% 100%, 9.5px 100%, 0 calc(100% - 9.5px))",
                     }}
                   >
-                    <ArrowDown className="size-4.5 text-neutral-700 group-hover:text-black dark:text-neutral-300 dark:group-hover:text-white transition-transform duration-200 group-hover:translate-y-0.5" />
+                    <motion.div
+                      animate={prefersReducedMotion ? {} : { y: [0, 4, 0] }}
+                      transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
+                    >
+                      <ArrowDown className="size-4.5 text-neutral-700 group-hover:text-black dark:text-neutral-300 dark:group-hover:text-white transition-colors duration-200" />
+                    </motion.div>
                   </div>
-                </button>
+                </a>
+
+                <div className="flex flex-col select-none">
+                  <span className="font-mono text-[9px] uppercase tracking-[0.22em] text-neutral-700 dark:text-neutral-300 font-bold leading-none">
+                    Scroll Down
+                  </span>
+                  <span className="font-mono text-[8.5px] text-muted-foreground/60 tracking-wider mt-1">
+                    Explore Work &amp; Bio
+                  </span>
+                </div>
               </motion.div>
-            </div>
+            </motion.div>
 
             {/* Center Column: Spacer on desktop, Mobile Portrait cutout on mobile */}
             <div className="relative flex justify-center md:block order-1 md:order-2">
@@ -166,8 +200,14 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
               </div>
             </div>
 
-            {/* Right Column: About, Work and Follow segments (hidden on mobile to prevent viewport overflow) */}
-            <div className="hidden md:flex pb-8 md:pb-16 lg:pb-24 flex-col gap-8 order-3">
+            {/* Right Column: About, Work and Follow segments */}
+            <motion.div
+              style={{
+                y: heroContentY,
+                opacity: heroContentOpacity,
+              }}
+              className="hidden md:flex pb-8 md:pb-16 lg:pb-24 flex-col gap-8 order-3"
+            >
               
               {/* About Me Segment */}
               <motion.div
@@ -313,7 +353,7 @@ export function HeroSection({ onScrollToSection }: HeroSectionProps) {
                   ))}
                 </div>
               </motion.div>
-            </div>
+            </motion.div>
 
           </div>
         </div>

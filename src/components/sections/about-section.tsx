@@ -61,10 +61,19 @@ export function AboutSection() {
           </div>
           
           {/* Stats Highlights */}
-          <div className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-2">
+          <motion.div
+            variants={{
+              hidden: {},
+              visible: {
+                transition: { staggerChildren: 0.08, delayChildren: 0.1 },
+              },
+            }}
+            className="grid grid-cols-3 gap-2.5 sm:gap-4 pt-2"
+          >
             {heroStats.map((stat, i) => (
-              <div
+              <motion.div
                 key={i}
+                variants={cardVariants}
                 className="group relative select-none p-[1px] transition-colors duration-200 bg-neutral-300 hover:bg-neutral-400 dark:bg-neutral-800/60 dark:hover:bg-neutral-700"
                 style={{
                   clipPath: "polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px))",
@@ -83,9 +92,9 @@ export function AboutSection() {
                     {stat.label}
                   </span>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
+          </motion.div>
         </motion.div>
 
         {/* Right Column: Highlights Cards */}

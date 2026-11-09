@@ -9,6 +9,7 @@ import { Section } from "@/components/shared/section";
 import { useSafeReducedMotion } from "@/hooks/use-safe-reduced-motion";
 import { cn } from "@/lib/utils";
 import { BadgeCard } from "@/components/shared/badge-card";
+import { fadeUpVariants } from "@/lib/animation-variants";
 
 function formatDate(iso: string): string {
   return new Date(iso).toLocaleDateString("en-US", {
@@ -79,7 +80,7 @@ export function CertificationsSection() {
     >
       <div className="flex flex-col">
         {/* Header Summary & Registry Links */}
-        <div className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
+        <motion.div variants={fadeUpVariants} className="mb-4 sm:mb-5 flex flex-col gap-3 md:flex-row md:items-end md:justify-between">
           <p className="max-w-xl text-sm leading-relaxed text-neutral-600 dark:text-neutral-400">
             <span className="font-semibold text-neutral-900 dark:text-white">
               {certifications.length} verified credentials
@@ -117,10 +118,10 @@ export function CertificationsSection() {
               <ArrowUpRight className="size-3 transition-transform duration-200 group-hover:-translate-y-0.5 group-hover:translate-x-0.5" />
             </a>
           </div>
-        </div>
+        </motion.div>
 
         {/* Filter Tabs — individual chamfered buttons */}
-        <div className="mb-4 sm:mb-5 w-full max-w-full overflow-x-auto scrollbar-none pb-1">
+        <motion.div variants={fadeUpVariants} className="mb-4 sm:mb-5 w-full max-w-full overflow-x-auto scrollbar-none pb-1">
           <nav className="flex items-center gap-2" aria-label="Certification filters">
             {CERT_FILTERS.map((filter) => {
               const count = getFilterCount(filter);
@@ -148,7 +149,7 @@ export function CertificationsSection() {
               );
             })}
           </nav>
-        </div>
+        </motion.div>
 
         {/* Grid of Credentials — matching the ProjectCard layout */}
         <motion.div
@@ -178,7 +179,7 @@ export function CertificationsSection() {
 
         {/* See All Button — matching the Projects section button */}
         {filteredCertifications.length > INITIAL_DISPLAY_COUNT && (
-          <div className="mt-8 sm:mt-10 flex justify-center">
+          <motion.div variants={fadeUpVariants} className="mt-8 sm:mt-10 flex justify-center">
             <button
               type="button"
               onClick={() => setShowAll(!showAll)}
@@ -190,7 +191,7 @@ export function CertificationsSection() {
                   : `See All ${filteredCertifications.length} Credentials`}
               </span>
             </button>
-          </div>
+          </motion.div>
         )}
       </div>
     </Section>

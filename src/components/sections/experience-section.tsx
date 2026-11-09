@@ -9,8 +9,14 @@ export function ExperienceSection() {
   return (
     <Section id="experience" eyebrow={sectionMeta.experience.eyebrow} title={sectionMeta.experience.title}>
       <div className="relative max-w-4xl">
-        {/* Sleek Vertical Progress Line */}
-        <div className="absolute left-[11px] top-3 bottom-3 w-px bg-gradient-to-b from-foreground/30 via-border/40 to-transparent" />
+        {/* Sleek Vertical Progress Line that draws downward on scroll */}
+        <motion.div
+          initial={{ scaleY: 0 }}
+          whileInView={{ scaleY: 1 }}
+          viewport={{ once: true, margin: "-40px" }}
+          transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          className="absolute left-[11px] top-3 bottom-3 w-px bg-gradient-to-b from-foreground/30 via-border/40 to-transparent origin-top"
+        />
 
         <motion.div
           variants={{
