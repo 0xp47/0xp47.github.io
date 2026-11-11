@@ -504,6 +504,9 @@ export class App {
   }
 
   destroy(reveal?: boolean): void {
+    if (typeof document !== "undefined") {
+      document.documentElement.classList.remove("swarm-active");
+    }
     this.sendYt("stopVideo");
     unhidePage();
     const finish = () => {

@@ -672,3 +672,41 @@ html.lenis, html.lenis body {
     linear-gradient(to bottom, color-mix(in srgb, var(--foreground) 6%, transparent) 1px, transparent 1px);
   background-size: 60px 60px;
 }
+
+
+/* Swarm Rebuild Full-Page Capture & Simulation Visibility:
+   When Swarm Rebuild is active, neutralize offscreen entrance animation overrides so
+   captureModel reads the resting, fully-visible geometry and content across all sections. */
+html.swarm-active main [style*="opacity: 0"],
+html.swarm-active main [style*="opacity:0"],
+html.swarm-active main [style*="opacity: -"],
+html.swarm-active section [style*="opacity"],
+html.swarm-active footer [style*="opacity"] {
+  opacity: 1 !important;
+}
+
+html.swarm-active main [style*="translateY"],
+html.swarm-active main [style*="translateX"],
+html.swarm-active main [style*="scale(0"],
+html.swarm-active main [style*="scale( 0"] {
+  transform: none !important;
+}
+
+html.swarm-active main [style*="scaleX(0)"],
+html.swarm-active main [style*="scaleX( 0 )"] {
+  transform: scaleX(1) !important;
+}
+
+html.swarm-active main [style*="scaleY(0)"],
+html.swarm-active main [style*="scaleY( 0 )"] {
+  transform: scaleY(1) !important;
+}
+
+/* Maintain subtle background watermark and particles opacity in swarm mode */
+html.swarm-active .fixed.-right-24 {
+  opacity: 0.035 !important;
+}
+
+html.swarm-active canvas {
+  opacity: 0.4 !important;
+}

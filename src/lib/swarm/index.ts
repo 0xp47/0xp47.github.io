@@ -15,6 +15,11 @@ let appInstance: App | null = null;
 function notifySwarmState(active: boolean): void {
   if (typeof window === "undefined") return;
   try {
+    if (active) {
+      document.documentElement.classList.add("swarm-active");
+    } else {
+      document.documentElement.classList.remove("swarm-active");
+    }
     window.dispatchEvent(
       new CustomEvent("swarm-rebuild-state", { detail: { active } })
     );

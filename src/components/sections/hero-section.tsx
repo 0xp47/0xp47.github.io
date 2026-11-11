@@ -1,11 +1,12 @@
 "use client";
 
-import { type ComponentType, useRef, useSyncExternalStore } from "react";
+import { type ComponentType, useRef } from "react";
 import Image from "next/image";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { useLenis } from "lenis/react";
-import { isSwarmRebuildActive, triggerSwarmRebuild } from "@/lib/swarm-rebuild";
+import { triggerSwarmRebuild } from "@/lib/swarm-rebuild";
+import { useIsSwarmActive } from "@/hooks/use-swarm-active";
 import { profile, skillGroups, heroDescription, heroAboutSegment, heroWorkSegment } from "@/lib/portfolio-data";
 import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 import * as BrandIcons from "@/components/shared/brand-icons";
@@ -36,14 +37,6 @@ const technologyIcons: Record<string, ComponentType<{ className?: string }>> = {
   "Linux": BrandIcons.LinuxIcon,
 };
 
-function subscribeSwarmState(callback: () => void) {
-  if (typeof window === "undefined") return () => {};
-  window.addEventListener("swarm-rebuild-state", callback);
-  return () => {
-    window.removeEventListener("swarm-rebuild-state", callback);
-  };
-}
-
 interface HeroSectionProps {
   onScrollToSection: (sectionId: string) => void;
   isReady?: boolean;
@@ -53,13 +46,9 @@ export function HeroSection({ onScrollToSection, isReady = true }: HeroSectionPr
   const lenis = useLenis();
   const heroRef = useRef<HTMLDivElement>(null);
   const isHeroInView = useInView(heroRef, { once: false, amount: 0.12 });
-  const isSwarmActive = useSyncExternalStore(
-    subscribeSwarmState,
-    () => isSwarmRebuildActive(),
-    () => false
-  );
+  const isSwarmActive = useIsSwarmActive();
 
-  const showHero = isReady && isHeroInView;
+  const showHero = isReady && (isHeroInView || isSwarmActive);
   const animateState = showHero ? "visible" : "hidden";
 
   return (

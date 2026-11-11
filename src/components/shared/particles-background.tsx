@@ -5,6 +5,8 @@ import { useEffect, useRef } from "react";
 interface CodeParticle {
   x: number;
   y: number;
+  drawX: number;
+  drawY: number;
   vx: number;
   vy: number;
   fontSize: number;
@@ -12,7 +14,8 @@ interface CodeParticle {
   alphaRange: number;
   phase: number;
   phaseSpeed: number;
-  floatAmp: number;
+  swayX: number;
+  swayY: number;
   symbol: string;
 }
 
@@ -107,6 +110,8 @@ const CODE_SYMBOLS = [
   "DevOps",
   "SaaS",
   "B2B",
+  "Full-Stack",
+  "AI / LLM",
   "CLI",
   "SDK",
   "IDE",
@@ -119,7 +124,11 @@ const CODE_SYMBOLS = [
   "Web3",
   "Blockchain",
   "OpenAI",
-  "GPT"
+  "GPT",
+  "API",
+  "Deploy",
+  "Scale",
+  "Ship",
 ];
 
 export function ParticlesBackground() {
@@ -129,99 +138,157 @@ export function ParticlesBackground() {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext("2d");
+    const ctx = canvas.getContext("2d", { alpha: true });
     if (!ctx) return;
 
-    let animationFrameId: number;
+    let animationFrameId = 0;
     let particles: CodeParticle[] = [];
-    let width = (canvas.width = canvas.offsetWidth);
-    let height = (canvas.height = canvas.offsetHeight);
+    let width = 0;
+    let height = 0;
+    let dpr = 1;
 
-    // Code particles count based on screen area
+    const setupCanvasSize = () => {
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      width = canvas.offsetWidth;
+      height = canvas.offsetHeight;
+      canvas.width = Math.max(1, Math.floor(width * dpr));
+      canvas.height = Math.max(1, Math.floor(height * dpr));
+      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      ctx.textBaseline = "middle";
+    };
+
     const getParticleCount = () =>
-      Math.min(Math.floor((width * height) / 11000), 85);
+      Math.min(Math.floor((width * height) / 11500), 82);
 
     const createParticles = () => {
       const count = getParticleCount();
       particles = [];
       for (let i = 0; i < count; i++) {
+        const x = Math.random() * width;
+        const y = Math.random() * height;
+        // Slow, laminar velocity so terms glide effortlessly across the canvas
+        const speed = Math.random() * 0.16 + 0.06;
+        const angle = Math.random() * Math.PI * 2;
         particles.push({
-          x: Math.random() * width,
-          y: Math.random() * height,
-          vx: (Math.random() - 0.5) * 0.16, // Calm horizontal drift
-          vy: (Math.random() - 0.5) * 0.14 - 0.02, // Slight upward bias
-          fontSize: Math.floor(Math.random() * 6) + 10, // Font sizes from 10px to 15px
-          baseAlpha: Math.random() * 0.16 + 0.08,
-          alphaRange: Math.random() * 0.09 + 0.03,
+          x,
+          y,
+          drawX: x,
+          drawY: y,
+          vx: Math.cos(angle) * speed,
+          vy: Math.sin(angle) * speed * 0.85 - 0.03, // Subtle upward buoyancy
+          fontSize: Math.floor(Math.random() * 6) + 10, // 10px to 15px
+          baseAlpha: Math.random() * 0.15 + 0.09,
+          alphaRange: Math.random() * 0.08 + 0.03,
           phase: Math.random() * Math.PI * 2,
-          phaseSpeed: Math.random() * 0.012 + 0.005,
-          floatAmp: Math.random() * 0.12 + 0.04,
+          phaseSpeed: Math.random() * 0.009 + 0.004,
+          swayX: Math.random() * 12 + 5,
+          swayY: Math.random() * 10 + 4,
           symbol: CODE_SYMBOLS[Math.floor(Math.random() * CODE_SYMBOLS.length)],
         });
       }
+      // Sort by fontSize so ctx.font only changes 6 times per frame instead of 80+ times
+      particles.sort((a, b) => a.fontSize - b.fontSize);
     };
+
+    setupCanvasSize();
+    createParticles();
 
     const handleResize = () => {
       if (!canvas) return;
-      width = canvas.width = canvas.offsetWidth;
-      height = canvas.height = canvas.offsetHeight;
+      const nextW = canvas.offsetWidth;
+      const nextH = canvas.offsetHeight;
+      if (Math.abs(nextW - width) < 2 && Math.abs(nextH - height) < 2) return;
+      setupCanvasSize();
       createParticles();
     };
 
-    createParticles();
-
-    let themeIsDark = true;
-    const isDark = () =>
-      document.documentElement.classList.contains("dark");
-
+    let themeIsDark = document.documentElement.classList.contains("dark");
     const currentAlphas = new Float32Array(100);
+    let lastTime = performance.now();
+    let globalFade = 0;
 
-    const drawFrame = () => {
+    const wrapMarginX = 140;
+    const wrapMarginY = 48;
+    const fadeZone = 72;
+
+    const drawFrame = (now: number) => {
+      // Delta-time normalized to 60fps (16.667ms) for buttery smoothness across 60Hz/120Hz/144Hz/240Hz
+      const rawDt = (now - lastTime) / 16.6667;
+      const dt = Math.min(Math.max(rawDt, 0.2), 2.5);
+      lastTime = now;
+
+      if (globalFade < 1) {
+        globalFade = Math.min(1, globalFade + 0.018 * dt);
+      }
+
       ctx.clearRect(0, 0, width, height);
 
-      // Adapt particle color to the active theme (checked cheaply per frame)
-      const themeChanged = isDark() !== themeIsDark;
-      if (themeChanged) themeIsDark = isDark();
+      themeIsDark = document.documentElement.classList.contains("dark");
+      const rgb = themeIsDark ? "255, 255, 255" : "9, 9, 11";
+      const alphaScale = (themeIsDark ? 1 : 0.9) * globalFade;
 
-      // 1. Move and draw particles with gentle sinusoidal floating & smooth opacity breathing
+      let activeFontSize = -1;
+
+      // 1. Update smooth continuous positions + harmonic sway and draw symbols
       for (let i = 0; i < particles.length; i++) {
         const p = particles[i];
-        p.phase += p.phaseSpeed;
-        p.x += p.vx + Math.cos(p.phase * 0.7) * p.floatAmp * 0.35;
-        p.y += p.vy + Math.sin(p.phase) * p.floatAmp;
+        p.phase += p.phaseSpeed * dt;
+        p.x += p.vx * dt;
+        p.y += p.vy * dt;
 
-        const alpha = Math.max(
-          0.03,
-          Math.min(0.34, p.baseAlpha + Math.sin(p.phase) * p.alphaRange)
-        );
+        // Smooth wrap-around outside extended margins so long words never pop
+        if (p.x < -wrapMarginX) p.x = width + wrapMarginX;
+        else if (p.x > width + wrapMarginX) p.x = -wrapMarginX;
+
+        if (p.y < -wrapMarginY) p.y = height + wrapMarginY;
+        else if (p.y > height + wrapMarginY) p.y = -wrapMarginY;
+
+        // Harmonic Lissajous sway around the drifting center
+        const drawX = p.x + Math.sin(p.phase * 0.85) * p.swayX;
+        const drawY = p.y + Math.cos(p.phase) * p.swayY;
+        p.drawX = drawX;
+        p.drawY = drawY;
+
+        // Soft edge attenuation near canvas borders
+        let edgeFade = 1;
+        if (drawX < fadeZone) {
+          edgeFade *= Math.max(0, (drawX + wrapMarginX * 0.5) / (fadeZone + wrapMarginX * 0.5));
+        } else if (drawX > width - fadeZone) {
+          edgeFade *= Math.max(0, (width + wrapMarginX * 0.5 - drawX) / (fadeZone + wrapMarginX * 0.5));
+        }
+        if (drawY < fadeZone) {
+          edgeFade *= Math.max(0, (drawY + wrapMarginY * 0.5) / (fadeZone + wrapMarginY * 0.5));
+        } else if (drawY > height - fadeZone) {
+          edgeFade *= Math.max(0, (height + wrapMarginY * 0.5 - drawY) / (fadeZone + wrapMarginY * 0.5));
+        }
+
+        const breathing = p.baseAlpha + Math.sin(p.phase) * p.alphaRange;
+        const alpha = Math.max(0.01, Math.min(0.34, breathing)) * edgeFade * alphaScale;
         currentAlphas[i] = alpha;
 
-        // Keep inside boundaries (wrap around smoothly)
-        if (p.x < -50) p.x = width + 50;
-        if (p.x > width + 50) p.x = -50;
-        if (p.y < -24) p.y = height + 24;
-        if (p.y > height + 24) p.y = -24;
+        if (p.fontSize !== activeFontSize) {
+          activeFontSize = p.fontSize;
+          ctx.font = `${activeFontSize}px "Geist Mono", monospace`;
+        }
 
-        // Draw coding symbol
-        ctx.font = `${p.fontSize}px "Geist Mono", monospace`;
-        ctx.fillStyle = themeIsDark
-          ? `rgba(255, 255, 255, ${alpha})`
-          : `rgba(9, 9, 11, ${alpha * 0.9})`;
-        ctx.fillText(p.symbol, p.x, p.y);
+        ctx.fillStyle = `rgba(${rgb}, ${alpha.toFixed(3)})`;
+        ctx.fillText(p.symbol, drawX, drawY);
       }
 
       // 2. Draw subtle connecting lines between nearby code particles
-      const maxDistance = 90;
+      const maxDistance = 95;
       const maxDistanceSq = maxDistance * maxDistance;
-      for (let i = 0; i < particles.length; i++) {
-        for (let j = i + 1; j < particles.length; j++) {
-          const p1 = particles[i];
-          const p2 = particles[j];
+      ctx.lineWidth = 0.55;
 
-          const x1 = p1.x + p1.fontSize / 3;
-          const y1 = p1.y - p1.fontSize / 3;
-          const x2 = p2.x + p2.fontSize / 3;
-          const y2 = p2.y - p2.fontSize / 3;
+      for (let i = 0; i < particles.length; i++) {
+        const p1 = particles[i];
+        const x1 = p1.drawX + p1.fontSize * 0.35;
+        const y1 = p1.drawY;
+
+        for (let j = i + 1; j < particles.length; j++) {
+          const p2 = particles[j];
+          const x2 = p2.drawX + p2.fontSize * 0.35;
+          const y2 = p2.drawY;
 
           const dx = x1 - x2;
           if (Math.abs(dx) >= maxDistance) continue;
@@ -229,21 +296,23 @@ export function ParticlesBackground() {
           if (Math.abs(dy) >= maxDistance) continue;
 
           const distSq = dx * dx + dy * dy;
-
           if (distSq < maxDistanceSq) {
             const dist = Math.sqrt(distSq);
+            const t = 1 - dist / maxDistance;
+            // Smooth cubic falloff so connecting lines fade in and out without snapping
+            const smoothT = t * t * (3 - 2 * t);
             const lineAlpha =
-              (1 - dist / maxDistance) *
-              0.085 *
+              smoothT *
+              0.09 *
               Math.min(currentAlphas[i], currentAlphas[j]);
-            ctx.beginPath();
-            ctx.moveTo(x1, y1);
-            ctx.lineTo(x2, y2);
-            ctx.strokeStyle = themeIsDark
-              ? `rgba(255, 255, 255, ${lineAlpha})`
-              : `rgba(9, 9, 11, ${lineAlpha * 0.9})`;
-            ctx.lineWidth = 0.55;
-            ctx.stroke();
+
+            if (lineAlpha > 0.002) {
+              ctx.beginPath();
+              ctx.moveTo(x1, y1);
+              ctx.lineTo(x2, y2);
+              ctx.strokeStyle = `rgba(${rgb}, ${lineAlpha.toFixed(4)})`;
+              ctx.stroke();
+            }
           }
         }
       }
@@ -251,21 +320,22 @@ export function ParticlesBackground() {
 
     let isVisible = true;
 
-    const renderStaticOrLoop = () => {
+    const startOrStopLoop = () => {
       if (animationFrameId) {
         cancelAnimationFrame(animationFrameId);
         animationFrameId = 0;
       }
       if (isVisible) {
-        animationFrameId = requestAnimationFrame(function loop() {
+        lastTime = performance.now();
+        animationFrameId = requestAnimationFrame(function loop(now) {
           if (!isVisible) return;
-          drawFrame();
+          drawFrame(now);
           animationFrameId = requestAnimationFrame(loop);
         });
       }
     };
 
-    renderStaticOrLoop();
+    startOrStopLoop();
 
     let observer: IntersectionObserver | null = null;
     if (typeof IntersectionObserver !== "undefined") {
@@ -274,14 +344,14 @@ export function ParticlesBackground() {
           const entry = entries[0];
           if (!entry) return;
           isVisible = entry.isIntersecting;
-          renderStaticOrLoop();
+          startOrStopLoop();
         },
         { threshold: 0 }
       );
       observer.observe(canvas);
     }
 
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
 
     return () => {
       if (animationFrameId) cancelAnimationFrame(animationFrameId);
@@ -293,7 +363,7 @@ export function ParticlesBackground() {
   return (
     <canvas
       ref={canvasRef}
-      className="absolute inset-0 size-full pointer-events-none z-0 opacity-40"
+      className="absolute inset-0 size-full pointer-events-none z-0 opacity-40 will-change-transform transform-gpu"
       aria-hidden="true"
     />
   );

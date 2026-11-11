@@ -2,6 +2,7 @@
 
 import { type ReactNode, useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import { useIsSwarmActive } from "@/hooks/use-swarm-active";
 import { EASE_OUT_EXPO } from "@/lib/animation-variants";
 import { cn } from "@/lib/utils";
 
@@ -41,6 +42,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
   const headerRef = useRef<HTMLDivElement>(null);
   // Observe the compact header element directly so the 01-07 number, reticle,
   // line, and title only start animating once the header is clearly inside the viewport.
+  const isSwarmActive = useIsSwarmActive();
   const isHeaderInView = useInView(headerRef, {
     once: false,
     amount: 0.3,
@@ -51,6 +53,8 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
     amount: 0.05,
     margin: "0px 0px -12% 0px",
   });
+  const showHeader = isSwarmActive || isHeaderInView;
+  const showSection = isSwarmActive || isSectionInView;
   const index = sectionIndexes[id];
   const badge = sectionBadges[id];
   const isFirst = id === "about";
@@ -66,7 +70,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
       <motion.div
         aria-hidden="true"
         initial={{ scaleY: 0, opacity: 0 }}
-        animate={isSectionInView ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
+        animate={showSection ? { scaleY: 1, opacity: 1 } : { scaleY: 0, opacity: 0 }}
         transition={{ duration: 1.35, ease: EASE_OUT_EXPO }}
         className={cn(
           "hidden sm:block absolute w-px bg-foreground/20 dark:bg-white/20 pointer-events-none z-0 origin-top will-change-transform",
@@ -82,7 +86,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
         <motion.div
           aria-hidden="true"
           initial={{ opacity: 0, scale: 0.7 }}
-          animate={isHeaderInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
+          animate={showHeader ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.7 }}
           transition={{
             duration: 1.05,
             delay: 0.4,
@@ -113,7 +117,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
               <motion.div
                 aria-hidden="true"
                 initial={{ opacity: 0, x: -20 }}
-                animate={isHeaderInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
+                animate={showHeader ? { opacity: 1, x: 0 } : { opacity: 0, x: -20 }}
                 transition={{
                   duration: 1.1,
                   delay: 0.14,
@@ -135,7 +139,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
             <motion.div
               aria-hidden="true"
               initial={{ opacity: 0, scale: 0.65, rotate: -35 }}
-              animate={isHeaderInView ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0.65, rotate: -35 }}
+              animate={showHeader ? { opacity: 1, scale: 1, rotate: 0 } : { opacity: 0, scale: 0.65, rotate: -35 }}
               transition={{
                 duration: 1.05,
                 delay: 0.1,
@@ -166,7 +170,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
             <div className="relative w-full overflow-hidden h-[64px] sm:h-[86px] md:h-[94px] lg:h-[108px] pl-0 sm:pl-7 md:pl-8">
               <motion.div
                 initial={{ y: "105%", opacity: 0 }}
-                animate={isHeaderInView ? { y: "0%", opacity: 1 } : { y: "105%", opacity: 0 }}
+                animate={showHeader ? { y: "0%", opacity: 1 } : { y: "105%", opacity: 0 }}
                 transition={{
                   duration: 1.25,
                   delay: 0.06,
@@ -179,7 +183,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
               {/* Animated horizontal dividing line across */}
               <motion.div
                 initial={{ scaleX: 0 }}
-                animate={isHeaderInView ? { scaleX: 1 } : { scaleX: 0 }}
+                animate={showHeader ? { scaleX: 1 } : { scaleX: 0 }}
                 transition={{
                   duration: 1.3,
                   delay: 0.14,
@@ -193,7 +197,7 @@ export function Section({ id, title, children, headerAction, headerMarginBottom 
           {/* Section Title below the line */}
           <motion.div
             initial={{ opacity: 0, y: 24 }}
-            animate={isHeaderInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
+            animate={showHeader ? { opacity: 1, y: 0 } : { opacity: 0, y: 24 }}
             transition={{
               duration: 1.15,
               delay: 0.22,

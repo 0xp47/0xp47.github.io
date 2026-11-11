@@ -1224,7 +1224,15 @@ export function captureModel(env: Env, shot: Shot | null): SwarmModel {
       flushRun();
       return;
     }
-    const op = ctx.op * parseFloat(cs.opacity);
+    const isSwarmMode =
+      typeof document !== "undefined" &&
+      document.documentElement.classList.contains("swarm-active");
+    let elemOp = parseFloat(cs.opacity);
+    if (isNaN(elemOp)) elemOp = 1;
+    if (isSwarmMode && elemOp <= 0.03 && el.closest("main")) {
+      elemOp = 1;
+    }
+    const op = ctx.op * elemOp;
     if (!(op > 0.03)) return;
     const r = el.getBoundingClientRect();
     const clipsSelf =
